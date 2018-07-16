@@ -10,6 +10,7 @@
 @import GooglePlaces;
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 #import "Place.h"
 
 @interface APIManager : NSObject
@@ -17,7 +18,8 @@
 + (instancetype)shared;
 
 // Instance Methods //
-- (void)setAPIKeys;
+- (void)setupParse;
+- (void)setupGoogle;
 - (void)GMSPlaceFromPlace:(Place*)place withCompletion:(void(^)(GMSPlace* place))completion;
 
 @end

@@ -18,12 +18,10 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    
-    // initialize API keys
-    [[APIManager shared] setAPIKeys];
+    // API initialization
+    [[APIManager shared] setupParse];
+    [[APIManager shared] setupGoogle];
     
     return YES;
 }

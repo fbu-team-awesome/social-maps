@@ -9,6 +9,9 @@
 #import "APIManager.h"
 
 static NSString* GOOGLE_API_KEY = @"AIzaSyD85wTf96wx5cH8LoptbeSpUk3dVROHgyg";
+static NSString* PARSE_APP_ID = @"";
+static NSString* PARSE_MASTER_KEY = @"";
+static NSString* PARSE_SERVER_URL = @"";
 
 @implementation APIManager
 + (instancetype)shared {
@@ -21,7 +24,19 @@ static NSString* GOOGLE_API_KEY = @"AIzaSyD85wTf96wx5cH8LoptbeSpUk3dVROHgyg";
     return sharedManager;
 }
 
-- (void)setAPIKeys {
+- (void)setupParse {
+    ParseClientConfiguration* config = [ParseClientConfiguration configurationWithBlock:
+                                        ^(id<ParseMutableClientConfiguration>  _Nonnull configuration)
+                                        {
+                                            configuration.applicationId = PARSE_APP_ID;
+                                            configuration.clientKey = PARSE_MASTER_KEY;
+                                            configuration.server = PARSE_SERVER_URL;
+                                        }
+                                        ];
+    [Parse initializeWithConfiguration:config];
+}
+
+- (void)setupGoogle {
     [GMSPlacesClient provideAPIKey:GOOGLE_API_KEY];
     [GMSServices provideAPIKey:GOOGLE_API_KEY];
 }
