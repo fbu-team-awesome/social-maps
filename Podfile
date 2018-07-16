@@ -8,4 +8,5 @@ target 'social-maps' do
   # Pods for social-maps
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'Parse'
 end
