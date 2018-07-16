@@ -6,7 +6,8 @@
 //  Copyright © 2018 Bevin Benson. All rights reserved.
 //
 
-@import GooglePlaces
+@import GooglePlaces;
+
 #import "PFUser.h"
 #import "Place.h"
 #import "APIManager.h"
@@ -18,6 +19,8 @@
 
 // Instance Methods //
 - (void)addFavorite:(GMSPlace*)place;
+- (void)removeFavorite:(GMSPlace*)place;
 - (void)addToWishlist:(GMSPlace*)place;
-@end
+- (void)removeFromWishlist:(GMSPlace*)place;
 
+@end

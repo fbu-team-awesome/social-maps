@@ -13,9 +13,33 @@
 
 - (void)addFavorite:(GMSPlace*)place {
     Place* newPlace = [[Place alloc] initWithGMSPlace:place];
+    [self addUniqueObject:newPlace forKey:@"favorites"];
+    
+    // save it to the db
+    [self saveInBackground];
+}
+
+- (void)removeFavorite:(GMSPlace*)place {
+    Place* placeToRemove = [[Place alloc] initWithGMSPlace:place];
+    [self removeObject:placeToRemove forKey:@"favorites"];
+    
+    // save it to the db
+    [self saveInBackground];
 }
 
 - (void)addToWishlist:(GMSPlace*)place {
+    Place* newPlace = [[Place alloc] initWithGMSPlace:place];
+    [self addUniqueObject:newPlace forKey:@"wishlist"];
     
+    // save it to the db
+    [self saveInBackground];
+}
+
+- (void)removeFromWishlist:(GMSPlace*)place {
+    Place* placeToRemove = [[Place alloc] initWithGMSPlace:place];
+    [self removeObject:placeToRemove forKey:@"wishlist"];
+    
+    // save it to the db
+    [self saveInBackground];
 }
 @end
