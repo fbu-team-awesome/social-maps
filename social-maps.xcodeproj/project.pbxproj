@@ -13,6 +13,7 @@
 		0130163520EFDE650010FD04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0130163420EFDE650010FD04 /* Assets.xcassets */; };
 		0130163820EFDE650010FD04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0130163620EFDE650010FD04 /* LaunchScreen.storyboard */; };
 		0130163B20EFDE650010FD04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0130163A20EFDE650010FD04 /* main.m */; };
+		1C2C0BEB20FD21B60072BEFB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BEA20FD21B60072BEFB /* LoginViewController.m */; };
 		340E6CCEA9D6E4EE79FB3144 /* libPods-social-maps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0669C073917F375AFFBB6F32 /* libPods-social-maps.a */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,8 @@
 		0130163920EFDE650010FD04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0130163A20EFDE650010FD04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0669C073917F375AFFBB6F32 /* libPods-social-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-social-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C2C0BE920FD21B60072BEFB /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		1C2C0BEA20FD21B60072BEFB /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		24E9E450AD670C53941D8527 /* Pods-social-maps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-social-maps.release.xcconfig"; path = "Pods/Target Support Files/Pods-social-maps/Pods-social-maps.release.xcconfig"; sourceTree = "<group>"; };
 		F2EC69E102BC1BBB65401938 /* Pods-social-maps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-social-maps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-social-maps/Pods-social-maps.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,6 +77,8 @@
 				0130163620EFDE650010FD04 /* LaunchScreen.storyboard */,
 				0130163920EFDE650010FD04 /* Info.plist */,
 				0130163A20EFDE650010FD04 /* main.m */,
+				1C2C0BE920FD21B60072BEFB /* LoginViewController.h */,
+				1C2C0BEA20FD21B60072BEFB /* LoginViewController.m */,
 			);
 			path = "social-maps";
 			sourceTree = "<group>";
@@ -208,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C2C0BEB20FD21B60072BEFB /* LoginViewController.m in Sources */,
 				0130163020EFDE620010FD04 /* ViewController.m in Sources */,
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
 				0130162D20EFDE620010FD04 /* AppDelegate.m in Sources */,
