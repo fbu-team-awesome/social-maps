@@ -12,6 +12,8 @@
 		0130163520EFDE650010FD04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0130163420EFDE650010FD04 /* Assets.xcassets */; };
 		0130163820EFDE650010FD04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0130163620EFDE650010FD04 /* LaunchScreen.storyboard */; };
 		0130163B20EFDE650010FD04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0130163A20EFDE650010FD04 /* main.m */; };
+		018E6A7C20FD43E800DE10A6 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A7B20FD43E800DE10A6 /* MapViewController.m */; };
+		018E6A8020FD442300DE10A6 /* MapFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E6A7F20FD442300DE10A6 /* MapFlow.storyboard */; };
 		1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF220FD2A740072BEFB /* LoginViewController.m */; };
 		1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */; };
 		340E6CCEA9D6E4EE79FB3144 /* libPods-social-maps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0669C073917F375AFFBB6F32 /* libPods-social-maps.a */; };
@@ -28,6 +30,9 @@
 		0130163720EFDE650010FD04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0130163920EFDE650010FD04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0130163A20EFDE650010FD04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		018E6A7A20FD43E800DE10A6 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		018E6A7B20FD43E800DE10A6 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		018E6A7F20FD442300DE10A6 /* MapFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapFlow.storyboard; sourceTree = "<group>"; };
 		0669C073917F375AFFBB6F32 /* libPods-social-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-social-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C2C0BF120FD2A740072BEFB /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1C2C0BF220FD2A740072BEFB /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -80,6 +85,7 @@
 				0130162B20EFDE620010FD04 /* AppDelegate.h */,
 				0130162C20EFDE620010FD04 /* AppDelegate.m */,
 				0130163120EFDE620010FD04 /* Main.storyboard */,
+				018E6A7F20FD442300DE10A6 /* MapFlow.storyboard */,
 				0130163420EFDE650010FD04 /* Assets.xcassets */,
 				0130163620EFDE650010FD04 /* LaunchScreen.storyboard */,
 				0130163920EFDE650010FD04 /* Info.plist */,
@@ -93,6 +99,8 @@
 			children = (
 				1C2C0BF120FD2A740072BEFB /* LoginViewController.h */,
 				1C2C0BF220FD2A740072BEFB /* LoginViewController.m */,
+				018E6A7A20FD43E800DE10A6 /* MapViewController.h */,
+				018E6A7B20FD43E800DE10A6 /* MapViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -196,6 +204,7 @@
 				0130163820EFDE650010FD04 /* LaunchScreen.storyboard in Resources */,
 				0130163520EFDE650010FD04 /* Assets.xcassets in Resources */,
 				0130163320EFDE620010FD04 /* Main.storyboard in Resources */,
+				018E6A8020FD442300DE10A6 /* MapFlow.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +264,7 @@
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
 				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
+				018E6A7C20FD43E800DE10A6 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
