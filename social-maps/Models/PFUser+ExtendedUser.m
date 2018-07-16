@@ -9,8 +9,13 @@
 #import "PFUser+ExtendedUser.h"
 
 @implementation PFUser (ExtendedUser)
+@dynamic favorites, wishlist;
 
-@dynamic favorites;
-@dynamic wishlist;
+- (void)addFavorite:(GMSPlace*)place {
+    Place* newPlace = [[Place alloc] initWithGMSPlace:place];
+}
 
+- (void)addToWishlist:(GMSPlace*)place {
+    
+}
 @end
