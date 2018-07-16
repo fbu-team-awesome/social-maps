@@ -9,9 +9,9 @@
 #import "APIManager.h"
 
 static NSString* GOOGLE_API_KEY = @"AIzaSyD85wTf96wx5cH8LoptbeSpUk3dVROHgyg";
-static NSString* PARSE_APP_ID = @"";
-static NSString* PARSE_MASTER_KEY = @"";
-static NSString* PARSE_SERVER_URL = @"";
+static NSString* PARSE_APP_ID = @"ID_VENTUREAWESOMEAPP";
+static NSString* PARSE_MASTER_KEY = @"KEY_VENTUREAWESOMEAPP";
+static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/parse";
 
 @implementation APIManager
 + (instancetype)shared {
