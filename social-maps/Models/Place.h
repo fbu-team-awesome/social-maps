@@ -6,9 +6,9 @@
 //  Copyright © 2018 Bevin Benson. All rights reserved.
 //
 
-#import "PFObject.h"
-
+#import <Parse/Parse.h>
+#import <GooglePlaces/GooglePlaces.h>
 @interface Place : PFObject<PFSubclassing>
 // Instance Properties //
-@property (strong, nonatomic) NSString* placeID;
+@property (strong, nonatomic, nonnull) NSString* placeID;
 @end
