@@ -11,4 +11,8 @@
 @interface Place : PFObject<PFSubclassing>
 // Instance Properties //
 @property (strong, nonatomic, nonnull) NSString* placeID;
+@property (strong, nonatomic, nullable) NSString* placeName;
+
+- (nonnull instancetype)initWithGMSPlace:(nonnull GMSPlace*)place;
 @end
+
