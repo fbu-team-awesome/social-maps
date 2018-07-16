@@ -11,5 +11,7 @@
 @implementation Place
 @dynamic placeID;
 
-+ (NSString*)
++ (NSString*) parseClassName {
+    return @"Place";
+}
 @end

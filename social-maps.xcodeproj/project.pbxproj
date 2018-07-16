@@ -16,6 +16,7 @@
 		1C2C0BEB20FD21B60072BEFB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BEA20FD21B60072BEFB /* LoginViewController.m */; };
 		340E6CCEA9D6E4EE79FB3144 /* libPods-social-maps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0669C073917F375AFFBB6F32 /* libPods-social-maps.a */; };
 		9EF4E3C820FD230F005535C6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3C720FD230F005535C6 /* Place.m */; };
+		9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D120FD2AED005535C6 /* APIManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		24E9E450AD670C53941D8527 /* Pods-social-maps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-social-maps.release.xcconfig"; path = "Pods/Target Support Files/Pods-social-maps/Pods-social-maps.release.xcconfig"; sourceTree = "<group>"; };
 		9EF4E3C620FD230F005535C6 /* Place.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		9EF4E3C720FD230F005535C6 /* Place.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		9EF4E3D020FD2AED005535C6 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
+		9EF4E3D120FD2AED005535C6 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		F2EC69E102BC1BBB65401938 /* Pods-social-maps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-social-maps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-social-maps/Pods-social-maps.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,6 +74,7 @@
 		0130162A20EFDE620010FD04 /* social-maps */ = {
 			isa = PBXGroup;
 			children = (
+				9EF4E3C920FD2961005535C6 /* APIs */,
 				9EF4E3C520FD210E005535C6 /* Models */,
 				0130162B20EFDE620010FD04 /* AppDelegate.h */,
 				0130162C20EFDE620010FD04 /* AppDelegate.m */,
@@ -102,6 +106,15 @@
 				9EF4E3C720FD230F005535C6 /* Place.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9EF4E3C920FD2961005535C6 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				9EF4E3D020FD2AED005535C6 /* APIManager.h */,
+				9EF4E3D120FD2AED005535C6 /* APIManager.m */,
+			);
+			path = APIs;
 			sourceTree = "<group>";
 		};
 		FC1C43E3DDA3D3D63573E5A2 /* Pods */ = {
@@ -230,6 +243,7 @@
 			files = (
 				1C2C0BEB20FD21B60072BEFB /* LoginViewController.m in Sources */,
 				0130163020EFDE620010FD04 /* ViewController.m in Sources */,
+				9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */,
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
 				0130162D20EFDE620010FD04 /* AppDelegate.m in Sources */,
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,

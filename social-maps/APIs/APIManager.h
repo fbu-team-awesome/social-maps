@@ -1,0 +1,23 @@
+//
+//  APIManager.h
+//  social-maps
+//
+//  Created by César Francisco Barraza on 7/16/18.
+//  Copyright © 2018 Bevin Benson. All rights reserved.
+//
+
+@import GoogleMaps;
+@import GooglePlaces;
+
+#import <Foundation/Foundation.h>
+#import "Place.h"
+
+@interface APIManager : NSObject
+// Singleton Accessor //
++ (instancetype)shared;
+
+// Instance Methods //
+- (void)setAPIKeys;
+- (void)GMSPlaceFromPlace:(Place*)place withCompletion:(void(^)(GMSPlace* place))completion;
+
+@end
