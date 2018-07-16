@@ -13,3 +13,4 @@
 @property NSArray *wishlist;
 
 @end
+
