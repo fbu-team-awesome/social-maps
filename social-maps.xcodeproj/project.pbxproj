@@ -16,6 +16,8 @@
 		018E6A8020FD442300DE10A6 /* MapFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E6A7F20FD442300DE10A6 /* MapFlow.storyboard */; };
 		1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF220FD2A740072BEFB /* LoginViewController.m */; };
 		1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */; };
+		1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948920FD4CBE00E4D630 /* ListView.storyboard */; };
+		1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */; };
 		340E6CCEA9D6E4EE79FB3144 /* libPods-social-maps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0669C073917F375AFFBB6F32 /* libPods-social-maps.a */; };
 		9EF4E3C820FD230F005535C6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3C720FD230F005535C6 /* Place.m */; };
 		9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D120FD2AED005535C6 /* APIManager.m */; };
@@ -38,6 +40,8 @@
 		1C2C0BF220FD2A740072BEFB /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1C2C0BF420FD2CC00072BEFB /* PFUser+ExtendedUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PFUser+ExtendedUser.h"; sourceTree = "<group>"; };
 		1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PFUser+ExtendedUser.m"; sourceTree = "<group>"; };
+		1C6D948920FD4CBE00E4D630 /* ListView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ListView.storyboard; sourceTree = "<group>"; };
+		1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailsView.storyboard; sourceTree = "<group>"; };
 		24E9E450AD670C53941D8527 /* Pods-social-maps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-social-maps.release.xcconfig"; path = "Pods/Target Support Files/Pods-social-maps/Pods-social-maps.release.xcconfig"; sourceTree = "<group>"; };
 		9EF4E3C620FD230F005535C6 /* Place.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		9EF4E3C720FD230F005535C6 /* Place.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
@@ -90,6 +94,8 @@
 				0130163620EFDE650010FD04 /* LaunchScreen.storyboard */,
 				0130163920EFDE650010FD04 /* Info.plist */,
 				0130163A20EFDE650010FD04 /* main.m */,
+				1C6D948920FD4CBE00E4D630 /* ListView.storyboard */,
+				1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */,
 			);
 			path = "social-maps";
 			sourceTree = "<group>";
@@ -205,6 +211,8 @@
 				0130163520EFDE650010FD04 /* Assets.xcassets in Resources */,
 				0130163320EFDE620010FD04 /* Main.storyboard in Resources */,
 				018E6A8020FD442300DE10A6 /* MapFlow.storyboard in Resources */,
+				1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */,
+				1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

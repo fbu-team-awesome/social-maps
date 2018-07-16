@@ -10,6 +10,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 
 @interface MapViewController ()
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -26,7 +27,10 @@
                                                                  zoom:6];
     GMSMapView *mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
     mapView.myLocationEnabled = YES;
+    
     self.view = mapView;
+    [self.view addSubview:self.searchBar];
+    
     
     // Creates a marker in the center of the map.
     GMSMarker *marker = [[GMSMarker alloc] init];
