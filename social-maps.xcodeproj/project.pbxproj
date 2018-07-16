@@ -65,6 +65,7 @@
 		0130162A20EFDE620010FD04 /* social-maps */ = {
 			isa = PBXGroup;
 			children = (
+				9EF4E3C520FD210E005535C6 /* Models */,
 				0130162B20EFDE620010FD04 /* AppDelegate.h */,
 				0130162C20EFDE620010FD04 /* AppDelegate.m */,
 				0130162E20EFDE620010FD04 /* ViewController.h */,
@@ -84,6 +85,13 @@
 				0669C073917F375AFFBB6F32 /* libPods-social-maps.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9EF4E3C520FD210E005535C6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		FC1C43E3DDA3D3D63573E5A2 /* Pods */ = {
@@ -172,11 +180,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-social-maps/Pods-social-maps-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/Parse/Parse.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Parse.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -352,13 +362,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QR8BU78FBL;
+				DEVELOPMENT_TEAM = 4H789JND9X;
 				INFOPLIST_FILE = "social-maps/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bevin.social-maps";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cesar.social-maps";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -370,13 +380,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QR8BU78FBL;
+				DEVELOPMENT_TEAM = 4H789JND9X;
 				INFOPLIST_FILE = "social-maps/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bevin.social-maps";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cesar.social-maps";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
