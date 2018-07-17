@@ -110,10 +110,10 @@
             </objects>
             <point key="canvasLocation" x="24.800000000000001" y="31.934032983508249"/>
         </scene>
-        <!--MapFlow-->
+        <!--ResultsView-->
         <scene sceneID="19w-UH-TmC">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="MapFlow" storyboardName="MapFlow" id="Uhz-qu-YxX" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardIdentifier="SearchResults" storyboardName="ResultsView" id="Uhz-qu-YxX" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" id="opC-lh-9hb"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4qC-c4-CTg" userLabel="First Responder" sceneMemberID="firstResponder"/>
