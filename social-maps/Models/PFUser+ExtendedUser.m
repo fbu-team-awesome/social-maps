@@ -42,4 +42,38 @@
     // save it to the db
     [self saveInBackground];
 }
+
+- (void)retrieveFavoritesWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion {
+    NSMutableArray<GMSPlace*>* places;
+    for(Place* favorite in self.favorites)
+    {
+        [[APIManager shared] GMSPlaceFromPlace:favorite
+                             withCompletion:^(GMSPlace *place)
+                             {
+                                 [places addObject:place];
+                                 if(places.count == self.favorites.count)
+                                 {
+                                     completion((NSArray*)places);
+                                 }
+                             }
+         ];
+    }
+}
+
+- (void)retrieveWishlistWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion {
+    NSMutableArray<GMSPlace*>* places;
+    for(Place* todo in self.wishlist)
+    {
+        [[APIManager shared] GMSPlaceFromPlace:todo
+                             withCompletion:^(GMSPlace *place)
+                             {
+                                 [places addObject:place];
+                                 if(places.count == self.wishlist.count)
+                                 {
+                                     completion((NSArray*)places);
+                                 }
+                             }
+         ];
+    }
+}
 @end

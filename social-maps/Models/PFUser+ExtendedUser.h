@@ -22,5 +22,7 @@
 - (void)removeFavorite:(GMSPlace*)place;
 - (void)addToWishlist:(GMSPlace*)place;
 - (void)removeFromWishlist:(GMSPlace*)place;
+- (void)retrieveFavoritesWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion;
+- (void)retrieveWishlistWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion;
 
 @end

@@ -23,6 +23,7 @@
 		340E6CCEA9D6E4EE79FB3144 /* libPods-social-maps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0669C073917F375AFFBB6F32 /* libPods-social-maps.a */; };
 		9EF4E3C820FD230F005535C6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3C720FD230F005535C6 /* Place.m */; };
 		9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D120FD2AED005535C6 /* APIManager.m */; };
+		9EF4E3D420FE66C6005535C6 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D320FE66C6005535C6 /* Profile.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		9EF4E3C720FD230F005535C6 /* Place.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		9EF4E3D020FD2AED005535C6 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		9EF4E3D120FD2AED005535C6 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
+		9EF4E3D320FE66C6005535C6 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		F2EC69E102BC1BBB65401938 /* Pods-social-maps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-social-maps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-social-maps/Pods-social-maps.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 				018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */,
 				1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */,
 				0130163620EFDE650010FD04 /* LaunchScreen.storyboard */,
+				9EF4E3D320FE66C6005535C6 /* Profile.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 			files = (
 				0130163820EFDE650010FD04 /* LaunchScreen.storyboard in Resources */,
 				0130163520EFDE650010FD04 /* Assets.xcassets in Resources */,
+				9EF4E3D420FE66C6005535C6 /* Profile.storyboard in Resources */,
 				0130163320EFDE620010FD04 /* Main.storyboard in Resources */,
 				018E6A8020FD442300DE10A6 /* MapFlow.storyboard in Resources */,
 				1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */,

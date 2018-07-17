@@ -27,10 +27,10 @@
     _searchController.searchResultsUpdater = _resultsViewController;
     
     // Put the search bar in the navigation bar.
-    // [_searchController.searchBar sizeToFit];
-    // self.navigationItem.titleView = _searchController.searchBar;
+     [_searchController.searchBar sizeToFit];
+     self.navigationItem.titleView = _searchController.searchBar;
     
-    [self.navigationController addChildViewController:_searchController];
+    //[self.navigationController addChildViewController:_searchController];
     
     // When UISearchController presents the results view, present it in
     // this view controller, not one further up the chain.
