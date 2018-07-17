@@ -91,19 +91,27 @@
 				1C2C0BF020FD2A630072BEFB /* View Controllers */,
 				9EF4E3C920FD2961005535C6 /* APIs */,
 				9EF4E3C520FD210E005535C6 /* Models */,
+				018E6A8F20FDAE6600DE10A6 /* Storyboards */,
 				0130162B20EFDE620010FD04 /* AppDelegate.h */,
 				0130162C20EFDE620010FD04 /* AppDelegate.m */,
-				0130163120EFDE620010FD04 /* Main.storyboard */,
-				018E6A7F20FD442300DE10A6 /* MapFlow.storyboard */,
 				0130163420EFDE650010FD04 /* Assets.xcassets */,
-				0130163620EFDE650010FD04 /* LaunchScreen.storyboard */,
 				0130163920EFDE650010FD04 /* Info.plist */,
 				0130163A20EFDE650010FD04 /* main.m */,
+			);
+			path = "social-maps";
+			sourceTree = "<group>";
+		};
+		018E6A8F20FDAE6600DE10A6 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				0130163120EFDE620010FD04 /* Main.storyboard */,
+				018E6A7F20FD442300DE10A6 /* MapFlow.storyboard */,
 				1C6D948920FD4CBE00E4D630 /* ListView.storyboard */,
 				018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */,
 				1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */,
+				0130163620EFDE650010FD04 /* LaunchScreen.storyboard */,
 			);
-			path = "social-maps";
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		1C2C0BF020FD2A630072BEFB /* View Controllers */ = {
