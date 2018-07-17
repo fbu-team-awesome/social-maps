@@ -11,11 +11,14 @@
 @interface SearchResultsViewController () <GMSAutocompleteResultsViewControllerDelegate>
 
 
+
+
 @end
 
 @implementation SearchResultsViewController {
-UISearchController *_searchController;
-GMSAutocompleteResultsViewController *_resultsViewController;
+    
+    GMSAutocompleteResultsViewController *_resultsViewController;
+    UISearchController *_searchController;
 }
 - (void)viewDidLoad {
     
