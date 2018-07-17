@@ -7,6 +7,7 @@
 //
 
 #import "SearchResultsViewController.h"
+#import "DetailsViewController.h"
 
 @interface SearchResultsViewController () <GMSAutocompleteResultsViewControllerDelegate>
 
@@ -46,10 +47,8 @@
 - (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController
  didAutocompleteWithPlace:(GMSPlace *)place {
     _searchController.active = NO;
-    // Do something with the selected place.
-    NSLog(@"Place name %@", place.name);
-    NSLog(@"Place address %@", place.formattedAddress);
-    NSLog(@"Place attributions %@", place.attributions.string);
+    
+    [self performSegueWithIdentifier:@"toDetailsView" sender: place];
 }
 
 
@@ -59,15 +58,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    UINavigationController *navController = [segue destinationViewController];
+    DetailsViewController *detailsController = (DetailsViewController *)navController.topViewController;
+    [detailsController setPlace:sender];
 }
-*/
+
 
 - (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController
 didFailAutocompleteWithError:(NSError *)error {
