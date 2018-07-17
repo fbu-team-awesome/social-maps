@@ -6,6 +6,12 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>App requires your current location.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>App requires your current location.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>App requires your current location.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App requires your current location.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

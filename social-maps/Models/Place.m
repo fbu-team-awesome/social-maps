@@ -12,10 +12,11 @@
 @dynamic placeID, placeName;
 
 - (nonnull instancetype)initWithGMSPlace:(GMSPlace*)place {
-    self.placeID = place.placeID;
-    self.placeName = place.name;
+    Place* newPlace = [Place object];
+    newPlace.placeID = place.placeID;
+    newPlace.placeName = place.name;
     
-    return self;
+    return newPlace;
 }
 
 + (NSString*) parseClassName {
