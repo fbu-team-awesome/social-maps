@@ -49,6 +49,9 @@
                                 <rect key="frame" x="305" y="178" width="54" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Wishlist"/>
+                                <connections>
+                                    <action selector="wishlistClicked:" destination="khL-MV-X4z" eventType="touchUpInside" id="aVp-or-d9a"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TEMPORARY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVE-Kc-dn3">
                                 <rect key="frame" x="137" y="113" width="101" height="21"/>
@@ -65,6 +68,7 @@
                     <connections>
                         <outlet property="favoriteID" destination="WYW-gX-Z4e" id="s9h-mX-wwR"/>
                         <outlet property="profileView" destination="mIX-UM-qy7" id="wez-hF-Uaw"/>
+                        <outlet property="wishlistID" destination="or4-oq-fBZ" id="FXa-Q0-e1W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NsC-ah-MfL" userLabel="First Responder" sceneMemberID="firstResponder"/>

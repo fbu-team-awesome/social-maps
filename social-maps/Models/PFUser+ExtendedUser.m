@@ -44,35 +44,55 @@
 }
 
 - (void)retrieveFavoritesWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion {
-    NSMutableArray<GMSPlace*>* places;
+    NSMutableArray<GMSPlace*>* places = [NSMutableArray new];
     for(Place* favorite in self.favorites)
     {
-        [[APIManager shared] GMSPlaceFromPlace:favorite
-                             withCompletion:^(GMSPlace *place)
-                             {
-                                 [places addObject:place];
-                                 if(places.count == self.favorites.count)
-                                 {
-                                     completion((NSArray*)places);
-                                 }
-                             }
+        // we need to query the place first
+        PFQuery* query = [PFQuery queryWithClassName:@"Place"];
+        [query getObjectInBackgroundWithId:favorite.objectId
+               block:^(PFObject* _Nullable result, NSError * _Nullable error)
+               {
+                   // now we can look it up in Google
+                   [[APIManager shared] GMSPlaceFromPlace:(Place*)result
+                                        withCompletion:^(GMSPlace* place)
+                                        {
+                                            [places addObject:place];
+                                            
+                                            // if we have looked up all of the places, return full array
+                                            if(places.count == self.favorites.count)
+                                            {
+                                                completion((NSArray*)places);
+                                            }
+                                        }
+                    ];
+               }
          ];
     }
 }
 
 - (void)retrieveWishlistWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion {
-    NSMutableArray<GMSPlace*>* places;
+    NSMutableArray<GMSPlace*>* places = [NSMutableArray new];
     for(Place* todo in self.wishlist)
     {
-        [[APIManager shared] GMSPlaceFromPlace:todo
-                             withCompletion:^(GMSPlace *place)
-                             {
-                                 [places addObject:place];
-                                 if(places.count == self.wishlist.count)
-                                 {
-                                     completion((NSArray*)places);
-                                 }
-                             }
+        // we need to query the place first
+        PFQuery* query = [PFQuery queryWithClassName:@"Place"];
+        [query getObjectInBackgroundWithId:todo.objectId
+               block:^(PFObject * _Nullable result, NSError * _Nullable error)
+               {
+                   // now we can look it up in Google
+                   [[APIManager shared] GMSPlaceFromPlace:(Place*)result
+                                        withCompletion:^(GMSPlace *place)
+                                        {
+                                            [places addObject:place];
+                                            
+                                            // if we have looked up all of the places, return full array
+                                            if(places.count == self.wishlist.count)
+                                            {
+                                                completion((NSArray*)places);
+                                            }
+                                        }
+                    ];
+               }
          ];
     }
 }

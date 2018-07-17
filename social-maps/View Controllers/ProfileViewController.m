@@ -19,8 +19,16 @@
 @property (strong, nonatomic) CLLocationManager* locationManager;
 @property (strong, nonatomic) CLLocation* currentLocation;
 @property (strong, nonatomic) GMSMapView* mapView;
+@property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
+@property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 
+
+
+
+// TEMPORARY
 @property (weak, nonatomic) IBOutlet UITextField *favoriteID;
+@property (weak, nonatomic) IBOutlet UITextField *wishlistID;
+// ENDTEMPORARY
 
 @end
 
@@ -43,6 +51,54 @@
     self.mapView.settings.myLocationButton = YES;
     [self.mapView setMyLocationEnabled:YES];
     [self.profileView addSubview:self.mapView];
+    
+    [self retrieveUserPlaces];
+}
+
+- (void)retrieveUserPlaces {
+    PFUser* user = [PFUser currentUser];
+    
+    // clear map first
+    [self.mapView clear];
+    
+    // retrieve favorites
+    [user retrieveFavoritesWithCompletion:
+          ^(NSArray<GMSPlace*>* places)
+          {
+              self.favorites = places;
+              [self addFavoritesPins];
+          }
+     ];
+    
+    // retrieve wishlist
+    [user retrieveWishlistWithCompletion:
+          ^(NSArray<GMSPlace*>* places)
+          {
+              self.wishlist = places;
+              [self addWishlistPins];
+          }
+     ];
+}
+
+- (void)addFavoritesPins {
+    for(GMSPlace* place in self.favorites)
+    {
+        GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+        marker.title = place.name;
+        marker.appearAnimation = kGMSMarkerAnimationPop;
+        marker.map = self.mapView;
+    }
+}
+
+- (void)addWishlistPins {
+    for(GMSPlace* place in self.wishlist)
+    {
+        GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+        marker.title = place.name;
+        marker.appearAnimation = kGMSMarkerAnimationPop;
+        marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+        marker.map = self.mapView;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,6 +121,19 @@
                              [user addFavorite:place];
                          }
      ];
+    
+    [self retrieveUserPlaces];
+}
+- (IBAction)wishlistClicked:(id)sender {
+    PFUser* user = [PFUser currentUser];
+    [[APIManager shared] GMSPlaceFromID:self.wishlistID.text
+                         withCompletion:^(GMSPlace *place)
+                         {
+                             [user addToWishlist:place];
+                         }
+     ];
+    
+    [self retrieveUserPlaces];
 }
 
 /*
