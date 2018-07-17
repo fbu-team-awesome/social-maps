@@ -26,21 +26,54 @@
             </objects>
             <point key="canvasLocation" x="-349" y="89"/>
         </scene>
-        <!--Search Results View Controller-->
+        <!--Details View Controller-->
         <scene sceneID="uk2-uF-OCP">
             <objects>
-                <viewController id="eMh-9V-03L" customClass="SearchResultsViewController" sceneMemberID="viewController">
+                <viewController id="eMh-9V-03L" customClass="DetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v8m-ea-0nM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uHd-rJ-al7">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Place Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5R-BN-ECD">
+                                        <rect key="frame" x="27" y="26" width="241" height="58"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="42"/>
+                                        <color key="textColor" red="0.96547733980992123" green="0.59559072434891724" blue="0.47408425427025697" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EV2-CO-0DA">
+                                        <rect key="frame" x="29" y="167" width="317" height="212"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1234 Address St, San Francisco, CA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4F-9e-J1e">
+                                        <rect key="frame" x="29" y="86" width="154" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="uHd-rJ-al7" firstAttribute="top" secondItem="e3o-os-m1e" secondAttribute="top" id="1H3-tj-hPa"/>
+                            <constraint firstItem="uHd-rJ-al7" firstAttribute="bottom" secondItem="e3o-os-m1e" secondAttribute="bottom" id="IVS-5v-CYZ"/>
+                            <constraint firstItem="uHd-rJ-al7" firstAttribute="trailing" secondItem="e3o-os-m1e" secondAttribute="trailing" id="WGz-x2-9p4"/>
+                            <constraint firstItem="uHd-rJ-al7" firstAttribute="leading" secondItem="e3o-os-m1e" secondAttribute="leading" id="bt3-64-tmG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="e3o-os-m1e"/>
                     </view>
                     <navigationItem key="navigationItem" id="pZl-PM-oOd"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="koR-5E-IM5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="521" y="89"/>
+            <point key="canvasLocation" x="520.79999999999995" y="88.605697151424295"/>
         </scene>
     </scenes>
 </document>

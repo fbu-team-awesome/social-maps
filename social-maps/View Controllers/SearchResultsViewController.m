@@ -8,15 +8,15 @@
 
 #import "SearchResultsViewController.h"
 
-@interface SearchResultsViewController ()
+@interface SearchResultsViewController () <GMSAutocompleteResultsViewControllerDelegate>
 
-@property (nonatomic, strong) UISearchController *searchController;
-@property (nonatomic, strong) GMSAutocompleteResultsViewController *resultsViewController;
 
 @end
 
-@implementation SearchResultsViewController
-
+@implementation SearchResultsViewController {
+UISearchController *_searchController;
+GMSAutocompleteResultsViewController *_resultsViewController;
+}
 - (void)viewDidLoad {
     
     _resultsViewController = [[GMSAutocompleteResultsViewController alloc] init];
@@ -29,7 +29,6 @@
     // Put the search bar in the navigation bar.
      [_searchController.searchBar sizeToFit];
      self.navigationItem.titleView = _searchController.searchBar;
-    
     //[self.navigationController addChildViewController:_searchController];
     
     // When UISearchController presents the results view, present it in

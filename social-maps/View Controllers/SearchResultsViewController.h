@@ -8,6 +8,5 @@
 
 #import <GooglePlaces/GooglePlaces.h>
 
-@interface SearchResultsViewController : GMSAutocompleteViewController <GMSAutocompleteResultsViewControllerDelegate>
-
+@interface SearchResultsViewController : GMSAutocompleteViewController
 @end
