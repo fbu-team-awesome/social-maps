@@ -133,8 +133,8 @@
 				018E6A8720FD9AD000DE10A6 /* SearchResultsViewController.h */,
 				018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */,
 				9EF4E3D520FE6D95005535C6 /* ProfileViewController.h */,
-				9EF4E3D620FE6D95005535C6 /* ProfileViewController.m */,
 				1C6D948D20FE59FE00E4D630 /* DetailsViewController.h */,
+				9EF4E3D620FE6D95005535C6 /* ProfileViewController.m */,
 				1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */,
 			);
 			path = "View Controllers";

@@ -69,11 +69,20 @@
                         <outlet property="favoriteID" destination="WYW-gX-Z4e" id="s9h-mX-wwR"/>
                         <outlet property="profileView" destination="mIX-UM-qy7" id="wez-hF-Uaw"/>
                         <outlet property="wishlistID" destination="or4-oq-fBZ" id="FXa-Q0-e1W"/>
+                        <segue destination="cn5-vb-EiL" kind="presentation" identifier="detailsSegue" id="Ycd-XH-Z2X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NsC-ah-MfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="517.60000000000002" y="102.99850074962519"/>
+        </scene>
+        <!--DetailsView-->
+        <scene sceneID="4SR-bD-qOX">
+            <objects>
+                <viewControllerPlaceholder storyboardName="DetailsView" id="cn5-vb-EiL" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vAt-cn-fCE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1497" y="103"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PsQ-W9-N5Y">

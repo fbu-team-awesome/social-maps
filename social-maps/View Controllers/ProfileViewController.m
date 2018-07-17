@@ -10,10 +10,11 @@
 @import GooglePlaces;
 
 #import "ProfileViewController.h"
+#import "DetailsViewController.h"
 #import <Parse/Parse.h>
 #import "PFUser+ExtendedUser.h"
 
-@interface ProfileViewController () <CLLocationManagerDelegate>
+@interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *profileView;
 
 @property (strong, nonatomic) CLLocationManager* locationManager;
@@ -21,7 +22,7 @@
 @property (strong, nonatomic) GMSMapView* mapView;
 @property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
 @property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
-
+@property (strong, nonatomic) NSMutableDictionary<NSString*, GMSPlace*>* markers;
 
 
 
@@ -51,7 +52,10 @@
     self.mapView.settings.myLocationButton = YES;
     [self.mapView setMyLocationEnabled:YES];
     [self.profileView addSubview:self.mapView];
+    self.mapView.delegate = self;
     
+    // get favs and wishlist
+    self.markers = [NSMutableDictionary new];
     [self retrieveUserPlaces];
 }
 
@@ -87,6 +91,9 @@
         marker.title = place.name;
         marker.appearAnimation = kGMSMarkerAnimationPop;
         marker.map = self.mapView;
+        
+        // add the key to our dictionary
+        self.markers[marker.title] = place;
     }
 }
 
@@ -98,6 +105,9 @@
         marker.appearAnimation = kGMSMarkerAnimationPop;
         marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
         marker.map = self.mapView;
+        
+        // add the key to our dictionary
+        self.markers[marker.title] = place;
     }
 }
 
@@ -113,6 +123,12 @@
     [self.mapView animateToCameraPosition:camera];
 }
 
+- (BOOL)mapView:(GMSMapView*)mapView didTapMarker:(GMSMarker*)marker {
+    GMSPlace* place = self.markers[marker.title];
+    [self performSegueWithIdentifier:@"detailsSegue" sender:place];
+    return YES;
+}
+
 - (IBAction)favClicked:(id)sender {
     PFUser* user = [PFUser currentUser];
     [[APIManager shared] GMSPlaceFromID:self.favoriteID.text
@@ -124,6 +140,7 @@
     
     [self retrieveUserPlaces];
 }
+
 - (IBAction)wishlistClicked:(id)sender {
     PFUser* user = [PFUser currentUser];
     [[APIManager shared] GMSPlaceFromID:self.wishlistID.text
@@ -136,14 +153,14 @@
     [self retrieveUserPlaces];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"detailsSegue"])
+    {
+        UINavigationController* navController = (UINavigationController*)[segue destinationViewController];
+        DetailsViewController* vc = (DetailsViewController*)navController.topViewController;
+        GMSPlace* place = (GMSPlace*)sender;
+        [vc setPlace:place];
+    }
 }
-*/
 
 @end
