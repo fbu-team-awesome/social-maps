@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="-349" y="89"/>
         </scene>
-        <!--View Controller-->
+        <!--Search Results View Controller-->
         <scene sceneID="uk2-uF-OCP">
             <objects>
-                <viewController id="eMh-9V-03L" sceneMemberID="viewController">
+                <viewController id="eMh-9V-03L" customClass="SearchResultsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v8m-ea-0nM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -34,11 +34,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ziQ-SE-UJE">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="34S-8Q-bEr">
+                                <rect key="frame" x="152" y="137" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
+                                <state key="normal" title="To Results"/>
+                                <connections>
+                                    <segue destination="yq5-S4-PPM" kind="show" id="Lwi-dN-8YJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="iro-Pc-J5s"/>
@@ -48,6 +51,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KbE-Vq-pqN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-74.400000000000006" y="92.203898050974516"/>
+        </scene>
+        <!--ResultsView-->
+        <scene sceneID="aFa-pu-CGT">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ResultsView" id="yq5-S4-PPM" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UqA-HK-iVL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="467" y="81"/>
         </scene>
     </scenes>
 </document>

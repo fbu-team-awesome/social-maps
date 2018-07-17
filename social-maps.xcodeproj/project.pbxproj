@@ -14,6 +14,8 @@
 		0130163B20EFDE650010FD04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0130163A20EFDE650010FD04 /* main.m */; };
 		018E6A7C20FD43E800DE10A6 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A7B20FD43E800DE10A6 /* MapViewController.m */; };
 		018E6A8020FD442300DE10A6 /* MapFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E6A7F20FD442300DE10A6 /* MapFlow.storyboard */; };
+		018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */; };
+		018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */; };
 		1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF220FD2A740072BEFB /* LoginViewController.m */; };
 		1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */; };
 		1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948920FD4CBE00E4D630 /* ListView.storyboard */; };
@@ -35,6 +37,9 @@
 		018E6A7A20FD43E800DE10A6 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		018E6A7B20FD43E800DE10A6 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		018E6A7F20FD442300DE10A6 /* MapFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapFlow.storyboard; sourceTree = "<group>"; };
+		018E6A8720FD9AD000DE10A6 /* SearchResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
+		018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
+		018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ResultsView.storyboard; sourceTree = "<group>"; };
 		0669C073917F375AFFBB6F32 /* libPods-social-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-social-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C2C0BF120FD2A740072BEFB /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1C2C0BF220FD2A740072BEFB /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -95,6 +100,7 @@
 				0130163920EFDE650010FD04 /* Info.plist */,
 				0130163A20EFDE650010FD04 /* main.m */,
 				1C6D948920FD4CBE00E4D630 /* ListView.storyboard */,
+				018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */,
 				1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */,
 			);
 			path = "social-maps";
@@ -107,6 +113,8 @@
 				1C2C0BF220FD2A740072BEFB /* LoginViewController.m */,
 				018E6A7A20FD43E800DE10A6 /* MapViewController.h */,
 				018E6A7B20FD43E800DE10A6 /* MapViewController.m */,
+				018E6A8720FD9AD000DE10A6 /* SearchResultsViewController.h */,
+				018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -213,6 +221,7 @@
 				018E6A8020FD442300DE10A6 /* MapFlow.storyboard in Resources */,
 				1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */,
 				1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */,
+				018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +282,7 @@
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
 				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
 				018E6A7C20FD43E800DE10A6 /* MapViewController.m in Sources */,
+				018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
