@@ -41,8 +41,14 @@
            {
                if(result != nil)
                {
-                   // it exists already. No need to create a new one.
-                   [self.favorites removeObject:result];
+                   for(Place* favorite in self.favorites)
+                   {
+                       if([favorite.objectId isEqualToString:result.objectId])
+                       {
+                           [self.favorites removeObjectIdenticalTo:favorite];
+                           break;
+                       }
+                   }
                }
          
                [self setObject:self.favorites forKey:@"favorites"];
@@ -81,8 +87,14 @@
            {
                if(result != nil)
                {
-                   // it exists already. No need to create a new one.
-                   [self.wishlist removeObject:result];
+                   for(Place* todo in self.wishlist)
+                   {
+                       if([todo.objectId isEqualToString:result.objectId])
+                       {
+                           [self.wishlist removeObjectIdenticalTo:todo];
+                           break;
+                       }
+                   }
                }
          
                [self setObject:self.wishlist forKey:@"wishlist"];

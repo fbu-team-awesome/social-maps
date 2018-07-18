@@ -49,7 +49,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Remove"/>
                                 <connections>
-                                    <action selector="favClicked:" destination="khL-MV-X4z" eventType="touchUpInside" id="xcj-gi-sKO"/>
                                     <action selector="favRemoveClicked:" destination="khL-MV-X4z" eventType="touchUpInside" id="HUB-Zc-5o5"/>
                                 </connections>
                             </button>
@@ -73,7 +72,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Remove"/>
                                 <connections>
-                                    <action selector="favClicked:" destination="khL-MV-X4z" eventType="touchUpInside" id="HN2-Io-647"/>
                                     <action selector="wishlistRemoveClicked:" destination="khL-MV-X4z" eventType="touchUpInside" id="SI2-5H-PA3"/>
                                 </connections>
                             </button>
