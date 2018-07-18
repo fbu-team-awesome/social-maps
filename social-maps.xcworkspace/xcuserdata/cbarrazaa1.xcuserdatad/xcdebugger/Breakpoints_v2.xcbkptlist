@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553647934.090318"
+            timestampString = "553650776.434757"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "-locationManager:didUpdateLocations:"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553647934.090395"
+            timestampString = "553650776.435053"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "-locationManager:didUpdateLocations:"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553647934.090454"
+            timestampString = "553650776.435251"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
             landmarkName = "-favClicked:"
             landmarkType = "7">
          </BreakpointContent>
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553647934.090555"
+            timestampString = "553650776.435475"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "-retrieveUserPlaces"
             landmarkType = "7">
          </BreakpointContent>
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553647934.09061"
+            timestampString = "553650776.435666"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "-retrieveUserPlaces"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,27 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553647934.090662"
+            timestampString = "553650776.435846"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "-retrieveUserPlaces"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553647934.090712"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "-retrieveUserPlaces"
             landmarkType = "7">
          </BreakpointContent>
@@ -394,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553647934.091767"
+            timestampString = "553650776.4360549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "-addFavoritesPins"
             landmarkType = "7">
          </BreakpointContent>
@@ -410,61 +394,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553647934.091825"
+            timestampString = "553650776.436237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
             landmarkName = "-addFavoritesPins"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553647934.091877"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "-retrieveUserPlaces"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__43-[ProfileViewController retrieveUserPlaces]_block_invoke"
-                  moduleName = "social-maps"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/cbarrazaa1/social-maps/social-maps/View%20Controllers/ProfileViewController.m"
-                  timestampString = "553553765.603104"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "119">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_"
-                  moduleName = "social-maps"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/cbarrazaa1/social-maps/social-maps/View%20Controllers/ProfileViewController.m"
-                  timestampString = "553553765.605464"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "59"
-                  endingLineNumber = "59"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -532,11 +468,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553647934.0926239"
+            timestampString = "553650776.436453"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "-addFavoritesPins"
             landmarkType = "7">
          </BreakpointContent>
