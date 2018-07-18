@@ -67,6 +67,13 @@
     _searchController.hidesNavigationBarDuringPresentation = NO;
 }
 
+- (void)addMarkers {
+    
+    
+    
+    
+}
+
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
     
     CLLocation* location = [locations lastObject];

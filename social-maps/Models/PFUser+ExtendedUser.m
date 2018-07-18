@@ -89,14 +89,16 @@
                  if(result != nil)
                  {
                      // it exists already. No need to create a new one.
-                     [self addUniqueObject:result forKey:key];
+                     [self.favorites addObject:result];
+                     [self setObject:self.favorites forKey:@"favorites"];
                  }
                  else
                  {
                      // doesn't exist yet. Create a new one
                      Place* newPlace = [[Place alloc] initWithGMSPlace:place];
-                     [self addUniqueObject:newPlace forKey:key];
+                     [self.favorites addObject:newPlace];
                  }
+               
                
                  [self saveInBackground];
            }
