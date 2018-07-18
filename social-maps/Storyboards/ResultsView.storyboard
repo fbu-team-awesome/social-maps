@@ -21,6 +21,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="hQG-3D-a0o"/>
                     <connections>
+                        <outlet property="resultsView" destination="XrU-XB-rE3" id="Cx3-t4-DzJ"/>
                         <segue destination="AGb-hM-aJg" kind="show" identifier="toDetailsView" id="Rfg-iU-Mys"/>
                     </connections>
                 </viewController>

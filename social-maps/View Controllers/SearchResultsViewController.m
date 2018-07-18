@@ -9,7 +9,13 @@
 #import "SearchResultsViewController.h"
 #import "DetailsViewController.h"
 
-@interface SearchResultsViewController () <GMSAutocompleteResultsViewControllerDelegate>
+@interface SearchResultsViewController () <GMSAutocompleteResultsViewControllerDelegate, CLLocationManagerDelegate>
+
+@property (strong, nonatomic) IBOutlet UIView *resultsView;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) GMSMapView *mapView;
+@property (strong, nonatomic) CLLocation *currentLocation;
+
 @end
 
 @implementation SearchResultsViewController {
@@ -20,20 +26,30 @@
 
 - (void)viewDidLoad {
     
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
-                                                            longitude:151.20
-                                                                 zoom:6];
-    GMSMapView *mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-    mapView.myLocationEnabled = YES;
+    [self initMap];
+    [self initSearch];
+}
+
+- (void)initMap {
     
-    self.view = mapView;    
+    // init our location
+    self.locationManager = [CLLocationManager new];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager requestAlwaysAuthorization];
+    self.locationManager.distanceFilter = 50;
+    [self.locationManager startUpdatingLocation];
+    self.locationManager.delegate = self;
     
-    // Creates a marker in the center of the map.
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
-    marker.title = @"Sydney";
-    marker.snippet = @"Australia";
-    marker.map = mapView;
+    // create map
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:0 longitude:0 zoom:6];
+    self.mapView = [GMSMapView mapWithFrame:self.resultsView.bounds camera:camera];
+    self.mapView.settings.myLocationButton = YES;
+    [self.mapView setMyLocationEnabled:YES];
+    
+    [self.resultsView addSubview:self.mapView];
+}
+
+- (void)initSearch {
     
     _resultsViewController = [[GMSAutocompleteResultsViewController alloc] init];
     _resultsViewController.delegate = self;
@@ -42,17 +58,21 @@
                          initWithSearchResultsController:_resultsViewController];
     _searchController.searchResultsUpdater = _resultsViewController;
     
-    // Put the search bar in the navigation bar.
-     [_searchController.searchBar sizeToFit];
-     self.navigationItem.titleView = _searchController.searchBar;
-    //[self.navigationController addChildViewController:_searchController];
+    // Adds search bar to top of view
+    [_searchController.searchBar sizeToFit];
+    self.navigationItem.titleView = _searchController.searchBar;
     
-    // When UISearchController presents the results view, present it in
-    // this view controller, not one further up the chain.
     self.definesPresentationContext = YES;
     
-    // Prevent the navigation bar from being hidden when searching.
     _searchController.hidesNavigationBarDuringPresentation = NO;
+}
+
+- (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
+    
+    CLLocation* location = [locations lastObject];
+    GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude zoom:15];
+    self.mapView.camera = camera;
+    [self.mapView animateToCameraPosition:camera];
 }
 
 // Handle the user's selection.
@@ -61,23 +81,6 @@
     
     [self performSegueWithIdentifier:@"toDetailsView" sender: place];
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    DetailsViewController *detailsController = (DetailsViewController *)[segue destinationViewController];
-    [detailsController setPlace:sender];
-}
-
 
 - (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController
 didFailAutocompleteWithError:(NSError *)error {
@@ -95,6 +98,20 @@ didFailAutocompleteWithError:(NSError *)error {
 - (void)didUpdateAutocompletePredictionsForResultsController:
 (GMSAutocompleteResultsViewController *)resultsController {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    DetailsViewController *detailsController = (DetailsViewController *)[segue destinationViewController];
+    [detailsController setPlace:sender];
 }
 
 
