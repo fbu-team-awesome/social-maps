@@ -13,7 +13,7 @@
 
 @interface SearchResultsViewController () <CLLocationManagerDelegate>
 
-@property (strong, nonatomic) IBOutlet UIView *resultsView;
+@property (weak, nonatomic) IBOutlet UIView *resultsView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) CLLocation *currentLocation;
@@ -82,6 +82,13 @@
      */
 }
 
+- (void)addMarkers {
+    
+    
+    
+    
+}
+
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
     
     CLLocation* location = [locations lastObject];
@@ -93,7 +100,6 @@
 // Handle the user's selection.
 - (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController
  didAutocompleteWithPlace:(GMSPlace *)place {
-    [self performSegueWithIdentifier:@"toDetailsView" sender: place];
 }
 
 - (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController

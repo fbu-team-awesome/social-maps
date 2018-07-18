@@ -14,8 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *listSelector;
-@property (strong, nonatomic) NSArray<Place*>* favorites;
-@property (strong, nonatomic) NSArray<Place*>* wishlist;
+@property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
+@property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 
 @end
 
@@ -29,8 +29,16 @@
     self.tableView.dataSource = self;
     
     PFUser *currentUser = [PFUser currentUser];
-    self.favorites = currentUser.favorites;
-    self.wishlist = currentUser.wishlist;
+    [currentUser retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *favorites) {
+        
+        self.favorites = favorites;
+        [self.tableView reloadData];
+    }];
+    [currentUser retrieveWishlistWithCompletion:^(NSArray<GMSPlace *> *wishlist) {
+        
+        self.wishlist = wishlist;
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,6 +61,7 @@
      if (self.listSelector.selectedSegmentIndex == 0) {
          
          cell.place = self.favorites[indexPath.row];
+         
      }
      else {
          

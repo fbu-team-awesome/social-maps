@@ -54,8 +54,8 @@
     newUser.displayName = displayName;
     newUser.hometown = hometown;
     newUser.bio = bio;
-    newUser.favorites = [NSArray new];
-    newUser.wishlist = [NSArray new];
+    newUser.favorites = [NSMutableArray new];
+    newUser.wishlist = [NSMutableArray new];
     
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {

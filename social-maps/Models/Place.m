@@ -22,4 +22,15 @@
 + (NSString*) parseClassName {
     return @"Place";
 }
+
++ (void)checkGMSPlaceExists:(GMSPlace*)place result:(void(^)(Place*))result {
+    PFQuery* query = [PFQuery queryWithClassName:@"Place"];
+    [query whereKey:@"placeID" equalTo:place.placeID];
+    [query getFirstObjectInBackgroundWithBlock:
+           ^(PFObject * _Nullable object, NSError * _Nullable error)
+           {
+               result((Place*)object);
+           }
+     ];
+}
 @end

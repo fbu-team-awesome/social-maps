@@ -12,53 +12,83 @@
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist;
 
 - (void)addFavorite:(GMSPlace*)place {
-    // check if the place object exists already
-    PFQuery* query = [PFQuery queryWithClassName:@"Place"];
-    [query whereKey:@"placeID" equalTo:place.placeID];
-    [query getFirstObjectInBackgroundWithBlock:
-           ^(PFObject * _Nullable object, NSError * _Nullable error)
+    // check if place exists already
+    [Place checkGMSPlaceExists:place
+           result:^(Place* result)
            {
-               if(object != nil)
+               if(result != nil)
                {
-                   // already exists. No need to create a new one.
-                   [self addUniqueObject:object forKey:@"favorites"];
+                   // it exists already. No need to create a new one.
+                   [self.favorites addObject:result];
                }
                else
                {
                    // doesn't exist yet. Create a new one
                    Place* newPlace = [[Place alloc] initWithGMSPlace:place];
-                   [self addUniqueObject:newPlace forKey:@"favorites"];
+                   [self.favorites addObject:newPlace];
                }
-               
-               // save
+         
+               [self setObject:self.favorites forKey:@"favorites"];
                [self saveInBackground];
            }
      ];
 }
 
 - (void)removeFavorite:(GMSPlace*)place {
-    Place* placeToRemove = [[Place alloc] initWithGMSPlace:place];
-    [self removeObject:placeToRemove forKey:@"favorites"];
-    
-    // save it to the db
-    [self saveInBackground];
+    // check if place exists in the database
+    [Place checkGMSPlaceExists:place
+           result:^(Place* result)
+           {
+               if(result != nil)
+               {
+                   // it exists already. No need to create a new one.
+                   [self.favorites removeObject:result];
+               }
+         
+               [self setObject:self.favorites forKey:@"favorites"];
+               [self saveInBackground];
+           }
+     ];
 }
 
 - (void)addToWishlist:(GMSPlace*)place {
-    Place* newPlace = [[Place alloc] initWithGMSPlace:place];
-    [self addUniqueObject:newPlace forKey:@"wishlist"];
-    
-    // save it to the db
-    [self saveInBackground];
+    // check if place exists already
+    [Place checkGMSPlaceExists:place
+           result:^(Place* result)
+           {
+               if(result != nil)
+               {
+                   // it exists already. No need to create a new one.
+                   [self.wishlist addObject:result];
+               }
+               else
+               {
+                   // doesn't exist yet. Create a new one
+                   Place* newPlace = [[Place alloc] initWithGMSPlace:place];
+                   [self.wishlist addObject:newPlace];
+               }
+         
+               [self setObject:self.wishlist forKey:@"wishlist"];
+               [self saveInBackground];
+           }
+     ];
 }
 
 - (void)removeFromWishlist:(GMSPlace*)place {
-    Place* placeToRemove = [[Place alloc] initWithGMSPlace:place];
-    [self removeObject:placeToRemove forKey:@"wishlist"];
-    
-    // save it to the db
-    [self saveInBackground];
-}
+    // check if place exists in the database
+    [Place checkGMSPlaceExists:place
+           result:^(Place* result)
+           {
+               if(result != nil)
+               {
+                   // it exists already. No need to create a new one.
+                   [self.wishlist removeObject:result];
+               }
+         
+               [self setObject:self.wishlist forKey:@"wishlist"];
+               [self saveInBackground];
+           }
+     ];}
 
 - (void)retrieveFavoritesWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion {
     NSMutableArray<GMSPlace*>* places = [NSMutableArray new];

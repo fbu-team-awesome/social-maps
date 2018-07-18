@@ -14,6 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
-@property (strong, nonatomic) Place *place;
+@property (strong, nonatomic) GMSPlace *place;
 
 @end

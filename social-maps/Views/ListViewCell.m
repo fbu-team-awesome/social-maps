@@ -15,11 +15,14 @@
     // Initialization code
 }
 
-- (void)setPlace:(Place *)place {
+
+- (void)setPlace:(GMSPlace *)place {
     
     _place = place;
     
-    self.titleLabel.text = place.placeName;
+    self.titleLabel.text = self.place.name;
+    
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
