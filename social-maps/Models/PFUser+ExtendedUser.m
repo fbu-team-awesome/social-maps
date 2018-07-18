@@ -12,20 +12,83 @@
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist;
 
 - (void)addFavorite:(GMSPlace*)place {
-    [self addPlace:place forKey:@"favorites"];
+    // check if place exists already
+    [Place checkGMSPlaceExists:place
+           result:^(Place* result)
+           {
+               if(result != nil)
+               {
+                   // it exists already. No need to create a new one.
+                   [self.favorites addObject:result];
+               }
+               else
+               {
+                   // doesn't exist yet. Create a new one
+                   Place* newPlace = [[Place alloc] initWithGMSPlace:place];
+                   [self.favorites addObject:newPlace];
+               }
+         
+               [self setObject:self.favorites forKey:@"favorites"];
+               [self saveInBackground];
+           }
+     ];
 }
 
 - (void)removeFavorite:(GMSPlace*)place {
-    [self removePlace:place forKey:@"favorites"];
+    // check if place exists in the database
+    [Place checkGMSPlaceExists:place
+           result:^(Place* result)
+           {
+               if(result != nil)
+               {
+                   // it exists already. No need to create a new one.
+                   [self.favorites removeObject:result];
+               }
+         
+               [self setObject:self.favorites forKey:@"favorites"];
+               [self saveInBackground];
+           }
+     ];
 }
 
 - (void)addToWishlist:(GMSPlace*)place {
-    [self addPlace:place forKey:@"wishlist"];
+    // check if place exists already
+    [Place checkGMSPlaceExists:place
+           result:^(Place* result)
+           {
+               if(result != nil)
+               {
+                   // it exists already. No need to create a new one.
+                   [self.wishlist addObject:result];
+               }
+               else
+               {
+                   // doesn't exist yet. Create a new one
+                   Place* newPlace = [[Place alloc] initWithGMSPlace:place];
+                   [self.wishlist addObject:newPlace];
+               }
+         
+               [self setObject:self.wishlist forKey:@"wishlist"];
+               [self saveInBackground];
+           }
+     ];
 }
 
 - (void)removeFromWishlist:(GMSPlace*)place {
-    [self removePlace:place forKey:@"wishlist"];
-}
+    // check if place exists in the database
+    [Place checkGMSPlaceExists:place
+           result:^(Place* result)
+           {
+               if(result != nil)
+               {
+                   // it exists already. No need to create a new one.
+                   [self.wishlist removeObject:result];
+               }
+         
+               [self setObject:self.wishlist forKey:@"wishlist"];
+               [self saveInBackground];
+           }
+     ];}
 
 - (void)retrieveFavoritesWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion {
     NSMutableArray<GMSPlace*>* places = [NSMutableArray new];
@@ -79,45 +142,5 @@
                }
          ];
     }
-}
-
-- (void)addPlace:(GMSPlace*)place forKey:(NSString*)key {
-    // check if place exists already
-    [Place checkGMSPlaceExists:place
-           result:^(Place* result)
-           {
-                 if(result != nil)
-                 {
-                     // it exists already. No need to create a new one.
-                     [self.favorites addObject:result];
-                     [self setObject:self.favorites forKey:@"favorites"];
-                 }
-                 else
-                 {
-                     // doesn't exist yet. Create a new one
-                     Place* newPlace = [[Place alloc] initWithGMSPlace:place];
-                     [self.favorites addObject:newPlace];
-                 }
-               
-               
-                 [self saveInBackground];
-           }
-     ];
-}
-
-- (void)removePlace:(GMSPlace*)place forKey:(NSString*)key {
-    // check if place exists in the database
-    [Place checkGMSPlaceExists:place
-           result:^(Place* result)
-           {
-                 if(result != nil)
-                 {
-                     // it exists already. No need to create a new one.
-                     [self removeObject:result forKey:key];
-                 }
-               
-                 [self saveInBackground];
-           }
-     ];
 }
 @end
