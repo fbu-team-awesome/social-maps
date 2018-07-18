@@ -79,12 +79,17 @@
         
     }
     _results = results;
-    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    GMSAutocompletePrediction *prediction = _results[indexPath.row];
+    [[APIManager shared] GMSPlaceFromID:prediction.placeID withCompletion:^(GMSPlace *place) {
+        [self.delegate didSelectPlace:place];
+    }];
 }
 
 - (void)didFailAutocompleteWithError:(nonnull NSError *)error {
     NSLog(@"Error fetching autocomplete results: %@", error.localizedDescription);
 }
-
 
 @end

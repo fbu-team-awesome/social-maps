@@ -11,7 +11,7 @@
 #import "SearchCell.h"
 #import "ResultsTableViewController.h"
 
-@interface SearchResultsViewController () <CLLocationManagerDelegate>
+@interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *resultsView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -54,6 +54,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ResultsView" bundle:[NSBundle mainBundle]];
     
     _resultsViewController = [storyboard instantiateViewControllerWithIdentifier:@"ResultsTable"];
+    _resultsViewController.delegate = self;
     _searchController = [[UISearchController alloc] initWithSearchResultsController:_resultsViewController];
     _searchController.searchResultsUpdater = _resultsViewController;
     
@@ -134,6 +135,29 @@ didFailAutocompleteWithError:(NSError *)error {
     [detailsController setPlace:sender];
 }
 
-
+- (void)didSelectPlace:(GMSPlace *)place {
+    
+    NSArray *whitelistedTypes = @[@"locality", @"cities", @"sublocality", @"country", @"continent"];
+    BOOL isRegion = NO;
+    
+    for (NSString *type in place.types) {
+        
+        if ([whitelistedTypes containsObject:type]) {
+            isRegion = YES;
+        }
+    }
+    
+    if (isRegion) {
+        
+        NSLog(@"Is a location");
+        GMSCameraPosition *newPosition = [GMSCameraPosition cameraWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude zoom:6];
+        [self.mapView setCamera:newPosition];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    }
+    else {
+        [self performSegueWithIdentifier:@"toDetailsView" sender: place];
+    }
+}
 
 @end

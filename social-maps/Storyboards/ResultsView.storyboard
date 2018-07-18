@@ -36,7 +36,7 @@
                     <navigationItem key="navigationItem" id="hQG-3D-a0o"/>
                     <connections>
                         <outlet property="resultsView" destination="C1L-hA-Wlk" id="e3f-wq-MPR"/>
-                        <segue destination="AGb-hM-aJg" kind="show" identifier="toDetailsView" id="Rfg-iU-Mys"/>
+                        <segue destination="AGb-hM-aJg" kind="show" identifier="toDetailsView" id="txQ-Iq-nQO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rVG-in-SHg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -49,7 +49,7 @@
                 <viewControllerPlaceholder storyboardName="DetailsView" id="AGb-hM-aJg" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2se-9D-RPg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1657" y="276"/>
+            <point key="canvasLocation" x="1692" y="282"/>
         </scene>
         <!--Results Table View Controller-->
         <scene sceneID="1Ap-Ty-Vf6">
@@ -129,7 +129,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hoi-js-24I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3520.8000000000002" y="275.71214392803603"/>
+            <point key="canvasLocation" x="2129" y="301"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mfw-8I-Pbz">

@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <GooglePlaces/GooglePlaces.h>
+@protocol ResultsViewDelegate;
 
 @interface ResultsTableViewController : UIViewController
+@property (strong,nonatomic) id<ResultsViewDelegate> delegate;
 
+@end
+
+
+@protocol ResultsViewDelegate
+-(void) didSelectPlace: (GMSPlace *) place;
 @end
