@@ -9,6 +9,7 @@
 @import GoogleMaps;
 @import GooglePlaces;
 #import <UIKit/UIKit.h>
+#import "PFUser+ExtendedUser.h"
 
 @interface DetailsViewController : UIViewController
 - (void)setPlace:(GMSPlace*)place;

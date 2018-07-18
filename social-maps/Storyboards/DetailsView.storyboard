@@ -54,6 +54,9 @@
                                                 <state key="normal" title="+ Favorite">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="didTapFavorite:" destination="eMh-9V-03L" eventType="touchUpInside" id="Elo-aS-PIQ"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tcv-BM-Wmg">
                                                 <rect key="frame" x="149" y="0.0" width="125" height="30"/>
@@ -61,6 +64,9 @@
                                                 <state key="normal" title="+ WIshlist">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="didTapWishlist:" destination="eMh-9V-03L" eventType="touchUpInside" id="yaE-Jk-9Mr"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>

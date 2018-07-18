@@ -48,11 +48,15 @@
     marker.title = self.place.name;
     marker.map = self.mapView;
 }
-- (IBAction)didTapBack:(id)sender {
-}
 
 - (void)setPlace:(GMSPlace*)place {
     _place = place;
+}
+- (IBAction)didTapFavorite:(id)sender {
+    [PFUser.currentUser addFavorite:_place];
+}
+- (IBAction)didTapWishlist:(id)sender {
+    [PFUser.currentUser addToWishlist:_place];
 }
 
 /*
