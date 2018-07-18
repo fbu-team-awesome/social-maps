@@ -129,6 +129,16 @@
     return YES;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([segue.identifier isEqualToString:@"detailsSegue"])
+    {
+        DetailsViewController* vc = (DetailsViewController *)[segue destinationViewController];
+        GMSPlace* place = (GMSPlace*)sender;
+        [vc setPlace:place];
+    }
+}
+
+// TEMPORARY
 - (IBAction)favClicked:(id)sender {
     PFUser* user = [PFUser currentUser];
     [[APIManager shared] GMSPlaceFromID:self.favoriteID.text
@@ -153,15 +163,28 @@
     [self retrieveUserPlaces];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.identifier isEqualToString:@"detailsSegue"])
-    {
-        //UINavigationController* navController = (UINavigationController*)[segue destinationViewController];
-        //DetailsViewController* vc = (DetailsViewController*)navController.topViewController;
-        DetailsViewController* vc = (DetailsViewController *)[segue destinationViewController];
-        GMSPlace* place = (GMSPlace*)sender;
-        [vc setPlace:place];
-    }
+- (IBAction)favRemoveClicked:(id)sender {
+    PFUser* user = [PFUser currentUser];
+    [[APIManager shared] GMSPlaceFromID:self.favoriteID.text
+                         withCompletion:^(GMSPlace *place)
+                         {
+                             [user removeFavorite:place];
+                         }
+     ];
+    
+    [self retrieveUserPlaces];
 }
 
+- (IBAction)wishlistRemoveClicked:(id)sender {
+    PFUser* user = [PFUser currentUser];
+    [[APIManager shared] GMSPlaceFromID:self.wishlistID.text
+                         withCompletion:^(GMSPlace *place)
+                         {
+                             [user removeFromWishlist:place];
+                         }
+     ];
+    
+    [self retrieveUserPlaces];
+}
+//ENDTEMPORARY
 @end
