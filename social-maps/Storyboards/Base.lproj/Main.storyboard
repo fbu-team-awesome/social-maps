@@ -59,6 +59,7 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="didTapSignUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AYP-82-knj"/>
+                                                    <segue destination="uHW-cL-ukE" kind="presentation" id="K8C-8x-Tmd"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yrF-Hz-tiJ">
@@ -109,6 +110,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="24.800000000000001" y="31.934032983508249"/>
+        </scene>
+        <!--SignUpView-->
+        <scene sceneID="Ysm-DN-6wZ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SignUpView" id="uHW-cL-ukE" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pGD-pS-d3w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="49" y="463"/>
         </scene>
         <!--ResultsView-->
         <scene sceneID="19w-UH-TmC">

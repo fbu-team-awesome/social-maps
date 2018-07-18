@@ -20,6 +20,8 @@
 		1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */; };
 		1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */; };
 		340E6CCEA9D6E4EE79FB3144 /* libPods-social-maps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0669C073917F375AFFBB6F32 /* libPods-social-maps.a */; };
+		9E4D281C20FEBE090069CBF2 /* SignUpView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */; };
+		9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */; };
 		9EF4E3C820FD230F005535C6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3C720FD230F005535C6 /* Place.m */; };
 		9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D120FD2AED005535C6 /* APIManager.m */; };
 		9EF4E3D420FE66C6005535C6 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D320FE66C6005535C6 /* Profile.storyboard */; };
@@ -48,6 +50,9 @@
 		1C6D948D20FE59FE00E4D630 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		24E9E450AD670C53941D8527 /* Pods-social-maps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-social-maps.release.xcconfig"; path = "Pods/Target Support Files/Pods-social-maps/Pods-social-maps.release.xcconfig"; sourceTree = "<group>"; };
+		9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUpView.storyboard; sourceTree = "<group>"; };
+		9E4D281D20FEBE120069CBF2 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		9EF4E3C620FD230F005535C6 /* Place.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		9EF4E3C720FD230F005535C6 /* Place.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		9EF4E3D020FD2AED005535C6 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
@@ -107,6 +112,7 @@
 		018E6A8F20FDAE6600DE10A6 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */,
 				0130163120EFDE620010FD04 /* Main.storyboard */,
 				1C6D948920FD4CBE00E4D630 /* ListView.storyboard */,
 				018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */,
@@ -120,6 +126,8 @@
 		1C2C0BF020FD2A630072BEFB /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9E4D281D20FEBE120069CBF2 /* SignUpViewController.h */,
+				9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */,
 				1C2C0BF120FD2A740072BEFB /* LoginViewController.h */,
 				1C2C0BF220FD2A740072BEFB /* LoginViewController.m */,
 				018E6A8720FD9AD000DE10A6 /* SearchResultsViewController.h */,
@@ -233,6 +241,7 @@
 				9EF4E3D420FE66C6005535C6 /* Profile.storyboard in Resources */,
 				0130163320EFDE620010FD04 /* Main.storyboard in Resources */,
 				1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */,
+				9E4D281C20FEBE090069CBF2 /* SignUpView.storyboard in Resources */,
 				1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */,
 				018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */,
 			);
@@ -294,6 +303,7 @@
 				0130162D20EFDE620010FD04 /* AppDelegate.m in Sources */,
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
+				9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */,
 				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
 				1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */,
 				018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */,
