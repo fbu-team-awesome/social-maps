@@ -14,5 +14,7 @@
 @property (strong, nonatomic, nullable) NSString* placeName;
 
 - (nonnull instancetype)initWithGMSPlace:(nonnull GMSPlace*)place;
+
++ (void)checkGMSPlaceExists:(GMSPlace*)place result:(void(^)(Place*))result;
 @end
 
