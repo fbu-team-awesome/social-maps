@@ -18,6 +18,8 @@
 		018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6AA020FEBAD100DE10A6 /* ListViewCell.m */; };
 		1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF220FD2A740072BEFB /* LoginViewController.m */; };
 		1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */; };
+		1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D8A6F20FFB3C100F31851 /* SearchCell.m */; };
+		1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */; };
 		1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948920FD4CBE00E4D630 /* ListView.storyboard */; };
 		1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */; };
 		1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */; };
@@ -51,6 +53,10 @@
 		1C2C0BF220FD2A740072BEFB /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1C2C0BF420FD2CC00072BEFB /* PFUser+ExtendedUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PFUser+ExtendedUser.h"; sourceTree = "<group>"; };
 		1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PFUser+ExtendedUser.m"; sourceTree = "<group>"; };
+		1C2D8A6E20FFB3C100F31851 /* SearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
+		1C2D8A6F20FFB3C100F31851 /* SearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
+		1C2D8A7120FFC0E000F31851 /* ResultsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResultsTableViewController.h; sourceTree = "<group>"; };
+		1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
 		1C6D948920FD4CBE00E4D630 /* ListView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ListView.storyboard; sourceTree = "<group>"; };
 		1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailsView.storyboard; sourceTree = "<group>"; };
 		1C6D948D20FE59FE00E4D630 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
@@ -135,6 +141,8 @@
 			children = (
 				018E6A9F20FEBAD100DE10A6 /* ListViewCell.h */,
 				018E6AA020FEBAD100DE10A6 /* ListViewCell.m */,
+				1C2D8A6E20FFB3C100F31851 /* SearchCell.h */,
+				1C2D8A6F20FFB3C100F31851 /* SearchCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,6 +162,8 @@
 				1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */,
 				018E6A9B20FEBA6E00DE10A6 /* ListViewController.h */,
 				018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */,
+				1C2D8A7120FFC0E000F31851 /* ResultsTableViewController.h */,
+				1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -323,7 +333,9 @@
 				018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */,
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
+				1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */,
 				9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */,
+				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
 				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
 				1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */,
 				018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */,

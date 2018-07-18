@@ -8,28 +8,29 @@
 
 #import "SearchResultsViewController.h"
 #import "DetailsViewController.h"
+#import "SearchCell.h"
+#import "ResultsTableViewController.h"
 
-@interface SearchResultsViewController () <GMSAutocompleteResultsViewControllerDelegate, CLLocationManagerDelegate>
+@interface SearchResultsViewController () <CLLocationManagerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *resultsView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) CLLocation *currentLocation;
-
+@property (strong, nonatomic) ResultsTableViewController <UISearchResultsUpdating>* resultsViewController;
+@property (strong, nonatomic) UISearchController *searchController;
 @end
 
 @implementation SearchResultsViewController {
     
-    GMSAutocompleteResultsViewController *_resultsViewController;
-    UISearchController *_searchController;
 }
 
 - (void)viewDidLoad {
+    self.definesPresentationContext = true;
     
     [self initMap];
     [self initSearch];
 }
-
 - (void)initMap {
     
     // init our location
@@ -50,7 +51,20 @@
 }
 
 - (void)initSearch {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ResultsView" bundle:[NSBundle mainBundle]];
     
+    _resultsViewController = [storyboard instantiateViewControllerWithIdentifier:@"ResultsTable"];
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:_resultsViewController];
+    _searchController.searchResultsUpdater = _resultsViewController;
+    
+    //add search bar
+    [_searchController.searchBar sizeToFit];
+    self.navigationItem.titleView = _searchController.searchBar;
+    
+    _searchController.hidesNavigationBarDuringPresentation = NO;
+    
+    
+    /*
     _resultsViewController = [[GMSAutocompleteResultsViewController alloc] init];
     _resultsViewController.delegate = self;
     
@@ -65,6 +79,7 @@
     self.definesPresentationContext = YES;
     
     _searchController.hidesNavigationBarDuringPresentation = NO;
+     */
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
@@ -74,11 +89,10 @@
     self.mapView.camera = camera;
     [self.mapView animateToCameraPosition:camera];
 }
-
+/*
 // Handle the user's selection.
 - (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController
  didAutocompleteWithPlace:(GMSPlace *)place {
-    
     [self performSegueWithIdentifier:@"toDetailsView" sender: place];
 }
 
@@ -99,7 +113,7 @@ didFailAutocompleteWithError:(NSError *)error {
 (GMSAutocompleteResultsViewController *)resultsController {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
-
+*/
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -113,6 +127,7 @@ didFailAutocompleteWithError:(NSError *)error {
     DetailsViewController *detailsController = (DetailsViewController *)[segue destinationViewController];
     [detailsController setPlace:sender];
 }
+
 
 
 @end

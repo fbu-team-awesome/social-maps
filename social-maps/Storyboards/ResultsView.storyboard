@@ -4,7 +4,9 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,6 +38,86 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2se-9D-RPg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1657" y="276"/>
+        </scene>
+        <!--Results Table View Controller-->
+        <scene sceneID="1Ap-Ty-Vf6">
+            <objects>
+                <viewController storyboardIdentifier="ResultsTable" id="9dV-6L-J5G" customClass="ResultsTableViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="L26-PD-wJl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="J3p-Md-hlc">
+                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCell" rowHeight="114" id="ixv-nU-NfM" customClass="SearchCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="114"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ixv-nU-NfM" id="Rc7-Xr-3Xn">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="113.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggE-ka-9OB">
+                                                    <rect key="frame" x="314" y="42" width="30" height="30"/>
+                                                    <color key="backgroundColor" red="0.96547733979999995" green="0.59559072430000004" blue="0.47408425430000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="1eA-Vo-eyT"/>
+                                                        <constraint firstAttribute="width" constant="30" id="XFI-YW-gso"/>
+                                                    </constraints>
+                                                    <state key="normal" title="+">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="didTapFavorite:" destination="ixv-nU-NfM" eventType="touchUpInside" id="0Xc-FU-86a"/>
+                                                    </connections>
+                                                </button>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uVk-le-mO6">
+                                                    <rect key="frame" x="16" y="16" width="282" height="81.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qG7-df-OFj">
+                                                            <rect key="frame" x="0.0" y="0.0" width="49" height="53"/>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                                            <color key="textColor" red="0.90176779029999998" green="0.48428686360000001" blue="0.43365618989999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234 Address St San Francsico CA " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tw-1j-HJD">
+                                                            <rect key="frame" x="0.0" y="61" width="269.5" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.67450980390000004" green="0.72156862749999995" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ggE-ka-9OB" secondAttribute="trailing" constant="16" id="0xW-ZE-27c"/>
+                                                <constraint firstItem="ggE-ka-9OB" firstAttribute="leading" secondItem="uVk-le-mO6" secondAttribute="trailing" constant="16" id="94j-7t-TSF"/>
+                                                <constraint firstAttribute="bottom" secondItem="uVk-le-mO6" secondAttribute="bottom" constant="16" id="Wkv-y3-lhv"/>
+                                                <constraint firstItem="uVk-le-mO6" firstAttribute="leading" secondItem="Rc7-Xr-3Xn" secondAttribute="leading" constant="16" id="oC2-GO-QYy"/>
+                                                <constraint firstItem="ggE-ka-9OB" firstAttribute="centerY" secondItem="Rc7-Xr-3Xn" secondAttribute="centerY" id="rUT-gj-jhu"/>
+                                                <constraint firstItem="uVk-le-mO6" firstAttribute="top" secondItem="Rc7-Xr-3Xn" secondAttribute="top" constant="16" id="tSx-Gy-oC8"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="0tw-1j-HJD" id="4dH-E8-2yh"/>
+                                            <outlet property="nameLabel" destination="qG7-df-OFj" id="YvQ-Rq-z0B"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="H3t-4o-Ppe"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="J3p-Md-hlc" id="Oo5-lK-vJR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hoi-js-24I" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3520.8000000000002" y="275.71214392803603"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mfw-8I-Pbz">
