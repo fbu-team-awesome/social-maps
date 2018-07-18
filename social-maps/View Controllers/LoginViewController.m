@@ -12,13 +12,50 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
+// Views for making it look pretty
+@property (weak, nonatomic) IBOutlet UIView *usernameView;
+@property (weak, nonatomic) IBOutlet UIView *passwordView;
+@property (weak, nonatomic) IBOutlet UIButton *signupButton;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+
 @end
 
 @implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // pretty-fy everything
+    self.usernameView.layer.cornerRadius = 22;
+    self.usernameView.clipsToBounds = YES;
+    self.usernameView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.usernameView.layer.shadowOffset = CGSizeMake(0, 4);
+    self.usernameView.layer.shadowRadius = 5;
+    self.usernameView.layer.shadowOpacity = 0.2;
+    self.usernameView.layer.masksToBounds = NO;
+    
+    self.passwordView.layer.cornerRadius = 22;
+    self.passwordView.clipsToBounds = YES;
+    self.passwordView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.passwordView.layer.shadowOffset = CGSizeMake(0, 4);
+    self.passwordView.layer.shadowRadius = 5;
+    self.passwordView.layer.shadowOpacity = 0.2;
+    self.passwordView.layer.masksToBounds = NO;
+    
+    self.signupButton.layer.cornerRadius = 22;
+    self.signupButton.clipsToBounds = YES;
+    self.signupButton.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.signupButton.layer.shadowOffset = CGSizeMake(0, 4);
+    self.signupButton.layer.shadowRadius = 5;
+    self.signupButton.layer.shadowOpacity = 0.2;
+    self.signupButton.layer.masksToBounds = NO;
+    
+    self.loginButton.layer.cornerRadius = 22;
+    self.loginButton.clipsToBounds = YES;
+    self.loginButton.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.loginButton.layer.shadowOffset = CGSizeMake(0, 4);
+    self.loginButton.layer.shadowRadius = 5;
+    self.loginButton.layer.shadowOpacity = 0.2;
+    self.loginButton.layer.masksToBounds = NO;
 }
 - (IBAction)didTapSignUp:(id)sender {
     PFUser *newUser = [PFUser user];
