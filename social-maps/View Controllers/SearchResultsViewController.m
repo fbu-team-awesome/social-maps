@@ -79,7 +79,27 @@
 - (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController
  didAutocompleteWithPlace:(GMSPlace *)place {
     
-    [self performSegueWithIdentifier:@"toDetailsView" sender: place];
+    NSArray *whitelistedTypes = @[@"locality", @"cities", @"sublocality", @"country", @"continent"];
+    BOOL isRegion = NO;
+    
+    for (NSString *type in place.types) {
+
+        if ([whitelistedTypes containsObject:type]) {
+            isRegion = YES;
+        }
+    }
+    
+    if (isRegion) {
+        
+        NSLog(@"Is a location");
+        GMSCameraPosition *newPosition = [GMSCameraPosition cameraWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude zoom:6];
+        [self.mapView setCamera:newPosition];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    }
+    else {
+        [self performSegueWithIdentifier:@"toDetailsView" sender: place];
+    }
 }
 
 - (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController
