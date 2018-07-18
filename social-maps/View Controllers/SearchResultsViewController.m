@@ -11,7 +11,7 @@
 
 @interface SearchResultsViewController () <GMSAutocompleteResultsViewControllerDelegate, CLLocationManagerDelegate>
 
-@property (strong, nonatomic) IBOutlet UIView *resultsView;
+@property (weak, nonatomic) IBOutlet UIView *resultsView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) CLLocation *currentLocation;

@@ -14,15 +14,27 @@
         <scene sceneID="lbq-US-q9T">
             <objects>
                 <viewController id="iPs-01-FVb" customClass="SearchResultsViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="XrU-XB-rE3">
+                    <view key="view" contentMode="scaleToFill" id="e2W-dd-8mT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1L-hA-Wlk">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="4Fg-qQ-2p0"/>
+                        <constraints>
+                            <constraint firstItem="A23-CI-NN3" firstAttribute="bottom" secondItem="C1L-hA-Wlk" secondAttribute="bottom" constant="50" id="45V-yE-lBj"/>
+                            <constraint firstItem="C1L-hA-Wlk" firstAttribute="leading" secondItem="A23-CI-NN3" secondAttribute="leading" id="ARK-ZB-gHJ"/>
+                            <constraint firstItem="C1L-hA-Wlk" firstAttribute="trailing" secondItem="A23-CI-NN3" secondAttribute="trailing" id="DbW-Ka-JJZ"/>
+                            <constraint firstItem="C1L-hA-Wlk" firstAttribute="top" secondItem="e2W-dd-8mT" secondAttribute="top" id="Heq-WA-V2e"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="A23-CI-NN3"/>
                     </view>
                     <navigationItem key="navigationItem" id="hQG-3D-a0o"/>
                     <connections>
-                        <outlet property="resultsView" destination="XrU-XB-rE3" id="Cx3-t4-DzJ"/>
+                        <outlet property="resultsView" destination="C1L-hA-Wlk" id="e3f-wq-MPR"/>
                         <segue destination="AGb-hM-aJg" kind="show" identifier="toDetailsView" id="Rfg-iU-Mys"/>
                     </connections>
                 </viewController>
