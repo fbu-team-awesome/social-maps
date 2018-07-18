@@ -12,11 +12,28 @@
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist;
 
 - (void)addFavorite:(GMSPlace*)place {
-    Place* newPlace = [[Place alloc] initWithGMSPlace:place];
-    [self addUniqueObject:newPlace forKey:@"favorites"];
-    
-    // save it to the db
-    [self saveInBackground];
+    // check if the place object exists already
+    PFQuery* query = [PFQuery queryWithClassName:@"Place"];
+    [query whereKey:@"placeID" equalTo:place.placeID];
+    [query getFirstObjectInBackgroundWithBlock:
+           ^(PFObject * _Nullable object, NSError * _Nullable error)
+           {
+               if(object != nil)
+               {
+                   // already exists. No need to create a new one.
+                   [self addUniqueObject:object forKey:@"favorites"];
+               }
+               else
+               {
+                   // doesn't exist yet. Create a new one
+                   Place* newPlace = [[Place alloc] initWithGMSPlace:place];
+                   [self addUniqueObject:newPlace forKey:@"favorites"];
+               }
+               
+               // save
+               [self saveInBackground];
+           }
+     ];
 }
 
 - (void)removeFavorite:(GMSPlace*)place {
