@@ -14,6 +14,10 @@
 
 @interface PFUser (ExtendedUser)
 // Instance Properties //
+@property NSString* displayName;
+@property NSString* hometown;
+@property NSString* bio;
+@property PFFile* profilePicture;
 @property NSArray<Place*>* favorites;
 @property NSArray<Place*>* wishlist;
 

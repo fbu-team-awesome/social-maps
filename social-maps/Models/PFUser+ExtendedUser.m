@@ -9,7 +9,7 @@
 #import "PFUser+ExtendedUser.h"
 
 @implementation PFUser (ExtendedUser)
-@dynamic favorites, wishlist;
+@dynamic displayName, hometown, bio, profilePicture, favorites, wishlist;
 
 - (void)addFavorite:(GMSPlace*)place {
     Place* newPlace = [[Place alloc] initWithGMSPlace:place];
