@@ -156,8 +156,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"detailsSegue"])
     {
-        UINavigationController* navController = (UINavigationController*)[segue destinationViewController];
-        DetailsViewController* vc = (DetailsViewController*)navController.topViewController;
+        //UINavigationController* navController = (UINavigationController*)[segue destinationViewController];
+        //DetailsViewController* vc = (DetailsViewController*)navController.topViewController;
+        DetailsViewController* vc = (DetailsViewController *)[segue destinationViewController];
         GMSPlace* place = (GMSPlace*)sender;
         [vc setPlace:place];
     }

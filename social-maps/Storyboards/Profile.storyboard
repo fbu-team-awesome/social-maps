@@ -69,7 +69,7 @@
                         <outlet property="favoriteID" destination="WYW-gX-Z4e" id="s9h-mX-wwR"/>
                         <outlet property="profileView" destination="mIX-UM-qy7" id="wez-hF-Uaw"/>
                         <outlet property="wishlistID" destination="or4-oq-fBZ" id="FXa-Q0-e1W"/>
-                        <segue destination="cn5-vb-EiL" kind="presentation" identifier="detailsSegue" id="Ycd-XH-Z2X"/>
+                        <segue destination="cn5-vb-EiL" kind="show" identifier="detailsSegue" id="Ycd-XH-Z2X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NsC-ah-MfL" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -48,6 +48,8 @@
     marker.title = self.place.name;
     marker.map = self.mapView;
 }
+- (IBAction)didTapBack:(id)sender {
+}
 
 - (void)setPlace:(GMSPlace*)place {
     _place = place;

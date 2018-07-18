@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XAA-jC-5sQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eMh-9V-03L">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,22 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="8Bd-QD-s24">
-            <objects>
-                <navigationController id="XAA-jC-5sQ" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uIS-6T-wZX">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="eMh-9V-03L" kind="relationship" relationship="rootViewController" id="kgZ-9x-0nf"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KpL-tX-0Op" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-349" y="89"/>
-        </scene>
         <!--Details View Controller-->
         <scene sceneID="uk2-uF-OCP">
             <objects>
@@ -34,30 +18,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uHd-rJ-al7">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uHd-rJ-al7">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Place Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5R-BN-ECD">
-                                        <rect key="frame" x="8" y="26" width="359" height="58"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="42"/>
-                                        <color key="textColor" red="0.96547733980992123" green="0.59559072434891724" blue="0.47408425427025697" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EV2-CO-0DA">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="j5v-as-JNw">
+                                        <rect key="frame" x="24" y="24" width="274" height="78"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5R-BN-ECD">
+                                                <rect key="frame" x="0.0" y="0.0" width="274" height="57.5"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="42"/>
+                                                <color key="textColor" red="0.96547733980992123" green="0.59559072434891724" blue="0.47408425427025697" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="1234 Address St, San Francisco, CA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4F-9e-J1e">
+                                                <rect key="frame" x="0.0" y="57.5" width="274" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EV2-CO-0DA">
                                         <rect key="frame" x="29" y="167" width="317" height="212"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="212" id="Iww-Ck-uon"/>
+                                        </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1234 Address St, San Francisco, CA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4F-9e-J1e">
-                                        <rect key="frame" x="8" y="84" width="359" height="55"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Us7-YV-TAP">
+                                        <rect key="frame" x="24" y="427" width="274" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sB-TQ-YH0">
+                                                <rect key="frame" x="0.0" y="0.0" width="125" height="30"/>
+                                                <color key="backgroundColor" red="0.95397763319999995" green="0.67193116850000001" blue="0.44114523859999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <state key="normal" title="+ Favorite">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tcv-BM-Wmg">
+                                                <rect key="frame" x="149" y="0.0" width="125" height="30"/>
+                                                <color key="backgroundColor" red="0.70020453709999997" green="0.36060397779999998" blue="0.78165479270000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <state key="normal" title="+ WIshlist">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="j5v-as-JNw" secondAttribute="trailing" constant="24" id="7tV-Il-1QQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="Us7-YV-TAP" secondAttribute="bottom" constant="116" id="L3H-o8-d1C"/>
+                                    <constraint firstItem="EV2-CO-0DA" firstAttribute="top" secondItem="j5v-as-JNw" secondAttribute="bottom" constant="65" id="MqX-aS-Fh1"/>
+                                    <constraint firstItem="Us7-YV-TAP" firstAttribute="leading" secondItem="uHd-rJ-al7" secondAttribute="leading" constant="24" id="ORJ-jH-UQf"/>
+                                    <constraint firstItem="j5v-as-JNw" firstAttribute="leading" secondItem="uHd-rJ-al7" secondAttribute="leading" constant="24" id="Ogt-z4-4qG"/>
+                                    <constraint firstItem="j5v-as-JNw" firstAttribute="top" secondItem="uHd-rJ-al7" secondAttribute="top" constant="24" id="Y0P-M0-IK5"/>
+                                    <constraint firstItem="Us7-YV-TAP" firstAttribute="top" secondItem="EV2-CO-0DA" secondAttribute="bottom" constant="48" id="bu7-gI-gb8"/>
+                                    <constraint firstItem="EV2-CO-0DA" firstAttribute="centerX" secondItem="uHd-rJ-al7" secondAttribute="centerX" id="cN7-zK-9kC"/>
+                                    <constraint firstItem="EV2-CO-0DA" firstAttribute="top" secondItem="uHd-rJ-al7" secondAttribute="top" constant="167" id="ilM-Ei-CxE"/>
+                                    <constraint firstAttribute="trailing" secondItem="Us7-YV-TAP" secondAttribute="trailing" constant="24" id="jfa-Nk-4Ea"/>
+                                    <constraint firstItem="EV2-CO-0DA" firstAttribute="leading" secondItem="uHd-rJ-al7" secondAttribute="leading" constant="29" id="mXB-ud-SLa"/>
+                                </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -69,7 +90,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="e3o-os-m1e"/>
                     </view>
-                    <navigationItem key="navigationItem" id="pZl-PM-oOd"/>
                     <connections>
                         <outlet property="addressLabel" destination="s4F-9e-J1e" id="zMU-nM-ram"/>
                         <outlet property="placeNameLabel" destination="z5R-BN-ECD" id="jwA-9x-1UX"/>
@@ -78,7 +98,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="koR-5E-IM5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="520.79999999999995" y="88.605697151424295"/>
+            <point key="canvasLocation" x="1460" y="88.605697151424295"/>
         </scene>
     </scenes>
 </document>
