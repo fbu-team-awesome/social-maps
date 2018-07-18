@@ -14,6 +14,8 @@
 		0130163B20EFDE650010FD04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0130163A20EFDE650010FD04 /* main.m */; };
 		018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */; };
 		018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */; };
+		018E6A9D20FEBA6E00DE10A6 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */; };
+		018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6AA020FEBAD100DE10A6 /* ListViewCell.m */; };
 		1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF220FD2A740072BEFB /* LoginViewController.m */; };
 		1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */; };
 		1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948920FD4CBE00E4D630 /* ListView.storyboard */; };
@@ -40,6 +42,10 @@
 		018E6A8720FD9AD000DE10A6 /* SearchResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
 		018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
 		018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ResultsView.storyboard; sourceTree = "<group>"; };
+		018E6A9B20FEBA6E00DE10A6 /* ListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
+		018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
+		018E6A9F20FEBAD100DE10A6 /* ListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListViewCell.h; sourceTree = "<group>"; };
+		018E6AA020FEBAD100DE10A6 /* ListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListViewCell.m; sourceTree = "<group>"; };
 		0669C073917F375AFFBB6F32 /* libPods-social-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-social-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C2C0BF120FD2A740072BEFB /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1C2C0BF220FD2A740072BEFB /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -96,6 +102,7 @@
 		0130162A20EFDE620010FD04 /* social-maps */ = {
 			isa = PBXGroup;
 			children = (
+				018E6A9E20FEBABE00DE10A6 /* Views */,
 				1C2C0BF020FD2A630072BEFB /* View Controllers */,
 				9EF4E3C920FD2961005535C6 /* APIs */,
 				9EF4E3C520FD210E005535C6 /* Models */,
@@ -123,6 +130,15 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		018E6A9E20FEBABE00DE10A6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				018E6A9F20FEBAD100DE10A6 /* ListViewCell.h */,
+				018E6AA020FEBAD100DE10A6 /* ListViewCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		1C2C0BF020FD2A630072BEFB /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +152,8 @@
 				1C6D948D20FE59FE00E4D630 /* DetailsViewController.h */,
 				9EF4E3D620FE6D95005535C6 /* ProfileViewController.m */,
 				1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */,
+				018E6A9B20FEBA6E00DE10A6 /* ListViewController.h */,
+				018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -297,10 +315,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				018E6A9D20FEBA6E00DE10A6 /* ListViewController.m in Sources */,
 				9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */,
 				9EF4E3D720FE6D95005535C6 /* ProfileViewController.m in Sources */,
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
 				0130162D20EFDE620010FD04 /* AppDelegate.m in Sources */,
+				018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */,
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
 				9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */,

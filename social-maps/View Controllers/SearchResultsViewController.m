@@ -10,10 +10,6 @@
 #import "DetailsViewController.h"
 
 @interface SearchResultsViewController () <GMSAutocompleteResultsViewControllerDelegate>
-
-
-
-
 @end
 
 @implementation SearchResultsViewController {
@@ -62,7 +58,6 @@
 // Handle the user's selection.
 - (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController
  didAutocompleteWithPlace:(GMSPlace *)place {
-    _searchController.active = NO;
     
     [self performSegueWithIdentifier:@"toDetailsView" sender: place];
 }
@@ -79,8 +74,7 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    UINavigationController *navController = [segue destinationViewController];
-    DetailsViewController *detailsController = (DetailsViewController *)navController.topViewController;
+    DetailsViewController *detailsController = (DetailsViewController *)[segue destinationViewController];
     [detailsController setPlace:sender];
 }
 
