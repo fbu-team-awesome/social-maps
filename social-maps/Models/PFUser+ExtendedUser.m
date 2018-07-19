@@ -41,14 +41,7 @@
            {
                if(result != nil)
                {
-                   for(Place* favorite in self.favorites)
-                   {
-                       if([favorite.objectId isEqualToString:result.objectId])
-                       {
-                           [self.favorites removeObjectIdenticalTo:favorite];
-                           break;
-                       }
-                   }
+                   [self.favorites removeObject:result];
                }
          
                [self setObject:self.favorites forKey:@"favorites"];
@@ -87,14 +80,7 @@
            {
                if(result != nil)
                {
-                   for(Place* todo in self.wishlist)
-                   {
-                       if([todo.objectId isEqualToString:result.objectId])
-                       {
-                           [self.wishlist removeObjectIdenticalTo:todo];
-                           break;
-                       }
-                   }
+                   [self.wishlist removeObject:result];
                }
          
                [self setObject:self.wishlist forKey:@"wishlist"];

@@ -19,6 +19,11 @@
     return newPlace;
 }
 
+- (BOOL)isEqual:(id)object {
+    Place* place = (Place*)object;
+    return [self.objectId isEqualToString:place.objectId];
+}
+
 + (NSString*) parseClassName {
     return @"Place";
 }

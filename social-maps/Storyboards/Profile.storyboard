@@ -90,7 +90,13 @@
                         <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="dvn-Zl-y4R"/>
                     </view>
-                    <navigationItem key="navigationItem" id="XSs-sf-aAP"/>
+                    <navigationItem key="navigationItem" id="XSs-sf-aAP">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="co5-LN-a5o">
+                            <connections>
+                                <action selector="logoutClicked:" destination="khL-MV-X4z" id="d5B-9y-rWx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="bioLabel" destination="TkC-qT-sCg" id="ejp-me-xWH"/>
                         <outlet property="displayNameLabel" destination="Xi4-Q0-BGx" id="C10-Hu-VCw"/>

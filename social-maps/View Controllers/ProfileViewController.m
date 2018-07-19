@@ -13,6 +13,7 @@
 #import "DetailsViewController.h"
 #import <Parse/Parse.h>
 #import "PFUser+ExtendedUser.h"
+#import "AppDelegate.h"
 
 @interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate>
 // Outlet Definitions //
@@ -172,6 +173,17 @@
         GMSPlace* place = (GMSPlace*)sender;
         [vc setPlace:place];
     }
+}
+
+- (IBAction)logoutClicked:(id)sender {
+    // logout
+    [PFUser logOutInBackground];
+    
+    // go back to login screen
+    AppDelegate* delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController* viewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    delegate.window.rootViewController = viewController;
 }
 
 // TEMPORARY
