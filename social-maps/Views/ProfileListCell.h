@@ -13,4 +13,5 @@
 @interface ProfileListCell : UITableViewCell
 // Instance Methods //
 - (void)setPlace:(GMSPlace*)place;
+- (GMSPlace*)getPlace;
 @end

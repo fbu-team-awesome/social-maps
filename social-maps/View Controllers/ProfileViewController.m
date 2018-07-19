@@ -186,10 +186,9 @@
     [self.mapView animateToCameraPosition:camera];
 }
 
-- (BOOL)mapView:(GMSMapView*)mapView didTapMarker:(GMSMarker*)marker {
+- (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
     GMSPlace* place = self.markers[marker.title];
     [self performSegueWithIdentifier:@"detailsSegue" sender:place];
-    return YES;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -198,6 +197,12 @@
         DetailsViewController* vc = (DetailsViewController *)[segue destinationViewController];
         GMSPlace* place = (GMSPlace*)sender;
         [vc setPlace:place];
+    }
+    else if([segue.identifier isEqualToString:@"listDetailsSegue"])
+    {
+        DetailsViewController* vc = (DetailsViewController *)[segue destinationViewController];
+        ProfileListCell* cell = (ProfileListCell*)sender;
+        [vc setPlace:[cell getPlace]];
     }
 }
 

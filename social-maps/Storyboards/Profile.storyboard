@@ -123,7 +123,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pier 39" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gs0-8V-0nb">
-                                                            <rect key="frame" x="95" y="13" width="265" height="20"/>
+                                                            <rect key="frame" x="95" y="11" width="265" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
                                                             <color key="textColor" red="0.32549019610000002" green="0.32549019610000002" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -135,6 +135,7 @@
                                                     <outlet property="addressLabel" destination="xaY-Pf-vih" id="2lk-GF-ALk"/>
                                                     <outlet property="nameLabel" destination="Gs0-8V-0nb" id="2Wt-GU-JKF"/>
                                                     <outlet property="pictureImage" destination="gLO-IB-9G4" id="bd9-VN-aQE"/>
+                                                    <segue destination="cn5-vb-EiL" kind="show" identifier="listDetailsSegue" id="cqI-8F-loz"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -208,4 +209,7 @@
             <point key="canvasLocation" x="-218.40000000000001" y="102.99850074962519"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="cqI-8F-loz"/>
+    </inferredMetricsTieBreakers>
 </document>
