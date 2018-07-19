@@ -9,4 +9,5 @@
 #import <GooglePlaces/GooglePlaces.h>
 
 @interface SearchResultsViewController : UIViewController
+
 @end

@@ -49,7 +49,6 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     SearchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
-    cell.delegate = self;
     if (self.results.count > 0){
     cell.prediction = self.results[indexPath.row];
         
