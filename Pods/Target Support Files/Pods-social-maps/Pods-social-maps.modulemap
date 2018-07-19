@@ -1,0 +1,6 @@
+module Pods_social_maps {
+  umbrella header "Pods-social-maps-umbrella.h"
+
+  export *
+  module * { export * }
+}
