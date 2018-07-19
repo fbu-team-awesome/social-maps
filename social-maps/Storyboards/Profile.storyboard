@@ -67,6 +67,7 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wa7-5R-Sot">
                                         <rect key="frame" x="315" y="10" width="49" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" red="0.89019607840000003" green="0.50980392159999999" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="onTintColor" red="0.71372549019999998" green="0.34509803919999998" blue="0.76470588240000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
                                             <action selector="switchClicked:" destination="khL-MV-X4z" eventType="valueChanged" id="ggM-uD-pyi"/>
