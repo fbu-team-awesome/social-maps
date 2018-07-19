@@ -19,11 +19,17 @@
                // result should never be nil, but still check
                if(result != nil)
                {
-                   [self.favorites addObject:result];
-               }
-               
-               [self setObject:self.favorites forKey:@"favorites"];
-               [self saveInBackground];
+                   if(![self.favorites containsObject:result])
+                   {
+                       [self.favorites addObject:result];
+                       [self setObject:self.favorites forKey:@"favorites"];
+                       [self saveInBackground];
+                   }
+                   else
+                   {
+                       NSLog(@"Already favorited.");
+                   }
+                }
            }
      ];
 }
@@ -52,11 +58,17 @@
                // result should never be nil, but still check
                if(result != nil)
                {
-                   [self.wishlist addObject:result];
+                   if(![self.wishlist containsObject:result])
+                   {
+                       [self.wishlist addObject:result];
+                       [self setObject:self.wishlist forKey:@"wishlist"];
+                       [self saveInBackground];
+                   }
+                   else
+                   {
+                       NSLog(@"Already wishlisted.");
+                   }
                }
-         
-               [self setObject:self.wishlist forKey:@"wishlist"];
-               [self saveInBackground];
            }
      ];
 }

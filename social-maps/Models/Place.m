@@ -21,8 +21,7 @@
 }
 
 - (BOOL)isEqual:(id)object {
-    Place* place = (Place*)object;
-    return [self.objectId isEqualToString:place.objectId];
+    return [self.objectId isEqualToString:((Place*)object).objectId];
 }
 
 + (NSString*) parseClassName {
