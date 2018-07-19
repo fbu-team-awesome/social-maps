@@ -11,6 +11,7 @@
 #import "SearchCell.h"
 #import "ResultsTableViewController.h"
 
+
 @interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *resultsView;
@@ -27,6 +28,17 @@
 
 - (void)viewDidLoad {
     self.definesPresentationContext = true;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addToFavorites:)
+                                                 name:@"AddFavoriteNotification"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addToWishlist:)
+                                                 name:@"AddToWishlistNotification"
+                                               object:nil];
+    
+    
     
     [self initMap];
     [self initSearch];
@@ -55,6 +67,7 @@
     
     _resultsViewController = [storyboard instantiateViewControllerWithIdentifier:@"ResultsTable"];
     _resultsViewController.delegate = self;
+    
     _searchController = [[UISearchController alloc] initWithSearchResultsController:_resultsViewController];
     _searchController.searchResultsUpdater = _resultsViewController;
     
@@ -158,6 +171,21 @@ didFailAutocompleteWithError:(NSError *)error {
     else {
         [self performSegueWithIdentifier:@"toDetailsView" sender: place];
     }
+}
+- (void) addToFavorites:(NSNotification *) notification {
+    Place *place = (Place *) notification.object;
+    [[APIManager shared] GMSPlaceFromPlace:place withCompletion:^(GMSPlace *place) {
+        [[PFUser currentUser] addFavorite:place];
+        NSLog(@"Added %@",place.name);
+    }];
+}
+
+- (void) addToWishlist:(NSNotification *) notification {
+    Place *place = (Place *) notification.object;
+    [[APIManager shared] GMSPlaceFromPlace:place withCompletion:^(GMSPlace *place) {
+        [[PFUser currentUser] addToWishlist:place];
+        NSLog(@"Added %@",place.name);
+    }];
 }
 
 @end

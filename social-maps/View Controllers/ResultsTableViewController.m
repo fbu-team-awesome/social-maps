@@ -10,7 +10,7 @@
 #import "SearchCell.h"
 #import "APIManager.h"
 
-@interface ResultsTableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, GMSAutocompleteFetcherDelegate>
+@interface ResultsTableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, GMSAutocompleteFetcherDelegate, SearchCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSMutableArray * results;
@@ -49,11 +49,13 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     SearchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
+    cell.delegate = self;
     if (self.results.count > 0){
     cell.prediction = self.results[indexPath.row];
         
         [cell configureCell];
     }
+    
     return cell;
 }
 
@@ -90,6 +92,10 @@
 
 - (void)didFailAutocompleteWithError:(nonnull NSError *)error {
     NSLog(@"Error fetching autocomplete results: %@", error.localizedDescription);
+}
+
+- (void) didAddToFavorites:(GMSPlace *)place {
+    
 }
 
 @end

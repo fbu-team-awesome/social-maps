@@ -71,22 +71,42 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="113.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggE-ka-9OB">
-                                                    <rect key="frame" x="314" y="42" width="30" height="30"/>
-                                                    <color key="backgroundColor" red="0.96547733979999995" green="0.59559072430000004" blue="0.47408425430000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="1eA-Vo-eyT"/>
-                                                        <constraint firstAttribute="width" constant="30" id="XFI-YW-gso"/>
-                                                    </constraints>
-                                                    <state key="normal" title="+">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="didTapFavorite:" destination="ixv-nU-NfM" eventType="touchUpInside" id="0Xc-FU-86a"/>
-                                                    </connections>
-                                                </button>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="bJ5-9f-OPr">
+                                                    <rect key="frame" x="330" y="27" width="30" height="76"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggE-ka-9OB">
+                                                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                            <color key="backgroundColor" red="0.96547733979999995" green="0.59559072430000004" blue="0.47408425430000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="1eA-Vo-eyT"/>
+                                                                <constraint firstAttribute="width" constant="30" id="XFI-YW-gso"/>
+                                                            </constraints>
+                                                            <state key="normal" title="+">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="didTapFavorite:" destination="ixv-nU-NfM" eventType="touchUpInside" id="0Xc-FU-86a"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bix-rr-mjq">
+                                                            <rect key="frame" x="0.0" y="46" width="30" height="30"/>
+                                                            <color key="backgroundColor" red="0.70020453709999997" green="0.36060397779999998" blue="0.78165479270000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="Ysw-31-8rC"/>
+                                                                <constraint firstAttribute="width" constant="30" id="ybM-RU-HlN"/>
+                                                            </constraints>
+                                                            <state key="normal" title="+">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="didTapFavorite:" destination="ixv-nU-NfM" eventType="touchUpInside" id="GCL-G5-fp3"/>
+                                                                <action selector="didTapWishlist:" destination="ixv-nU-NfM" eventType="touchUpInside" id="sUV-BJ-fRS"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uVk-le-mO6">
-                                                    <rect key="frame" x="16" y="16" width="282" height="81.5"/>
+                                                    <rect key="frame" x="16" y="16" width="269.5" height="81.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qG7-df-OFj">
                                                             <rect key="frame" x="0.0" y="0.0" width="49" height="53"/>
@@ -104,11 +124,10 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="ggE-ka-9OB" secondAttribute="trailing" constant="16" id="0xW-ZE-27c"/>
-                                                <constraint firstItem="ggE-ka-9OB" firstAttribute="leading" secondItem="uVk-le-mO6" secondAttribute="trailing" constant="16" id="94j-7t-TSF"/>
+                                                <constraint firstItem="bJ5-9f-OPr" firstAttribute="trailing" secondItem="Rc7-Xr-3Xn" secondAttribute="trailingMargin" id="SbG-xG-WL7"/>
                                                 <constraint firstAttribute="bottom" secondItem="uVk-le-mO6" secondAttribute="bottom" constant="16" id="Wkv-y3-lhv"/>
+                                                <constraint firstItem="bJ5-9f-OPr" firstAttribute="top" secondItem="Rc7-Xr-3Xn" secondAttribute="topMargin" constant="16" id="ejQ-B4-lnw"/>
                                                 <constraint firstItem="uVk-le-mO6" firstAttribute="leading" secondItem="Rc7-Xr-3Xn" secondAttribute="leading" constant="16" id="oC2-GO-QYy"/>
-                                                <constraint firstItem="ggE-ka-9OB" firstAttribute="centerY" secondItem="Rc7-Xr-3Xn" secondAttribute="centerY" id="rUT-gj-jhu"/>
                                                 <constraint firstItem="uVk-le-mO6" firstAttribute="top" secondItem="Rc7-Xr-3Xn" secondAttribute="top" constant="16" id="tSx-Gy-oC8"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -129,7 +148,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hoi-js-24I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2129" y="301"/>
+            <point key="canvasLocation" x="2239" y="301"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mfw-8I-Pbz">

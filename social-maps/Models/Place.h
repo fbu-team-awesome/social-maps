@@ -15,6 +15,9 @@
 
 - (nonnull instancetype)initWithGMSPlace:(nonnull GMSPlace*)place;
 
++ (void)checkPlaceWithIDExists:(nonnull NSString *)placeID result:(void(^_Nonnull)(Place*_Nonnull))result;
+- (void) addFavoriteNotification;
+- (void) addToWishlistNotification;
 + (void)checkGMSPlaceExists:(nonnull GMSPlace*)place result:(void(^_Nonnull)(Place* _Nonnull))result;
 @end
 
