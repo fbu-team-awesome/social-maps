@@ -84,6 +84,16 @@
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
         }
     }];
+    
+    // animate
+    [UIView animateWithDuration:0.1 animations:^{
+        self.loginButton.transform = CGAffineTransformMakeScale(1.2, 1.2);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.1 animations:^{
+            self.loginButton.transform = CGAffineTransformIdentity;
+        }];
+    }];
+    [[UIImpactFeedbackGenerator new] impactOccurred];
 }
 
 - (void)didReceiveMemoryWarning {
