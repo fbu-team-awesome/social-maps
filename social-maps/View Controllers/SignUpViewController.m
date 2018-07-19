@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *displayNameField;
 @property (weak, nonatomic) IBOutlet UITextField *hometownField;
 @property (weak, nonatomic) IBOutlet UITextField *bioField;
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
 
 @end
 
@@ -26,6 +27,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
+    self.profileImage.clipsToBounds = YES;
+    self.profileImage.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.profileImage.layer.shadowOffset = CGSizeZero;
+    self.profileImage.layer.shadowRadius = 5;
+    self.profileImage.layer.shadowOpacity = 0.2;
+    self.profileImage.layer.masksToBounds = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,9 +47,10 @@
     NSString* displayName = self.displayNameField.text;
     NSString* hometown = self.hometownField.text;
     NSString* bio = self.bioField.text;
+    NSString* email = self.emailField.text;
     
     // validate text fields
-    if([username length] <= 0 || [password length] <= 0 || [displayName length] <= 0 || [hometown length] <= 0 || [bio length] <= 0)
+    if([username length] <= 0 || [password length] <= 0 || [displayName length] <= 0 || [hometown length] <= 0 || [bio length] <= 0 || [email length] <= 0)
     {
         [self showAlertWithTitle:@"Sign Up Error" message:@"Please fill all the fields."];
         return;
@@ -51,6 +60,7 @@
     PFUser *newUser = [PFUser user];
     newUser.username = self.usernameField.text;
     newUser.password = self.passwordField.text;
+    newUser.email = email;
     newUser.displayName = displayName;
     newUser.hometown = hometown;
     newUser.bio = bio;

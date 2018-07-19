@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *listSelector;
+- (IBAction)listController:(id)sender;
 @property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
 @property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 
@@ -59,15 +60,11 @@
      ListViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ListViewCell" forIndexPath:indexPath];
      
      if (self.listSelector.selectedSegmentIndex == 0) {
-         
          cell.place = self.favorites[indexPath.row];
-         
      }
      else {
-         
          cell.place = self.wishlist[indexPath.row];
      }
-     
      return cell;
  }
  
@@ -78,5 +75,9 @@
      else
          return self.wishlist.count;
  }
+
+- (IBAction)listController:(id)sender {
+    [self.tableView reloadData];
+}
 
 @end
