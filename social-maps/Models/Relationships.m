@@ -22,7 +22,6 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         
         completion(objects);
-        
     }];
     
 }

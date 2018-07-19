@@ -30,7 +30,8 @@
 
 - (IBAction)follow:(id)sender {
     
-    
+    PFUser *currentUser = [PFUser currentUser];
+    [currentUser follow:self.user];
 }
 
 

@@ -366,7 +366,7 @@
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
 				016BBD9020FFFEA9006FFFD8 /* Relationships.m in Sources */,
 				9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */,
-				016BBD9020FFFEA9006FFFD8 /* UserFriends.m in Sources */,
+				016BBD9020FFFEA9006FFFD8 /* Relationships.m in Sources */,
 				1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */,
 				01C12B6021013CD700580859 /* UserTestCell.m in Sources */,
 				9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */,
@@ -515,13 +515,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4H789JND9X;
+				DEVELOPMENT_TEAM = QR8BU78FBL;
 				INFOPLIST_FILE = "social-maps/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.fb.socialmaps;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fb.bevin.socialmaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -533,13 +533,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4H789JND9X;
+				DEVELOPMENT_TEAM = QR8BU78FBL;
 				INFOPLIST_FILE = "social-maps/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.fb.socialmaps;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fb.bevin.socialmaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
