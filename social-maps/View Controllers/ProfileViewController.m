@@ -14,8 +14,9 @@
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import "Helper.h"
+#import "ProfileListCell.h"
 
-@interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate>
+@interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
 @property (weak, nonatomic) IBOutlet UIView *profileMapView;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
@@ -26,6 +27,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (weak, nonatomic) IBOutlet UIView *profilePictureView;
 @property (weak, nonatomic) IBOutlet UIView *myPlacesView;
+@property (weak, nonatomic) IBOutlet UIView *tableviewView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISwitch *placesSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *switchLabel;
+
 
 // Instance Properties //
 @property (strong, nonatomic) CLLocationManager* locationManager;
@@ -47,6 +53,11 @@
     {
         self.user = [PFUser currentUser];
     }
+    
+    // init tableview
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.tableView setRowHeight:90];
     
     // init our location
     self.locationManager = [CLLocationManager new];
@@ -91,6 +102,11 @@
     self.friendsButton.clipsToBounds = YES;
     [self addShadow:self.friendsButton withOffset:CGSizeMake(0, 4)];
     [self addShadow:self.myPlacesView withOffset:CGSizeMake(0,6)];
+    
+    // set switch background when off
+    self.placesSwitch.layer.cornerRadius = self.placesSwitch.frame.size.height / 2;
+    self.placesSwitch.clipsToBounds = YES;
+    self.placesSwitch.backgroundColor = [UIColor colorWithRed:227/255.0 green:130/255.0 blue:94/255.0 alpha:255];
 }
 
 - (void)makeRoundCorners:(UIView*)view {
@@ -115,6 +131,7 @@
           ^(NSArray<GMSPlace*>* places)
           {
               self.favorites = places;
+              [self.tableView reloadData];
               [self addFavoritesPins];
           }
      ];
@@ -124,6 +141,7 @@
           ^(NSArray<GMSPlace*>* places)
           {
               self.wishlist = places;
+              [self.tableView reloadData];
               [self addWishlistPins];
           }
      ];
@@ -193,4 +211,37 @@
     UIViewController* viewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
     delegate.window.rootViewController = viewController;
 }
+
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    ProfileListCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ProfileListCell" forIndexPath:indexPath];
+    GMSPlace* place = self.favorites[indexPath.row];
+    
+    if(place != nil)
+    {
+        [cell setPlace:place];
+    }
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.favorites.count;
+}
+
+- (IBAction)switchClicked:(id)sender {
+    if(self.placesSwitch.on)
+    {
+        self.mapView.hidden = NO;
+        self.tableviewView.hidden = YES;
+        self.switchLabel.text = @"Map";
+    }
+    else
+    {
+        self.mapView.hidden = YES;
+        self.tableviewView.hidden = NO;
+        self.switchLabel.text = @"List";
+    }
+}
+
 @end
