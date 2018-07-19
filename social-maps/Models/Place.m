@@ -21,8 +21,7 @@
 }
 
 - (BOOL)isEqual:(id)object {
-    Place* place = (Place*)object;
-    return [self.objectId isEqualToString:place.objectId];
+    return [self.objectId isEqualToString:((Place*)object).objectId];
 }
 
 + (NSString*) parseClassName {
@@ -35,7 +34,16 @@
     [query getFirstObjectInBackgroundWithBlock:
            ^(PFObject * _Nullable object, NSError * _Nullable error)
            {
-               result((Place*)object);
+               // if it doesnt exist, create it
+               if (object == nil)
+               {
+                   Place* newPlace = [[Place alloc] initWithGMSPlace:place];
+                   result(newPlace);
+               }
+               else
+               {
+                   result((Place*)object);
+               }
            }
      ];
 }
@@ -45,12 +53,19 @@
     [query getFirstObjectInBackgroundWithBlock:
      ^(PFObject * _Nullable object, NSError * _Nullable error)
      {
-         if (object == nil) {
-             [[APIManager shared] GMSPlaceFromID:placeID withCompletion:^(GMSPlace *place) {
-                 Place *newPlace = [[Place alloc] initWithGMSPlace:place];
-                 result(newPlace);
-             }];
-         } else {
+         // if it doesnt exist, create it
+         if (object == nil)
+         {
+             [[APIManager shared] GMSPlaceFromID:placeID
+                                  withCompletion:^(GMSPlace *place)
+                                  {
+                                      Place *newPlace = [[Place alloc] initWithGMSPlace:place];
+                                      result(newPlace);
+                                  }
+              ];
+         }
+         else
+         {
              result((Place*)object);
          }
      }

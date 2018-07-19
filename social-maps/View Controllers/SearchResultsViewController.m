@@ -12,7 +12,7 @@
 #import "ResultsTableViewController.h"
 
 
-@interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate>
+@interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *resultsView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -20,6 +20,10 @@
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) ResultsTableViewController <UISearchResultsUpdating>* resultsViewController;
 @property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
+@property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
+@property (strong, nonatomic) NSMutableDictionary<NSString*, GMSPlace*>* markers;
+
 @end
 
 @implementation SearchResultsViewController {
@@ -60,6 +64,10 @@
     [self.mapView setMyLocationEnabled:YES];
     
     [self.resultsView addSubview:self.mapView];
+    self.mapView.delegate = self;
+    
+    self.markers = [NSMutableDictionary new];
+    [self retrieveUserPlaces];
 }
 
 - (void)initSearch {
@@ -98,9 +106,33 @@
 
 - (void)addMarkers {
     
+}
+
+
+- (void)retrieveUserPlaces {
+    // clear map first
+    [self.mapView clear];
     
+    // retrieve favorites
+    [PFUser.currentUser retrieveFavoritesWithCompletion:
+     ^(NSArray<GMSPlace*>* places)
+     {
+         //self.favorites = places;
+         for (GMSPlace * place in places) {
+             [self addFavoritePin:place];
+         }
+     }
+     ];
     
-    
+    // retrieve wishlist
+    [PFUser.currentUser retrieveWishlistWithCompletion:
+     ^(NSArray<GMSPlace*>* places)
+     {
+         for (GMSPlace *place in places) {
+             [self addWishlistPin:place];
+         }
+     }
+     ];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
@@ -175,17 +207,61 @@ didFailAutocompleteWithError:(NSError *)error {
 - (void) addToFavorites:(NSNotification *) notification {
     Place *place = (Place *) notification.object;
     [[APIManager shared] GMSPlaceFromPlace:place withCompletion:^(GMSPlace *place) {
+        
+        //add to user favorites
         [[PFUser currentUser] addFavorite:place];
+        
+        //place pin
+        [self addFavoritePin:place];
         NSLog(@"Added %@",place.name);
+        
+        //close search
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }
 
 - (void) addToWishlist:(NSNotification *) notification {
     Place *place = (Place *) notification.object;
     [[APIManager shared] GMSPlaceFromPlace:place withCompletion:^(GMSPlace *place) {
+        
+        //add to user wishlist
         [[PFUser currentUser] addToWishlist:place];
+        
+        //place pin
+        [self addWishlistPin:place];
         NSLog(@"Added %@",place.name);
+        
+        //close search
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
+}
+
+
+- (void)addFavoritePin:(GMSPlace *)place {
+    GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+    marker.title = place.name;
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    //marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+    marker.map = self.mapView;
+    
+    // add the key to our dictionary
+    self.markers[marker.title] = place;
+}
+
+- (void)addWishlistPin:(GMSPlace *)place {
+    GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+    marker.title = place.name;
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+    marker.map = self.mapView;
+        
+        // add the key to our dictionary
+    self.markers[marker.title] = place;
+}
+
+- (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
+    GMSPlace* place = self.markers[marker.title];
+    [self performSegueWithIdentifier:@"toDetailsView" sender:place];
 }
 
 @end

@@ -16,20 +16,20 @@
     [Place checkGMSPlaceExists:place
            result:^(Place* result)
            {
+               // result should never be nil, but still check
                if(result != nil)
                {
-                   // it exists already. No need to create a new one.
-                   [self.favorites addObject:result];
-               }
-               else
-               {
-                   // doesn't exist yet. Create a new one
-                   Place* newPlace = [[Place alloc] initWithGMSPlace:place];
-                   [self.favorites addObject:newPlace];
-               }
-         
-               [self setObject:self.favorites forKey:@"favorites"];
-               [self saveInBackground];
+                   if(![self.favorites containsObject:result])
+                   {
+                       [self.favorites addObject:result];
+                       [self setObject:self.favorites forKey:@"favorites"];
+                       [self saveInBackground];
+                   }
+                   else
+                   {
+                       NSLog(@"Already favorited.");
+                   }
+                }
            }
      ];
 }
@@ -55,20 +55,20 @@
     [Place checkGMSPlaceExists:place
            result:^(Place* result)
            {
+               // result should never be nil, but still check
                if(result != nil)
                {
-                   // it exists already. No need to create a new one.
-                   [self.wishlist addObject:result];
+                   if(![self.wishlist containsObject:result])
+                   {
+                       [self.wishlist addObject:result];
+                       [self setObject:self.wishlist forKey:@"wishlist"];
+                       [self saveInBackground];
+                   }
+                   else
+                   {
+                       NSLog(@"Already wishlisted.");
+                   }
                }
-               else
-               {
-                   // doesn't exist yet. Create a new one
-                   Place* newPlace = [[Place alloc] initWithGMSPlace:place];
-                   [self.wishlist addObject:newPlace];
-               }
-         
-               [self setObject:self.wishlist forKey:@"wishlist"];
-               [self saveInBackground];
            }
      ];
 }
