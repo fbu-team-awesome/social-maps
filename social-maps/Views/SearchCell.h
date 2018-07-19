@@ -8,10 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import <GooglePlaces/GooglePlaces.h>
+#import "APIManager.h"
+@protocol SearchCellDelegate;
 
 @interface SearchCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (strong, nonatomic) GMSAutocompletePrediction *prediction;
-- (void) configureCell;
+@property (strong,nonatomic) id<SearchCellDelegate> delegate;
+- (void)configureCell;
+@end
+
+@protocol SearchCellDelegate
+- (void)didAddToFavorites:(GMSPlace *)place;
+- (void)didAddToWishlist:(GMSPlace *)place;
 @end

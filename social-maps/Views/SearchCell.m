@@ -29,7 +29,15 @@
     }
 }
 - (IBAction)didTapFavorite:(id)sender {
-    
-}
+    //TODO: add condition for unfavoriting
+    [Place checkPlaceWithIDExists:_prediction.placeID result:^(Place * result) {
+        [result addFavoriteNotification];
+    }];
 
+}
+- (IBAction)didTapWishlist:(id)sender {
+    [Place checkPlaceWithIDExists:_prediction.placeID result:^(Place * result) {
+        [result addToWishlistNotification];
+    }];
+}
 @end

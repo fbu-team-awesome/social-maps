@@ -7,6 +7,7 @@
 //
 
 #import "Place.h"
+#import "APIManager.h"
 
 @implementation Place
 @dynamic placeID, placeName;
@@ -32,5 +33,35 @@
                result((Place*)object);
            }
      ];
+}
++ (void)checkPlaceWithIDExists:(NSString *)placeID result:(void(^)(Place*))result {
+    PFQuery* query = [PFQuery queryWithClassName:@"Place"];
+    [query whereKey:@"placeID" equalTo:placeID];
+    [query getFirstObjectInBackgroundWithBlock:
+     ^(PFObject * _Nullable object, NSError * _Nullable error)
+     {
+         if (object == nil) {
+             [[APIManager shared] GMSPlaceFromID:placeID withCompletion:^(GMSPlace *place) {
+                 Place *newPlace = [[Place alloc] initWithGMSPlace:place];
+                 result(newPlace);
+             }];
+         } else {
+             result((Place*)object);
+         }
+     }
+     ];
+}
+- (void) addFavoriteNotification {
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"AddFavoriteNotification"
+     object:self];
+
+}
+
+- (void) addToWishlistNotification {
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"AddToWishlistNotification"
+     object:self];
+    
 }
 @end
