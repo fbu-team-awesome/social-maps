@@ -7,9 +7,13 @@
 //
 
 #import "UserTest.h"
-#import "UserFriends.h"
+#import "Relationships.h"
+#import "UserTestCell.h"
 
 @interface UserTest ()
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray *users;
 
 @end
 
@@ -17,12 +21,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.tableView setRowHeight:170];
     // Do any additional setup after loading the view.
     
-    NSArray *users = [UserFriends getUsers];
-    NSLog(@"Retrieve users");
-
+    [Relationships getUsersWithCompletion:^(NSArray *users) {
+        self.users = users;
+        [self.tableView reloadData];
+        NSLog(@"Done");
+    }];
     
+    [self.tableView reloadData];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,4 +52,16 @@
 }
 */
 
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
+    UserTestCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserTestCell" forIndexPath:indexPath];
+    cell.user = self.users[indexPath.row];
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return self.users.count;
+}
 @end

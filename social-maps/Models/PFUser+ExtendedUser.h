@@ -8,9 +8,10 @@
 
 @import GooglePlaces;
 
-#import "PFUser.h"
+#import "PFUser+ExtendedUser.h"
 #import "Place.h"
 #import "APIManager.h"
+#import "Relationships.h"
 
 @interface PFUser (ExtendedUser)
 // Instance Properties //
@@ -20,6 +21,8 @@
 @property PFFile* profilePicture;
 @property NSMutableArray<Place*>* favorites;
 @property NSMutableArray<Place*>* wishlist;
+@property Relationships *relationships;
+
 
 // Instance Methods //
 - (void)addFavorite:(GMSPlace*)place;
@@ -28,5 +31,6 @@
 - (void)removeFromWishlist:(GMSPlace*)place;
 - (void)retrieveFavoritesWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion;
 - (void)retrieveWishlistWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion;
+- (void)follow:(PFUser *)user;
 
 @end

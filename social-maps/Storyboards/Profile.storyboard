@@ -86,6 +86,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFJ-K8-MYI">
+                                <rect key="frame" x="276" y="80" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add Friends"/>
+                                <connections>
+                                    <segue destination="4QJ-5m-okr" kind="show" id="E8p-VF-XvC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="dvn-Zl-y4R"/>
@@ -113,6 +121,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NsC-ah-MfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="517.60000000000002" y="102.99850074962519"/>
+        </scene>
+        <!--UserTest-->
+        <scene sceneID="GAq-6b-pXG">
+            <objects>
+                <viewControllerPlaceholder storyboardName="UserTest" id="4QJ-5m-okr" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CW9-Fa-asj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1161" y="-90"/>
         </scene>
         <!--DetailsView-->
         <scene sceneID="4SR-bD-qOX">

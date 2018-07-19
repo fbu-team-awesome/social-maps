@@ -9,7 +9,7 @@
 #import "PFUser+ExtendedUser.h"
 
 @implementation PFUser (ExtendedUser)
-@dynamic displayName, hometown, bio, profilePicture, favorites, wishlist;
+@dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships;
 
 - (void)addFavorite:(GMSPlace*)place {
     // check if place exists already
@@ -141,5 +141,11 @@
                }
          ];
     }
+}
+
+- (void)follow:(PFUser *)user {
+    
+    [self.relationships.followers addObject:user];
+    [user.relationships.following addObject:self];
 }
 @end

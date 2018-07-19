@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
-@interface UserFriends : PFObject
+@interface Relationships : PFObject
 
 @property (strong, nonatomic, nonnull) NSMutableArray *following;
 @property (strong, nonatomic, nonnull) NSMutableArray *followers;
 
-+ (NSArray *_Nullable)getUsers;
++ (void)getUsersWithCompletion:(void (^_Nonnull)(NSArray *users))completion;
 
 @end

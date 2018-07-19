@@ -33,7 +33,9 @@
     [Place checkPlaceWithIDExists:_prediction.placeID result:^(Place * result) {
         [result addFavoriteNotification];
     }];
-
+    
+    
+    
 }
 - (IBAction)didTapWishlist:(id)sender {
     [Place checkPlaceWithIDExists:_prediction.placeID result:^(Place * result) {

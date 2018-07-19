@@ -12,13 +12,14 @@
 		0130163520EFDE650010FD04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0130163420EFDE650010FD04 /* Assets.xcassets */; };
 		0130163820EFDE650010FD04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0130163620EFDE650010FD04 /* LaunchScreen.storyboard */; };
 		0130163B20EFDE650010FD04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0130163A20EFDE650010FD04 /* main.m */; };
-		016BBD9020FFFEA9006FFFD8 /* UserFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = 016BBD8F20FFFEA9006FFFD8 /* UserFriends.m */; };
+		016BBD9020FFFEA9006FFFD8 /* Relationships.m in Sources */ = {isa = PBXBuildFile; fileRef = 016BBD8F20FFFEA9006FFFD8 /* Relationships.m */; };
 		016BBD9221000962006FFFD8 /* UserTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 016BBD9121000962006FFFD8 /* UserTest.storyboard */; };
 		016BBD9521000994006FFFD8 /* UserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 016BBD9421000994006FFFD8 /* UserTest.m */; };
 		018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */; };
 		018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */; };
 		018E6A9D20FEBA6E00DE10A6 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */; };
 		018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6AA020FEBAD100DE10A6 /* ListViewCell.m */; };
+		01C12B6021013CD700580859 /* UserTestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C12B5F21013CD700580859 /* UserTestCell.m */; };
 		1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF220FD2A740072BEFB /* LoginViewController.m */; };
 		1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */; };
 		1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D8A6F20FFB3C100F31851 /* SearchCell.m */; };
@@ -45,8 +46,8 @@
 		0130163720EFDE650010FD04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0130163920EFDE650010FD04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0130163A20EFDE650010FD04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		016BBD8E20FFFEA9006FFFD8 /* UserFriends.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFriends.h; sourceTree = "<group>"; };
-		016BBD8F20FFFEA9006FFFD8 /* UserFriends.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFriends.m; sourceTree = "<group>"; };
+		016BBD8E20FFFEA9006FFFD8 /* Relationships.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Relationships.h; sourceTree = "<group>"; };
+		016BBD8F20FFFEA9006FFFD8 /* Relationships.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Relationships.m; sourceTree = "<group>"; };
 		016BBD9121000962006FFFD8 /* UserTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserTest.storyboard; sourceTree = "<group>"; };
 		016BBD9321000994006FFFD8 /* UserTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserTest.h; sourceTree = "<group>"; };
 		016BBD9421000994006FFFD8 /* UserTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserTest.m; sourceTree = "<group>"; };
@@ -57,6 +58,8 @@
 		018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		018E6A9F20FEBAD100DE10A6 /* ListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListViewCell.h; sourceTree = "<group>"; };
 		018E6AA020FEBAD100DE10A6 /* ListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListViewCell.m; sourceTree = "<group>"; };
+		01C12B5E21013CD700580859 /* UserTestCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserTestCell.h; sourceTree = "<group>"; };
+		01C12B5F21013CD700580859 /* UserTestCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserTestCell.m; sourceTree = "<group>"; };
 		0669C073917F375AFFBB6F32 /* libPods-social-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-social-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C2C0BF120FD2A740072BEFB /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1C2C0BF220FD2A740072BEFB /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				018E6AA020FEBAD100DE10A6 /* ListViewCell.m */,
 				1C2D8A6E20FFB3C100F31851 /* SearchCell.h */,
 				1C2D8A6F20FFB3C100F31851 /* SearchCell.m */,
+				01C12B5E21013CD700580859 /* UserTestCell.h */,
+				01C12B5F21013CD700580859 /* UserTestCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -199,8 +204,8 @@
 				9EF4E3C720FD230F005535C6 /* Place.m */,
 				1C2C0BF420FD2CC00072BEFB /* PFUser+ExtendedUser.h */,
 				1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */,
-				016BBD8E20FFFEA9006FFFD8 /* UserFriends.h */,
-				016BBD8F20FFFEA9006FFFD8 /* UserFriends.m */,
+				016BBD8E20FFFEA9006FFFD8 /* Relationships.h */,
+				016BBD8F20FFFEA9006FFFD8 /* Relationships.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -354,8 +359,9 @@
 				018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */,
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
-				016BBD9020FFFEA9006FFFD8 /* UserFriends.m in Sources */,
+				016BBD9020FFFEA9006FFFD8 /* Relationships.m in Sources */,
 				1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */,
+				01C12B6021013CD700580859 /* UserTestCell.m in Sources */,
 				9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */,
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
 				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
