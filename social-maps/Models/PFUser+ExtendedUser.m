@@ -100,7 +100,8 @@
                [self setObject:self.wishlist forKey:@"wishlist"];
                [self saveInBackground];
            }
-     ];}
+     ];
+}
 
 - (void)retrieveFavoritesWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion {
     NSMutableArray<GMSPlace*>* places = [NSMutableArray new];

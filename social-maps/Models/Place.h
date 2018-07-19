@@ -15,6 +15,6 @@
 
 - (nonnull instancetype)initWithGMSPlace:(nonnull GMSPlace*)place;
 
-+ (void)checkGMSPlaceExists:(GMSPlace*)place result:(void(^)(Place*))result;
++ (void)checkGMSPlaceExists:(nonnull GMSPlace*)place result:(void(^_Nonnull)(Place* _Nonnull))result;
 @end
 
