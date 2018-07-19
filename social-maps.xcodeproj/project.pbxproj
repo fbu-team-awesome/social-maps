@@ -26,6 +26,7 @@
 		340E6CCEA9D6E4EE79FB3144 /* libPods-social-maps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0669C073917F375AFFBB6F32 /* libPods-social-maps.a */; };
 		9E4D281C20FEBE090069CBF2 /* SignUpView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */; };
 		9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */; };
+		9E6755E221011B1A0056D009 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6755E121011B1A0056D009 /* Helper.m */; };
 		9EF4E3C820FD230F005535C6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3C720FD230F005535C6 /* Place.m */; };
 		9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D120FD2AED005535C6 /* APIManager.m */; };
 		9EF4E3D420FE66C6005535C6 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D320FE66C6005535C6 /* Profile.storyboard */; };
@@ -65,6 +66,8 @@
 		9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUpView.storyboard; sourceTree = "<group>"; };
 		9E4D281D20FEBE120069CBF2 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		9E6755E021011B1A0056D009 /* Helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
+		9E6755E121011B1A0056D009 /* Helper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		9EF4E3C620FD230F005535C6 /* Place.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		9EF4E3C720FD230F005535C6 /* Place.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		9EF4E3D020FD2AED005535C6 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
@@ -118,6 +121,8 @@
 				0130163420EFDE650010FD04 /* Assets.xcassets */,
 				0130163920EFDE650010FD04 /* Info.plist */,
 				0130163A20EFDE650010FD04 /* main.m */,
+				9E6755E021011B1A0056D009 /* Helper.h */,
+				9E6755E121011B1A0056D009 /* Helper.m */,
 			);
 			path = "social-maps";
 			sourceTree = "<group>";
@@ -329,6 +334,7 @@
 				9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */,
 				9EF4E3D720FE6D95005535C6 /* ProfileViewController.m in Sources */,
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
+				9E6755E221011B1A0056D009 /* Helper.m in Sources */,
 				0130162D20EFDE620010FD04 /* AppDelegate.m in Sources */,
 				018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */,
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
