@@ -170,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553728530.672997"
+            timestampString = "553729100.583491"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "188"
@@ -186,7 +186,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553728530.673375"
+            timestampString = "553729100.583908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "186"
@@ -266,7 +266,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553728530.673707"
+            timestampString = "553729100.584278"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
@@ -282,7 +282,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553728530.673979"
+            timestampString = "553729100.584567"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "127"
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/Models/PFUser+ExtendedUser.m"
-            timestampString = "553728530.674251"
+            timestampString = "553729100.5848579"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "-retrieveFavoritesWithCompletion:"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/Models/PFUser+ExtendedUser.m"
-            timestampString = "553728530.6743129"
+            timestampString = "553729100.5851671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "-retrieveFavoritesWithCompletion:"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/Models/PFUser+ExtendedUser.m"
-            timestampString = "553728530.674369"
+            timestampString = "553729100.58543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "-retrieveFavoritesWithCompletion:"
             landmarkType = "7">
          </BreakpointContent>
@@ -346,7 +346,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553728530.674423"
+            timestampString = "553729100.585686"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "147"
@@ -362,7 +362,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553728530.67469"
+            timestampString = "553729100.585973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "150"
@@ -394,11 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/Models/PFUser+ExtendedUser.m"
-            timestampString = "553728530.674976"
+            timestampString = "553729100.586279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146">
+            startingLineNumber = "134"
+            endingLineNumber = "134">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -408,11 +408,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/Models/PFUser+ExtendedUser.m"
-            timestampString = "553728530.675036"
+            timestampString = "553729100.586527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146">
+            startingLineNumber = "134"
+            endingLineNumber = "134">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -422,11 +422,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/Models/PFUser+ExtendedUser.m"
-            timestampString = "553728530.67509"
+            timestampString = "553729100.586762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146">
+            startingLineNumber = "134"
+            endingLineNumber = "134">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -436,7 +436,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553728530.675144"
+            timestampString = "553729100.586996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "157"
@@ -452,11 +452,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/Models/PFUser+ExtendedUser.m"
-            timestampString = "553728530.675408"
+            timestampString = "553729100.587279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "PFUser(ExtendedUser)"
             landmarkType = "3">
          </BreakpointContent>
@@ -468,11 +468,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/Models/PFUser+ExtendedUser.m"
-            timestampString = "553728530.675465"
+            timestampString = "553729100.58753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "-retrieveFavoritesWithCompletion:"
             landmarkType = "7">
             <Locations>
@@ -516,11 +516,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/Models/PFUser+ExtendedUser.m"
-            timestampString = "553728530.675521"
+            timestampString = "553729100.587779"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "-retrieveFavoritesWithCompletion:"
             landmarkType = "7">
          </BreakpointContent>
@@ -532,11 +532,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/Models/PFUser+ExtendedUser.m"
-            timestampString = "553728530.675573"
+            timestampString = "553729100.588112"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "-removeFavorite:"
             landmarkType = "7">
          </BreakpointContent>
@@ -548,7 +548,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/Models/Place.m"
-            timestampString = "553723433.486028"
+            timestampString = "553729100.588403"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "25"
@@ -564,7 +564,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "social-maps/View Controllers/ProfileViewController.m"
-            timestampString = "553728530.675644"
+            timestampString = "553729100.588456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "192"
