@@ -34,19 +34,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oGd-nI-D6C">
-                                <rect key="frame" x="0.0" y="65" width="375" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Favorites"/>
-                                    <segment title="Wishlist"/>
-                                </segments>
-                                <connections>
-                                    <action selector="listController:" destination="sat-FN-Bp2" eventType="valueChanged" id="JO1-Vt-YVz"/>
-                                </connections>
-                            </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uea-R0-5cv">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tPE-SK-dLL">
-                                <rect key="frame" x="0.0" y="101" width="375" height="566"/>
+                                <rect key="frame" x="0.0" y="279" width="375" height="388"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -74,12 +67,19 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="uea-R0-5cv" firstAttribute="top" secondItem="iro-Pc-J5s" secondAttribute="top" id="CrJ-0b-9g1"/>
+                            <constraint firstItem="uea-R0-5cv" firstAttribute="trailing" secondItem="iro-Pc-J5s" secondAttribute="trailing" id="e5C-Jb-eXH"/>
+                            <constraint firstItem="uea-R0-5cv" firstAttribute="bottom" secondItem="iro-Pc-J5s" secondAttribute="bottom" id="iXY-Rq-pA8"/>
+                            <constraint firstItem="uea-R0-5cv" firstAttribute="leading" secondItem="iro-Pc-J5s" secondAttribute="leading" id="vxk-OL-W9d"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="iro-Pc-J5s"/>
                     </view>
                     <navigationItem key="navigationItem" id="Trk-SH-CsI"/>
                     <connections>
-                        <outlet property="listSelector" destination="oGd-nI-D6C" id="FgF-iF-9Ee"/>
+                        <outlet property="backdropView" destination="uea-R0-5cv" id="Thd-YB-Cof"/>
                         <outlet property="tableView" destination="tPE-SK-dLL" id="GYP-cn-ibY"/>
+                        <outlet property="view" destination="uea-R0-5cv" id="cO6-vy-Kpn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KbE-Vq-pqN" userLabel="First Responder" sceneMemberID="firstResponder"/>

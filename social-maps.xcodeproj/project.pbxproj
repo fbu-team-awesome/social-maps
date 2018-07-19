@@ -12,6 +12,9 @@
 		0130163520EFDE650010FD04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0130163420EFDE650010FD04 /* Assets.xcassets */; };
 		0130163820EFDE650010FD04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0130163620EFDE650010FD04 /* LaunchScreen.storyboard */; };
 		0130163B20EFDE650010FD04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0130163A20EFDE650010FD04 /* main.m */; };
+		016BBD9020FFFEA9006FFFD8 /* UserFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = 016BBD8F20FFFEA9006FFFD8 /* UserFriends.m */; };
+		016BBD9221000962006FFFD8 /* UserTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 016BBD9121000962006FFFD8 /* UserTest.storyboard */; };
+		016BBD9521000994006FFFD8 /* UserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 016BBD9421000994006FFFD8 /* UserTest.m */; };
 		018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */; };
 		018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */; };
 		018E6A9D20FEBA6E00DE10A6 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */; };
@@ -27,6 +30,7 @@
 		9E4D281C20FEBE090069CBF2 /* SignUpView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */; };
 		9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */; };
 		9E6755E221011B1A0056D009 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6755E121011B1A0056D009 /* Helper.m */; };
+		9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6755E421012DF10056D009 /* ProfileListCell.m */; };
 		9EF4E3C820FD230F005535C6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3C720FD230F005535C6 /* Place.m */; };
 		9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D120FD2AED005535C6 /* APIManager.m */; };
 		9EF4E3D420FE66C6005535C6 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D320FE66C6005535C6 /* Profile.storyboard */; };
@@ -42,6 +46,11 @@
 		0130163720EFDE650010FD04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0130163920EFDE650010FD04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0130163A20EFDE650010FD04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		016BBD8E20FFFEA9006FFFD8 /* UserFriends.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFriends.h; sourceTree = "<group>"; };
+		016BBD8F20FFFEA9006FFFD8 /* UserFriends.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFriends.m; sourceTree = "<group>"; };
+		016BBD9121000962006FFFD8 /* UserTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserTest.storyboard; sourceTree = "<group>"; };
+		016BBD9321000994006FFFD8 /* UserTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserTest.h; sourceTree = "<group>"; };
+		016BBD9421000994006FFFD8 /* UserTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserTest.m; sourceTree = "<group>"; };
 		018E6A8720FD9AD000DE10A6 /* SearchResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
 		018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
 		018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ResultsView.storyboard; sourceTree = "<group>"; };
@@ -68,6 +77,8 @@
 		9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		9E6755E021011B1A0056D009 /* Helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		9E6755E121011B1A0056D009 /* Helper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
+		9E6755E321012DF10056D009 /* ProfileListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileListCell.h; sourceTree = "<group>"; };
+		9E6755E421012DF10056D009 /* ProfileListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileListCell.m; sourceTree = "<group>"; };
 		9EF4E3C620FD230F005535C6 /* Place.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		9EF4E3C720FD230F005535C6 /* Place.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		9EF4E3D020FD2AED005535C6 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
@@ -137,6 +148,7 @@
 				1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */,
 				0130163620EFDE650010FD04 /* LaunchScreen.storyboard */,
 				9EF4E3D320FE66C6005535C6 /* Profile.storyboard */,
+				016BBD9121000962006FFFD8 /* UserTest.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -148,6 +160,8 @@
 				018E6AA020FEBAD100DE10A6 /* ListViewCell.m */,
 				1C2D8A6E20FFB3C100F31851 /* SearchCell.h */,
 				1C2D8A6F20FFB3C100F31851 /* SearchCell.m */,
+				9E6755E321012DF10056D009 /* ProfileListCell.h */,
+				9E6755E421012DF10056D009 /* ProfileListCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -169,6 +183,8 @@
 				018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */,
 				1C2D8A7120FFC0E000F31851 /* ResultsTableViewController.h */,
 				1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */,
+				016BBD9321000994006FFFD8 /* UserTest.h */,
+				016BBD9421000994006FFFD8 /* UserTest.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -188,6 +204,8 @@
 				9EF4E3C720FD230F005535C6 /* Place.m */,
 				1C2C0BF420FD2CC00072BEFB /* PFUser+ExtendedUser.h */,
 				1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */,
+				016BBD8E20FFFEA9006FFFD8 /* UserFriends.h */,
+				016BBD8F20FFFEA9006FFFD8 /* UserFriends.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -269,6 +287,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				016BBD9221000962006FFFD8 /* UserTest.storyboard in Resources */,
 				0130163820EFDE650010FD04 /* LaunchScreen.storyboard in Resources */,
 				0130163520EFDE650010FD04 /* Assets.xcassets in Resources */,
 				9EF4E3D420FE66C6005535C6 /* Profile.storyboard in Resources */,
@@ -334,11 +353,14 @@
 				9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */,
 				9EF4E3D720FE6D95005535C6 /* ProfileViewController.m in Sources */,
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
+				016BBD9521000994006FFFD8 /* UserTest.m in Sources */,
 				9E6755E221011B1A0056D009 /* Helper.m in Sources */,
 				0130162D20EFDE620010FD04 /* AppDelegate.m in Sources */,
 				018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */,
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
+				9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */,
+				016BBD9020FFFEA9006FFFD8 /* UserFriends.m in Sources */,
 				1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */,
 				9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */,
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
