@@ -12,8 +12,8 @@
 #import "ProfileViewController.h"
 #import "DetailsViewController.h"
 #import <Parse/Parse.h>
-#import "PFUser+ExtendedUser.h"
 #import "AppDelegate.h"
+#import "Helper.h"
 
 @interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate>
 // Outlet Definitions //
@@ -24,10 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *friendsButton;
 @property (weak, nonatomic) IBOutlet UILabel *hometownLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
-
 @property (weak, nonatomic) IBOutlet UIView *profilePictureView;
 @property (weak, nonatomic) IBOutlet UIView *myPlacesView;
-
 
 // Instance Properties //
 @property (strong, nonatomic) CLLocationManager* locationManager;
@@ -36,13 +34,7 @@
 @property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
 @property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, GMSPlace*>* markers;
-
-
-// TEMPORARY
-@property (weak, nonatomic) IBOutlet UITextField *favoriteID;
-@property (weak, nonatomic) IBOutlet UITextField *wishlistID;
-// ENDTEMPORARY
-
+@property (strong, nonatomic) PFUser* user;
 @end
 
 @implementation ProfileViewController
@@ -50,6 +42,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // if we have no user, then it is the current user
+    if(self.user == nil)
+    {
+        self.user = [PFUser currentUser];
+    }
+    
     // init our location
     self.locationManager = [CLLocationManager new];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -70,7 +68,19 @@
     self.markers = [NSMutableDictionary new];
     [self retrieveUserPlaces];
     
+    // update UI with user info
+    self.displayNameLabel.text = self.user.displayName;
+    self.handleLabel.text = [NSString stringWithFormat:@"@%@", self.user.username];
+    self.hometownLabel.text = self.user.hometown;
+    self.bioLabel.text = self.user.bio;
+    [Helper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
+    
+    // set cool UI
     [self makeUILookGood];
+}
+
+- (void)setUser:(PFUser*)user {
+    _user = user;
 }
 
 - (void)makeUILookGood {
@@ -97,13 +107,11 @@
 }
 
 - (void)retrieveUserPlaces {
-    PFUser* user = [PFUser currentUser];
-    
     // clear map first
     [self.mapView clear];
     
     // retrieve favorites
-    [user retrieveFavoritesWithCompletion:
+    [self.user retrieveFavoritesWithCompletion:
           ^(NSArray<GMSPlace*>* places)
           {
               self.favorites = places;
@@ -112,7 +120,7 @@
      ];
     
     // retrieve wishlist
-    [user retrieveWishlistWithCompletion:
+    [self.user retrieveWishlistWithCompletion:
           ^(NSArray<GMSPlace*>* places)
           {
               self.wishlist = places;
@@ -185,54 +193,4 @@
     UIViewController* viewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
     delegate.window.rootViewController = viewController;
 }
-
-// TEMPORARY
-- (IBAction)favClicked:(id)sender {
-    PFUser* user = [PFUser currentUser];
-    [[APIManager shared] GMSPlaceFromID:self.favoriteID.text
-                         withCompletion:^(GMSPlace *place)
-                         {
-                             [user addFavorite:place];
-                         }
-     ];
-    
-    [self retrieveUserPlaces];
-}
-
-- (IBAction)wishlistClicked:(id)sender {
-    PFUser* user = [PFUser currentUser];
-    [[APIManager shared] GMSPlaceFromID:self.wishlistID.text
-                         withCompletion:^(GMSPlace *place)
-                         {
-                             [user addToWishlist:place];
-                         }
-     ];
-    
-    [self retrieveUserPlaces];
-}
-
-- (IBAction)favRemoveClicked:(id)sender {
-    PFUser* user = [PFUser currentUser];
-    [[APIManager shared] GMSPlaceFromID:self.favoriteID.text
-                         withCompletion:^(GMSPlace *place)
-                         {
-                             [user removeFavorite:place];
-                         }
-     ];
-    
-    [self retrieveUserPlaces];
-}
-
-- (IBAction)wishlistRemoveClicked:(id)sender {
-    PFUser* user = [PFUser currentUser];
-    [[APIManager shared] GMSPlaceFromID:self.wishlistID.text
-                         withCompletion:^(GMSPlace *place)
-                         {
-                             [user removeFromWishlist:place];
-                         }
-     ];
-    
-    [self retrieveUserPlaces];
-}
-//ENDTEMPORARY
 @end

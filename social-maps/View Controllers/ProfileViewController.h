@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PFUser+ExtendedUser.h"
 
 @interface ProfileViewController : UIViewController
-
+// Instance Methods //
+- (void)setUser:(PFUser*)user;
 @end

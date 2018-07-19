@@ -9,8 +9,9 @@
 #import <Parse/Parse.h>
 #import "PFUser+ExtendedUser.h"
 #import "SignUpViewController.h"
+#import "Helper.h"
 
-@interface SignUpViewController ()
+@interface SignUpViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 // Outlet Definitions //
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *hometownField;
 @property (weak, nonatomic) IBOutlet UITextField *bioField;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet UIView *profilePictureView;
 
 @end
 
@@ -29,16 +31,17 @@
     
     self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
     self.profileImage.clipsToBounds = YES;
-    self.profileImage.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.profileImage.layer.shadowOffset = CGSizeZero;
-    self.profileImage.layer.shadowRadius = 5;
-    self.profileImage.layer.shadowOpacity = 0.2;
-    self.profileImage.layer.masksToBounds = NO;
+    self.profilePictureView.layer.cornerRadius = self.profilePictureView.frame.size.width / 2;
+    self.profilePictureView.clipsToBounds = YES;
+    self.profilePictureView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.profilePictureView.layer.shadowOffset = CGSizeZero;
+    self.profilePictureView.layer.shadowRadius = 5;
+    self.profilePictureView.layer.shadowOpacity = 0.2;
+    self.profilePictureView.layer.masksToBounds = NO;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 
 - (IBAction)confirmClicked:(id)sender {
@@ -52,7 +55,7 @@
     // validate text fields
     if([username length] <= 0 || [password length] <= 0 || [displayName length] <= 0 || [hometown length] <= 0 || [bio length] <= 0 || [email length] <= 0)
     {
-        [self showAlertWithTitle:@"Sign Up Error" message:@"Please fill all the fields."];
+        [Helper showAlertWithTitle:@"Sign Up Error" message:@"Please fill all the fields." sender:self];
         return;
     }
     
@@ -61,6 +64,7 @@
     newUser.username = self.usernameField.text;
     newUser.password = self.passwordField.text;
     newUser.email = email;
+    newUser.profilePicture = [Helper getPFFileFromImage:self.profileImage.image];
     newUser.displayName = displayName;
     newUser.hometown = hometown;
     newUser.bio = bio;
@@ -81,10 +85,13 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)showAlertWithTitle:(NSString*)title message:(NSString*)message {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-    [alert addAction:ok];
-    [self presentViewController:alert animated:YES completion:nil];
+- (IBAction)profilePictureClicked:(id)sender {
+    [Helper showPhotoAlertFrom:self];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage* image = info[UIImagePickerControllerEditedImage];
+    self.profileImage.image = image;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end
