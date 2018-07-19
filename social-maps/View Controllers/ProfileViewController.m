@@ -13,6 +13,7 @@
 #import "DetailsViewController.h"
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
+#import "Helper.h"
 
 @interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate>
 // Outlet Definitions //
@@ -72,8 +73,7 @@
     self.handleLabel.text = [NSString stringWithFormat:@"@%@", self.user.username];
     self.hometownLabel.text = self.user.hometown;
     self.bioLabel.text = self.user.bio;
-    
-    // TODO PROFILE PICTURE
+    [Helper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
     
     // set cool UI
     [self makeUILookGood];

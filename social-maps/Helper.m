@@ -16,7 +16,7 @@
     [sender presentViewController:alert animated:YES completion:nil];
 }
 
-+ (void)showPhotoAlert:(UIViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate>*)sender {
++ (void)showPhotoAlertFrom:(UIViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate>*)sender {
     UIImagePickerController* picker = [UIImagePickerController new];
     picker.delegate = sender;
     picker.allowsEditing = YES;

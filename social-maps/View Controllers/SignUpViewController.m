@@ -42,7 +42,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 
 - (IBAction)confirmClicked:(id)sender {
@@ -65,6 +64,7 @@
     newUser.username = self.usernameField.text;
     newUser.password = self.passwordField.text;
     newUser.email = email;
+    newUser.profilePicture = [Helper getPFFileFromImage:self.profileImage.image];
     newUser.displayName = displayName;
     newUser.hometown = hometown;
     newUser.bio = bio;
@@ -86,7 +86,7 @@
 }
 
 - (IBAction)profilePictureClicked:(id)sender {
-    [Helper showPhotoAlert:self];
+    [Helper showPhotoAlertFrom:self];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
