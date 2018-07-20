@@ -15,6 +15,9 @@
 }
 
 -(void)configureCell {
+    self.nameLabel.text = self.place.name;
+    self.addressLabel.text = self.place.formattedAddress;
+    
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
