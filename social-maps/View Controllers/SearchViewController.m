@@ -114,9 +114,9 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.segmentIndex == 0) {
-        return self.places.count;
+        return 1;
     }
-    return self.users.count;
+    return 1;
 }
 
 
