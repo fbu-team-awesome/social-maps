@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface RelationshipsViewController : UIViewController
-
+- (void)setUsers:(NSArray<PFUser*>*)users;
 @end

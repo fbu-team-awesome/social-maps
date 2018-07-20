@@ -68,20 +68,20 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
     
     // send request for place using ID
     [placesClient lookUpPlaceID:placeID
-                       callback:^(GMSPlace * _Nullable result, NSError * _Nullable error)
-     {
-         if(error == nil)
-         {
-             if(result != nil)
-             {
-                 completion(result);
-             }
-         }
-         else
-         {
-             NSLog(@"Error looking up place with ID '%@':%@", placeID, error.localizedDescription);
-         }
-     }
+                  callback:^(GMSPlace * _Nullable result, NSError * _Nullable error)
+                  {
+                      if(error == nil)
+                      {
+                          if(result != nil)
+                          {
+                              completion(result);
+                          }
+                      }
+                      else
+                      {
+                          NSLog(@"Error looking up place with ID '%@':%@", placeID, error.localizedDescription);
+                      }
+                  }
      ];
 }
 

@@ -10,12 +10,12 @@
 #import "ListViewCell.h"
 #import "PFUser+ExtendedUser.h"
 #import "HMSegmentedControl.h"
+#import "ProfileListCell.h"
 
 @interface ListViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (weak, nonatomic) IBOutlet UIView *backdropView;
 @property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
 @property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 @property (assign, nonatomic) long segmentIndex;
@@ -30,7 +30,7 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
+    [self.tableView setRowHeight:91];
     [self setSegmentControlView];
     [self retrieveCurrentUserData];
 }
@@ -51,6 +51,12 @@
 }
 
 - (void)setSegmentControlView {
+    // hide nav bar
+    [self.navigationController setNavigationBarHidden:YES];
+    
+    // get status bar height
+    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+    CGFloat statusBarHeight = statusBarFrame.size.height;
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
@@ -59,7 +65,7 @@
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Favorites", @"Wishlist"]];
     
     // Customize appearance
-    [segmentedControl setFrame:CGRectMake(0, 0, width, 60)];
+    [segmentedControl setFrame:CGRectMake(0, statusBarHeight, width, 60)];
     segmentedControl.selectionIndicatorHeight = 4.0f;
     segmentedControl.backgroundColor = [UIColor colorWithRed:1.00 green:0.92 blue:0.87 alpha:1.0];
     segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:1.00 green:0.60 blue:0.47 alpha:1.0]};
@@ -67,11 +73,9 @@
     segmentedControl.selectionIndicatorBoxColor = [UIColor colorWithRed:1.00 green:0.92 blue:0.87 alpha:1.0];
     segmentedControl.selectionIndicatorBoxOpacity = 1.0;
     segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleBox;
-    // segmentedControl.selectedSegmentIndex = HMSegmentedControlNoSegment;
     segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl.shouldAnimateUserSelection = YES;
-    // segmentedControl3.tag = 2;
-    [self.backdropView addSubview:segmentedControl];
+    [self.view addSubview:segmentedControl];
     
     // Called when user changes selection
     [segmentedControl setIndexChangeBlock:^(NSInteger index) {
@@ -81,21 +85,18 @@
         [self.tableView reloadData];
     }];
     
-    /*
-    NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:segmentedControl attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0f constant:0.f];
-    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:segmentedControl attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0f constant:0.f];
-    NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:segmentedControl attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.tableView attribute:NSLayoutAttributeTop multiplier:1.0f constant:0.f];
-    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:segmentedControl attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0f constant:0.f];
+    CGRect tableViewFrame = self.tableView.frame;
+    tableViewFrame.origin.y = statusBarHeight + 60;
+    self.tableView.frame = tableViewFrame;
+    // set tableview constraints in respect to segmented control
+    //self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor].active = YES;
+//    [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor].active = YES;
+//    [self.tableView.topAnchor constraintEqualToAnchor:segmentedControl.bottomAnchor].active = YES;
     
-    [self.view addConstraint: trailing];
-    [self.view addConstraint: leading];
-    [self.view addConstraint: top];
-    [self.view addConstraint:bottom];
-     */
 }
 
 - (void)initializeConstraints {
-    
     
 }
 
@@ -113,14 +114,13 @@
  */
 
  - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-     
-     ListViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ListViewCell" forIndexPath:indexPath];
+     ProfileListCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ProfileListCell" forIndexPath:indexPath];
      
      if (self.segmentIndex == 0) {
-         cell.place = self.favorites[indexPath.row];
+         [cell setPlace:self.favorites[indexPath.row]];
      }
      else {
-         cell.place = self.wishlist[indexPath.row];
+         [cell setPlace:self.wishlist[indexPath.row]];
      }
      return cell;
  }
