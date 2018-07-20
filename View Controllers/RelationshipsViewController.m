@@ -35,6 +35,7 @@
 
 - (void)setUsers:(NSArray<PFUser*>*)users {
     _users = users;
+    [self.tableView reloadData];
 }
 /*
 #pragma mark - Navigation

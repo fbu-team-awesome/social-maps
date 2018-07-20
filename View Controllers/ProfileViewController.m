@@ -16,6 +16,7 @@
 #import "ParseImageHelper.h"
 #import "ProfileListCell.h"
 #import "RelationshipsViewController.h"
+#import "Relationships.h"
 
 @interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
@@ -211,12 +212,22 @@
     else if([segue.identifier isEqualToString:@"followersSegue"])
     {
         RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
-        // vc setUsers
+        [Relationships retrieveFollowersWithId:self.user.relationships.objectId 
+                       WithCompletion:^(NSArray *following)
+                       {
+                           [vc setUsers:following];
+                       }
+         ];
     }
     else if([segue.identifier isEqualToString:@"followingSegue"])
     {
         RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
-        // vc setUsers
+        [Relationships retrieveFollowingWithId:self.user.relationships.objectId
+                       WithCompletion:^(NSArray *followers)
+                       {
+                           [vc setUsers:followers];
+                       }
+         ];
     }
 }
 
