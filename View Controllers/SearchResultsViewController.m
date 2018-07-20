@@ -68,6 +68,7 @@
     
     self.markers = [NSMutableDictionary new];
     [self retrieveUserPlaces];
+    [self retrievePlacesOfUsersFollowing];
 }
 
 - (void)initSearch {
@@ -87,10 +88,28 @@
     
 }
 
-- (void)addMarkers {
+- (void)retrievePlacesOfUsersFollowing {
     
-}
+    // get the Relationships of the current user
+    [PFUser.currentUser retrieveRelationshipWithCompletion:^(Relationships *relationships) {
+        
+        // get array of users that current user is following
+        [Relationships retrieveFollowingWithId:relationships.objectId WithCompletion:^(NSArray *following) {
+            
+            for (PFUser *user in following) {
 
+                // get the favorites of each user
+                [user retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
+                    
+                    // add each place to map
+                    for (GMSPlace *place in places) {
+                        [self addFavoriteOfFollowingPin:place];
+                    }
+                }];
+            }
+        }];
+    }];
+}
 
 - (void)retrieveUserPlaces {
     // clear map first
@@ -217,6 +236,18 @@
         
         // add the key to our dictionary
     self.markers[marker.title] = place;
+}
+
+- (void)addFavoriteOfFollowingPin:(GMSPlace *)place {
+    
+    GMSMarker *marker = [GMSMarker markerWithPosition:place.coordinate];
+    marker.title = place.name;
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.map = self.mapView;
+    marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
+    
+    self.markers[marker.title] = place;
+    
 }
 
 - (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
