@@ -108,13 +108,16 @@
                                                     <rect key="frame" x="16" y="16" width="298" height="99.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qG7-df-OFj">
-                                                            <rect key="frame" x="0.0" y="0.0" width="49" height="71"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="49" height="32"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="32" id="TIa-6z-yHE"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
                                                             <color key="textColor" red="0.90176779029999998" green="0.48428686360000001" blue="0.43365618989999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="1234 Address St San Francsico CA " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tw-1j-HJD">
-                                                            <rect key="frame" x="0.0" y="79" width="269.5" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="40" width="269.5" height="59.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.67450980390000004" green="0.72156862749999995" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>

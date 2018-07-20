@@ -20,8 +20,6 @@
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) ResultsTableViewController <UISearchResultsUpdating>* resultsViewController;
 @property (strong, nonatomic) UISearchController *searchController;
-@property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
-@property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, GMSPlace*>* markers;
 
 @end
@@ -33,10 +31,12 @@
 - (void)viewDidLoad {
     self.definesPresentationContext = true;
     
+    //add notification listener for adding to favorites
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(addToFavorites:)
                                                  name:@"AddFavoriteNotification"
                                                object:nil];
+    // add notification listener for adding to wishlist
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(addToWishlist:)
                                                  name:@"AddToWishlistNotification"
@@ -85,23 +85,6 @@
     
     _searchController.hidesNavigationBarDuringPresentation = NO;
     
-    
-    /*
-    _resultsViewController = [[GMSAutocompleteResultsViewController alloc] init];
-    _resultsViewController.delegate = self;
-    
-    _searchController = [[UISearchController alloc]
-                         initWithSearchResultsController:_resultsViewController];
-    _searchController.searchResultsUpdater = _resultsViewController;
-    
-    // Adds search bar to top of view
-    [_searchController.searchBar sizeToFit];
-    self.navigationItem.titleView = _searchController.searchBar;
-    
-    self.definesPresentationContext = YES;
-    
-    _searchController.hidesNavigationBarDuringPresentation = NO;
-     */
 }
 
 - (void)addMarkers {
@@ -142,30 +125,7 @@
     self.mapView.camera = camera;
     [self.mapView animateToCameraPosition:camera];
 }
-/*
-// Handle the user's selection.
-- (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController
- didAutocompleteWithPlace:(GMSPlace *)place {
-}
 
-- (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController
-didFailAutocompleteWithError:(NSError *)error {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    // TODO: handle the error.
-    NSLog(@"Error: %@", [error description]);
-}
-
-// Turn the network activity indicator on and off again.
-- (void)didRequestAutocompletePredictionsForResultsController:
-(GMSAutocompleteResultsViewController *)resultsController {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-}
-
-- (void)didUpdateAutocompletePredictionsForResultsController:
-(GMSAutocompleteResultsViewController *)resultsController {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-}
-*/
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

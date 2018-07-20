@@ -27,6 +27,10 @@
 		1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948920FD4CBE00E4D630 /* ListView.storyboard */; };
 		1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */; };
 		1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */; };
+		1CE59D2421014174000F2DE0 /* SearchPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CE59D2321014174000F2DE0 /* SearchPage.storyboard */; };
+		1CE59D272101448D000F2DE0 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CE59D262101448D000F2DE0 /* SearchViewController.m */; };
+		1CE59D2F21015BC0000F2DE0 /* PlaceResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CE59D2E21015BC0000F2DE0 /* PlaceResultCell.m */; };
+		1CE59D3221015BD2000F2DE0 /* UserResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CE59D3121015BD2000F2DE0 /* UserResultCell.m */; };
 		340E6CCEA9D6E4EE79FB3144 /* libPods-social-maps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0669C073917F375AFFBB6F32 /* libPods-social-maps.a */; };
 		9E4D281C20FEBE090069CBF2 /* SignUpView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */; };
 		9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */; };
@@ -74,6 +78,13 @@
 		1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailsView.storyboard; sourceTree = "<group>"; };
 		1C6D948D20FE59FE00E4D630 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		1CE59D2321014174000F2DE0 /* SearchPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchPage.storyboard; sourceTree = "<group>"; };
+		1CE59D252101448D000F2DE0 /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		1CE59D262101448D000F2DE0 /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		1CE59D2D21015BC0000F2DE0 /* PlaceResultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceResultCell.h; sourceTree = "<group>"; };
+		1CE59D2E21015BC0000F2DE0 /* PlaceResultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceResultCell.m; sourceTree = "<group>"; };
+		1CE59D3021015BD2000F2DE0 /* UserResultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserResultCell.h; sourceTree = "<group>"; };
+		1CE59D3121015BD2000F2DE0 /* UserResultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserResultCell.m; sourceTree = "<group>"; };
 		24E9E450AD670C53941D8527 /* Pods-social-maps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-social-maps.release.xcconfig"; path = "Pods/Target Support Files/Pods-social-maps/Pods-social-maps.release.xcconfig"; sourceTree = "<group>"; };
 		9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUpView.storyboard; sourceTree = "<group>"; };
 		9E4D281D20FEBE120069CBF2 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -152,6 +163,7 @@
 				0130163620EFDE650010FD04 /* LaunchScreen.storyboard */,
 				9EF4E3D320FE66C6005535C6 /* Profile.storyboard */,
 				016BBD9121000962006FFFD8 /* UserTest.storyboard */,
+				1CE59D2321014174000F2DE0 /* SearchPage.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -167,6 +179,10 @@
 				9E6755E421012DF10056D009 /* ProfileListCell.m */,
 				01CA4A24210154CC0032C11F /* UserTestCell.h */,
 				01CA4A25210154CC0032C11F /* UserTestCell.m */,
+				1CE59D2D21015BC0000F2DE0 /* PlaceResultCell.h */,
+				1CE59D2E21015BC0000F2DE0 /* PlaceResultCell.m */,
+				1CE59D3021015BD2000F2DE0 /* UserResultCell.h */,
+				1CE59D3121015BD2000F2DE0 /* UserResultCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -190,6 +206,8 @@
 				1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */,
 				016BBD9321000994006FFFD8 /* UserTest.h */,
 				016BBD9421000994006FFFD8 /* UserTest.m */,
+				1CE59D252101448D000F2DE0 /* SearchViewController.h */,
+				1CE59D262101448D000F2DE0 /* SearchViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -301,6 +319,7 @@
 				9E4D281C20FEBE090069CBF2 /* SignUpView.storyboard in Resources */,
 				1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */,
 				018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */,
+				1CE59D2421014174000F2DE0 /* SearchPage.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,9 +379,12 @@
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
 				016BBD9521000994006FFFD8 /* UserTest.m in Sources */,
 				9E6755E221011B1A0056D009 /* Helper.m in Sources */,
+				1CE59D272101448D000F2DE0 /* SearchViewController.m in Sources */,
 				0130162D20EFDE620010FD04 /* AppDelegate.m in Sources */,
+				1CE59D2F21015BC0000F2DE0 /* PlaceResultCell.m in Sources */,
 				018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */,
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
+				1CE59D3221015BD2000F2DE0 /* UserResultCell.m in Sources */,
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
 				9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */,
 				1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */,

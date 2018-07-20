@@ -141,7 +141,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4qC-c4-CTg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1816" y="-193"/>
+            <point key="canvasLocation" x="1941" y="-71"/>
         </scene>
         <!--ListView-->
         <scene sceneID="ptW-9f-5Bh">
@@ -161,7 +161,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kyJ-al-HCY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1914" y="239"/>
+            <point key="canvasLocation" x="1906" y="195"/>
+        </scene>
+        <!--SearchPage-->
+        <scene sceneID="De4-ht-oIg">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SearchPage" id="SBn-ws-uWO" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="z2D-6u-VRz"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b1u-Ti-GZh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1981" y="351"/>
         </scene>
         <!--TabBarController-->
         <scene sceneID="ynd-sj-bTy">
@@ -178,6 +188,7 @@
                         <segue destination="Uhz-qu-YxX" kind="relationship" relationship="viewControllers" id="aOG-px-yXh"/>
                         <segue destination="RHe-W1-V7z" kind="relationship" relationship="viewControllers" id="3UM-mw-dw6"/>
                         <segue destination="XJZ-pF-t9S" kind="relationship" relationship="viewControllers" id="YXq-OK-6Om"/>
+                        <segue destination="SBn-ws-uWO" kind="relationship" relationship="viewControllers" id="mto-JN-EkN"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P1K-nL-YRI" userLabel="First Responder" sceneMemberID="firstResponder"/>
