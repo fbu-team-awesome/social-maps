@@ -18,7 +18,7 @@
 
 + (void)retrieveFollowersWithId:(NSString *)objectId WithCompletion: (void (^)(NSArray * followers))completion;
 
-+ (void)retrieveFollowingWithId:(NSString *)objectId WithCompletion: (void (^)(NSArray * followers))completion;
++ (void)retrieveFollowingWithId:(NSString *)objectId WithCompletion: (void (^)(NSArray * following))completion;
 
 - (void)addUserToFollowing:(PFUser*) user;
 
