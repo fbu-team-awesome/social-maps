@@ -22,7 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *displayNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *handleLabel;
-@property (weak, nonatomic) IBOutlet UIButton *friendsButton;
 @property (weak, nonatomic) IBOutlet UILabel *hometownLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (weak, nonatomic) IBOutlet UIView *profilePictureView;
@@ -31,7 +30,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISwitch *placesSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *switchLabel;
-
+@property (weak, nonatomic) IBOutlet UIButton *followersButton;
+@property (weak, nonatomic) IBOutlet UIButton *followingButton;
 
 // Instance Properties //
 @property (strong, nonatomic) CLLocationManager* locationManager;
@@ -98,9 +98,12 @@
     [self makeRoundCorners:self.profilePicture];
     [self makeRoundCorners:self.profilePictureView];
     [self addShadow:self.profilePictureView withOffset:CGSizeZero];
-    self.friendsButton.layer.cornerRadius = 18;
-    self.friendsButton.clipsToBounds = YES;
-    [self addShadow:self.friendsButton withOffset:CGSizeMake(0, 4)];
+    self.followersButton.layer.cornerRadius = self.followersButton.frame.size.height / 2;
+    self.followersButton.clipsToBounds = YES;
+    [self addShadow:self.followersButton withOffset:CGSizeMake(0, 0)];
+    self.followingButton.layer.cornerRadius = self.followingButton.frame.size.height / 2;
+    self.followingButton.clipsToBounds = YES;
+    [self addShadow:self.followingButton withOffset:CGSizeMake(0, 4)];
     [self addShadow:self.myPlacesView withOffset:CGSizeMake(0,6)];
     
     // set switch background when off
