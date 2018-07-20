@@ -13,6 +13,8 @@
 @interface Helper : NSObject
 + (void)showAlertWithTitle:(NSString*)title message:(NSString*)message sender:(UIViewController*)sender;
 + (void)showPhotoAlertFrom:(UIViewController*)sender;
+
+
 + (void)setImageFromPFFile:(PFFile*)file forImageView:(UIImageView*)imageView;
 + (void)setImageFromPFFile:(PFFile*)file forButton:(UIButton*)button;
 + (UIImage*)resizeImage:(UIImage*)image withSize:(CGSize)size;
