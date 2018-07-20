@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PFUser+ExtendedUser.h"
-#import "Helper.h"
+#import "ParseImageHelper.h"
 
 @interface RelationshipListCell : UITableViewCell
 // Instance Methods //

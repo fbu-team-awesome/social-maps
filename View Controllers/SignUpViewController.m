@@ -9,7 +9,8 @@
 #import <Parse/Parse.h>
 #import "PFUser+ExtendedUser.h"
 #import "SignUpViewController.h"
-#import "Helper.h"
+#import "AlertHelper.h"
+#import "ParseImageHelper.h"
 
 @interface SignUpViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 // Outlet Definitions //
@@ -55,7 +56,7 @@
     // validate text fields
     if([username length] <= 0 || [password length] <= 0 || [displayName length] <= 0 || [hometown length] <= 0 || [bio length] <= 0 || [email length] <= 0)
     {
-        [Helper showAlertWithTitle:@"Sign Up Error" message:@"Please fill all the fields." sender:self];
+        [AlertHelper showAlertWithTitle:@"Sign Up Error" message:@"Please fill all the fields." sender:self];
         return;
     }
     
@@ -64,7 +65,7 @@
     newUser.username = self.usernameField.text;
     newUser.password = self.passwordField.text;
     newUser.email = email;
-    newUser.profilePicture = [Helper getPFFileFromImage:self.profileImage.image];
+    newUser.profilePicture = [ParseImageHelper getPFFileFromImage:self.profileImage.image];
     newUser.displayName = displayName;
     newUser.hometown = hometown;
     newUser.bio = bio;
@@ -90,7 +91,7 @@
 }
 
 - (IBAction)profilePictureClicked:(id)sender {
-    [Helper showPhotoAlertFrom:self];
+    [AlertHelper showPhotoAlertFrom:self];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
