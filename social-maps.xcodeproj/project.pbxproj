@@ -40,6 +40,7 @@
 		9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6755E421012DF10056D009 /* ProfileListCell.m */; };
 		9EE973EE2102805A0056DCF2 /* AlertHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973ED2102805A0056DCF2 /* AlertHelper.m */; };
 		9EE973F1210280F60056DCF2 /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973F0210280F60056DCF2 /* ImageHelper.m */; };
+		9EE973F4210281850056DCF2 /* ParseImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973F3210281850056DCF2 /* ParseImageHelper.m */; };
 		9EF4E3C820FD230F005535C6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3C720FD230F005535C6 /* Place.m */; };
 		9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D120FD2AED005535C6 /* APIManager.m */; };
 		9EF4E3D420FE66C6005535C6 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D320FE66C6005535C6 /* Profile.storyboard */; };
@@ -105,6 +106,8 @@
 		9EE973ED2102805A0056DCF2 /* AlertHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertHelper.m; sourceTree = "<group>"; };
 		9EE973EF210280F60056DCF2 /* ImageHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageHelper.h; sourceTree = "<group>"; };
 		9EE973F0210280F60056DCF2 /* ImageHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageHelper.m; sourceTree = "<group>"; };
+		9EE973F2210281850056DCF2 /* ParseImageHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParseImageHelper.h; sourceTree = "<group>"; };
+		9EE973F3210281850056DCF2 /* ParseImageHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParseImageHelper.m; sourceTree = "<group>"; };
 		9EF4E3C620FD230F005535C6 /* Place.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		9EF4E3C720FD230F005535C6 /* Place.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		9EF4E3D020FD2AED005535C6 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
@@ -244,6 +247,8 @@
 				9EE973ED2102805A0056DCF2 /* AlertHelper.m */,
 				9EE973EF210280F60056DCF2 /* ImageHelper.h */,
 				9EE973F0210280F60056DCF2 /* ImageHelper.m */,
+				9EE973F2210281850056DCF2 /* ParseImageHelper.h */,
+				9EE973F3210281850056DCF2 /* ParseImageHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -423,6 +428,7 @@
 				317B3931210267650057079A /* UserResultCell.m in Sources */,
 				01CA4A20210153230032C11F /* Relationships.m in Sources */,
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
+				9EE973F4210281850056DCF2 /* ParseImageHelper.m in Sources */,
 				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
 				1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */,
 				018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */,
