@@ -34,8 +34,6 @@
     
     [self.tableView reloadData];
     NSLog(@"Retrieve users");
-
-    
 }
 
 - (void)didReceiveMemoryWarning {

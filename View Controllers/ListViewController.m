@@ -11,6 +11,7 @@
 #import "PFUser+ExtendedUser.h"
 #import "HMSegmentedControl.h"
 #import "ProfileListCell.h"
+#import "DetailsViewController.h"
 
 @interface ListViewController ()
 
@@ -105,13 +106,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
- */
+    if([segue.identifier isEqualToString:@"detailsSegue"])
+    {
+        DetailsViewController* vc = (DetailsViewController*)[segue destinationViewController];
+        ProfileListCell* cell = (ProfileListCell*)sender;
+        [vc setPlace:[cell getPlace]];
+    }
+}
 
  - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
      ProfileListCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ProfileListCell" forIndexPath:indexPath];
