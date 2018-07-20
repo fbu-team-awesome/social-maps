@@ -87,25 +87,25 @@
     self.bioLabel.text = self.user.bio;
     [ParseImageHelper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
     
-    // set cool UI
-    [self makeUILookGood];
+    // set UI styles
+    [self initUIStyles];
 }
 
 - (void)setUser:(PFUser*)user {
     _user = user;
 }
 
-- (void)makeUILookGood {
-    [self makeRoundCorners:self.profilePicture];
-    [self makeRoundCorners:self.profilePictureView];
-    [self addShadow:self.profilePictureView withOffset:CGSizeZero];
+- (void)initUIStyles {
+    [self setRoundedCornersToView:self.profilePicture];
+    [self setRoundedCornersToView:self.profilePictureView];
+    [self addShadowToView:self.profilePictureView withOffset:CGSizeZero];
     self.followersButton.layer.cornerRadius = self.followersButton.frame.size.height / 2;
     self.followersButton.clipsToBounds = YES;
-    [self addShadow:self.followersButton withOffset:CGSizeMake(0, 0)];
+    [self addShadowToView:self.followersButton withOffset:CGSizeMake(0, 0)];
     self.followingButton.layer.cornerRadius = self.followingButton.frame.size.height / 2;
     self.followingButton.clipsToBounds = YES;
-    [self addShadow:self.followingButton withOffset:CGSizeMake(0, 4)];
-    [self addShadow:self.myPlacesView withOffset:CGSizeMake(0,6)];
+    [self addShadowToView:self.followingButton withOffset:CGSizeMake(0, 4)];
+    [self addShadowToView:self.myPlacesView withOffset:CGSizeMake(0,6)];
     
     // set switch background when off
     self.placesSwitch.layer.cornerRadius = self.placesSwitch.frame.size.height / 2;
@@ -113,12 +113,12 @@
     self.placesSwitch.backgroundColor = [UIColor colorWithRed:227/255.0 green:130/255.0 blue:94/255.0 alpha:255];
 }
 
-- (void)makeRoundCorners:(UIView*)view {
+- (void)setRoundedCornersToView:(UIView*)view {
     view.layer.cornerRadius = view.frame.size.width / 2;
     view.clipsToBounds = YES;
 }
 
-- (void)addShadow:(UIView*)view withOffset:(CGSize)offset {
+- (void)addShadowToView:(UIView*)view withOffset:(CGSize)offset {
     view.layer.shadowColor = [UIColor blackColor].CGColor;
     view.layer.shadowOffset = offset;
     view.layer.shadowRadius = 5;
