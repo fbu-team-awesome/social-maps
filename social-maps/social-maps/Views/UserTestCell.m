@@ -30,6 +30,8 @@
 - (IBAction)followButtonPressed:(id)sender {
     
     PFUser *currentUser = [PFUser currentUser];
+    [currentUser follow:self.user];
+    NSLog(@"User followed");
 
 }
 

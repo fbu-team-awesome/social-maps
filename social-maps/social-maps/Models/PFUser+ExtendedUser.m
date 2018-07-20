@@ -7,6 +7,7 @@
 //
 
 #import "PFUser+ExtendedUser.h"
+#import <Parse/Parse.h>
 
 @implementation PFUser (ExtendedUser)
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships;
@@ -143,9 +144,53 @@
     }
 }
 
-- (void)follow:(PFUser *)user {
+- (void)retrieveRelationshipsWithCompletion:(PFObject*)object :(void (^)(Relationships*))completion {
     
-    [self.relationships.following addObject:user];
-    [user.relationships.followers addObject:self];
+    /*
+    Relationships *relationships = [Relationships new];
+    PFQuery *query = [PFQuery queryWithClassName:@"Relationships"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        
+        NSLog(@"Found the relationships");
+    }];
+     */
+    
+}
+
+
+
+
+
+- (void)follow:(PFUser *)user {
+
+    PFQuery *query = [PFUser query];
+    [query includeKey:@"relationships"];
+    [query getObjectInBackgroundWithId:self.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        
+        Relationships *thisRelationship = (Relationships *)object[@"relationships"];
+        self.relationships = thisRelationship;
+        NSString *objectId = thisRelationship.objectId;
+        
+        [Relationships retrieveFollowingWithId:objectId WithCompletion:^(NSArray *following) {
+            
+            self.relationships.following = [NSMutableArray arrayWithArray:following];
+            
+            [thisRelationship addUserToFollowing:user];
+        }];
+    }];
+    
+    PFQuery *userQuery = [PFUser query];
+    [userQuery includeKey:@"relationships"];
+    [userQuery getObjectInBackgroundWithId:user.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        
+        Relationships *userRelationship = (Relationships *)object[@"relationships"];
+        user.relationships = userRelationship;
+        NSString *objectId = userRelationship.objectId;
+        
+        [Relationships retrieveFollowersWithId:objectId WithCompletion:^(NSArray *followers) {
+            
+            [userRelationship addUserToFollowers:self];
+        }];
+    }];
 }
 @end

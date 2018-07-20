@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "Helper.h"
 #import "ProfileListCell.h"
+#import "RelationshipsViewController.h"
 
 @interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
@@ -206,6 +207,16 @@
         DetailsViewController* vc = (DetailsViewController *)[segue destinationViewController];
         ProfileListCell* cell = (ProfileListCell*)sender;
         [vc setPlace:[cell getPlace]];
+    }
+    else if([segue.identifier isEqualToString:@"followersSegue"])
+    {
+        RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
+        // vc setUsers
+    }
+    else if([segue.identifier isEqualToString:@"followingSegue"])
+    {
+        RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
+        // vc setUsers
     }
 }
 

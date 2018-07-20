@@ -70,6 +70,10 @@
     newUser.bio = bio;
     newUser.favorites = [NSMutableArray new];
     newUser.wishlist = [NSMutableArray new];
+    newUser.relationships = [Relationships object];
+    
+    newUser.relationships.followers = [NSMutableArray new];
+    newUser.relationships.following = [NSMutableArray new];
     
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {
