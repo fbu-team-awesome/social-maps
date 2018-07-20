@@ -108,6 +108,17 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
     }];
 }
 
+-(void)getAllUsers:(void(^)(NSMutableArray *users))completion {
+    PFQuery *query = [PFUser query];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if(error == nil && objects != nil) {
+            completion([NSMutableArray arrayWithArray:objects]);
+        }else {
+            NSLog(@"Error getting all users");
+        }
+    }];
+}
+
 
 
 @end

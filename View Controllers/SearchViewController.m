@@ -44,6 +44,11 @@
         self.places = places;
         [self.tableView reloadData];
     }];
+    
+    [[APIManager shared] getAllUsers:^(NSMutableArray *users) {
+        self.users = users;
+        [self.tableView reloadData];
+    }];
 }
 
 //initialize search controller
@@ -104,6 +109,8 @@
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     if (self.segmentIndex == 1) {
         UserResultCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserResultCell" forIndexPath:indexPath];
+        userCell.user = self.users[indexPath.row];
+        [userCell configureCell];
         cell = userCell;
     } else {
         PlaceResultCell *placeCell = [tableView dequeueReusableCellWithIdentifier:@"PlaceResultCell" forIndexPath:indexPath];
@@ -118,7 +125,7 @@
     if (self.segmentIndex == 0) {
         return self.places.count;
     }
-    return 1;
+    return self.users.count;
 }
 
 
