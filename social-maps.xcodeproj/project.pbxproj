@@ -27,10 +27,12 @@
 		1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948920FD4CBE00E4D630 /* ListView.storyboard */; };
 		1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */; };
 		1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */; };
-		1CE59D37210169BB000F2DE0 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CE59D36210169BA000F2DE0 /* SearchViewController.m */; };
-		1CE59D3C210169E3000F2DE0 /* PlaceResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CE59D38210169E2000F2DE0 /* PlaceResultCell.m */; };
-		1CE59D3D210169E3000F2DE0 /* UserResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CE59D3B210169E2000F2DE0 /* UserResultCell.m */; };
-		1CE59D3F21016A28000F2DE0 /* SearchPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CE59D3E21016A28000F2DE0 /* SearchPage.storyboard */; };
+		317B392E210267590057079A /* PlaceResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 317B392D210267590057079A /* PlaceResultCell.m */; };
+		317B3931210267650057079A /* UserResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 317B3930210267640057079A /* UserResultCell.m */; };
+		317B39342102677C0057079A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 317B39332102677C0057079A /* SearchViewController.m */; };
+		317B3937210267880057079A /* RelationshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 317B3936210267880057079A /* RelationshipsViewController.m */; };
+		317B3939210267900057079A /* SearchPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 317B3938210267900057079A /* SearchPage.storyboard */; };
+		317B393E210267E40057079A /* RelationshipListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 317B393D210267E40057079A /* RelationshipListCell.m */; };
 		340E6CCEA9D6E4EE79FB3144 /* libPods-social-maps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0669C073917F375AFFBB6F32 /* libPods-social-maps.a */; };
 		9E4D281C20FEBE090069CBF2 /* SignUpView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */; };
 		9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */; };
@@ -47,7 +49,7 @@
 		0130162B20EFDE620010FD04 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0130162C20EFDE620010FD04 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0130163220EFDE620010FD04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0130163420EFDE650010FD04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0130163420EFDE650010FD04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "social-maps/Assets.xcassets"; sourceTree = "<group>"; };
 		0130163720EFDE650010FD04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0130163920EFDE650010FD04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0130163A20EFDE650010FD04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -78,14 +80,18 @@
 		1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailsView.storyboard; sourceTree = "<group>"; };
 		1C6D948D20FE59FE00E4D630 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
-		1CE59D35210169BA000F2DE0 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = "View Controllers/SearchViewController.h"; sourceTree = SOURCE_ROOT; };
-		1CE59D36210169BA000F2DE0 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = "View Controllers/SearchViewController.m"; sourceTree = SOURCE_ROOT; };
-		1CE59D38210169E2000F2DE0 /* PlaceResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceResultCell.m; path = Views/PlaceResultCell.m; sourceTree = SOURCE_ROOT; };
-		1CE59D39210169E2000F2DE0 /* PlaceResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceResultCell.h; path = Views/PlaceResultCell.h; sourceTree = SOURCE_ROOT; };
-		1CE59D3A210169E2000F2DE0 /* UserResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserResultCell.h; path = Views/UserResultCell.h; sourceTree = SOURCE_ROOT; };
-		1CE59D3B210169E2000F2DE0 /* UserResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserResultCell.m; path = Views/UserResultCell.m; sourceTree = SOURCE_ROOT; };
-		1CE59D3E21016A28000F2DE0 /* SearchPage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SearchPage.storyboard; path = Storyboards/SearchPage.storyboard; sourceTree = SOURCE_ROOT; };
 		24E9E450AD670C53941D8527 /* Pods-social-maps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-social-maps.release.xcconfig"; path = "Pods/Target Support Files/Pods-social-maps/Pods-social-maps.release.xcconfig"; sourceTree = "<group>"; };
+		317B392C2102674D0057079A /* PlaceResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceResultCell.h; sourceTree = "<group>"; };
+		317B392D210267590057079A /* PlaceResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceResultCell.m; sourceTree = "<group>"; };
+		317B392F2102675F0057079A /* UserResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserResultCell.h; sourceTree = "<group>"; };
+		317B3930210267640057079A /* UserResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserResultCell.m; sourceTree = "<group>"; };
+		317B3932210267740057079A /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		317B39332102677C0057079A /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		317B3935210267880057079A /* RelationshipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelationshipsViewController.h; sourceTree = "<group>"; };
+		317B3936210267880057079A /* RelationshipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationshipsViewController.m; sourceTree = "<group>"; };
+		317B3938210267900057079A /* SearchPage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchPage.storyboard; sourceTree = "<group>"; };
+		317B393C210267E40057079A /* RelationshipListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelationshipListCell.h; sourceTree = "<group>"; };
+		317B393D210267E40057079A /* RelationshipListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationshipListCell.m; sourceTree = "<group>"; };
 		9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUpView.storyboard; sourceTree = "<group>"; };
 		9E4D281D20FEBE120069CBF2 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
@@ -118,6 +124,17 @@
 		0130161F20EFDE620010FD04 = {
 			isa = PBXGroup;
 			children = (
+				0130162B20EFDE620010FD04 /* AppDelegate.h */,
+				0130162C20EFDE620010FD04 /* AppDelegate.m */,
+				0130163420EFDE650010FD04 /* Assets.xcassets */,
+				0130163A20EFDE650010FD04 /* main.m */,
+				9E6755E021011B1A0056D009 /* Helper.h */,
+				9E6755E121011B1A0056D009 /* Helper.m */,
+				018E6A8F20FDAE6600DE10A6 /* Storyboards */,
+				9EF4E3C520FD210E005535C6 /* Models */,
+				9EF4E3C920FD2961005535C6 /* APIs */,
+				1C2C0BF020FD2A630072BEFB /* View Controllers */,
+				018E6A9E20FEBABE00DE10A6 /* Views */,
 				0130162A20EFDE620010FD04 /* social-maps */,
 				0130162920EFDE620010FD04 /* Products */,
 				FC1C43E3DDA3D3D63573E5A2 /* Pods */,
@@ -136,18 +153,7 @@
 		0130162A20EFDE620010FD04 /* social-maps */ = {
 			isa = PBXGroup;
 			children = (
-				018E6A9E20FEBABE00DE10A6 /* Views */,
-				1C2C0BF020FD2A630072BEFB /* View Controllers */,
-				9EF4E3C920FD2961005535C6 /* APIs */,
-				9EF4E3C520FD210E005535C6 /* Models */,
-				018E6A8F20FDAE6600DE10A6 /* Storyboards */,
-				0130162B20EFDE620010FD04 /* AppDelegate.h */,
-				0130162C20EFDE620010FD04 /* AppDelegate.m */,
-				0130163420EFDE650010FD04 /* Assets.xcassets */,
 				0130163920EFDE650010FD04 /* Info.plist */,
-				0130163A20EFDE650010FD04 /* main.m */,
-				9E6755E021011B1A0056D009 /* Helper.h */,
-				9E6755E121011B1A0056D009 /* Helper.m */,
 			);
 			path = "social-maps";
 			sourceTree = "<group>";
@@ -155,7 +161,7 @@
 		018E6A8F20FDAE6600DE10A6 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				1CE59D3E21016A28000F2DE0 /* SearchPage.storyboard */,
+				317B3938210267900057079A /* SearchPage.storyboard */,
 				9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */,
 				0130163120EFDE620010FD04 /* Main.storyboard */,
 				1C6D948920FD4CBE00E4D630 /* ListView.storyboard */,
@@ -171,10 +177,12 @@
 		018E6A9E20FEBABE00DE10A6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1CE59D39210169E2000F2DE0 /* PlaceResultCell.h */,
-				1CE59D38210169E2000F2DE0 /* PlaceResultCell.m */,
-				1CE59D3A210169E2000F2DE0 /* UserResultCell.h */,
-				1CE59D3B210169E2000F2DE0 /* UserResultCell.m */,
+				317B393C210267E40057079A /* RelationshipListCell.h */,
+				317B393D210267E40057079A /* RelationshipListCell.m */,
+				317B392C2102674D0057079A /* PlaceResultCell.h */,
+				317B392D210267590057079A /* PlaceResultCell.m */,
+				317B392F2102675F0057079A /* UserResultCell.h */,
+				317B3930210267640057079A /* UserResultCell.m */,
 				018E6A9F20FEBAD100DE10A6 /* ListViewCell.h */,
 				018E6AA020FEBAD100DE10A6 /* ListViewCell.m */,
 				1C2D8A6E20FFB3C100F31851 /* SearchCell.h */,
@@ -190,8 +198,10 @@
 		1C2C0BF020FD2A630072BEFB /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1CE59D35210169BA000F2DE0 /* SearchViewController.h */,
-				1CE59D36210169BA000F2DE0 /* SearchViewController.m */,
+				317B3935210267880057079A /* RelationshipsViewController.h */,
+				317B3936210267880057079A /* RelationshipsViewController.m */,
+				317B3932210267740057079A /* SearchViewController.h */,
+				317B39332102677C0057079A /* SearchViewController.m */,
 				9E4D281D20FEBE120069CBF2 /* SignUpViewController.h */,
 				9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */,
 				1C2C0BF120FD2A740072BEFB /* LoginViewController.h */,
@@ -319,7 +329,7 @@
 				9E4D281C20FEBE090069CBF2 /* SignUpView.storyboard in Resources */,
 				1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */,
 				018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */,
-				1CE59D3F21016A28000F2DE0 /* SearchPage.storyboard in Resources */,
+				317B3939210267900057079A /* SearchPage.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,23 +388,25 @@
 				9EF4E3D720FE6D95005535C6 /* ProfileViewController.m in Sources */,
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
 				016BBD9521000994006FFFD8 /* UserTest.m in Sources */,
-				1CE59D3C210169E3000F2DE0 /* PlaceResultCell.m in Sources */,
+				317B392E210267590057079A /* PlaceResultCell.m in Sources */,
 				9E6755E221011B1A0056D009 /* Helper.m in Sources */,
 				0130162D20EFDE620010FD04 /* AppDelegate.m in Sources */,
 				018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */,
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
 				9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */,
+				317B3937210267880057079A /* RelationshipsViewController.m in Sources */,
 				1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */,
 				9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */,
+				317B393E210267E40057079A /* RelationshipListCell.m in Sources */,
 				01CA4A26210154CC0032C11F /* UserTestCell.m in Sources */,
-				1CE59D3D210169E3000F2DE0 /* UserResultCell.m in Sources */,
+				317B3931210267650057079A /* UserResultCell.m in Sources */,
 				01CA4A20210153230032C11F /* Relationships.m in Sources */,
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
 				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
 				1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */,
 				018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */,
-				1CE59D37210169BB000F2DE0 /* SearchViewController.m in Sources */,
+				317B39342102677C0057079A /* SearchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
