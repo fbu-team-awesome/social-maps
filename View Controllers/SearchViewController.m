@@ -11,16 +11,15 @@
 #import "HMSegmentedControl.h"
 #import "PlaceResultCell.h"
 #import "UserResultCell.h"
-
+#import "APIManager.h"
 
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *places;
-@property (strong, nonatomic) NSArray *users;
+@property (strong, nonatomic) NSMutableArray *places;
+@property (strong, nonatomic) NSMutableArray *users;
 @property (assign, nonatomic) long segmentIndex;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-
 
 @end
 
@@ -36,12 +35,15 @@
     [self initSearch];
     [self setSegmentControlView];
     [self fetchLists];
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
     
 }
 
 - (void) fetchLists {
-    
+    [[APIManager shared] getAllGMSPlaces:^(NSMutableArray *places) {
+        self.places = places;
+        [self.tableView reloadData];
+    }];
 }
 
 //initialize search controller
@@ -69,6 +71,7 @@
     segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleBox;
     segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl.shouldAnimateUserSelection = YES;
+    
     [self.view addSubview:segmentedControl];
     
     // Called when user changes selection
@@ -99,21 +102,21 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    if (self.segmentIndex == 0) {
+    if (self.segmentIndex == 1) {
+        UserResultCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserResultCell" forIndexPath:indexPath];
+        cell = userCell;
+    } else {
         PlaceResultCell *placeCell = [tableView dequeueReusableCellWithIdentifier:@"PlaceResultCell" forIndexPath:indexPath];
         placeCell.place = self.places[indexPath.row];
         [placeCell configureCell];
         cell = placeCell;
-    } else {
-        UserResultCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserResultCell" forIndexPath:indexPath];
-        cell = userCell;
     }
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.segmentIndex == 0) {
-        return 1;
+        return self.places.count;
     }
     return 1;
 }

@@ -85,11 +85,23 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
      ];
 }
 
--(void)getAllGMSPlaces:(void(^)(NSArray *places))completion {
+-(void)getAllGMSPlaces:(void(^)(NSMutableArray *places))completion {
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (error == nil && objects != nil) {
-            completion(objects);
+            
+            // convert array of Place objects to GMSPlace objects
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (Place *myPlace in objects) {
+                [self GMSPlaceFromPlace:myPlace withCompletion:^(GMSPlace *place) {
+                    [array addObject:place];
+                    
+                    if(array.count == objects.count)
+                    {
+                        completion(array);
+                    }
+                }];
+            }
         } else {
             NSLog(@"Error getting all places");
         }
