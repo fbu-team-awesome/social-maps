@@ -35,7 +35,7 @@
 }
 
 - (void)updateUI {
-    [Helper setImageFromPFFile:self.user.profilePicture forImageView:self.profileImage];
+    [ParseImageHelper setImageFromPFFile:self.user.profilePicture forImageView:self.profileImage];
     self.nameLabel.text = self.user.displayName;
     self.usernameLabel.text = self.user.username;
     self.hometownLabel.text = self.user.hometown;

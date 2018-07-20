@@ -13,7 +13,7 @@
 #import "DetailsViewController.h"
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
-#import "Helper.h"
+#import "ParseImageHelper.h"
 #import "ProfileListCell.h"
 #import "RelationshipsViewController.h"
 
@@ -85,7 +85,7 @@
     self.handleLabel.text = [NSString stringWithFormat:@"@%@", self.user.username];
     self.hometownLabel.text = self.user.hometown;
     self.bioLabel.text = self.user.bio;
-    [Helper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
+    [ParseImageHelper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
     
     // set cool UI
     [self makeUILookGood];
