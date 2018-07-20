@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GooglePlaces/GooglePlaces.h>
 
 @interface PlaceResultCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UIImageView *placeImage;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (strong, nonatomic) GMSPlace *place;
+
+-(void)configureCell;
 
 @end

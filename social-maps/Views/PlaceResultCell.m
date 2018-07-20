@@ -12,13 +12,20 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 
+-(void)configureCell {
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+- (IBAction)didTapFavorite:(id)sender {
+    
+}
+- (IBAction)didTapWishlist:(id)sender {
+    
 }
 
 @end

@@ -85,6 +85,17 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
      ];
 }
 
+-(void)getAllGMSPlaces:(void(^)(NSArray *places))completion {
+    PFQuery *query = [PFQuery queryWithClassName:@"Place"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (error == nil && objects != nil) {
+            completion(objects);
+        } else {
+            NSLog(@"Error getting all places");
+        }
+    }];
+}
+
 
 
 @end

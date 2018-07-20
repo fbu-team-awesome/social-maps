@@ -13,13 +13,14 @@
 #import "UserResultCell.h"
 
 
-@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) NSArray * places;
-@property (strong, nonatomic) NSArray * users;
+@property (strong, nonatomic) NSArray *places;
+@property (strong, nonatomic) NSArray *users;
 @property (assign, nonatomic) long segmentIndex;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
 
 @end
 
@@ -32,7 +33,7 @@
     self.tableView.dataSource = self;
     
     //self.definesPresentationContext = true;
-    //[self initSearch];
+    [self initSearch];
     [self setSegmentControlView];
     [self fetchLists];
     [self.tableView reloadData];
@@ -45,9 +46,7 @@
 
 //initialize search controller
 -(void) initSearch {
-    
-    _searchBar.showsScopeBar = YES;
-    _searchBar.scopeButtonTitles = @[@"Places",@"Users"];
+    self.searchBar.delegate = self;
 }
 
 
@@ -60,7 +59,7 @@
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Places", @"Users"]];
     
     // Customize appearance
-    [segmentedControl setFrame:CGRectMake(0, 0, width, 60)];
+    [segmentedControl setFrame:CGRectMake(0, 56, width, 60)];
     segmentedControl.selectionIndicatorHeight = 4.0f;
     segmentedControl.backgroundColor = [UIColor colorWithRed:1.00 green:0.92 blue:0.87 alpha:1.0];
     segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:1.00 green:0.60 blue:0.47 alpha:1.0]};
@@ -68,10 +67,8 @@
     segmentedControl.selectionIndicatorBoxColor = [UIColor colorWithRed:1.00 green:0.92 blue:0.87 alpha:1.0];
     segmentedControl.selectionIndicatorBoxOpacity = 1.0;
     segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleBox;
-    // segmentedControl.selectedSegmentIndex = HMSegmentedControlNoSegment;
     segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl.shouldAnimateUserSelection = YES;
-    // segmentedControl3.tag = 2;
     [self.view addSubview:segmentedControl];
     
     // Called when user changes selection
@@ -101,12 +98,14 @@
 */
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    UITableViewCell * cell = [[UITableViewCell alloc] init];
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
     if (self.segmentIndex == 0) {
-        PlaceResultCell * placeCell = [tableView dequeueReusableCellWithIdentifier:@"PlaceResultCell" forIndexPath:indexPath];
+        PlaceResultCell *placeCell = [tableView dequeueReusableCellWithIdentifier:@"PlaceResultCell" forIndexPath:indexPath];
+        placeCell.place = self.places[indexPath.row];
+        [placeCell configureCell];
         cell = placeCell;
     } else {
-        UserResultCell * userCell = [tableView dequeueReusableCellWithIdentifier:@"UserResultCell" forIndexPath:indexPath];
+        UserResultCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserResultCell" forIndexPath:indexPath];
         cell = userCell;
     }
     return cell;
