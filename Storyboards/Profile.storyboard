@@ -263,6 +263,7 @@
                                             <outlet property="nameLabel" destination="el4-9u-6WC" id="qHf-92-9wr"/>
                                             <outlet property="profileImage" destination="OTw-M8-n6f" id="S5l-ES-H2v"/>
                                             <outlet property="usernameLabel" destination="cOw-9K-Mmb" id="byy-wA-NvF"/>
+                                            <segue destination="khL-MV-X4z" kind="show" identifier="profileSegue" id="OOB-8H-gVD"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -277,7 +278,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdQ-Be-M7D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1308" y="-250"/>
+            <point key="canvasLocation" x="1310" y="-668"/>
         </scene>
         <!--UserTest-->
         <scene sceneID="SRX-39-5bT">
@@ -317,5 +318,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="cqI-8F-loz"/>
         <segue reference="eWv-Bg-RQY"/>
+        <segue reference="OOB-8H-gVD"/>
     </inferredMetricsTieBreakers>
 </document>

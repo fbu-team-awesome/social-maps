@@ -37,12 +37,16 @@
 - (void)updateUI {
     [ParseImageHelper setImageFromPFFile:self.user.profilePicture forImageView:self.profileImage];
     self.nameLabel.text = self.user.displayName;
-    self.usernameLabel.text = self.user.username;
+    self.usernameLabel.text = [NSString stringWithFormat:@"@%@", self.user.username];
     self.hometownLabel.text = self.user.hometown;
 }
 
 - (void)setUser:(PFUser*)user {
     _user = user;
     [self updateUI];
+}
+
+- (PFUser*)getUser {
+    return _user;
 }
 @end
