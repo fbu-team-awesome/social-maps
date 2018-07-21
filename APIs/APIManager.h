@@ -22,5 +22,7 @@
 - (void)setupGoogle;
 - (void)GMSPlaceFromPlace:(Place*)place withCompletion:(void(^)(GMSPlace* place))completion;
 - (void)GMSPlaceFromID:(NSString*)placeID withCompletion:(void(^)(GMSPlace* place))completion;
+-(void)getAllGMSPlaces:(void(^)(NSMutableArray *places))completion;
+-(void)getAllUsers:(void(^)(NSMutableArray *users))completion;
 
 @end

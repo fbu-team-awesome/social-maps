@@ -7,12 +7,20 @@
 //
 
 #import "UserResultCell.h"
+#import "ParseImageHelper.h"
 
 @implementation UserResultCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+- (void)configureCell {
+    self.nameLabel.text = self.user.displayName;
+    self.cityLabel.text = self.user.hometown;
+    [ParseImageHelper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
+    self.usernameLabel.text = self.user.username;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -144,17 +144,15 @@
     }
 }
 
-- (void)retrieveRelationshipsWithCompletion:(PFObject*)object :(void (^)(Relationships*))completion {
+- (void)retrieveRelationshipWithCompletion:(void(^)(Relationships*))completion {
     
-    /*
-    Relationships *relationships = [Relationships new];
-    PFQuery *query = [PFQuery queryWithClassName:@"Relationships"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+    PFQuery *query = [PFUser query];
+    [query includeKey:@"relationships"];
+    [query getObjectInBackgroundWithId:self.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
         
-        NSLog(@"Found the relationships");
+        Relationships *thisRelationship = (Relationships *)object[@"relationships"];
+        completion(thisRelationship);
     }];
-     */
-    
 }
 
 
@@ -163,27 +161,23 @@
 
 - (void)follow:(PFUser *)user {
 
-    PFQuery *query = [PFUser query];
-    [query includeKey:@"relationships"];
-    [query getObjectInBackgroundWithId:self.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+    // get the Relationships object of the current user
+    [self retrieveRelationshipWithCompletion:^(Relationships *myRelationship) {
         
-        Relationships *thisRelationship = (Relationships *)object[@"relationships"];
-        self.relationships = thisRelationship;
-        NSString *objectId = thisRelationship.objectId;
+        self.relationships = myRelationship;
+        NSString *objectId = myRelationship.objectId;
         
+        // get the array of users the current user is following
         [Relationships retrieveFollowingWithId:objectId WithCompletion:^(NSArray *following) {
             
             self.relationships.following = [NSMutableArray arrayWithArray:following];
             
-            [thisRelationship addUserToFollowing:user];
+            [myRelationship addUserToFollowing:user];
         }];
     }];
     
-    PFQuery *userQuery = [PFUser query];
-    [userQuery includeKey:@"relationships"];
-    [userQuery getObjectInBackgroundWithId:user.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+    [self retrieveRelationshipWithCompletion:^(Relationships *userRelationship) {
         
-        Relationships *userRelationship = (Relationships *)object[@"relationships"];
         user.relationships = userRelationship;
         NSString *objectId = userRelationship.objectId;
         
@@ -192,5 +186,6 @@
             [userRelationship addUserToFollowers:self];
         }];
     }];
+    
 }
 @end
