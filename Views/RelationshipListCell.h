@@ -13,4 +13,5 @@
 @interface RelationshipListCell : UITableViewCell
 // Instance Methods //
 - (void)setUser:(PFUser*)user;
+- (PFUser*)getUser;
 @end

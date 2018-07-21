@@ -45,4 +45,8 @@
     _user = user;
     [self updateUI];
 }
+
+- (PFUser*)getUser {
+    return _user;
+}
 @end

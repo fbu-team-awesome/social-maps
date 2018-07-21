@@ -9,6 +9,7 @@
 #import "PFUser+ExtendedUser.h"
 #import "RelationshipsViewController.h"
 #import "RelationshipListCell.h"
+#import "ProfileViewController.h"
 
 @interface RelationshipsViewController () <UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
@@ -37,15 +38,15 @@
     _users = users;
     [self.tableView reloadData];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"profileSegue"])
+    {
+        ProfileViewController* vc = (ProfileViewController*)[segue destinationViewController];
+        RelationshipListCell* cell = (RelationshipListCell*)sender;
+        [vc setUser:[cell getUser]];
+    }
 }
-*/
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RelationshipListCell* cell = [tableView dequeueReusableCellWithIdentifier:@"RelationshipListCell" forIndexPath:indexPath];
