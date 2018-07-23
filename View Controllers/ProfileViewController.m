@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *switchLabel;
 @property (weak, nonatomic) IBOutlet UIButton *followersButton;
 @property (weak, nonatomic) IBOutlet UIButton *followingButton;
+@property (weak, nonatomic) IBOutlet UIButton *followButton;
 
 // Instance Properties //
 @property (strong, nonatomic) CLLocationManager* locationManager;
@@ -54,6 +55,13 @@
     if(self.user == nil)
     {
         self.user = [PFUser currentUser];
+        
+        // modify UI
+        self.followButton.hidden = YES;
+    }
+    else
+    {
+        // hide follow button
     }
     
     // init tableview
@@ -280,6 +288,10 @@
         self.tableviewView.hidden = NO;
         self.switchLabel.text = @"List";
     }
+}
+
+- (IBAction)followClicked:(id)sender {
+    [[PFUser currentUser] follow:self.user];
 }
 
 @end
