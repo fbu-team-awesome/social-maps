@@ -24,7 +24,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // pretty-fy everything
+    [self initUIStyles];
+}
+
+- (void)initUIStyles {
+    // username textfield
     self.usernameView.layer.cornerRadius = 22;
     self.usernameView.clipsToBounds = YES;
     self.usernameView.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -33,6 +37,7 @@
     self.usernameView.layer.shadowOpacity = 0.2;
     self.usernameView.layer.masksToBounds = NO;
     
+    // password textfield
     self.passwordView.layer.cornerRadius = 22;
     self.passwordView.clipsToBounds = YES;
     self.passwordView.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -41,6 +46,7 @@
     self.passwordView.layer.shadowOpacity = 0.2;
     self.passwordView.layer.masksToBounds = NO;
     
+    // signup button
     self.signupButton.layer.cornerRadius = 22;
     self.signupButton.clipsToBounds = YES;
     self.signupButton.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -49,6 +55,7 @@
     self.signupButton.layer.shadowOpacity = 0.2;
     self.signupButton.layer.masksToBounds = NO;
     
+    // login button
     self.loginButton.layer.cornerRadius = 22;
     self.loginButton.clipsToBounds = YES;
     self.loginButton.layer.shadowColor = [UIColor blackColor].CGColor;
