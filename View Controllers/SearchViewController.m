@@ -163,17 +163,18 @@
         [self performSegueWithIdentifier:@"placeSegue" sender:place];
     } else {
         PFUser *user = self.filteredUsers[indexPath.row];
-        [self performSegueWithIdentifier:@"userSegue" sender:user];
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Profile" bundle:NSBundle.mainBundle];
+        ProfileViewController *profileVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
+        profileVC.user = user;
+        [self.navigationController pushViewController:profileVC animated:YES];
     }
 }
 
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
      if ([segue.identifier isEqualToString:@"placeSegue"]) {
-         DetailsViewController *detailsVC = [segue destinationViewController];
+         DetailsViewController *detailsVC = (DetailsViewController *)[segue destinationViewController];
          detailsVC.place = sender;
-     } else if ([segue.identifier isEqualToString:@"userSegue"]) {
-         ProfileViewController *profileVC = [segue destinationViewController];
-         profileVC.user = sender;
      }
 }
 
