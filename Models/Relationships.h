@@ -14,18 +14,14 @@
 @property (strong, nonatomic, nonnull) NSArray<NSString *> *following;
 @property (strong, nonatomic, nonnull) NSArray<NSString *> *followers;
 
-+ (void)getUsersWithCompletion:(void (^_Nonnull)(NSArray *users))completion;
+// Class Methods //
++ (void)getUsersWithCompletion:(void (^_Nullable)(NSArray* _Nullable users))completion;
++ (void)retrieveFollowersWithId:(nonnull NSString*)objectId WithCompletion: (void (^_Nullable)(NSArray* _Nullable followers))completion;
++ (void)retrieveFollowingWithId:(nonnull NSString*)objectId WithCompletion: (void (^_Nullable)(NSArray* _Nullable following))completion;
 
-+ (void)retrieveFollowersWithId:(NSString *)objectId WithCompletion: (void (^)(NSArray * followers))completion;
-
-+ (void)retrieveFollowingWithId:(NSString *)objectId WithCompletion: (void (^)(NSArray * following))completion;
-
-- (void)addUserIdToFollowing:(NSString*) userId;
-
-- (void)addUserIdToFollowers:(NSString*) userId;
-
-- (void)removeUserIDFromFollowing:(NSString*)userID;
-
-- (void)removeUserIDFromFollowers:(NSString*)userID;
-
+// Instance Methods //
+- (void)addUserIdToFollowing:(nonnull NSString*) userId;
+- (void)addUserIdToFollowers:(nonnull NSString*) userId;
+- (void)removeUserIDFromFollowing:(nonnull NSString*)userID;
+- (void)removeUserIDFromFollowers:(nonnull NSString*)userID;
 @end
