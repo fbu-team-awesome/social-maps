@@ -155,10 +155,6 @@
     }];
 }
 
-
-
-
-
 - (void)follow:(PFUser *)user {
 
     // get the Relationships object of the current user

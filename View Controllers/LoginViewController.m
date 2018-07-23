@@ -57,21 +57,7 @@
     self.loginButton.layer.shadowOpacity = 0.2;
     self.loginButton.layer.masksToBounds = NO;
 }
-- (IBAction)didTapSignUp:(id)sender {
-//    PFUser *newUser = [PFUser user];
-//    newUser.username = self.usernameField.text;
-//    newUser.password = self.passwordField.text;
-//    newUser.favorites = [NSMutableArray new];
-//    newUser.wishlist = [NSMutableArray new];
-//    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//        if (error != nil) {
-//            NSLog(@"Error: %@", error.localizedDescription);
-//        } else {
-//            NSLog(@"User registered successfully.");
-//            [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-//        }
-//    }];
-}
+
 - (IBAction)didTapLogin:(id)sender {
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
