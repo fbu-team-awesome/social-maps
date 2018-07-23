@@ -210,6 +210,8 @@
                         <outlet property="searchBar" destination="6U1-A7-rNO" id="d4a-vH-41B"/>
                         <outlet property="searchDisplayController" destination="Xhw-lf-3ue" id="u1N-Dy-Ctx"/>
                         <outlet property="tableView" destination="5fY-7S-wwW" id="86Z-Qk-fBw"/>
+                        <segue destination="23s-4a-9HG" kind="show" identifier="placeSegue" id="4nZ-zh-oCM"/>
+                        <segue destination="h32-5Y-anI" kind="show" identifier="userSegue" id="6ow-oy-x5n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LG5-lv-MeF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -223,6 +225,22 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1202.4000000000001" y="-11.244377811094454"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="Lb7-w1-579">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" id="h32-5Y-anI" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7iz-yQ-o0V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1921" y="-6"/>
+        </scene>
+        <!--DetailsView-->
+        <scene sceneID="LDd-ah-ue7">
+            <objects>
+                <viewControllerPlaceholder storyboardName="DetailsView" id="23s-4a-9HG" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Spr-j5-7lt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1921" y="-177"/>
         </scene>
         <!--Search-->
         <scene sceneID="7dN-CQ-VD1">
