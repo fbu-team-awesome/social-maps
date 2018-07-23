@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray<GMSPlace*>* places;
 @property (strong, nonatomic) NSArray<PFUser*>* users;
+@property (strong, nonatomic) NSArray *filteredPlaces;
+@property (strong, nonatomic) NSArray *filteredUsers;
 @property (assign, nonatomic) long segmentIndex;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -31,31 +33,32 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    //self.definesPresentationContext = true;
     [self initSearch];
     [self setSegmentControlView];
     [self fetchLists];
-    //[self.tableView reloadData];
-    
 }
 
 - (void) fetchLists {
     [[APIManager shared] getAllGMSPlaces:^(NSArray<GMSPlace*>* places) {
         self.places = places;
+        self.filteredPlaces = self.places;
         [self.tableView reloadData];
     }];
     
     [[APIManager shared] getAllUsers:^(NSArray<PFUser*>* users) {
         self.users = users;
+        self.filteredUsers = self.users;
         [self.tableView reloadData];
     }];
 }
 
-//initialize search controller
 -(void) initSearch {
     self.searchBar.delegate = self;
 }
 
+-(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
+}
 
 - (void)setSegmentControlView {
     
@@ -81,18 +84,15 @@
     
     // Called when user changes selection
     [segmentedControl setIndexChangeBlock:^(NSInteger index) {
-        
-        NSLog(@"Selected index %ld (via block)", (long)index);
         self.segmentIndex = index;
+        [self.view endEditing:YES];
         [self.tableView reloadData];
     }];
-
 }
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 /*
@@ -109,12 +109,12 @@
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     if (self.segmentIndex == 1) {
         UserResultCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserResultCell" forIndexPath:indexPath];
-        userCell.user = self.users[indexPath.row];
+        userCell.user = self.filteredUsers[indexPath.row];
         [userCell configureCell];
         cell = userCell;
     } else {
         PlaceResultCell *placeCell = [tableView dequeueReusableCellWithIdentifier:@"PlaceResultCell" forIndexPath:indexPath];
-        placeCell.place = self.places[indexPath.row];
+        placeCell.place = self.filteredPlaces[indexPath.row];
         [placeCell configureCell];
         cell = placeCell;
     }
@@ -123,10 +123,41 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.segmentIndex == 0) {
-        return self.places.count;
+        return self.filteredPlaces.count;
     }
-    return self.users.count;
+    return self.filteredUsers.count;
 }
 
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length != 0){
+        //filter places
+        NSPredicate *placePredicate = [NSPredicate predicateWithBlock:^BOOL(GMSPlace *place, NSDictionary *bindings) {
+            return [place.name localizedCaseInsensitiveContainsString:searchText];
+        }];
+        self.filteredPlaces = [self.places filteredArrayUsingPredicate:placePredicate];
+        
+        //filter users
+        NSPredicate *userPredicate = [NSPredicate predicateWithBlock:^BOOL(PFUser *user, NSDictionary *bindings) {
+            return [user.username localizedCaseInsensitiveContainsString:searchText];
+        }];
+        self.filteredUsers = [self.users filteredArrayUsingPredicate:userPredicate];
+        
+        [self.tableView reloadData];
+    }
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = NO;
+    self.searchBar.text = @"";
+    [self.searchBar resignFirstResponder];
+    self.filteredPlaces = self.places;
+    self.filteredUsers = self.users;
+    
+    [self.tableView reloadData];
+}
 
 @end
