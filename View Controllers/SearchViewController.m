@@ -16,8 +16,8 @@
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *places;
-@property (strong, nonatomic) NSArray *users;
+@property (strong, nonatomic) NSArray<GMSPlace*>* places;
+@property (strong, nonatomic) NSArray<PFUser*>* users;
 @property (strong, nonatomic) NSArray *filteredPlaces;
 @property (strong, nonatomic) NSArray *filteredUsers;
 @property (assign, nonatomic) long segmentIndex;
@@ -39,13 +39,13 @@
 }
 
 - (void) fetchLists {
-    [[APIManager shared] getAllGMSPlaces:^(NSArray *places) {
+    [[APIManager shared] getAllGMSPlaces:^(NSArray<GMSPlace*>* places) {
         self.places = places;
         self.filteredPlaces = self.places;
         [self.tableView reloadData];
     }];
     
-    [[APIManager shared] getAllUsers:^(NSArray *users) {
+    [[APIManager shared] getAllUsers:^(NSArray<PFUser*>* users) {
         self.users = users;
         self.filteredUsers = self.users;
         [self.tableView reloadData];
