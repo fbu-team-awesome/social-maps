@@ -33,5 +33,6 @@
 - (void)follow:(PFUser *)user;
 - (void)addUserToFollowers:(PFUser*) user;
 - (void)addUserToFollowing:(PFUser*) user;
+- (void)retrieveRelationshipWithCompletion:(void(^)(Relationships*))completion;
 
 @end

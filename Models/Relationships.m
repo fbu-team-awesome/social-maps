@@ -36,7 +36,7 @@
 }
 
 
-+ (void)retrieveFollowingWithId:(NSString *)objectId WithCompletion: (void (^)(NSArray * followers))completion {
++ (void)retrieveFollowingWithId:(NSString *)objectId WithCompletion: (void (^)(NSArray * following))completion {
     
     PFQuery *query = [PFQuery queryWithClassName:@"Relationships"];
     [query includeKey:@"following"];
