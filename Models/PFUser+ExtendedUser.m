@@ -12,6 +12,7 @@
 @implementation PFUser (ExtendedUser)
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships;
 
+
 - (void)addFavorite:(GMSPlace*)place {
     // check if place exists already
     [Place checkGMSPlaceExists:place
@@ -160,28 +161,37 @@
     // get the Relationships object of the current user
     [self retrieveRelationshipWithCompletion:^(Relationships *myRelationship) {
         
-        self.relationships = myRelationship;
-        NSString *objectId = myRelationship.objectId;
-        
         // get the array of users the current user is following
-        [Relationships retrieveFollowingWithId:objectId WithCompletion:^(NSArray *following) {
+        [Relationships retrieveFollowingWithId:self.relationships.objectId WithCompletion:^(NSArray *following) {
             
             self.relationships.following = [NSMutableArray arrayWithArray:following];
             
-            [myRelationship addUserToFollowing:user];
+            [myRelationship addUserIdToFollowing:user.objectId];
         }];
     }];
     
-    [self retrieveRelationshipWithCompletion:^(Relationships *userRelationship) {
+    
+    
+    [user retrieveRelationshipWithCompletion:^(Relationships *userRelationship) {
         
-        user.relationships = userRelationship;
-        NSString *objectId = userRelationship.objectId;
-        
-        [Relationships retrieveFollowersWithId:objectId WithCompletion:^(NSArray *followers) {
+        // get the array of user's followers
+        [Relationships retrieveFollowersWithId:user.relationships.objectId WithCompletion:^(NSArray *followers) {
             
-            [userRelationship addUserToFollowers:self];
+            [userRelationship addUserIdToFollowers:self.objectId];
+            
+            
         }];
+        
     }];
-    
 }
+
++ (PFUser *)retrieveUserWithId:(NSString *)userId {
+    
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"objectId" equalTo:userId];
+    PFUser *user = [[query findObjects] objectAtIndex:0];
+    
+    return user;
+}
+
 @end
