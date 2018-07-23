@@ -19,7 +19,11 @@
 - (void)configureCell {
     self.nameLabel.text = self.user.displayName;
     self.cityLabel.text = self.user.hometown;
-    [ParseImageHelper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
+    if (self.user.profilePicture == nil) {
+        self.profilePicture.image = nil;
+    } else {
+        [ParseImageHelper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
+    }
     self.usernameLabel.text = self.user.username;
 }
 

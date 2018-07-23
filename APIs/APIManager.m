@@ -85,7 +85,7 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
      ];
 }
 
--(void)getAllGMSPlaces:(void(^)(NSMutableArray *places))completion {
+-(void)getAllGMSPlaces:(void(^)(NSArray *places))completion {
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (error == nil && objects != nil) {
@@ -108,17 +108,15 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
     }];
 }
 
--(void)getAllUsers:(void(^)(NSMutableArray *users))completion {
+-(void)getAllUsers:(void(^)(NSArray *users))completion {
     PFQuery *query = [PFUser query];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if(error == nil && objects != nil) {
-            completion([NSMutableArray arrayWithArray:objects]);
-        }else {
+            completion(objects);
+        } else {
             NSLog(@"Error getting all users");
         }
     }];
 }
-
-
 
 @end
