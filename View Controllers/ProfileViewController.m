@@ -215,7 +215,12 @@
         [Relationships retrieveFollowersWithId:self.user.relationships.objectId 
                        WithCompletion:^(NSArray *following)
                        {
-                           [vc setUsers:following];
+                           [PFUser retrieveUsersWithIDs:following
+                                   withCompletion:^(NSArray<PFUser*>* users)
+                                   {
+                                       [vc setUsers:users];
+                                   }
+                            ];
                        }
          ];
     }
@@ -225,7 +230,12 @@
         [Relationships retrieveFollowingWithId:self.user.relationships.objectId
                        WithCompletion:^(NSArray *followers)
                        {
-                           [vc setUsers:followers];
+                           [PFUser retrieveUsersWithIDs:followers
+                                   withCompletion:^(NSArray<PFUser*>* users)
+                                   {
+                                       [vc setUsers:users];
+                                   }
+                            ];
                        }
          ];
     }
