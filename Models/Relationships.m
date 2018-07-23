@@ -46,8 +46,6 @@
     }];
 }
 
-
-
 - (void)addUserIdToFollowing:(NSString*) userId {
     
     // get objectId of use
@@ -73,4 +71,25 @@
     [self saveInBackground];
 }
 
+- (void)removeUserIDFromFollowing:(NSString*)userID {
+    if([self.following containsObject:userID])
+    {
+        NSMutableArray<NSString*>* following = (NSMutableArray*)self.following;
+        [following addObject:userID];
+        self.following = (NSArray*)following;
+        [self setObject:self.following forKey:@"following"];
+        [self saveInBackground];
+    }
+}
+
+- (void)removeUserIDFromFollowers:(NSString*)userID {
+    if([self.followers containsObject:userID])
+    {
+        NSMutableArray<NSString*>* followers = (NSMutableArray*)self.followers;
+        [followers addObject:userID];
+        self.followers = (NSArray*)followers;
+        [self setObject:self.followers forKey:@"followers"];
+        [self saveInBackground];
+    }
+}
 @end

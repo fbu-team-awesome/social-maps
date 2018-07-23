@@ -171,7 +171,6 @@
     }];
     
     
-    
     [user retrieveRelationshipWithCompletion:^(Relationships *userRelationship) {
         
         // get the array of user's followers
@@ -184,6 +183,7 @@
         
     }];
 }
+
 
 + (PFUser *)retrieveUserWithId:(NSString *)userId {
     
