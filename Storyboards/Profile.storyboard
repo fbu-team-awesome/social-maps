@@ -14,7 +14,7 @@
         <!--Profile View Controller-->
         <scene sceneID="sC8-ik-v95">
             <objects>
-                <viewController id="khL-MV-X4z" customClass="ProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Profile" id="khL-MV-X4z" customClass="ProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JvN-IA-aV9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -334,6 +334,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Ycd-XH-Z2X"/>
         <segue reference="eWv-Bg-RQY"/>
-        <segue reference="OOB-8H-gVD"/>
+        <segue reference="ofK-xM-JRU"/>
     </inferredMetricsTieBreakers>
 </document>
