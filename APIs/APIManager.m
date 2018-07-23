@@ -85,20 +85,19 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
      ];
 }
 
--(void)getAllGMSPlaces:(void(^)(NSMutableArray *places))completion {
+- (void)getAllGMSPlaces:(void(^)(NSArray<GMSPlace*>* places))completion {
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        if (error == nil && objects != nil) {
-            
+    [query findObjectsInBackgroundWithBlock:        ^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (error == nil && objects != nil)  {
             // convert array of Place objects to GMSPlace objects
-            NSMutableArray *array = [[NSMutableArray alloc] init];
+            NSMutableArray<GMSPlace*>* array = [NSMutableArray new];
             for (Place *myPlace in objects) {
                 [self GMSPlaceFromPlace:myPlace withCompletion:^(GMSPlace *place) {
                     [array addObject:place];
                     
                     if(array.count == objects.count)
                     {
-                        completion(array);
+                        completion((NSArray*)array);
                     }
                 }];
             }
@@ -108,12 +107,12 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
     }];
 }
 
--(void)getAllUsers:(void(^)(NSMutableArray *users))completion {
+- (void)getAllUsers:(void(^)(NSArray<PFUser*>* users))completion {
     PFQuery *query = [PFUser query];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if(error == nil && objects != nil) {
-            completion([NSMutableArray arrayWithArray:objects]);
-        }else {
+            completion(objects);
+        } else {
             NSLog(@"Error getting all users");
         }
     }];
