@@ -42,7 +42,7 @@
                                                  name:@"AddToWishlistNotification"
                                                object:nil];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPinsOfNewFollow:) name:@"NewFollowNotification" object:nil];
     
     [self initMap];
     [self initSearch];
@@ -140,6 +140,8 @@
      ];
 }
 
+
+
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
     
     CLLocation* location = [locations lastObject];
@@ -218,6 +220,16 @@
     }];
 }
 
+- (void)addPinsOfNewFollow:(NSNotification *) notification {
+    
+    [notification.object retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
+        
+        // add each place to map
+        for (GMSPlace *place in places) {
+            [self addFavoriteOfFollowingPin:place];
+        }
+    }];
+}
 
 - (void)addFavoritePin:(GMSPlace *)place {
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];

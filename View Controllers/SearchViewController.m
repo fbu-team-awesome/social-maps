@@ -176,6 +176,6 @@
          DetailsViewController *detailsVC = (DetailsViewController *)[segue destinationViewController];
          detailsVC.place = sender;
      }
-}
+ }
 
 @end
