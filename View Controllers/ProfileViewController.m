@@ -135,10 +135,11 @@
     [self addShadowToView:self.myPlacesView withOffset:CGSizeMake(0,6)];
     [self setRoundedCornersToView:self.followButton];
     [self addShadowToView:self.followButton withOffset:CGSizeMake(0,0)];
+    
     // set switch background when off
     self.placesSwitch.layer.cornerRadius = self.placesSwitch.frame.size.height / 2;
     self.placesSwitch.clipsToBounds = YES;
-    self.placesSwitch.backgroundColor = [UIColor colorWithRed:227/255.0 green:130/255.0 blue:94/255.0 alpha:255];
+    self.placesSwitch.backgroundColor = [UIColor colorNamed:@"VTR_Main"];
 }
 
 - (void)setRoundedCornersToView:(UIView*)view {
