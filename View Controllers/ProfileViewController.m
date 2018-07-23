@@ -88,6 +88,13 @@
     self.bioLabel.text = self.user.bio;
     [ParseImageHelper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
     
+    // pre-load get followers and following (we need to do this anyway for the follower/following count)
+    [self.user retrieveRelationshipWithCompletion:^(Relationships* relationship) {
+        // update UI with counts
+        [self.followersButton setTitle:[NSString stringWithFormat:@"%lu Followers", relationship.followers.count] forState:UIControlStateNormal];
+        [self.followingButton setTitle:[NSString stringWithFormat:@"%lu Following", relationship.following.count] forState:UIControlStateNormal];
+    }];
+    
     // set UI styles
     [self initUIStyles];
 }
