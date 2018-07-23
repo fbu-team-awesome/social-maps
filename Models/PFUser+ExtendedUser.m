@@ -171,7 +171,6 @@
     }];
     
     
-    
     [user retrieveRelationshipWithCompletion:^(Relationships *userRelationship) {
         
         // get the array of user's followers
@@ -183,6 +182,24 @@
         }];
         
     }];
+}
+
+- (void)unfollow:(PFUser*)user {
+    // remove from our user
+    [self retrieveRelationshipWithCompletion:
+          ^(Relationships* myRelationship)
+          {
+              [myRelationship removeUserIDFromFollowing:user.objectId];
+          }
+     ];
+    
+    // remove from the other user
+    [user retrieveRelationshipWithCompletion:
+          ^(Relationships* theirRelationship)
+          {
+              [theirRelationship removeUserIDFromFollowers:self.objectId];
+          }
+     ];
 }
 
 + (PFUser *)retrieveUserWithId:(NSString *)userId {

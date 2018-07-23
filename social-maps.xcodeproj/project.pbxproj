@@ -24,6 +24,7 @@
 		1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948920FD4CBE00E4D630 /* ListView.storyboard */; };
 		1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */; };
 		1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */; };
+		1C9B05E521068CFC00FBF521 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B05E421068CFC00FBF521 /* TabBarController.m */; };
 		317B392E210267590057079A /* PlaceResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 317B392D210267590057079A /* PlaceResultCell.m */; };
 		317B3931210267650057079A /* UserResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 317B3930210267640057079A /* UserResultCell.m */; };
 		317B39342102677C0057079A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 317B39332102677C0057079A /* SearchViewController.m */; };
@@ -74,6 +75,8 @@
 		1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailsView.storyboard; sourceTree = "<group>"; };
 		1C6D948D20FE59FE00E4D630 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		1C9B05E321068CFC00FBF521 /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
+		1C9B05E421068CFC00FBF521 /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		24E9E450AD670C53941D8527 /* Pods-social-maps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-social-maps.release.xcconfig"; path = "Pods/Target Support Files/Pods-social-maps/Pods-social-maps.release.xcconfig"; sourceTree = "<group>"; };
 		317B392C2102674D0057079A /* PlaceResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceResultCell.h; sourceTree = "<group>"; };
 		317B392D210267590057079A /* PlaceResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceResultCell.m; sourceTree = "<group>"; };
@@ -210,6 +213,8 @@
 				018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */,
 				1C2D8A7120FFC0E000F31851 /* ResultsTableViewController.h */,
 				1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */,
+				1C9B05E321068CFC00FBF521 /* TabBarController.h */,
+				1C9B05E421068CFC00FBF521 /* TabBarController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -409,6 +414,7 @@
 				9EE973F4210281850056DCF2 /* ParseImageHelper.m in Sources */,
 				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
 				1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */,
+				1C9B05E521068CFC00FBF521 /* TabBarController.m in Sources */,
 				018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */,
 				317B39342102677C0057079A /* SearchViewController.m in Sources */,
 			);
@@ -553,12 +559,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QR8BU78FBL;
+				DEVELOPMENT_TEAM = 4H789JND9X;
 				INFOPLIST_FILE = "social-maps/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bevin.socialmaps;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fb.socialmaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -571,12 +579,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QR8BU78FBL;
+				DEVELOPMENT_TEAM = 4H789JND9X;
 				INFOPLIST_FILE = "social-maps/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bevin.socialmaps;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fb.socialmaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
