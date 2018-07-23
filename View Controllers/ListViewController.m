@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *defaultView;
+@property (weak, nonatomic) IBOutlet UILabel *defaultViewLabel;
 @property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
 @property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 @property (assign, nonatomic) long segmentIndex;
@@ -34,22 +35,30 @@
     [self.tableView setRowHeight:91];
     self.tableView.hidden = YES;
     [self setSegmentControlView];
-    [self retrieveCurrentUserDataWithCompletion:^{
-        if (self.favorites == nil && self.segmentIndex == 0) {
-            self.tableView.hidden = YES;
-            self.defaultView.hidden = NO;
-        }
-        else if (self.wishlist == nil && self.segmentIndex == 1) {
-            self.tableView.hidden = YES;
-            self.defaultView.hidden = NO;
-        }
-        else {
-            self.tableView.hidden = NO;
-        }
-    }];
+    [self retrieveCurrentUserData];
 }
 
-- (void)retrieveCurrentUserDataWithCompletion:(void(^)(void))completion {
+- (void)setView {
+    
+    if (self.favorites == nil && self.segmentIndex == 0) {
+        self.defaultViewLabel.text = @"Your Favorites is currently empty!";
+        self.tableView.hidden = YES;
+        self.defaultView.hidden = NO;
+    }
+    else if (self.wishlist == nil && self.segmentIndex == 1) {
+        self.defaultViewLabel.text = @"Your Wishlist is currently empty!";
+        self.tableView.hidden = YES;
+        self.defaultView.hidden = NO;
+    }
+    else {
+        self.tableView.hidden = NO;
+        self.defaultView.hidden = YES;
+    }
+    
+    
+}
+
+- (void)retrieveCurrentUserData {
     
     PFUser *currentUser = [PFUser currentUser];
     [currentUser retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *favorites) {
@@ -63,7 +72,6 @@
         self.wishlist = wishlist;
         [self.tableView reloadData];
     }];
-    completion();
 }
 
 - (void)setSegmentControlView {
@@ -134,10 +142,14 @@
  
  - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
      
-     if (self.segmentIndex == 0)
+     if (self.segmentIndex == 0) {
+         [self setView];
          return self.favorites.count;
-     else
+     }
+     else {
+         [self setView];
          return self.wishlist.count;
+     }
  }
 
 
