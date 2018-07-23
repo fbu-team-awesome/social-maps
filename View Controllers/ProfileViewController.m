@@ -32,9 +32,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISwitch *placesSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *switchLabel;
-@property (weak, nonatomic) IBOutlet UIButton *followersButton;
-@property (weak, nonatomic) IBOutlet UIButton *followingButton;
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
+@property (weak, nonatomic) IBOutlet UILabel *followersLabel;
+@property (weak, nonatomic) IBOutlet UILabel *followingLabel;
 
 // Instance Properties //
 @property (strong, nonatomic) CLLocationManager* locationManager;
@@ -109,8 +109,8 @@
     [self.user retrieveRelationshipWithCompletion:^(Relationships* relationship) {
         self.user.relationships = relationship;
         // update UI with counts
-        [self.followersButton setTitle:[NSString stringWithFormat:@"%lu Followers", relationship.followers.count] forState:UIControlStateNormal];
-        [self.followingButton setTitle:[NSString stringWithFormat:@"%lu Following", relationship.following.count] forState:UIControlStateNormal];
+        [self.followersLabel setText:[NSString stringWithFormat:@"%lu followers", relationship.followers.count]];
+        [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", relationship.following.count]];
     }];
 
     
@@ -126,12 +126,6 @@
     [self setRoundedCornersToView:self.profilePicture];
     [self setRoundedCornersToView:self.profilePictureView];
     [self addShadowToView:self.profilePictureView withOffset:CGSizeZero];
-    self.followersButton.layer.cornerRadius = self.followersButton.frame.size.height / 2;
-    self.followersButton.clipsToBounds = YES;
-    [self addShadowToView:self.followersButton withOffset:CGSizeMake(0, 0)];
-    self.followingButton.layer.cornerRadius = self.followingButton.frame.size.height / 2;
-    self.followingButton.clipsToBounds = YES;
-    [self addShadowToView:self.followingButton withOffset:CGSizeMake(0, 4)];
     [self addShadowToView:self.myPlacesView withOffset:CGSizeMake(0,6)];
     [self setRoundedCornersToView:self.followButton];
     [self addShadowToView:self.followButton withOffset:CGSizeMake(0,0)];
