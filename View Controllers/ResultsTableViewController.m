@@ -16,7 +16,7 @@
 @property (strong, nonatomic) NSMutableArray * results;
 @end
 
-@implementation ResultsTableViewController{
+@implementation ResultsTableViewController {
     GMSAutocompleteFetcher *_fetcher;
 }
 
@@ -96,5 +96,10 @@
 - (void) didAddToFavorites:(GMSPlace *)place {
     
 }
+
+- (void)didAddToWishlist:(GMSPlace *)place {
+
+}
+
 
 @end

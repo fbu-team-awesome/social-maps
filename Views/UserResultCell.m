@@ -19,7 +19,11 @@
 - (void)configureCell {
     self.nameLabel.text = self.user.displayName;
     self.cityLabel.text = self.user.hometown;
-    [ParseImageHelper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
+    if (self.user.profilePicture == nil) {
+        self.profilePicture.image = nil;
+    } else {
+        [ParseImageHelper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
+    }
     self.usernameLabel.text = self.user.username;
 }
 
@@ -27,6 +31,12 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+- (IBAction)didTapFollow:(id)sender {
+    
+    PFUser *currentUser = [PFUser currentUser];
+    [currentUser follow:self.user];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NewFollowNotification" object:self.user];
 }
 
 @end
