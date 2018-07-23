@@ -24,5 +24,6 @@
 - (void)GMSPlaceFromID:(NSString*)placeID withCompletion:(void(^)(GMSPlace* place))completion;
 - (void)getAllGMSPlaces:(void(^)(NSArray<GMSPlace*>* places))completion;
 - (void)getAllUsers:(void(^)(NSArray<PFUser*>* users))completion;
+- (void)getPhotoMetadata:(NSString *)placeID :(void(^)(NSArray<GMSPlacePhotoMetadata *> *photoMetadata))completion;
 
 @end
