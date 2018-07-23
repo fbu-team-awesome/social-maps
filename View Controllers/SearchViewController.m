@@ -168,10 +168,10 @@
 }
 
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     if ([segue.identifier isEqualToString:@"detailsSegue"]) {
+     if ([segue.identifier isEqualToString:@"placeSegue"]) {
          DetailsViewController *detailsVC = [segue destinationViewController];
          detailsVC.place = sender;
-     } else {
+     } else if ([segue.identifier isEqualToString:@"userSegue"]) {
          ProfileViewController *profileVC = [segue destinationViewController];
          profileVC.user = sender;
      }
