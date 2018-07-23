@@ -87,7 +87,7 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
 
 - (void)getAllGMSPlaces:(void(^)(NSArray<GMSPlace*>* places))completion {
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];
-    [query findObjectsInBackgroundWithBlock:        ^(NSArray * _Nullable objects, NSError * _Nullable error) {
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (error == nil && objects != nil)  {
             // convert array of Place objects to GMSPlace objects
             NSMutableArray<GMSPlace*>* array = [NSMutableArray new];
