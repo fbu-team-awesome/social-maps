@@ -24,4 +24,8 @@
 
 - (void)addUserIdToFollowers:(NSString*) userId;
 
+- (void)removeUserIDFromFollowing:(NSString*)userID;
+
+- (void)removeUserIDFromFollowers:(NSString*)userID;
+
 @end

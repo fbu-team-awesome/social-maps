@@ -60,7 +60,7 @@
     {
         if([[PFUser currentUser].relationships.following containsObject:self.user.objectId])
         {
-            self.followButton.hidden = YES;
+            [self.followButton setTitle:@"-" forState:UIControlStateNormal];
         }
     }
     
@@ -297,7 +297,16 @@
 }
 
 - (IBAction)followClicked:(id)sender {
-    [[PFUser currentUser] follow:self.user];
+    if([self.followButton.titleLabel.text isEqualToString:@"+"])
+    {
+        [[PFUser currentUser] follow:self.user];
+        [self.followButton setTitle:@"-" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [[PFUser currentUser] unfollow:self.user];
+        [self.followButton setTitle:@"+" forState:UIControlStateNormal];
+    }
 }
 
 @end
