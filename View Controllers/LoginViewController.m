@@ -24,7 +24,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // pretty-fy everything
+    [self initUIStyles];
+}
+
+- (void)initUIStyles {
+    // username textfield
     self.usernameView.layer.cornerRadius = 22;
     self.usernameView.clipsToBounds = YES;
     self.usernameView.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -33,6 +37,7 @@
     self.usernameView.layer.shadowOpacity = 0.2;
     self.usernameView.layer.masksToBounds = NO;
     
+    // password textfield
     self.passwordView.layer.cornerRadius = 22;
     self.passwordView.clipsToBounds = YES;
     self.passwordView.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -41,6 +46,7 @@
     self.passwordView.layer.shadowOpacity = 0.2;
     self.passwordView.layer.masksToBounds = NO;
     
+    // signup button
     self.signupButton.layer.cornerRadius = 22;
     self.signupButton.clipsToBounds = YES;
     self.signupButton.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -49,6 +55,7 @@
     self.signupButton.layer.shadowOpacity = 0.2;
     self.signupButton.layer.masksToBounds = NO;
     
+    // login button
     self.loginButton.layer.cornerRadius = 22;
     self.loginButton.clipsToBounds = YES;
     self.loginButton.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -57,21 +64,7 @@
     self.loginButton.layer.shadowOpacity = 0.2;
     self.loginButton.layer.masksToBounds = NO;
 }
-- (IBAction)didTapSignUp:(id)sender {
-//    PFUser *newUser = [PFUser user];
-//    newUser.username = self.usernameField.text;
-//    newUser.password = self.passwordField.text;
-//    newUser.favorites = [NSMutableArray new];
-//    newUser.wishlist = [NSMutableArray new];
-//    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//        if (error != nil) {
-//            NSLog(@"Error: %@", error.localizedDescription);
-//        } else {
-//            NSLog(@"User registered successfully.");
-//            [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-//        }
-//    }];
-}
+
 - (IBAction)didTapLogin:(id)sender {
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
@@ -88,17 +81,5 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end
