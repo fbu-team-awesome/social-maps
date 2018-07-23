@@ -194,4 +194,30 @@
     return user;
 }
 
++ (void)retrieveUsersWithIDs:(NSArray<NSString*>*)IDs withCompletion:(void(^)(NSArray<PFUser*>*))completion {
+    NSMutableArray<PFUser*>* users = [NSMutableArray new];
+    
+    // loop through all IDs
+    for(NSString* ID in IDs)
+    {
+        PFQuery* query = [PFUser query];
+        
+        // query the ID
+        [query getObjectInBackgroundWithId:ID
+               block:^(PFObject * _Nullable object, NSError * _Nullable error)
+               {
+                   if(object != nil)
+                   {
+                       [users addObject:(PFUser*)object];
+                   }
+                   
+                   // if our users array's length is the same as the IDs, then we are done
+                   if(users.count == IDs.count)
+                   {
+                       completion((NSArray*)users);
+                   }
+               }
+         ];
+    }
+}
 @end

@@ -33,5 +33,6 @@
 - (void)follow:(PFUser *)user;
 - (void)retrieveRelationshipWithCompletion:(void(^)(Relationships*))completion;
 + (PFUser *)retrieveUserWithId:(NSString *)userId;
++ (void)retrieveUsersWithIDs:(NSArray<NSString*>*)IDs withCompletion:(void(^)(NSArray<PFUser*>*))completion;
 
 @end
