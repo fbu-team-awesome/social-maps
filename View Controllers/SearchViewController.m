@@ -12,6 +12,8 @@
 #import "PlaceResultCell.h"
 #import "UserResultCell.h"
 #import "APIManager.h"
+#import "ProfileViewController.h"
+#import "DetailsViewController.h"
 
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
@@ -26,6 +28,8 @@
 @end
 
 @implementation SearchViewController
+
+#pragma mark - Initialization
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,8 +60,8 @@
     self.searchBar.delegate = self;
 }
 
--(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.view endEditing:YES];
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 
 - (void)setSegmentControlView {
@@ -90,21 +94,6 @@
     }];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     if (self.segmentIndex == 1) {
@@ -128,6 +117,8 @@
     return self.filteredUsers.count;
 }
 
+#pragma mark - Search Bar
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (searchText.length != 0){
         //filter places
@@ -150,6 +141,10 @@
     self.searchBar.showsCancelButton = YES;
 }
 
+-(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
+}
+
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = NO;
     self.searchBar.text = @"";
@@ -158,6 +153,28 @@
     self.filteredUsers = self.users;
     
     [self.tableView reloadData];
+}
+
+#pragma mark - Navigation
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.segmentIndex == 0) {
+        GMSPlace *place = self.filteredPlaces[indexPath.row];
+        [self performSegueWithIdentifier:@"placeSegue" sender:place];
+    } else {
+        PFUser *user = self.filteredUsers[indexPath.row];
+        [self performSegueWithIdentifier:@"userSegue" sender:user];
+    }
+}
+
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+     if ([segue.identifier isEqualToString:@"detailsSegue"]) {
+         DetailsViewController *detailsVC = [segue destinationViewController];
+         detailsVC.place = sender;
+     } else {
+         ProfileViewController *profileVC = [segue destinationViewController];
+         profileVC.user = sender;
+     }
 }
 
 @end
