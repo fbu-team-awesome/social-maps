@@ -42,7 +42,7 @@
                                                  name:@"AddToWishlistNotification"
                                                object:nil];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPinsOfNewFollow:) name:@"NewFollowNotification" object:nil];
     
     [self initMap];
     [self initSearch];
@@ -96,8 +96,11 @@
         // get array of users that current user is following
         [Relationships retrieveFollowingWithId:relationships.objectId WithCompletion:^(NSArray *following) {
             
-            for (PFUser *user in following) {
-
+            for (NSString *userId in following) {
+                
+                // get the user that has id userId
+                PFUser *user = [PFUser retrieveUserWithId:userId];
+                
                 // get the favorites of each user
                 [user retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
                     
@@ -136,6 +139,8 @@
      }
      ];
 }
+
+
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
     
@@ -215,6 +220,16 @@
     }];
 }
 
+- (void)addPinsOfNewFollow:(NSNotification *) notification {
+    
+    [notification.object retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
+        
+        // add each place to map
+        for (GMSPlace *place in places) {
+            [self addFavoriteOfFollowingPin:place];
+        }
+    }];
+}
 
 - (void)addFavoritePin:(GMSPlace *)place {
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];

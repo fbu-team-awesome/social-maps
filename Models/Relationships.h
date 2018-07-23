@@ -11,8 +11,8 @@
 
 @interface Relationships : PFObject<PFSubclassing>
 
-@property (strong, nonatomic, nonnull) NSMutableArray *following;
-@property (strong, nonatomic, nonnull) NSMutableArray *followers;
+@property (strong, nonatomic, nonnull) NSArray<NSString *> *following;
+@property (strong, nonatomic, nonnull) NSArray<NSString *> *followers;
 
 + (void)getUsersWithCompletion:(void (^_Nonnull)(NSArray *users))completion;
 
@@ -20,8 +20,8 @@
 
 + (void)retrieveFollowingWithId:(NSString *)objectId WithCompletion: (void (^)(NSArray * following))completion;
 
-- (void)addUserToFollowing:(PFUser*) user;
+- (void)addUserIdToFollowing:(NSString*) userId;
 
-- (void)addUserToFollowers:(PFUser*) user;
+- (void)addUserIdToFollowers:(NSString*) userId;
 
 @end

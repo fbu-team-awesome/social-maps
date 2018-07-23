@@ -46,26 +46,31 @@
     }];
 }
 
-- (void)addUserToFollowing:(PFUser*) user {
+
+
+- (void)addUserIdToFollowing:(NSString*) userId {
     
-    if (![self.following containsObject:user]) {
-        [self.following addObject:user];
+    // get objectId of use
+    if (![self.following containsObject:userId]) {
+        
+        NSMutableArray *mutableFollowing = [NSMutableArray arrayWithArray:self.following];
+        [mutableFollowing addObject:userId];
+        self.following = [NSArray arrayWithArray:mutableFollowing];
         [self setObject:self.following forKey:@"following"];
     }
     [self saveInBackground];
 }
 
-- (void)addUserToFollowers:(PFUser*) user {
+- (void)addUserIdToFollowers:(NSString*) userId {
     
-    if (![self.followers containsObject:user]) {
-        [self.followers addObject:user];
+    if (![self.followers containsObject:userId]) {
+        
+        NSMutableArray *mutableFollowers = [NSMutableArray arrayWithArray:self.followers];
+        [mutableFollowers addObject:userId];
+        self.followers = [NSArray arrayWithArray:mutableFollowers];
         [self setObject:self.followers forKey:@"followers"];
     }
     [self saveInBackground];
 }
-
-
-
-
 
 @end
