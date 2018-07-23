@@ -75,7 +75,7 @@
     if([self.following containsObject:userID])
     {
         NSMutableArray<NSString*>* following = (NSMutableArray*)self.following;
-        [following addObject:userID];
+        [following removeObject:userID];
         self.following = (NSArray*)following;
         [self setObject:self.following forKey:@"following"];
         [self saveInBackground];
@@ -86,7 +86,7 @@
     if([self.followers containsObject:userID])
     {
         NSMutableArray<NSString*>* followers = (NSMutableArray*)self.followers;
-        [followers addObject:userID];
+        [followers removeObject:userID];
         self.followers = (NSArray*)followers;
         [self setObject:self.followers forKey:@"followers"];
         [self saveInBackground];
