@@ -24,6 +24,7 @@
 @property (strong, nonatomic) NSArray *filteredUsers;
 @property (assign, nonatomic) long segmentIndex;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) NSArray<GMSPlacePhotoMetadata *> *photoMetadata;
 
 @end
 
@@ -40,6 +41,7 @@
     [self initSearch];
     [self setSegmentControlView];
     [self fetchLists];
+    
 }
 
 - (void) fetchLists {
