@@ -32,5 +32,11 @@
 
     // Configure the view for the selected state
 }
+- (IBAction)didTapFollow:(id)sender {
+    
+    PFUser *currentUser = [PFUser currentUser];
+    [currentUser follow:self.user];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NewFollowNotification" object:self.user];
+}
 
 @end

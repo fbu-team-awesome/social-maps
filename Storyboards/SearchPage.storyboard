@@ -156,6 +156,9 @@
                                                     <state key="normal" title="+">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="didTapFollow:" destination="5I8-P5-AHK" eventType="touchUpInside" id="eQL-Jr-UrU"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
