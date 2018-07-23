@@ -96,8 +96,11 @@
         // get array of users that current user is following
         [Relationships retrieveFollowingWithId:relationships.objectId WithCompletion:^(NSArray *following) {
             
-            for (PFUser *user in following) {
-
+            for (NSString *userId in following) {
+                
+                // get the user that has id userId
+                PFUser *user = [PFUser retrieveUserWithId:userId];
+                
                 // get the favorites of each user
                 [user retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
                     
