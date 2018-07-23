@@ -90,6 +90,7 @@
     
     // pre-load get followers and following (we need to do this anyway for the follower/following count)
     [self.user retrieveRelationshipWithCompletion:^(Relationships* relationship) {
+        self.user.relationships = relationship;
         // update UI with counts
         [self.followersButton setTitle:[NSString stringWithFormat:@"%lu Followers", relationship.followers.count] forState:UIControlStateNormal];
         [self.followingButton setTitle:[NSString stringWithFormat:@"%lu Following", relationship.following.count] forState:UIControlStateNormal];
@@ -219,31 +220,21 @@
     else if([segue.identifier isEqualToString:@"followersSegue"])
     {
         RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
-        [Relationships retrieveFollowersWithId:self.user.relationships.objectId 
-                       WithCompletion:^(NSArray *following)
-                       {
-                           [PFUser retrieveUsersWithIDs:following
-                                   withCompletion:^(NSArray<PFUser*>* users)
-                                   {
-                                       [vc setUsers:users];
-                                   }
-                            ];
-                       }
+        [PFUser retrieveUsersWithIDs:self.user.relationships.followers
+                withCompletion:^(NSArray<PFUser*>* users)
+                {
+                    [vc setUsers:users];
+                }
          ];
     }
     else if([segue.identifier isEqualToString:@"followingSegue"])
     {
         RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
-        [Relationships retrieveFollowingWithId:self.user.relationships.objectId
-                       WithCompletion:^(NSArray *followers)
-                       {
-                           [PFUser retrieveUsersWithIDs:followers
-                                   withCompletion:^(NSArray<PFUser*>* users)
-                                   {
-                                       [vc setUsers:users];
-                                   }
-                            ];
-                       }
+        [PFUser retrieveUsersWithIDs:self.user.relationships.following
+                withCompletion:^(NSArray<PFUser*>* users)
+                {
+                    [vc setUsers:users];
+                }
          ];
     }
 }
