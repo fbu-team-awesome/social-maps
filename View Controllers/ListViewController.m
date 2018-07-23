@@ -16,7 +16,7 @@
 @interface ListViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (weak, nonatomic) IBOutlet UIView *defaultView;
 @property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
 @property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 @property (assign, nonatomic) long segmentIndex;
@@ -32,23 +32,38 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView setRowHeight:91];
+    self.tableView.hidden = YES;
     [self setSegmentControlView];
-    [self retrieveCurrentUserData];
+    [self retrieveCurrentUserDataWithCompletion:^{
+        if (self.favorites == nil && self.segmentIndex == 0) {
+            self.tableView.hidden = YES;
+            self.defaultView.hidden = NO;
+        }
+        else if (self.wishlist == nil && self.segmentIndex == 1) {
+            self.tableView.hidden = YES;
+            self.defaultView.hidden = NO;
+        }
+        else {
+            self.tableView.hidden = NO;
+        }
+    }];
 }
 
-- (void)retrieveCurrentUserData {
+- (void)retrieveCurrentUserDataWithCompletion:(void(^)(void))completion {
     
     PFUser *currentUser = [PFUser currentUser];
     [currentUser retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *favorites) {
-        
+    
         self.favorites = favorites;
         [self.tableView reloadData];
+        
     }];
     [currentUser retrieveWishlistWithCompletion:^(NSArray<GMSPlace *> *wishlist) {
         
         self.wishlist = wishlist;
         [self.tableView reloadData];
     }];
+    completion();
 }
 
 - (void)setSegmentControlView {
@@ -89,16 +104,6 @@
     CGRect tableViewFrame = self.tableView.frame;
     tableViewFrame.origin.y = statusBarHeight + 60;
     self.tableView.frame = tableViewFrame;
-    // set tableview constraints in respect to segmented control
-    //self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor].active = YES;
-//    [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor].active = YES;
-//    [self.tableView.topAnchor constraintEqualToAnchor:segmentedControl.bottomAnchor].active = YES;
-    
-}
-
-- (void)initializeConstraints {
-    
 }
 
 - (void)didReceiveMemoryWarning {
