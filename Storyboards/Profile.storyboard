@@ -282,14 +282,6 @@
             </objects>
             <point key="canvasLocation" x="1310" y="-668"/>
         </scene>
-        <!--UserTest-->
-        <scene sceneID="SRX-39-5bT">
-            <objects>
-                <viewControllerPlaceholder storyboardName="UserTest" id="CNx-oI-8D0" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ytb-Bn-FmW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1496" y="103"/>
-        </scene>
         <!--DetailsView-->
         <scene sceneID="4SR-bD-qOX">
             <objects>
@@ -318,7 +310,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="cqI-8F-loz"/>
+        <segue reference="Ycd-XH-Z2X"/>
         <segue reference="eWv-Bg-RQY"/>
         <segue reference="OOB-8H-gVD"/>
     </inferredMetricsTieBreakers>

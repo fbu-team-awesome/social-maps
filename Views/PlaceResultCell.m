@@ -7,6 +7,7 @@
 //
 
 #import "PlaceResultCell.h"
+#import "Place.h"
 
 @implementation PlaceResultCell
 
@@ -27,11 +28,15 @@
 }
 
 - (IBAction)didTapFavorite:(id)sender {
-    
+    [Place checkPlaceWithIDExists:self.place.placeID result:^(Place * result) {
+        [result addFavoriteNotification];
+    }];
 }
 
 - (IBAction)didTapWishlist:(id)sender {
-    
+    [Place checkPlaceWithIDExists:self.place.placeID result:^(Place * result) {
+        [result addToWishlistNotification];
+    }];
 }
 
 @end

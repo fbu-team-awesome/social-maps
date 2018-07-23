@@ -94,11 +94,15 @@
 }
 
 - (void) didAddToFavorites:(GMSPlace *)place {
-    
+    [Place checkPlaceWithIDExists:place.placeID result:^(Place * result) {
+        [result addFavoriteNotification];
+    }];
 }
 
 - (void)didAddToWishlist:(GMSPlace *)place {
-
+    [Place checkPlaceWithIDExists:place.placeID result:^(Place * result) {
+        [result addToWishlistNotification];
+    }];
 }
 
 
