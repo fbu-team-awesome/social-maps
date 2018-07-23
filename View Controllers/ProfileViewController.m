@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *switchLabel;
 @property (weak, nonatomic) IBOutlet UIButton *followersButton;
 @property (weak, nonatomic) IBOutlet UIButton *followingButton;
+@property (weak, nonatomic) IBOutlet UIButton *followButton;
 
 // Instance Properties //
 @property (strong, nonatomic) CLLocationManager* locationManager;
@@ -55,27 +56,43 @@
     {
         self.user = [PFUser currentUser];
     }
+    else
+    {
+        if([[PFUser currentUser].relationships.following containsObject:self.user.objectId])
+        {
+            self.followButton.hidden = YES;
+        }
+    }
+    
+    // create map
+    GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:37.7749 longitude:-122.4194 zoom:6];
+    self.mapView = [GMSMapView mapWithFrame:self.profileMapView.bounds camera:camera];
+    [self.profileMapView addSubview:self.mapView];
+    self.mapView.delegate = self;
+    
+    // if it's us, we'll show stuff differently
+    if([[PFUser currentUser].objectId isEqualToString:self.user.objectId])
+    {
+        // init our location
+        self.locationManager = [CLLocationManager new];
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        [self.locationManager requestAlwaysAuthorization];
+        self.locationManager.distanceFilter = 50;
+        [self.locationManager startUpdatingLocation];
+        self.locationManager.delegate = self;
+        
+        // set up map for our location
+        self.mapView.settings.myLocationButton = YES;
+        [self.mapView setMyLocationEnabled:YES];
+        
+        // hide follow button
+        self.followButton.hidden = YES;
+    }
     
     // init tableview
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView setRowHeight:90];
-    
-    // init our location
-    self.locationManager = [CLLocationManager new];
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [self.locationManager requestAlwaysAuthorization];
-    self.locationManager.distanceFilter = 50;
-    [self.locationManager startUpdatingLocation];
-    self.locationManager.delegate = self;
-    
-    // create map
-    GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:0 longitude:0 zoom:6];
-    self.mapView = [GMSMapView mapWithFrame:self.profileMapView.bounds camera:camera];
-    self.mapView.settings.myLocationButton = YES;
-    [self.mapView setMyLocationEnabled:YES];
-    [self.profileMapView addSubview:self.mapView];
-    self.mapView.delegate = self;
     
     // get favs and wishlist
     self.markers = [NSMutableDictionary new];
@@ -87,6 +104,15 @@
     self.hometownLabel.text = self.user.hometown;
     self.bioLabel.text = self.user.bio;
     [ParseImageHelper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
+    
+    // pre-load get followers and following (we need to do this anyway for the follower/following count)
+    [self.user retrieveRelationshipWithCompletion:^(Relationships* relationship) {
+        self.user.relationships = relationship;
+        // update UI with counts
+        [self.followersButton setTitle:[NSString stringWithFormat:@"%lu Followers", relationship.followers.count] forState:UIControlStateNormal];
+        [self.followingButton setTitle:[NSString stringWithFormat:@"%lu Following", relationship.following.count] forState:UIControlStateNormal];
+    }];
+
     
     // set UI styles
     [self initUIStyles];
@@ -107,7 +133,8 @@
     self.followingButton.clipsToBounds = YES;
     [self addShadowToView:self.followingButton withOffset:CGSizeMake(0, 4)];
     [self addShadowToView:self.myPlacesView withOffset:CGSizeMake(0,6)];
-    
+    [self setRoundedCornersToView:self.followButton];
+    [self addShadowToView:self.followButton withOffset:CGSizeMake(0,0)];
     // set switch background when off
     self.placesSwitch.layer.cornerRadius = self.placesSwitch.frame.size.height / 2;
     self.placesSwitch.clipsToBounds = YES;
@@ -212,31 +239,21 @@
     else if([segue.identifier isEqualToString:@"followersSegue"])
     {
         RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
-        [Relationships retrieveFollowersWithId:self.user.relationships.objectId 
-                       WithCompletion:^(NSArray *following)
-                       {
-                           [PFUser retrieveUsersWithIDs:following
-                                   withCompletion:^(NSArray<PFUser*>* users)
-                                   {
-                                       [vc setUsers:users];
-                                   }
-                            ];
-                       }
+        [PFUser retrieveUsersWithIDs:self.user.relationships.followers
+                withCompletion:^(NSArray<PFUser*>* users)
+                {
+                    [vc setUsers:users];
+                }
          ];
     }
     else if([segue.identifier isEqualToString:@"followingSegue"])
     {
         RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
-        [Relationships retrieveFollowingWithId:self.user.relationships.objectId
-                       WithCompletion:^(NSArray *followers)
-                       {
-                           [PFUser retrieveUsersWithIDs:followers
-                                   withCompletion:^(NSArray<PFUser*>* users)
-                                   {
-                                       [vc setUsers:users];
-                                   }
-                            ];
-                       }
+        [PFUser retrieveUsersWithIDs:self.user.relationships.following
+                withCompletion:^(NSArray<PFUser*>* users)
+                {
+                    [vc setUsers:users];
+                }
          ];
     }
 }
@@ -282,6 +299,10 @@
         self.tableviewView.hidden = NO;
         self.switchLabel.text = @"List";
     }
+}
+
+- (IBAction)followClicked:(id)sender {
+    [[PFUser currentUser] follow:self.user];
 }
 
 @end

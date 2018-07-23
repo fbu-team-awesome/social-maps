@@ -165,6 +165,18 @@
                                     <segue destination="9za-gd-0ng" kind="show" identifier="followingSegue" id="Sgf-YR-M9f"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p06-zD-CEQ">
+                                <rect key="frame" x="321" y="78" width="44" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.80219184030000001" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="followClicked:" destination="khL-MV-X4z" eventType="touchUpInside" id="bcY-Rg-BCQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="dvn-Zl-y4R"/>
@@ -179,6 +191,7 @@
                     <connections>
                         <outlet property="bioLabel" destination="TkC-qT-sCg" id="ejp-me-xWH"/>
                         <outlet property="displayNameLabel" destination="Xi4-Q0-BGx" id="C10-Hu-VCw"/>
+                        <outlet property="followButton" destination="p06-zD-CEQ" id="1h5-Yv-H6c"/>
                         <outlet property="followersButton" destination="oNh-pq-fIM" id="GMJ-0C-rUJ"/>
                         <outlet property="followingButton" destination="gGK-eJ-sin" id="cVv-0B-A1T"/>
                         <outlet property="handleLabel" destination="olM-Cy-0aT" id="obk-Yx-CZy"/>
