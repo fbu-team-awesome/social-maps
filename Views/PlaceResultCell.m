@@ -19,6 +19,8 @@
 -(void)configureCell {
     self.nameLabel.text = self.place.name;
     self.addressLabel.text = self.place.formattedAddress;
+    self.placeImage.image = nil;
+    
     [[APIManager shared] getPhotoMetadata:self.place.placeID :^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
         
         [self loadFirstImage:photoMetadata];
@@ -37,7 +39,11 @@
          if (error) {
              NSLog(@"Error: %@", [error description]);
          } else {
-             self.placeImage.image = photo;
+             [UIView transitionWithView:self.placeImage duration:3.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                 self.placeImage.image = photo;
+                 //self.placeImage.alpha = 1.0;
+             } completion:nil];
+             
          }
      }];
 }
