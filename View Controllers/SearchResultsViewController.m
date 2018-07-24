@@ -196,7 +196,10 @@
     NSLog(@"Added %@",place.name);
         
     // close search
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if(self.presentedViewController != nil)
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void) addToWishlist:(NSNotification *) notification {
@@ -207,7 +210,10 @@
     NSLog(@"Added %@",place.name);
         
     // close search
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if(self.presentedViewController != nil)
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)addPinsOfNewFollow:(NSNotification *) notification {
