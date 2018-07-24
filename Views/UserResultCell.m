@@ -38,7 +38,6 @@
     PFUser *currentUser = [PFUser currentUser];
     [currentUser follow:self.user];
     [NCHelper notify:NTNewFollow object:self.user];
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"NewFollowNotification" object:self.user];
 }
 
 @end
