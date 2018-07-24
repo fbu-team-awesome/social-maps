@@ -179,12 +179,8 @@
         
         // get the array of user's followers
         [Relationships retrieveFollowersWithId:user.relationships.objectId WithCompletion:^(NSArray *followers) {
-            
             [userRelationship addUserIdToFollowers:self.objectId];
-            
-            
         }];
-        
     }];
 }
 
@@ -194,6 +190,9 @@
           ^(Relationships* myRelationship)
           {
               [myRelationship removeUserIDFromFollowing:user.objectId];
+              
+              // send unfollow notification
+              [NCHelper notify:NTUnfollow object:user];
           }
      ];
     
