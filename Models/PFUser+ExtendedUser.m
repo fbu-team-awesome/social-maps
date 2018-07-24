@@ -13,6 +13,9 @@
 @implementation PFUser (ExtendedUser)
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships;
 
+- (BOOL)isEqual:(id)object {
+    return [self.objectId isEqualToString:((PFUser*)object).objectId];
+}
 
 - (void)addFavorite:(GMSPlace*)place {
     // check if place exists already
