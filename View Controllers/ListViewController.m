@@ -164,6 +164,4 @@
          return self.wishlist.count;
      }
  }
-
-
 @end
