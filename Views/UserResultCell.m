@@ -8,6 +8,7 @@
 
 #import "UserResultCell.h"
 #import "ParseImageHelper.h"
+#import "NCHelper.h"
 
 @implementation UserResultCell
 
@@ -36,7 +37,8 @@
     
     PFUser *currentUser = [PFUser currentUser];
     [currentUser follow:self.user];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"NewFollowNotification" object:self.user];
+    [NCHelper notify:NTNewFollow object:self.user];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"NewFollowNotification" object:self.user];
 }
 
 @end

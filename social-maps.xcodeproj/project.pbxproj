@@ -32,6 +32,7 @@
 		317B3939210267900057079A /* SearchPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 317B3938210267900057079A /* SearchPage.storyboard */; };
 		317B393E210267E40057079A /* RelationshipListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 317B393D210267E40057079A /* RelationshipListCell.m */; };
 		340E6CCEA9D6E4EE79FB3144 /* libPods-social-maps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0669C073917F375AFFBB6F32 /* libPods-social-maps.a */; };
+		9E3C98312106F051002C63F5 /* NCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3C98302106F051002C63F5 /* NCHelper.m */; };
 		9E4D281C20FEBE090069CBF2 /* SignUpView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */; };
 		9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */; };
 		9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6755E421012DF10056D009 /* ProfileListCell.m */; };
@@ -89,6 +90,8 @@
 		317B3938210267900057079A /* SearchPage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchPage.storyboard; sourceTree = "<group>"; };
 		317B393C210267E40057079A /* RelationshipListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelationshipListCell.h; sourceTree = "<group>"; };
 		317B393D210267E40057079A /* RelationshipListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationshipListCell.m; sourceTree = "<group>"; };
+		9E3C982F2106F051002C63F5 /* NCHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCHelper.h; sourceTree = "<group>"; };
+		9E3C98302106F051002C63F5 /* NCHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCHelper.m; sourceTree = "<group>"; };
 		9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUpView.storyboard; sourceTree = "<group>"; };
 		9E4D281D20FEBE120069CBF2 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
@@ -228,6 +231,8 @@
 				9EE973F0210280F60056DCF2 /* ImageHelper.m */,
 				9EE973F2210281850056DCF2 /* ParseImageHelper.h */,
 				9EE973F3210281850056DCF2 /* ParseImageHelper.m */,
+				9E3C982F2106F051002C63F5 /* NCHelper.h */,
+				9E3C98302106F051002C63F5 /* NCHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -384,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E3C98312106F051002C63F5 /* NCHelper.m in Sources */,
 				018E6A9D20FEBA6E00DE10A6 /* ListViewController.m in Sources */,
 				9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */,
 				9EF4E3D720FE6D95005535C6 /* ProfileViewController.m in Sources */,
