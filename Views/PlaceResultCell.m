@@ -10,6 +10,7 @@
 #import "Place.h"
 #import "APIManager.h"
 #import "PFUser+ExtendedUser.h"
+#import "NCHelper.h"
 
 @implementation PlaceResultCell
 
@@ -69,7 +70,8 @@
                                 withCompletion:^(GMSPlace *place)
                                 {
                                     [[PFUser currentUser] addFavorite:place];
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"AddFavoriteNotification" object:place];
+                                    [NCHelper notify:NTAddFavorite object:place];
+                                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"AddFavoriteNotification" object:place];
                                 }
          ];
     }];
@@ -81,7 +83,8 @@
                                 withCompletion:^(GMSPlace *place)
                                 {
                                     [[PFUser currentUser] addToWishlist:place];
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"AddToWishlistNotification" object:place];
+                                    [NCHelper notify:NTAddToWishlist object:place];
+                                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"AddToWishlistNotification" object:place];
                                 }
          ];
     }];
