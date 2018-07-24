@@ -167,6 +167,8 @@
             self.relationships.following = [NSMutableArray arrayWithArray:following];
             
             [myRelationship addUserIdToFollowing:user.objectId];
+            // send followed notification
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"NewFollowNotification" object:user];
         }];
     }];
     
