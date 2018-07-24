@@ -8,10 +8,14 @@
 
 #import "PFUser+ExtendedUser.h"
 #import <Parse/Parse.h>
+#import "NCHelper.h"
 
 @implementation PFUser (ExtendedUser)
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships;
 
+- (BOOL)isEqual:(id)object {
+    return [self.objectId isEqualToString:((PFUser*)object).objectId];
+}
 
 - (void)addFavorite:(GMSPlace*)place {
     // check if place exists already
@@ -167,6 +171,9 @@
             self.relationships.following = [NSMutableArray arrayWithArray:following];
             
             [myRelationship addUserIdToFollowing:user.objectId];
+            
+            // send followed notification
+            [NCHelper notify:NTNewFollow object:user];
         }];
     }];
     
@@ -175,12 +182,8 @@
         
         // get the array of user's followers
         [Relationships retrieveFollowersWithId:user.relationships.objectId WithCompletion:^(NSArray *followers) {
-            
             [userRelationship addUserIdToFollowers:self.objectId];
-            
-            
         }];
-        
     }];
 }
 
@@ -190,6 +193,9 @@
           ^(Relationships* myRelationship)
           {
               [myRelationship removeUserIDFromFollowing:user.objectId];
+              
+              // send unfollow notification
+              [NCHelper notify:NTUnfollow object:user];
           }
      ];
     

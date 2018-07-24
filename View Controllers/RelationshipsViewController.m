@@ -10,6 +10,7 @@
 #import "RelationshipsViewController.h"
 #import "RelationshipListCell.h"
 #import "ProfileViewController.h"
+#import "NCHelper.h"
 
 @interface RelationshipsViewController () <UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
@@ -28,6 +29,12 @@
     self.tableView.delegate = self;
     [self.tableView setRowHeight:55.5];
     [self.tableView reloadData];
+    
+    [self addNotificationObservers];
+}
+
+- (void)addNotificationObservers {
+    [NCHelper addObserver:self type:NTUnfollow selector:@selector(newUnfollow:)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,5 +69,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.users.count;
+}
+
+- (void)newUnfollow:(NSNotification*)notification {
+    PFUser* user = (PFUser*)notification.object;
+    
+    // remove the unfollowed user from the list
+    NSMutableArray<PFUser*>* users = (NSMutableArray*)self.users;
+    [users removeObject:user];
+    self.users = (NSArray*)users;
+    
+    // reload the tableview
+    [self.tableView reloadData];
 }
 @end

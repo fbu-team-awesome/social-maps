@@ -28,6 +28,8 @@
             return @"AddToWishlistNotification";
         case NTNewFollow:
             return @"NewFollowNotification";
+        case NTUnfollow:
+            return @"UnfollowNotification";
     }
     
     // throw an exception if we get here. It means there's no string equivalent of the NT.

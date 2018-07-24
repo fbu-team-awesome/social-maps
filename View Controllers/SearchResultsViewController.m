@@ -259,5 +259,4 @@
     GMSPlace* place = self.markers[marker.title];
     [self performSegueWithIdentifier:@"toDetailsView" sender:place];
 }
-
 @end

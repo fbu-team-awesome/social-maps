@@ -124,6 +124,8 @@
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
     [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
+    [NCHelper addObserver:self type:NTNewFollow selector:@selector(newFollowing:)];
+    [NCHelper addObserver:self type:NTUnfollow selector:@selector(newUnfollow:)];
 }
 
 - (void)setUser:(PFUser*)user {
@@ -349,4 +351,53 @@
     NSLog(@"Added %@",place.name);
 }
 
+- (void)newFollowing:(NSNotification*)notification {
+    PFUser* user = (PFUser*)notification.object;
+    
+    // if this is our profile, then we will add the user to our following
+    if([[PFUser currentUser].objectId isEqualToString:self.user.objectId])
+    {
+        NSMutableArray<NSString*>* following = (NSMutableArray*)self.user.relationships.following;
+        [following addObject:user.objectId];
+        self.user.relationships.following = (NSArray*)following;
+        
+        // update the following label
+        [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", self.user.relationships.following.count]];
+    }
+    // if this user is the user that was followed, then update their followers
+    else if ([self.user.objectId isEqualToString:user.objectId])
+    {
+        NSMutableArray<NSString*>* followers = (NSMutableArray*)self.user.relationships.followers;
+        [followers addObject:[PFUser currentUser].objectId];
+        self.user.relationships.followers = (NSArray*)followers;
+        
+        // update the followers label
+        [self.followersLabel setText:[NSString stringWithFormat:@"%lu followers", self.user.relationships.followers.count]];
+    }
+}
+
+- (void)newUnfollow:(NSNotification*)notification {
+    PFUser* user = (PFUser*)notification.object;
+    
+    // if this is our profile, then we will remove the user from our following
+    if([[PFUser currentUser].objectId isEqualToString:self.user.objectId])
+    {
+        NSMutableArray<NSString*>* following = (NSMutableArray*)self.user.relationships.following;
+        [following removeObject:user.objectId];
+        self.user.relationships.following = (NSArray*)following;
+        
+        // update the following label
+        [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", self.user.relationships.following.count]];
+    }
+    // if this user is the user that was unfollowed, then update their followers
+    else if ([self.user.objectId isEqualToString:user.objectId])
+    {
+        NSMutableArray<NSString*>* followers = (NSMutableArray*)self.user.relationships.followers;
+        [followers removeObject:[PFUser currentUser].objectId];
+        self.user.relationships.followers = (NSArray*)followers;
+        
+        // update the followers label
+        [self.followersLabel setText:[NSString stringWithFormat:@"%lu followers", self.user.relationships.followers.count]];
+    }
+}
 @end
