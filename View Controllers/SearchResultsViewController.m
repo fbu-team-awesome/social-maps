@@ -189,35 +189,31 @@
     }
 }
 - (void) addToFavorites:(NSNotification *) notification {
-    Place *place = (Place *) notification.object;
-    [[APIManager shared] GMSPlaceFromPlace:place withCompletion:^(GMSPlace *place) {
+    GMSPlace* place = (GMSPlace*)notification.object;
+
+    // place pin
+    [self addFavoritePin:place];
+    NSLog(@"Added %@",place.name);
         
-        //add to user favorites
-        [[PFUser currentUser] addFavorite:place];
-        
-        //place pin
-        [self addFavoritePin:place];
-        NSLog(@"Added %@",place.name);
-        
-        //close search
+    // close search
+    if(self.presentedViewController != nil)
+    {
         [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+    }
 }
 
 - (void) addToWishlist:(NSNotification *) notification {
-    Place *place = (Place *) notification.object;
-    [[APIManager shared] GMSPlaceFromPlace:place withCompletion:^(GMSPlace *place) {
+    GMSPlace* place = (GMSPlace*)notification.object;
+    
+    // place pin
+    [self addWishlistPin:place];
+    NSLog(@"Added %@",place.name);
         
-        //add to user wishlist
-        [[PFUser currentUser] addToWishlist:place];
-        
-        //place pin
-        [self addWishlistPin:place];
-        NSLog(@"Added %@",place.name);
-        
-        //close search
+    // close search
+    if(self.presentedViewController != nil)
+    {
         [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+    }
 }
 
 - (void)addPinsOfNewFollow:(NSNotification *) notification {
@@ -235,7 +231,6 @@
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
     marker.title = place.name;
     marker.appearAnimation = kGMSMarkerAnimationPop;
-    //marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
     marker.map = self.mapView;
     
     // add the key to our dictionary

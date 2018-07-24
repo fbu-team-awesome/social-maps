@@ -9,6 +9,7 @@
 #import "PlaceResultCell.h"
 #import "Place.h"
 #import "APIManager.h"
+#import "PFUser+ExtendedUser.h"
 
 @implementation PlaceResultCell
 
@@ -62,14 +63,27 @@
 }
 
 - (IBAction)didTapFavorite:(id)sender {
+    //TODO: add condition for unfavoriting
     [Place checkPlaceWithIDExists:self.place.placeID result:^(Place * result) {
-        [result addFavoriteNotification];
+        [[APIManager shared] GMSPlaceFromPlace:result
+                                withCompletion:^(GMSPlace *place)
+                                {
+                                    [[PFUser currentUser] addFavorite:place];
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"AddFavoriteNotification" object:place];
+                                }
+         ];
     }];
+    
 }
-
 - (IBAction)didTapWishlist:(id)sender {
     [Place checkPlaceWithIDExists:self.place.placeID result:^(Place * result) {
-        [result addToWishlistNotification];
+        [[APIManager shared] GMSPlaceFromPlace:result
+                                withCompletion:^(GMSPlace *place)
+                                {
+                                    [[PFUser currentUser] addToWishlist:place];
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"AddToWishlistNotification" object:place];
+                                }
+         ];
     }];
 }
 

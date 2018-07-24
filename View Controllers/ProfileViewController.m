@@ -113,6 +113,17 @@
         [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", relationship.following.count]];
     }];
 
+    //  add notification listener for adding to favorites
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addToFavorites:)
+                                                 name:@"AddFavoriteNotification"
+                                               object:nil];
+
+    // add notification listener for adding to wishlist
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addToWishlist:)
+                                                 name:@"AddToWishlistNotification"
+                                               object:nil];
     
     // set UI styles
     [self initUIStyles];
@@ -307,6 +318,38 @@
         [[PFUser currentUser] unfollow:self.user];
         [self.followButton setTitle:@"+" forState:UIControlStateNormal];
     }
+}
+
+- (void) addToFavorites:(NSNotification *) notification {
+    GMSPlace* place = (GMSPlace*)notification.object;
+    
+    // place pin
+    GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+    marker.title = place.name;
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.map = self.mapView;
+    self.markers[marker.title] = place;
+    
+    // add to tableview
+    NSMutableArray<GMSPlace*>* favorites = (NSMutableArray*)self.favorites;
+    [favorites addObject:place];
+    self.favorites = (NSArray*)favorites;
+    [self.tableView reloadData];
+    NSLog(@"Added %@",place.name);
+}
+
+- (void) addToWishlist:(NSNotification *) notification {
+    GMSPlace* place = (GMSPlace*)notification.object;
+    
+    // place pin
+    GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+    marker.title = place.name;
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+    marker.map = self.mapView;
+    self.markers[marker.title] = place;
+    
+    NSLog(@"Added %@",place.name);
 }
 
 @end
