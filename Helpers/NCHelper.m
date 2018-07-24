@@ -26,6 +26,8 @@
             return @"AddFavoriteNotification";
         case NTAddToWishlist:
             return @"AddToWishlistNotification";
+        case NTNewFollow:
+            return @"NewFollowNotification";
     }
     
     return @"";
