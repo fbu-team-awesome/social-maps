@@ -125,6 +125,9 @@
                                                  name:@"AddToWishlistNotification"
                                                object:nil];
     
+    // add listener for followers
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newFollowing:) name:@"NewFollowNotification" object:nil];
+    
     // set UI styles
     [self initUIStyles];
 }
@@ -350,5 +353,21 @@
     self.markers[marker.title] = place;
     
     NSLog(@"Added %@",place.name);
+}
+
+- (void)newFollowing:(NSNotification*)notification {
+    PFUser* user = (PFUser*)notification.object;
+    
+    // we only want to listen to this notification if this is the current user
+    if([[PFUser currentUser].objectId isEqualToString:self.user.objectId])
+    {
+        // add the new following to the current user's following
+        NSMutableArray<NSString*>* following = (NSMutableArray*)self.user.relationships.following;
+        [following addObject:user.objectId];
+        self.user.relationships.following = (NSArray*)following;
+        
+        // update the following label
+        [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", self.user.relationships.following.count]];
+    }
 }
 @end
