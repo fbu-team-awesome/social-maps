@@ -128,14 +128,14 @@
 				9EE973EB210280190056DCF2 /* Helpers */,
 				0130162B20EFDE620010FD04 /* AppDelegate.h */,
 				0130162C20EFDE620010FD04 /* AppDelegate.m */,
-				0130163420EFDE650010FD04 /* Assets.xcassets */,
 				0130163A20EFDE650010FD04 /* main.m */,
 				018E6A8F20FDAE6600DE10A6 /* Storyboards */,
 				9EF4E3C520FD210E005535C6 /* Models */,
 				9EF4E3C920FD2961005535C6 /* APIs */,
 				1C2C0BF020FD2A630072BEFB /* View Controllers */,
 				018E6A9E20FEBABE00DE10A6 /* Views */,
-				0130162A20EFDE620010FD04 /* social-maps */,
+				0130163920EFDE650010FD04 /* Info.plist */,
+				0130163420EFDE650010FD04 /* Assets.xcassets */,
 				0130162920EFDE620010FD04 /* Products */,
 				FC1C43E3DDA3D3D63573E5A2 /* Pods */,
 				6BA07D378CF1BB8296B3DBB6 /* Frameworks */,
@@ -148,14 +148,6 @@
 				0130162820EFDE620010FD04 /* social-maps.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		0130162A20EFDE620010FD04 /* social-maps */ = {
-			isa = PBXGroup;
-			children = (
-				0130163920EFDE650010FD04 /* Info.plist */,
-			);
-			path = "social-maps";
 			sourceTree = "<group>";
 		};
 		018E6A8F20FDAE6600DE10A6 /* Storyboards */ = {
@@ -558,14 +550,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QR8BU78FBL;
 				DEVELOPMENT_TEAM = 4H789JND9X;
-				INFOPLIST_FILE = "social-maps/Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bevin.socialmaps;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fb.socialmaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -578,14 +568,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QR8BU78FBL;
 				DEVELOPMENT_TEAM = 4H789JND9X;
-				INFOPLIST_FILE = "social-maps/Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bevin.socialmaps;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fb.socialmaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
