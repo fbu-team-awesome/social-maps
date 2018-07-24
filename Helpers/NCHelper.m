@@ -30,6 +30,8 @@
             return @"NewFollowNotification";
     }
     
+    // throw an exception if we get here. It means there's no string equivalent of the NT.
+    [NSException raise:@"Could not find NT enum string equivalent." format:@"'%lu' Notification Type has no string equivalent in 'stringWithNotificationType' method. NSNotificationCenter will fail.", type];
     return @"";
 }
 @end
