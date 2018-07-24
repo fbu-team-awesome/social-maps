@@ -351,5 +351,4 @@
     
     NSLog(@"Added %@",place.name);
 }
-
 @end
