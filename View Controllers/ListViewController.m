@@ -30,16 +30,29 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setView)
+                                                 name:@"AddFavoriteNotification"
+                                               object:nil];
+    // add notification listener for adding to wishlist
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setView)
+                                                 name:@"AddToWishlistNotification"
+                                               object:nil];
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.hidden = NO;
+    self.defaultView.hidden = YES;
     [self.tableView setRowHeight:91];
-    self.tableView.hidden = YES;
     [self setSegmentControlView];
     [self retrieveCurrentUserData];
 }
 
 - (void)setView {
     
+    self.defaultView.hidden = YES;
+    self.tableView.hidden = NO;
     if (self.favorites == nil && self.segmentIndex == 0) {
         self.defaultViewLabel.text = @"Your Favorites is currently empty!";
         self.tableView.hidden = YES;
