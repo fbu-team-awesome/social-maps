@@ -117,9 +117,6 @@
     // add NC observers
     [self addNotificationObservers];
     
-    // add listener for followers
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newFollowing:) name:@"NewFollowNotification" object:nil];
-    
     // set UI styles
     [self initUIStyles];
 }
@@ -127,6 +124,7 @@
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
     [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
+    [NCHelper addObserver:self type:NTNewFollow selector:@selector(newFollowing:)];
 }
 
 - (void)setUser:(PFUser*)user {
