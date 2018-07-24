@@ -71,7 +71,6 @@
                                 {
                                     [[PFUser currentUser] addFavorite:place];
                                     [NCHelper notify:NTAddFavorite object:place];
-                                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"AddFavoriteNotification" object:place];
                                 }
          ];
     }];
@@ -84,7 +83,6 @@
                                 {
                                     [[PFUser currentUser] addToWishlist:place];
                                     [NCHelper notify:NTAddToWishlist object:place];
-                                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"AddToWishlistNotification" object:place];
                                 }
          ];
     }];
