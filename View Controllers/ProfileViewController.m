@@ -114,22 +114,16 @@
         [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", relationship.following.count]];
     }];
 
-    //  add notification listener for adding to favorites
-    [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(addToFavorites:)
-//                                                 name:@"AddFavoriteNotification"
-//                                               object:nil];
-
-    // add notification listener for adding to wishlist
-    [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(addToWishlist:)
-//                                                 name:@"AddToWishlistNotification"
-//                                               object:nil];
+    // add NC observers
+    [self addNotificationObservers];
     
     // set UI styles
     [self initUIStyles];
+}
+
+- (void)addNotificationObservers {
+    [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
+    [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
 }
 
 - (void)setUser:(PFUser*)user {
