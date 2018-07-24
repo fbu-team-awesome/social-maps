@@ -358,16 +358,25 @@
 - (void)newFollowing:(NSNotification*)notification {
     PFUser* user = (PFUser*)notification.object;
     
-    // we only want to listen to this notification if this is the current user
+    // if this is our profile, then we will add the user to our following
     if([[PFUser currentUser].objectId isEqualToString:self.user.objectId])
     {
-        // add the new following to the current user's following
         NSMutableArray<NSString*>* following = (NSMutableArray*)self.user.relationships.following;
         [following addObject:user.objectId];
         self.user.relationships.following = (NSArray*)following;
         
         // update the following label
         [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", self.user.relationships.following.count]];
+    }
+    // if this user is the user that was followed, then update their followers
+    else if ([self.user.objectId isEqualToString:user.objectId])
+    {
+        NSMutableArray<NSString*>* followers = (NSMutableArray*)self.user.relationships.followers;
+        [followers addObject:[PFUser currentUser].objectId];
+        self.user.relationships.followers = (NSArray*)followers;
+        
+        // update the followers label
+        [self.followersLabel setText:[NSString stringWithFormat:@"%lu followers", self.user.relationships.followers.count]];
     }
 }
 @end
