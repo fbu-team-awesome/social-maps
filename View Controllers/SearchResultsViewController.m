@@ -10,7 +10,7 @@
 #import "DetailsViewController.h"
 #import "SearchCell.h"
 #import "ResultsTableViewController.h"
-
+#import "NCHelper.h"
 
 @interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate>
 
@@ -31,22 +31,17 @@
 - (void)viewDidLoad {
     self.definesPresentationContext = true;
     
-    //add notification listener for adding to favorites
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(addToFavorites:)
-                                                 name:@"AddFavoriteNotification"
-                                               object:nil];
-    // add notification listener for adding to wishlist
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(addToWishlist:)
-                                                 name:@"AddToWishlistNotification"
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPinsOfNewFollow:) name:@"NewFollowNotification" object:nil];
-    
+    [self addNotificationObservers];
     [self initMap];
     [self initSearch];
 }
+
+- (void)addNotificationObservers {
+    [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
+    [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
+    [NCHelper addObserver:self type:NTNewFollow selector:@selector(addPinsOfNewFollow:)];
+}
+
 - (void)initMap {
     
     // init our location
