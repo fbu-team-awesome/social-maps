@@ -35,7 +35,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tPE-SK-dLL">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tPE-SK-dLL">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -76,12 +76,40 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxU-et-0pA">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Favorites is currently empty!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cm-3W-jhM">
+                                        <rect key="frame" x="36" y="132" width="302" height="305"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="7cm-3W-jhM" firstAttribute="leading" secondItem="zxU-et-0pA" secondAttribute="leading" constant="36" id="592-DG-H2d"/>
+                                    <constraint firstItem="7cm-3W-jhM" firstAttribute="top" secondItem="zxU-et-0pA" secondAttribute="top" constant="132" id="HCR-ZJ-whq"/>
+                                    <constraint firstItem="7cm-3W-jhM" firstAttribute="leading" secondItem="zxU-et-0pA" secondAttribute="leading" constant="36" id="JG8-i8-IxF"/>
+                                    <constraint firstAttribute="trailing" secondItem="7cm-3W-jhM" secondAttribute="trailing" constant="37" id="aaX-aX-1gr"/>
+                                    <constraint firstAttribute="bottom" secondItem="7cm-3W-jhM" secondAttribute="bottom" constant="230" id="xVW-u8-qwk"/>
+                                    <constraint firstAttribute="trailing" secondItem="7cm-3W-jhM" secondAttribute="trailing" constant="37" id="xcy-8L-gp3"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zxU-et-0pA" firstAttribute="trailing" secondItem="iro-Pc-J5s" secondAttribute="trailing" id="2ZL-aT-Zoo"/>
+                            <constraint firstItem="zxU-et-0pA" firstAttribute="bottom" secondItem="iro-Pc-J5s" secondAttribute="bottom" id="JKs-NA-TPA"/>
+                            <constraint firstItem="zxU-et-0pA" firstAttribute="top" secondItem="4xP-YL-dwZ" secondAttribute="top" id="Je3-jg-2t4"/>
+                            <constraint firstItem="zxU-et-0pA" firstAttribute="leading" secondItem="iro-Pc-J5s" secondAttribute="leading" id="ece-Xk-GCD"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="iro-Pc-J5s"/>
                     </view>
                     <navigationItem key="navigationItem" id="Trk-SH-CsI"/>
                     <connections>
+                        <outlet property="defaultView" destination="zxU-et-0pA" id="wo4-D7-TfZ"/>
+                        <outlet property="defaultViewLabel" destination="7cm-3W-jhM" id="eoU-wS-JJ2"/>
                         <outlet property="tableView" destination="tPE-SK-dLL" id="GYP-cn-ibY"/>
                     </connections>
                 </viewController>
