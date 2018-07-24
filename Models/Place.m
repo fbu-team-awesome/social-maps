@@ -51,24 +51,24 @@
     PFQuery* query = [PFQuery queryWithClassName:@"Place"];
     [query whereKey:@"placeID" equalTo:placeID];
     [query getFirstObjectInBackgroundWithBlock:
-     ^(PFObject * _Nullable object, NSError * _Nullable error)
-     {
-         // if it doesnt exist, create it
-         if (object == nil)
-         {
-             [[APIManager shared] GMSPlaceFromID:placeID
-                                  withCompletion:^(GMSPlace *place)
-                                  {
-                                      Place *newPlace = [[Place alloc] initWithGMSPlace:place];
-                                      result(newPlace);
-                                  }
-              ];
-         }
-         else
-         {
-             result((Place*)object);
-         }
-     }
+           ^(PFObject * _Nullable object, NSError * _Nullable error)
+           {
+               // if it doesnt exist, create it
+               if (object == nil)
+               {
+                   [[APIManager shared] GMSPlaceFromID:placeID
+                                        withCompletion:^(GMSPlace *place)
+                                        {
+                                            Place *newPlace = [[Place alloc] initWithGMSPlace:place];
+                                            result(newPlace);
+                                        }
+                    ];
+               }
+               else
+               {
+                   result((Place*)object);
+               }
+           }
      ];
 }
 @end
