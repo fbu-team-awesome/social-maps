@@ -71,17 +71,4 @@
      }
      ];
 }
-- (void) addFavoriteNotification {
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"AddFavoriteNotification"
-     object:self];
-
-}
-
-- (void) addToWishlistNotification {
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"AddToWishlistNotification"
-     object:self];
-    
-}
 @end
