@@ -17,6 +17,7 @@
 #import "ProfileListCell.h"
 #import "RelationshipsViewController.h"
 #import "Relationships.h"
+#import "NCHelper.h"
 
 @interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
@@ -113,20 +114,16 @@
         [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", relationship.following.count]];
     }];
 
-    //  add notification listener for adding to favorites
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(addToFavorites:)
-                                                 name:@"AddFavoriteNotification"
-                                               object:nil];
-
-    // add notification listener for adding to wishlist
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(addToWishlist:)
-                                                 name:@"AddToWishlistNotification"
-                                               object:nil];
+    // add NC observers
+    [self addNotificationObservers];
     
     // set UI styles
     [self initUIStyles];
+}
+
+- (void)addNotificationObservers {
+    [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
+    [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
 }
 
 - (void)setUser:(PFUser*)user {
