@@ -8,6 +8,7 @@
 
 #import "PFUser+ExtendedUser.h"
 #import <Parse/Parse.h>
+#import "NCHelper.h"
 
 @implementation PFUser (ExtendedUser)
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships;
@@ -167,8 +168,9 @@
             self.relationships.following = [NSMutableArray arrayWithArray:following];
             
             [myRelationship addUserIdToFollowing:user.objectId];
+            
             // send followed notification
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"NewFollowNotification" object:user];
+            [NCHelper notify:NTNewFollow object:user];
         }];
     }];
     
