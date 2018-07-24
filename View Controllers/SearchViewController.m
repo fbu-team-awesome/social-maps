@@ -179,5 +179,4 @@
          detailsVC.place = sender;
      }
  }
-
 @end
