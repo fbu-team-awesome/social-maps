@@ -90,6 +90,4 @@
 - (void)didFailAutocompleteWithError:(nonnull NSError *)error {
     NSLog(@"Error fetching autocomplete results: %@", error.localizedDescription);
 }
-
-
 @end
