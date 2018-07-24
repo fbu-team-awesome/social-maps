@@ -70,8 +70,6 @@
 
 }
 
-
-
 - (void)didAutocompleteWithPredictions:(nonnull NSArray<GMSAutocompletePrediction *> *)predictions {
     NSMutableArray *results = [[NSMutableArray alloc] init];
     for (GMSAutocompletePrediction *prediction in predictions) {
@@ -91,18 +89,6 @@
 
 - (void)didFailAutocompleteWithError:(nonnull NSError *)error {
     NSLog(@"Error fetching autocomplete results: %@", error.localizedDescription);
-}
-
-- (void) didAddToFavorites:(GMSPlace *)place {
-    [Place checkPlaceWithIDExists:place.placeID result:^(Place * result) {
-        [result addFavoriteNotification];
-    }];
-}
-
-- (void)didAddToWishlist:(GMSPlace *)place {
-    [Place checkPlaceWithIDExists:place.placeID result:^(Place * result) {
-        [result addToWishlistNotification];
-    }];
 }
 
 
