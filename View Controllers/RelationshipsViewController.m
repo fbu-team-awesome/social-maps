@@ -18,7 +18,9 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
 
 // Instance Properties //
-@property (strong, nonatomic) NSArray<PFUser*>* users;
+@property (strong, nonatomic) PFUser *user;
+@property (strong, nonatomic) NSArray<PFUser*> *listedUsers;
+@property (nonatomic) RelationshipType relationshipType;
 @end
 
 @implementation RelationshipsViewController
@@ -32,6 +34,10 @@
     [self.tableView reloadData];
     
     [self addNotificationObservers];
+    
+    // retrieve data
+    [self.progressIndicator startAnimating];
+    [self retrieveUserList]; 
 }
 
 - (void)addNotificationObservers {
@@ -42,11 +48,8 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)setUsers:(NSArray<PFUser*>*)users {
-    _users = users;
-    [self.tableView reloadData];
 - (void)retrieveUserList {
-    if(self.relationshipType == RTFollowers)
+    if(self.relationshipType == RTFollower)
     {
         [PFUser retrieveUsersWithIDs:self.user.relationships.followers
                       withCompletion:^(NSArray<PFUser *> *followers)
@@ -96,7 +99,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RelationshipListCell* cell = [tableView dequeueReusableCellWithIdentifier:@"RelationshipListCell" forIndexPath:indexPath];
-    PFUser* user = self.users[indexPath.row];
+    PFUser* user = self.listedUsers[indexPath.row];
     
     if(user != nil)
     {
@@ -107,16 +110,16 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.users.count;
+    return self.listedUsers.count;
 }
 
 - (void)newUnfollow:(NSNotification*)notification {
     PFUser* user = (PFUser*)notification.object;
     
     // remove the unfollowed user from the list
-    NSMutableArray<PFUser*>* users = (NSMutableArray*)self.users;
+    NSMutableArray<PFUser*>* users = [self.listedUsers mutableCopy];
     [users removeObject:user];
-    self.users = (NSArray*)users;
+    self.listedUsers = [users copy];
     
     // reload the tableview
     [self.tableView reloadData];

@@ -10,7 +10,7 @@
 
 typedef enum RelationshipType : NSUInteger
 {
-    RTFollowers,
+    RTFollower,
     RTFollowing
 }
 RelationshipType;
