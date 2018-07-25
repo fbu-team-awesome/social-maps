@@ -141,7 +141,7 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
         // we changed to wishlist
         if(index == 1)
         {
-            if(self.wishlist == nil)
+            if(self.wishlist.count == 0)
             {
                 self.defaultViewLabel.text = NO_WISHLIST_MSG;
                 self.tableView.hidden = YES;
@@ -156,7 +156,7 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
         // we changed to favorites
         else if(index == 0)
         {
-            if(self.favorites == nil)
+            if(self.favorites.count == 0)
             {
                 self.defaultViewLabel.text = NO_FAVORITE_MSG;
                 self.tableView.hidden = YES;
