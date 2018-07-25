@@ -14,8 +14,8 @@
 #import "DetailsViewController.h"
 #import "NCHelper.h"
 
-static const NSString *kNoFavoriteMsg = @"You have no favorites!";
-static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
+static NSString *const kNoFavoriteMsg = @"You have no favorites!";
+static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 
 @interface ListViewController ()
 
