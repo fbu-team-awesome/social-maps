@@ -13,6 +13,9 @@
 #import "ProfileListCell.h"
 #import "DetailsViewController.h"
 
+static NSString* NO_FAVORITE_MSG = @"You have no favorites!";
+static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
+
 @interface ListViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
