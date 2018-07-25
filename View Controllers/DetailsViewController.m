@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self updateUI];
+    [self updateContent];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,7 +33,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)updateUI {
+- (void)updateContent {
     self.placeNameLabel.text = self.place.name;
     self.addressLabel.text = self.place.formattedAddress;
     
@@ -52,9 +52,11 @@
 - (void)setPlace:(GMSPlace*)place {
     _place = place;
 }
+
 - (IBAction)didTapFavorite:(id)sender {
     [PFUser.currentUser addFavorite:_place];
 }
+
 - (IBAction)didTapWishlist:(id)sender {
     [PFUser.currentUser addToWishlist:_place];
 }
