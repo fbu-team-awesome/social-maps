@@ -22,10 +22,11 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *defaultView;
 @property (weak, nonatomic) IBOutlet UILabel *defaultViewLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
+
 @property (strong, nonatomic) NSArray<GMSPlace *> *favorites;
 @property (strong, nonatomic) NSArray<GMSPlace *> *wishlist;
 @property (assign, nonatomic) long segmentIndex;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
@@ -43,8 +44,8 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     // set up tableview
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.hidden = NO;
-    self.defaultView.hidden = YES;
+    [self toggleDefaultViewHidden:YES];
+    
     [self.tableView setRowHeight:91];
     [self setSegmentControlView];
     [self.progressIndicator startAnimating];
@@ -64,7 +65,7 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 - (void)retrieveCurrentUserData {
     PFUser *currentUser = [PFUser currentUser];
     [currentUser retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *favorites) {
-        if(favorites != nil)
+        if(favorites.count > 0)
         {
             self.favorites = favorites;
             
@@ -86,7 +87,7 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     }];
     
     [currentUser retrieveWishlistWithCompletion:^(NSArray<GMSPlace *> *wishlist) {
-        if(wishlist != nil)
+        if(wishlist.count > 0)
         {
             self.wishlist = wishlist;
             
