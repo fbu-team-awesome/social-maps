@@ -47,6 +47,7 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
     self.defaultView.hidden = YES;
     [self.tableView setRowHeight:91];
     [self setSegmentControlView];
+    [self.progressIndicator startAnimating];
     [self retrieveCurrentUserData];
     
     // initialize refresh control
@@ -61,7 +62,6 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
 }
 
 - (void)retrieveCurrentUserData {
-    [self.progressIndicator startAnimating];
     PFUser *currentUser = [PFUser currentUser];
     [currentUser retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *favorites) {
         if(favorites != nil)
