@@ -14,8 +14,8 @@
 #import "DetailsViewController.h"
 #import "NCHelper.h"
 
-static NSString* NO_FAVORITE_MSG = @"You have no favorites!";
-static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
+static const NSString *kNoFavoriteMsg = @"You have no favorites!";
+static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
 
 @interface ListViewController ()
 
@@ -77,7 +77,7 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
             // show default label
             if(self.segmentIndex == 0)
             {
-                self.defaultViewLabel.text = NO_FAVORITE_MSG;
+                self.defaultViewLabel.text = kNoFavoriteMsg;
                 self.tableView.hidden = YES;
                 self.defaultView.hidden = NO;
             }
@@ -101,7 +101,7 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
             // show default label
             if(self.segmentIndex == 1)
             {
-                self.defaultViewLabel.text = NO_WISHLIST_MSG;
+                self.defaultViewLabel.text = kNoWishlistMsg;
                 self.tableView.hidden = YES;
                 self.defaultView.hidden = NO;
             }
@@ -151,7 +151,7 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
         {
             if(self.wishlist.count == 0)
             {
-                self.defaultViewLabel.text = NO_WISHLIST_MSG;
+                self.defaultViewLabel.text = kNoWishlistMsg;
                 self.tableView.hidden = YES;
                 self.defaultView.hidden = NO;
             }
@@ -166,7 +166,7 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
         {
             if(self.favorites.count == 0)
             {
-                self.defaultViewLabel.text = NO_FAVORITE_MSG;
+                self.defaultViewLabel.text = kNoFavoriteMsg;
                 self.tableView.hidden = YES;
                 self.defaultView.hidden = NO;
             }
