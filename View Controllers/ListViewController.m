@@ -156,8 +156,41 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
     [segmentedControl setIndexChangeBlock:^(NSInteger index) {
         
         NSLog(@"Selected index %ld (via block)", (long)index);
+        [self.progressIndicator startAnimating];
         self.segmentIndex = index;
+        
+        // we changed to wishlist
+        if(index == 1)
+        {
+            if(self.wishlist == nil)
+            {
+                self.defaultViewLabel.text = NO_WISHLIST_MSG;
+                self.tableView.hidden = YES;
+                self.defaultView.hidden = NO;
+            }
+            else
+            {
+                self.tableView.hidden = NO;
+                self.defaultView.hidden = YES;
+            }
+        }
+        // we changed to favorites
+        else if(index == 0)
+        {
+            if(self.favorites == nil)
+            {
+                self.defaultViewLabel.text = NO_FAVORITE_MSG;
+                self.tableView.hidden = YES;
+                self.defaultView.hidden = NO;
+            }
+            else
+            {
+                self.tableView.hidden = NO;
+                self.defaultView.hidden = YES;
+            }
+        }
         [self.tableView reloadData];
+        [self.progressIndicator stopAnimating];
     }];
     
     CGRect tableViewFrame = self.tableView.frame;
