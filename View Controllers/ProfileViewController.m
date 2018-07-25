@@ -36,6 +36,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 @property (weak, nonatomic) IBOutlet UILabel *followersLabel;
 @property (weak, nonatomic) IBOutlet UILabel *followingLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
 
 // Instance Properties //
 @property (strong, nonatomic) CLLocationManager* locationManager;
