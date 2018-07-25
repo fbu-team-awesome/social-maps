@@ -8,6 +8,7 @@
 
 #import "ProfileListCell.h"
 #import "APIManager.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ProfileListCell ()
 // Outlet Definitions //
