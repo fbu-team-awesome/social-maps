@@ -76,14 +76,31 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
 }
 
 - (void)retrieveCurrentUserData {
-    
+    [self.progressIndicator startAnimating];
     PFUser *currentUser = [PFUser currentUser];
     [currentUser retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *favorites) {
-    
-        self.favorites = favorites;
+        if(favorites != nil)
+        {
+            self.favorites = favorites;
+            
+            // hide default label
+            self.defaultView.hidden = YES;
+            self.tableView.hidden = NO;
+        }
+        else
+        {
+            // show default label
+            if(self.segmentIndex == 0)
+            {
+                self.defaultViewLabel.text = NO_FAVORITE_MSG;
+                self.tableView.hidden = YES;
+                self.defaultView.hidden = NO;
+            }
+        }
         [self.tableView reloadData];
-        
+        [self.progressIndicator stopAnimating];
     }];
+    
     [currentUser retrieveWishlistWithCompletion:^(NSArray<GMSPlace *> *wishlist) {
         
         self.wishlist = wishlist;
