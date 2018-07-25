@@ -18,7 +18,9 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
 
 // Instance Properties //
-@property (strong, nonatomic) NSArray<PFUser*>* users;
+@property (strong, nonatomic) PFUser *user;
+@property (strong, nonatomic) NSArray<PFUser*>* listedUsers;
+@property (nonatomic) RelationshipType relationshipType;
 @end
 
 @implementation RelationshipsViewController
@@ -42,9 +44,32 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)setUsers:(NSArray<PFUser*>*)users {
-    _users = users;
-    [self.tableView reloadData];
+- (void)retrieveUserList {
+    if(self.relationshipType == RTFollowers)
+    {
+        
+    }
+    else if(_relationshipType == RTFollowing)
+    {
+        
+    }
+}
+
+- (void)setUser:(PFUser *)user withRelationshipType:(RelationshipType)relationshipType {
+    _user = user;
+    _relationshipType = relationshipType;
+    
+    // update the navbar title
+    if(relationshipType == RTFollowers)
+    {
+        self.navigationController.title = @"Followers";
+    }
+    else if(relationshipType == RTFollowing)
+    {
+        self.navigationController.title = @"Following";
+    }
+    
+    [self retrieveUserList];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -58,7 +83,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RelationshipListCell* cell = [tableView dequeueReusableCellWithIdentifier:@"RelationshipListCell" forIndexPath:indexPath];
-    PFUser* user = self.users[indexPath.row];
+    PFUser* user = self.listedUsers[indexPath.row];
     
     if(user != nil)
     {
@@ -69,16 +94,16 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.users.count;
+    return self.listedUsers.count;
 }
 
 - (void)newUnfollow:(NSNotification*)notification {
     PFUser* user = (PFUser*)notification.object;
     
     // remove the unfollowed user from the list
-    NSMutableArray<PFUser*>* users = (NSMutableArray*)self.users;
+    NSMutableArray<PFUser*>* users = [self.listedUsers copy];
     [users removeObject:user];
-    self.users = (NSArray*)users;
+    self.listedUsers = [users mutableCopy];
     
     // reload the tableview
     [self.tableView reloadData];
