@@ -65,7 +65,7 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 - (void)retrieveCurrentUserData {
     PFUser *currentUser = [PFUser currentUser];
     [currentUser retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *favorites) {
-        if(favorites != nil)
+        if(favorites.count > 0)
         {
             self.favorites = favorites;
             
@@ -87,7 +87,7 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     }];
     
     [currentUser retrieveWishlistWithCompletion:^(NSArray<GMSPlace *> *wishlist) {
-        if(wishlist != nil)
+        if(wishlist.count > 0)
         {
             self.wishlist = wishlist;
             
