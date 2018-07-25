@@ -16,21 +16,26 @@
 
 
 // Instance Properties //
-@property (strong, nonatomic) GMSPlace* place;
-@property (strong, nonatomic) GMSMapView* mapView;
+@property (strong, nonatomic) GMSPlace *place;
+@property (strong, nonatomic) Place *parsePlace;
+@property (strong, nonatomic) GMSMapView *mapView;
 @end
 
 @implementation DetailsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    //create Parse Place from GMSPlace
+    [Place checkGMSPlaceExists:self.place result:^(Place * _Nonnull newPlace) {
+        self.parsePlace = newPlace;
+    }];
+    
     [self updateContent];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)updateContent {
@@ -38,13 +43,13 @@
     self.addressLabel.text = self.place.formattedAddress;
     
     // update the map
-    GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:self.place.coordinate.latitude longitude:self.place.coordinate.longitude zoom:15];
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.place.coordinate.latitude longitude:self.place.coordinate.longitude zoom:15];
     self.mapView = [GMSMapView mapWithFrame:self.placeView.bounds camera:camera];
     [self.placeView addSubview:self.mapView];
     self.mapView.delegate = self;
     
     // add a marker in the place
-    GMSMarker* marker = [GMSMarker markerWithPosition:self.place.coordinate];
+    GMSMarker *marker = [GMSMarker markerWithPosition:self.place.coordinate];
     marker.title = self.place.name;
     marker.map = self.mapView;
 }
@@ -59,5 +64,8 @@
 
 - (IBAction)didTapWishlist:(id)sender {
     [PFUser.currentUser addToWishlist:_place];
+}
+- (IBAction)didTapCheckIn:(id)sender {
+    [self.parsePlace didCheckIn:PFUser.currentUser];
 }
 @end
