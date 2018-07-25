@@ -15,6 +15,7 @@
 @interface RelationshipsViewController () <UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
 
 // Instance Properties //
 @property (strong, nonatomic) NSArray<PFUser*>* users;

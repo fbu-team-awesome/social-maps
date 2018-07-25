@@ -280,11 +280,24 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Pru-he-Egg">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="HvY-85-eT2"/>
+                                    <constraint firstAttribute="width" constant="37" id="f4m-Co-Rda"/>
+                                </constraints>
+                                <color key="color" name="VTR_BlackLabel"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Pru-he-Egg" firstAttribute="centerX" secondItem="IYQ-GS-q8O" secondAttribute="centerX" id="0h3-Ho-a5h"/>
+                            <constraint firstItem="Pru-he-Egg" firstAttribute="centerY" secondItem="IYQ-GS-q8O" secondAttribute="centerY" id="J9p-p2-0bJ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="PfL-8r-Zc5"/>
                     </view>
                     <connections>
+                        <outlet property="progressIndicator" destination="Pru-he-Egg" id="TQu-gg-vz1"/>
                         <outlet property="tableView" destination="Jm7-Zb-dTC" id="oBx-H4-024"/>
                     </connections>
                 </viewController>
