@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +14,7 @@
         <!--Profile View Controller-->
         <scene sceneID="sC8-ik-v95">
             <objects>
-                <viewController id="khL-MV-X4z" customClass="ProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Profile" id="khL-MV-X4z" customClass="ProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JvN-IA-aV9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,30 +26,23 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Zh-tX-hj0">
                                         <rect key="frame" x="8" y="8" width="90" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.94509803920000002" green="0.61960784310000006" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" name="VTR_Main"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xi4-Q0-BGx">
-                                <rect key="frame" x="141" y="82" width="80" height="24"/>
+                                <rect key="frame" x="141" y="82" width="172" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" red="0.96078431372549022" green="0.73725490196078436" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" name="VTR_Main"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Palo Alto, CA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giI-iQ-5iL">
-                                <rect key="frame" x="16" y="201" width="101" height="24"/>
+                                <rect key="frame" x="16" y="194" width="343" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" white="0.60682172576586402" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hi! This is my bio. I love so and so places. Lorem ipsum dolor sit amet." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TkC-qT-sCg">
-                                <rect key="frame" x="16" y="226" width="343" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <color key="textColor" red="0.35686274509803922" green="0.35686274509803922" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" name="VTR_GrayLabel"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NLM-mN-M1T">
@@ -75,11 +69,11 @@
                                         <rect key="frame" x="15" y="13" width="78" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
-                                        <color key="textColor" red="0.8901960784313725" green="0.50980392156862742" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="VTR_Main"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.9882352941176471" green="0.92549019607843142" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="VTR_LightOrange"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIX-UM-qy7">
                                 <rect key="frame" x="0.0" y="335" width="375" height="284"/>
@@ -135,49 +129,55 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olM-Cy-0aT">
-                                <rect key="frame" x="141" y="105" width="91" height="24"/>
+                                <rect key="frame" x="141" y="105" width="172" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" name="VTR_BlackLabel"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpp-sU-9vC">
-                                <rect key="frame" x="329" y="71" width="30" height="42"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p06-zD-CEQ">
+                                <rect key="frame" x="321" y="78" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="backgroundColor" white="0.80219184030000001" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="+">
-                                    <color key="titleColor" red="0.95397763319999995" green="0.67193116850000001" blue="0.44114523859999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <connections>
-                                    <segue destination="CNx-oI-8D0" kind="show" id="Ic0-cS-8PE"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oNh-pq-fIM">
-                                <rect key="frame" x="141" y="133" width="174" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.94509803921568625" green="0.61960784313725492" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
-                                <state key="normal" title="0 Followers">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="9za-gd-0ng" kind="show" identifier="followersSegue" id="eWv-Bg-RQY"/>
+                                    <action selector="followClicked:" destination="khL-MV-X4z" eventType="touchUpInside" id="bcY-Rg-BCQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGK-eJ-sin">
-                                <rect key="frame" x="141" y="172" width="174" height="31"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0 followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qx2-qN-5vy">
+                                <rect key="frame" x="141" y="131" width="172" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.94509803920000002" green="0.61960784310000006" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
-                                <state key="normal" title="0 Following">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                <color key="textColor" name="VTR_BlackLabel"/>
+                                <nil key="highlightedColor"/>
                                 <connections>
-                                    <segue destination="9za-gd-0ng" kind="show" identifier="followingSegue" id="Sgf-YR-M9f"/>
+                                    <outletCollection property="gestureRecognizers" destination="59K-da-Y7m" appends="YES" id="2jq-1x-1Lp"/>
                                 </connections>
-                            </button>
+                            </label>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0 following" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lG2-CO-i6x">
+                                <rect key="frame" x="141" y="157" width="172" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                <color key="textColor" name="VTR_BlackLabel"/>
+                                <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="dNw-bw-lzN" appends="YES" id="2Fy-12-2BJ"/>
+                                </connections>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hi! This is my bio. I love so and so places. Lorem ipsum dolor sit amet." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TkC-qT-sCg">
+                                <rect key="frame" x="16" y="219" width="343" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                <color key="textColor" name="VTR_BlackLabel"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="VTR_Background"/>
                         <viewLayoutGuide key="safeArea" id="dvn-Zl-y4R"/>
                     </view>
                     <navigationItem key="navigationItem" id="XSs-sf-aAP">
@@ -190,8 +190,9 @@
                     <connections>
                         <outlet property="bioLabel" destination="TkC-qT-sCg" id="ejp-me-xWH"/>
                         <outlet property="displayNameLabel" destination="Xi4-Q0-BGx" id="C10-Hu-VCw"/>
-                        <outlet property="followersButton" destination="oNh-pq-fIM" id="GMJ-0C-rUJ"/>
-                        <outlet property="followingButton" destination="gGK-eJ-sin" id="cVv-0B-A1T"/>
+                        <outlet property="followButton" destination="p06-zD-CEQ" id="1h5-Yv-H6c"/>
+                        <outlet property="followersLabel" destination="qx2-qN-5vy" id="3Ej-ee-MQ9"/>
+                        <outlet property="followingLabel" destination="lG2-CO-i6x" id="6gc-Gh-ofR"/>
                         <outlet property="handleLabel" destination="olM-Cy-0aT" id="obk-Yx-CZy"/>
                         <outlet property="hometownLabel" destination="giI-iQ-5iL" id="Pv0-n6-gEu"/>
                         <outlet property="myPlacesView" destination="NLM-mN-M1T" id="uUp-BY-iBN"/>
@@ -206,6 +207,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NsC-ah-MfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="59K-da-Y7m">
+                    <connections>
+                        <segue destination="9za-gd-0ng" kind="show" identifier="followersSegue" id="X0p-Su-RlJ"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="dNw-bw-lzN">
+                    <connections>
+                        <segue destination="9za-gd-0ng" kind="show" identifier="followingSegue" id="tgo-PY-rRD"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="517.60000000000002" y="102.99850074962519"/>
         </scene>
@@ -233,29 +244,30 @@
                                                     <rect key="frame" x="55" y="11" width="136" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="12"/>
-                                                    <color key="textColor" red="0.96078431369999995" green="0.73725490199999999" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" name="VTR_Main"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOw-9K-Mmb">
                                                     <rect key="frame" x="55" y="28" width="136" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="12"/>
-                                                    <color key="textColor" red="0.32549019610000002" green="0.32549019610000002" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" name="VTR_BlackLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Palo Alto, CA" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eHE-t3-6hY">
                                                     <rect key="frame" x="242" y="17" width="118" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
-                                                    <color key="textColor" white="0.60682172580000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" name="VTR_GrayLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OTw-M8-n6f">
                                                     <rect key="frame" x="9" y="11" width="34" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" red="0.89019607840000003" green="0.50980392159999999" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" name="VTR_Main"/>
                                                 </imageView>
                                             </subviews>
+                                            <color key="backgroundColor" name="VTR_Background"/>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -279,14 +291,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdQ-Be-M7D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1310" y="-668"/>
-        </scene>
-        <!--UserTest-->
-        <scene sceneID="SRX-39-5bT">
-            <objects>
-                <viewControllerPlaceholder storyboardName="UserTest" id="CNx-oI-8D0" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ytb-Bn-FmW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1496" y="103"/>
         </scene>
         <!--DetailsView-->
         <scene sceneID="4SR-bD-qOX">
@@ -315,9 +319,26 @@
             <point key="canvasLocation" x="-218.40000000000001" y="102.99850074962519"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="VTR_Background">
+            <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_BlackLabel">
+            <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_GrayLabel">
+            <color red="0.65098039215686276" green="0.65098039215686276" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_LightOrange">
+            <color red="1" green="0.92156862745098034" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_Main">
+            <color red="1" green="0.60392156862745094" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cqI-8F-loz"/>
-        <segue reference="eWv-Bg-RQY"/>
+        <segue reference="Ycd-XH-Z2X"/>
+        <segue reference="tgo-PY-rRD"/>
         <segue reference="OOB-8H-gVD"/>
     </inferredMetricsTieBreakers>
 </document>

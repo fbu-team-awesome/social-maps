@@ -16,35 +16,40 @@
 
 
 // Instance Properties //
-@property (strong, nonatomic) GMSPlace* place;
-@property (strong, nonatomic) GMSMapView* mapView;
+@property (strong, nonatomic) GMSPlace *place;
+@property (strong, nonatomic) Place *parsePlace;
+@property (strong, nonatomic) GMSMapView *mapView;
 @end
 
 @implementation DetailsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self updateUI];
+    
+    //create Parse Place from GMSPlace
+    [Place checkGMSPlaceExists:self.place result:^(Place * _Nonnull newPlace) {
+        self.parsePlace = newPlace;
+    }];
+    
+    [self updateContent];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-- (void)updateUI {
+- (void)updateContent {
     self.placeNameLabel.text = self.place.name;
     self.addressLabel.text = self.place.formattedAddress;
     
     // update the map
-    GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:self.place.coordinate.latitude longitude:self.place.coordinate.longitude zoom:15];
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.place.coordinate.latitude longitude:self.place.coordinate.longitude zoom:15];
     self.mapView = [GMSMapView mapWithFrame:self.placeView.bounds camera:camera];
     [self.placeView addSubview:self.mapView];
     self.mapView.delegate = self;
     
     // add a marker in the place
-    GMSMarker* marker = [GMSMarker markerWithPosition:self.place.coordinate];
+    GMSMarker *marker = [GMSMarker markerWithPosition:self.place.coordinate];
     marker.title = self.place.name;
     marker.map = self.mapView;
 }
@@ -52,21 +57,15 @@
 - (void)setPlace:(GMSPlace*)place {
     _place = place;
 }
+
 - (IBAction)didTapFavorite:(id)sender {
     [PFUser.currentUser addFavorite:_place];
 }
+
 - (IBAction)didTapWishlist:(id)sender {
     [PFUser.currentUser addToWishlist:_place];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)didTapCheckIn:(id)sender {
+    [self.parsePlace didCheckIn:PFUser.currentUser];
 }
-*/
-
 @end

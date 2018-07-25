@@ -31,8 +31,9 @@
 - (void)retrieveFavoritesWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion;
 - (void)retrieveWishlistWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion;
 - (void)follow:(PFUser *)user;
-- (void)addUserToFollowers:(PFUser*) user;
-- (void)addUserToFollowing:(PFUser*) user;
+- (void)unfollow:(PFUser*)user;
 - (void)retrieveRelationshipWithCompletion:(void(^)(Relationships*))completion;
++ (PFUser *)retrieveUserWithId:(NSString *)userId;
++ (void)retrieveUsersWithIDs:(NSArray<NSString*>*)IDs withCompletion:(void(^)(NSArray<PFUser*>*))completion;
 
 @end

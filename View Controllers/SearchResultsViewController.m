@@ -10,7 +10,7 @@
 #import "DetailsViewController.h"
 #import "SearchCell.h"
 #import "ResultsTableViewController.h"
-
+#import "NCHelper.h"
 
 @interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate>
 
@@ -31,22 +31,17 @@
 - (void)viewDidLoad {
     self.definesPresentationContext = true;
     
-    //add notification listener for adding to favorites
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(addToFavorites:)
-                                                 name:@"AddFavoriteNotification"
-                                               object:nil];
-    // add notification listener for adding to wishlist
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(addToWishlist:)
-                                                 name:@"AddToWishlistNotification"
-                                               object:nil];
-    
-    
-    
+    [self addNotificationObservers];
     [self initMap];
     [self initSearch];
 }
+
+- (void)addNotificationObservers {
+    [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
+    [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
+    [NCHelper addObserver:self type:NTNewFollow selector:@selector(addPinsOfNewFollow:)];
+}
+
 - (void)initMap {
     
     // init our location
@@ -96,8 +91,11 @@
         // get array of users that current user is following
         [Relationships retrieveFollowingWithId:relationships.objectId WithCompletion:^(NSArray *following) {
             
-            for (PFUser *user in following) {
-
+            for (NSString *userId in following) {
+                
+                // get the user that has id userId
+                PFUser *user = [PFUser retrieveUserWithId:userId];
+                
                 // get the favorites of each user
                 [user retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
                     
@@ -136,6 +134,8 @@
      }
      ];
 }
+
+
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
     
@@ -184,43 +184,48 @@
     }
 }
 - (void) addToFavorites:(NSNotification *) notification {
-    Place *place = (Place *) notification.object;
-    [[APIManager shared] GMSPlaceFromPlace:place withCompletion:^(GMSPlace *place) {
+    GMSPlace* place = (GMSPlace*)notification.object;
+
+    // place pin
+    [self addFavoritePin:place];
+    NSLog(@"Added %@",place.name);
         
-        //add to user favorites
-        [[PFUser currentUser] addFavorite:place];
-        
-        //place pin
-        [self addFavoritePin:place];
-        NSLog(@"Added %@",place.name);
-        
-        //close search
+    // close search
+    if(self.presentedViewController != nil)
+    {
         [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+    }
 }
 
 - (void) addToWishlist:(NSNotification *) notification {
-    Place *place = (Place *) notification.object;
-    [[APIManager shared] GMSPlaceFromPlace:place withCompletion:^(GMSPlace *place) {
+    GMSPlace* place = (GMSPlace*)notification.object;
+    
+    // place pin
+    [self addWishlistPin:place];
+    NSLog(@"Added %@",place.name);
         
-        //add to user wishlist
-        [[PFUser currentUser] addToWishlist:place];
-        
-        //place pin
-        [self addWishlistPin:place];
-        NSLog(@"Added %@",place.name);
-        
-        //close search
+    // close search
+    if(self.presentedViewController != nil)
+    {
         [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+    }
 }
 
+- (void)addPinsOfNewFollow:(NSNotification *) notification {
+    
+    [notification.object retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
+        
+        // add each place to map
+        for (GMSPlace *place in places) {
+            [self addFavoriteOfFollowingPin:place];
+        }
+    }];
+}
 
 - (void)addFavoritePin:(GMSPlace *)place {
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
     marker.title = place.name;
     marker.appearAnimation = kGMSMarkerAnimationPop;
-    //marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
     marker.map = self.mapView;
     
     // add the key to our dictionary
@@ -254,5 +259,4 @@
     GMSPlace* place = self.markers[marker.title];
     [self performSegueWithIdentifier:@"toDetailsView" sender:place];
 }
-
 @end

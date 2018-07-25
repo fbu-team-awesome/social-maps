@@ -85,20 +85,19 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
      ];
 }
 
-- (void)getAllGMSPlaces:(void(^)(NSMutableArray *places))completion {
+- (void)getAllGMSPlaces:(void(^)(NSArray<GMSPlace*>* places))completion {
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        if (error == nil && objects != nil) {
-            
+        if (error == nil && objects != nil)  {
             // convert array of Place objects to GMSPlace objects
-            NSMutableArray *array = [[NSMutableArray alloc] init];
+            NSMutableArray<GMSPlace*>* array = [NSMutableArray new];
             for (Place *myPlace in objects) {
                 [self GMSPlaceFromPlace:myPlace withCompletion:^(GMSPlace *place) {
                     [array addObject:place];
                     
                     if(array.count == objects.count)
                     {
-                        completion(array);
+                        completion((NSArray*)array);
                     }
                 }];
             }
@@ -131,13 +130,34 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
         }
     }];
 }
-
--(void)getAllUsers:(void(^)(NSMutableArray *users))completion {
+            
+// gets the GMSPlacePhotoMetadata for the first ten images
+- (void)getPhotoMetadata:(NSString *)placeID :(void(^)(NSArray<GMSPlacePhotoMetadata *> *photoMetadata))completion {
+    [[GMSPlacesClient sharedClient] lookUpPhotosForPlaceID:placeID callback:^(GMSPlacePhotoMetadataList *_Nullable photos, NSError *_Nullable error) {
+        
+        if (error) {
+            NSLog(@"Error: %@", [error description]);
+        }
+        else {
+            if (photos.results.count > 0) {
+                
+                if (photos.results.count > 10) {
+                    completion([photos.results subarrayWithRange:NSMakeRange(0, 9)]);
+                }
+                else {
+                    completion(photos.results);
+                }
+            }
+        }
+    }];
+}
+            
+- (void)getAllUsers:(void(^)(NSArray<PFUser*>* users))completion {
     PFQuery *query = [PFUser query];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if(error == nil && objects != nil) {
-            completion([NSMutableArray arrayWithArray:objects]);
-        }else {
+            completion(objects);
+        } else {
             NSLog(@"Error getting all users");
         }
     }];

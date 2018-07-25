@@ -12,14 +12,21 @@
 #import "HMSegmentedControl.h"
 #import "ProfileListCell.h"
 #import "DetailsViewController.h"
+#import "NCHelper.h"
+
+static NSString *const kNoFavoriteMsg = @"You have no favorites!";
+static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 
 @interface ListViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
-@property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
+@property (weak, nonatomic) IBOutlet UIView *defaultView;
+@property (weak, nonatomic) IBOutlet UILabel *defaultViewLabel;
+@property (strong, nonatomic) NSArray<GMSPlace *> *favorites;
+@property (strong, nonatomic) NSArray<GMSPlace *> *wishlist;
 @property (assign, nonatomic) long segmentIndex;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -27,27 +34,77 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self addNotificationObservers];
     
+    // initialize arrays
+    self.favorites = [NSArray new];
+    self.wishlist = [NSArray new];
+    
+    // set up tableview
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.hidden = NO;
+    self.defaultView.hidden = YES;
     [self.tableView setRowHeight:91];
     [self setSegmentControlView];
+    [self.progressIndicator startAnimating];
     [self retrieveCurrentUserData];
+    
+    // initialize refresh control
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(retrieveCurrentUserData) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
+}
+
+- (void)addNotificationObservers {
+    [NCHelper addObserver:self type:NTAddFavorite selector:@selector(didAddFavorite:)];
+    [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(didAddToWishlist:)];
 }
 
 - (void)retrieveCurrentUserData {
-    
     PFUser *currentUser = [PFUser currentUser];
     [currentUser retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *favorites) {
-        
-        self.favorites = favorites;
+        if(favorites != nil)
+        {
+            self.favorites = favorites;
+            
+            // hide default label
+            [self toggleDefaultViewHidden:YES];
+        }
+        else
+        {
+            // show default label
+            if(self.segmentIndex == 0)
+            {
+                self.defaultViewLabel.text = kNoFavoriteMsg;
+                [self toggleDefaultViewHidden:NO];
+            }
+        }
         [self.tableView reloadData];
+        [self.progressIndicator stopAnimating];
+        [self.refreshControl endRefreshing];
     }];
+    
     [currentUser retrieveWishlistWithCompletion:^(NSArray<GMSPlace *> *wishlist) {
-        
-        self.wishlist = wishlist;
+        if(wishlist != nil)
+        {
+            self.wishlist = wishlist;
+            
+            // hide default label
+            [self toggleDefaultViewHidden:YES];
+        }
+        else
+        {
+            // show default label
+            if(self.segmentIndex == 1)
+            {
+                self.defaultViewLabel.text = kNoWishlistMsg;
+                [self toggleDefaultViewHidden:NO];
+            }
+        }
         [self.tableView reloadData];
+        [self.progressIndicator stopAnimating];
+        [self.refreshControl endRefreshing];
     }];
 }
 
@@ -68,7 +125,7 @@
     // Customize appearance
     [segmentedControl setFrame:CGRectMake(0, statusBarHeight, width, 60)];
     segmentedControl.selectionIndicatorHeight = 4.0f;
-    segmentedControl.backgroundColor = [UIColor colorWithRed:1.00 green:0.92 blue:0.87 alpha:1.0];
+    segmentedControl.backgroundColor = [UIColor colorNamed:@"VTR_LightOrange"];
     segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:1.00 green:0.60 blue:0.47 alpha:1.0]};
     segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:1.00 green:0.60 blue:0.47 alpha:1.0];
     segmentedControl.selectionIndicatorBoxColor = [UIColor colorWithRed:1.00 green:0.92 blue:0.87 alpha:1.0];
@@ -82,23 +139,42 @@
     [segmentedControl setIndexChangeBlock:^(NSInteger index) {
         
         NSLog(@"Selected index %ld (via block)", (long)index);
+        [self.progressIndicator startAnimating];
         self.segmentIndex = index;
+        
+        // we changed to wishlist
+        if(index == 1)
+        {
+            if(self.wishlist.count == 0)
+            {
+                self.defaultViewLabel.text = kNoWishlistMsg;
+                [self toggleDefaultViewHidden:NO];
+            }
+            else
+            {
+                [self toggleDefaultViewHidden:YES];
+            }
+        }
+        // we changed to favorites
+        else if(index == 0)
+        {
+            if(self.favorites.count == 0)
+            {
+                self.defaultViewLabel.text = kNoFavoriteMsg;
+                [self toggleDefaultViewHidden:NO];
+            }
+            else
+            {
+                [self toggleDefaultViewHidden:YES];
+            }
+        }
         [self.tableView reloadData];
+        [self.progressIndicator stopAnimating];
     }];
     
     CGRect tableViewFrame = self.tableView.frame;
     tableViewFrame.origin.y = statusBarHeight + 60;
     self.tableView.frame = tableViewFrame;
-    // set tableview constraints in respect to segmented control
-    //self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor].active = YES;
-//    [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor].active = YES;
-//    [self.tableView.topAnchor constraintEqualToAnchor:segmentedControl.bottomAnchor].active = YES;
-    
-}
-
-- (void)initializeConstraints {
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,14 +185,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"detailsSegue"])
     {
-        DetailsViewController* vc = (DetailsViewController*)[segue destinationViewController];
-        ProfileListCell* cell = (ProfileListCell*)sender;
+        DetailsViewController *vc = (DetailsViewController *)[segue destinationViewController];
+        ProfileListCell *cell = (ProfileListCell *)sender;
         [vc setPlace:[cell getPlace]];
     }
 }
 
  - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-     ProfileListCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ProfileListCell" forIndexPath:indexPath];
+     ProfileListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ProfileListCell" forIndexPath:indexPath];
      
      if (self.segmentIndex == 0) {
          [cell setPlace:self.favorites[indexPath.row]];
@@ -129,11 +205,49 @@
  
  - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
      
-     if (self.segmentIndex == 0)
+     if (self.segmentIndex == 0) {
          return self.favorites.count;
-     else
+     }
+     else {
          return self.wishlist.count;
- }
+     }
+     
+}
 
+- (void)toggleDefaultViewHidden:(BOOL)shouldHideDefaultView {
+    self.tableView.hidden = !shouldHideDefaultView;
+    self.defaultView.hidden = shouldHideDefaultView;
+}
 
+- (void)didAddFavorite:(NSNotification *)notification {
+    GMSPlace *place = (GMSPlace *)notification.object;
+    
+    // add to the favorites
+    self.favorites = [[NSArray arrayWithObject:place] arrayByAddingObjectsFromArray:self.favorites];
+    
+    // reload table
+    [self.tableView reloadData];
+    
+    // hide default label
+    if(self.segmentIndex == 0)
+    {
+        [self toggleDefaultViewHidden:YES];
+    }
+}
+
+- (void)didAddToWishlist:(NSNotification *)notification {
+    GMSPlace *place = (GMSPlace *)notification.object;
+    
+    // add to the favorites
+    self.wishlist = [[NSArray arrayWithObject:place] arrayByAddingObjectsFromArray:self.wishlist];
+    
+    // reload table
+    [self.tableView reloadData];
+    
+    // hide default label
+    if(self.segmentIndex == 1)
+    {
+        [self toggleDefaultViewHidden:YES];
+    }
+}
 @end
