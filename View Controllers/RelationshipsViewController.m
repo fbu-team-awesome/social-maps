@@ -45,6 +45,30 @@
 - (void)setUsers:(NSArray<PFUser*>*)users {
     _users = users;
     [self.tableView reloadData];
+- (void)retrieveUserList {
+    if(self.relationshipType == RTFollowers)
+    {
+        [PFUser retrieveUsersWithIDs:self.user.relationships.followers
+                      withCompletion:^(NSArray<PFUser *> *followers)
+                      {
+                          self.listedUsers = followers;
+                          [self.tableView reloadData];
+                          [self.progressIndicator stopAnimating];
+                          [self.refreshControl endRefreshing];
+                      }];
+    }
+    else if(self.relationshipType == RTFollowing)
+    {
+        [PFUser retrieveUsersWithIDs:self.user.relationships.following
+                      withCompletion:^(NSArray<PFUser *> *following)
+                      {
+                          self.listedUsers = following;
+                          [self.tableView reloadData];
+                          [self.progressIndicator stopAnimating];
+                          [self.refreshControl endRefreshing];
+                      }];
+    }
+}
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
