@@ -232,4 +232,23 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
         self.defaultView.hidden = YES;
     }
 }
+
+- (void)didAddToWishlist:(NSNotification*)notification {
+    GMSPlace* place = (GMSPlace*)notification.object;
+    
+    // add to the favorites
+    NSMutableArray<GMSPlace*>* wishlist = [NSMutableArray arrayWithArray:self.wishlist];
+    [wishlist insertObject:place atIndex:0];
+    self.wishlist = (NSArray*)wishlist;
+    
+    // reload table
+    [self.tableView reloadData];
+    
+    // hide default label
+    if(self.segmentIndex == 0)
+    {
+        self.tableView.hidden = NO;
+        self.defaultView.hidden = YES;
+    }
+}
 @end
