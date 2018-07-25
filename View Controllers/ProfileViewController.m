@@ -97,6 +97,7 @@
     [self.tableView setRowHeight:90];
     
     // get favs and wishlist
+    [self.progressIndicator startAnimating];
     self.markers = [NSMutableDictionary new];
     [self retrieveUserPlaces];
     
@@ -171,6 +172,7 @@
               self.favorites = places;
               [self.tableView reloadData];
               [self addFavoritesPins];
+              [self.progressIndicator stopAnimating];
           }
      ];
     
@@ -181,6 +183,7 @@
               self.wishlist = places;
               [self.tableView reloadData];
               [self addWishlistPins];
+              [self.progressIndicator stopAnimating];
           }
      ];
 }
