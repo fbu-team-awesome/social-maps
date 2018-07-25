@@ -222,6 +222,11 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
      
 }
 
+- (void)toggleDefaultViewHidden:(BOOL)shouldHideDefaultView {
+    self.tableView.hidden = !shouldHideDefaultView;
+    self.defaultView.hidden = shouldHideDefaultView;
+}
+
 - (void)didAddFavorite:(NSNotification *)notification {
     GMSPlace *place = (GMSPlace *)notification.object;
     
