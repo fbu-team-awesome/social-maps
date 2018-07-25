@@ -27,15 +27,11 @@
     
     [[APIManager shared] getPhotoMetadata:self.place.placeID :^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
         
-        [self loadFirstImage:photoMetadata WithCompletion:^{
-            
-            self.nameLabel.text = self.place.name;
-            self.addressLabel.text = self.place.formattedAddress;
-        }];
+        [self loadFirstImage:photoMetadata];
     }];
 }
 
--(void)loadFirstImage:(NSArray<GMSPlacePhotoMetadata *> *)photoMetadata WithCompletion:(void(^)(void))completion {
+-(void)loadFirstImage:(NSArray<GMSPlacePhotoMetadata *> *)photoMetadata {
     
     GMSPlacePhotoMetadata *firstPhoto = photoMetadata.firstObject;
     
@@ -50,7 +46,6 @@
          else {
              self.placeImage.image = photo;
          }
-         completion();
      }];
 }
 
