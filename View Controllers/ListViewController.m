@@ -205,11 +205,9 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
  - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
      
      if (self.segmentIndex == 0) {
-         [self setView];
          return self.favorites.count;
      }
      else {
-         [self setView];
          return self.wishlist.count;
      }
  }
