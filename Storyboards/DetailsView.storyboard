@@ -119,6 +119,9 @@
                                                 <state key="normal" title="Check In">
                                                     <color key="titleColor" name="VTR_Background"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="didTapCheckIn:" destination="eMh-9V-03L" eventType="touchUpInside" id="cRs-oL-c6r"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

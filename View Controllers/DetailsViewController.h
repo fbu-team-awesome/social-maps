@@ -10,6 +10,7 @@
 @import GooglePlaces;
 #import <UIKit/UIKit.h>
 #import "PFUser+ExtendedUser.h"
+#import "Place.h"
 
 @interface DetailsViewController : UIViewController
 - (void)setPlace:(GMSPlace*)place;

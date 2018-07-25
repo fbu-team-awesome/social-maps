@@ -10,12 +10,13 @@
 #import "APIManager.h"
 
 @implementation Place
-@dynamic placeID, placeName;
+@dynamic placeID, placeName, checkIns;
 
 - (nonnull instancetype)initWithGMSPlace:(GMSPlace*)place {
-    Place* newPlace = [Place object];
+    Place *newPlace = [Place object];
     newPlace.placeID = place.placeID;
     newPlace.placeName = place.name;
+    newPlace.checkIns = [NSArray new];
     
     return newPlace;
 }
@@ -71,4 +72,11 @@
            }
      ];
 }
+
+- (void)didCheckIn:(PFUser *)user {
+    [self addObject:user forKey:@"checkIns"];
+    [self saveInBackground];
+    NSLog(@"%@ just checked in to %@", user.username, self.placeName);
+}
+
 @end
