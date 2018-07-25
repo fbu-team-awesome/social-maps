@@ -179,6 +179,7 @@
               [self.tableView reloadData];
               [self addFavoritesPins];
               [self.progressIndicator stopAnimating];
+              [self.refreshControl endRefreshing];
           }
      ];
     
@@ -190,6 +191,7 @@
               [self.tableView reloadData];
               [self addWishlistPins];
               [self.progressIndicator stopAnimating];
+              [self.refreshControl endRefreshing];
           }
      ];
 }
