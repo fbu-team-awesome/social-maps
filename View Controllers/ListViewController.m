@@ -44,8 +44,8 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     // set up tableview
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.hidden = NO;
-    self.defaultView.hidden = YES;
+    [self toggleDefaultViewHidden:YES];
+    
     [self.tableView setRowHeight:91];
     [self setSegmentControlView];
     [self.progressIndicator startAnimating];
