@@ -19,8 +19,8 @@
 @property NSString* hometown;
 @property NSString* bio;
 @property PFFile* profilePicture;
-@property NSMutableArray<Place*>* favorites;
-@property NSMutableArray<Place*>* wishlist;
+@property NSArray<Place*> *favorites;
+@property NSArray<Place*> *wishlist;
 @property Relationships *relationships;
 
 // Instance Methods //

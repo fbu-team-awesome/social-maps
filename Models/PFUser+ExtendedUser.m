@@ -27,7 +27,9 @@
                {
                    if(![self.favorites containsObject:result])
                    {
-                       [self.favorites addObject:result];
+                       NSMutableArray *mutableFavorites = [self.favorites mutableCopy];
+                       [mutableFavorites addObject:result];
+                       self.favorites = [mutableFavorites copy];
                        [self setObject:self.favorites forKey:@"favorites"];
                        [self saveInBackground];
                    }
@@ -47,7 +49,9 @@
            {
                if(result != nil)
                {
-                   [self.favorites removeObject:result];
+                   NSMutableArray *mutableFavorites = [self.favorites mutableCopy];
+                   [mutableFavorites removeObject:result];
+                   self.favorites = [mutableFavorites copy];
                }
          
                [self setObject:self.favorites forKey:@"favorites"];
@@ -66,7 +70,9 @@
                {
                    if(![self.wishlist containsObject:result])
                    {
-                       [self.wishlist addObject:result];
+                       NSMutableArray *mutableWishlist = [self.wishlist mutableCopy];
+                       [mutableWishlist addObject:result];
+                       self.wishlist = [mutableWishlist copy];
                        [self setObject:self.wishlist forKey:@"wishlist"];
                        [self saveInBackground];
                    }
@@ -86,7 +92,9 @@
            {
                if(result != nil)
                {
-                   [self.wishlist removeObject:result];
+                   NSMutableArray *mutableWishlist = [self.wishlist mutableCopy];
+                   [mutableWishlist removeObject:result];
+                   self.wishlist = [mutableWishlist copy];
                }
          
                [self setObject:self.wishlist forKey:@"wishlist"];
