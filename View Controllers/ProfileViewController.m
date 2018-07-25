@@ -334,9 +334,7 @@
     self.markers[marker.title] = place;
     
     // add to tableview
-    NSMutableArray<GMSPlace*>* favorites = (NSMutableArray*)self.favorites;
-    [favorites addObject:place];
-    self.favorites = (NSArray*)favorites;
+    self.favorites = [[NSArray arrayWithObject:place] arrayByAddingObjectsFromArray:self.favorites];
     [self.tableView reloadData];
     NSLog(@"Added %@",place.name);
 }
@@ -361,9 +359,7 @@
     // if this is our profile, then we will add the user to our following
     if([[PFUser currentUser].objectId isEqualToString:self.user.objectId])
     {
-        NSMutableArray<NSString*>* following = (NSMutableArray*)self.user.relationships.following;
-        [following addObject:user.objectId];
-        self.user.relationships.following = (NSArray*)following;
+        self.user.relationships.following = [[NSArray arrayWithObject:user.objectId] arrayByAddingObjectsFromArray:self.user.relationships.following];
         
         // update the following label
         [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", self.user.relationships.following.count]];
@@ -371,9 +367,7 @@
     // if this user is the user that was followed, then update their followers
     else if ([self.user.objectId isEqualToString:user.objectId])
     {
-        NSMutableArray<NSString*>* followers = (NSMutableArray*)self.user.relationships.followers;
-        [followers addObject:[PFUser currentUser].objectId];
-        self.user.relationships.followers = (NSArray*)followers;
+        self.user.relationships.followers = [[NSArray arrayWithObject:[PFUser currentUser].objectId] arrayByAddingObjectsFromArray:self.user.relationships.followers];
         
         // update the followers label
         [self.followersLabel setText:[NSString stringWithFormat:@"%lu followers", self.user.relationships.followers.count]];
