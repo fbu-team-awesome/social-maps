@@ -53,28 +53,6 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
     [self retrieveCurrentUserData];
 }
 
-- (void)setView {
-    
-    self.defaultView.hidden = YES;
-    self.tableView.hidden = NO;
-    if (self.favorites == nil && self.segmentIndex == 0) {
-        self.defaultViewLabel.text = @"Your Favorites is currently empty!";
-        self.tableView.hidden = YES;
-        self.defaultView.hidden = NO;
-    }
-    else if (self.wishlist == nil && self.segmentIndex == 1) {
-        self.defaultViewLabel.text = @"Your Wishlist is currently empty!";
-        self.tableView.hidden = YES;
-        self.defaultView.hidden = NO;
-    }
-    else {
-        self.tableView.hidden = NO;
-        self.defaultView.hidden = YES;
-    }
-    
-    
-}
-
 - (void)retrieveCurrentUserData {
     [self.progressIndicator startAnimating];
     PFUser *currentUser = [PFUser currentUser];
