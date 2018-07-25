@@ -69,6 +69,20 @@
                       }];
     }
 }
+
+- (void)setUser:(PFUser *)user withRelationshipType:(RelationshipType)relationshipType {
+    _user = user;
+    _relationshipType = relationshipType;
+    
+    // update the navbar title
+    if(relationshipType == RTFollowers)
+    {
+        self.title = @"Followers";
+    }
+    else if(relationshipType == RTFollowing)
+    {
+        self.title = @"Following";
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
