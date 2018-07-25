@@ -211,5 +211,25 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
      else {
          return self.wishlist.count;
      }
- }
+     
+}
+
+- (void)didAddFavorite:(NSNotification*)notification {
+    GMSPlace* place = (GMSPlace*)notification.object;
+    
+    // add to the favorites
+    NSMutableArray<GMSPlace*>* favorites = [NSMutableArray arrayWithArray:self.favorites];
+    [favorites insertObject:place atIndex:0];
+    self.favorites = (NSArray*)favorites;
+    
+    // reload table
+    [self.tableView reloadData];
+    
+    // hide default label
+    if(self.segmentIndex == 0)
+    {
+        self.tableView.hidden = NO;
+        self.defaultView.hidden = YES;
+    }
+}
 @end
