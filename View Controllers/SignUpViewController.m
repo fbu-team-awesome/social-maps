@@ -72,6 +72,7 @@
     newUser.favorites = [NSMutableArray new];
     newUser.wishlist = [NSMutableArray new];
     newUser.relationships = [Relationships object];
+    newUser.checkIns = [NSDictionary new];
     
     newUser.relationships.followers = [NSMutableArray new];
     newUser.relationships.following = [NSMutableArray new];
