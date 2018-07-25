@@ -18,13 +18,14 @@
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSArray<GMSPlace*>* places;
 @property (strong, nonatomic) NSArray<PFUser*>* users;
 @property (strong, nonatomic) NSArray *filteredPlaces;
 @property (strong, nonatomic) NSArray *filteredUsers;
-@property (assign, nonatomic) long segmentIndex;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSArray<GMSPlacePhotoMetadata *> *photoMetadata;
+@property (assign, nonatomic) long segmentIndex;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
 
 @end
 
@@ -40,18 +41,19 @@
     
     [self initSearch];
     [self setSegmentControlView];
-    [self fetchLists];
+    [self fetchLists:nil];
     
+    self.isMoreDataLoading = NO;
 }
 
-- (void) fetchLists {
-    /*
-    [[APIManager shared] getAllGMSPlaces:^(NSArray<GMSPlace*>* places) {
+- (void) fetchLists:(Place *)lastPlace {
+    [[APIManager shared] getNextTenGMSPlaces:lastPlace.placeID :^(NSArray<GMSPlace *> *places) {
+        
         self.places = places;
         self.filteredPlaces = self.places;
         [self.tableView reloadData];
+        
     }];
-     */
     
     [[APIManager shared] getAllUsers:^(NSArray<PFUser*>* users) {
         self.users = users;
@@ -140,6 +142,23 @@
         [self.tableView reloadData];
     }
 }
+
+/*
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (!self.isMoreDataLoading) {
+        
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+        
+        if (scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+            
+        }
+        
+    }
+    
+}
+ */
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = YES;

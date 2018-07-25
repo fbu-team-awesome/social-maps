@@ -107,28 +107,71 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
     }];
 }
 
-- (void)getSomeGMSPlaces:(NSInteger)num :(void(^)(NSMutableArray *places))completion {
-    PFQuery *query = [PFQuery queryWithClassName:@"Place"];
-    query.limit = num;
-    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        if (error == nil && objects != nil) {
-            
-            // convert array of Place objects to GMSPlace objects
-            NSMutableArray *array = [[NSMutableArray alloc] init];
-            for (Place *myPlace in objects) {
-                [self GMSPlaceFromPlace:myPlace withCompletion:^(GMSPlace *place) {
-                    [array addObject:place];
-                    
-                    if(array.count == objects.count)
-                    {
-                        completion(array);
-                    }
-                }];
-            }
-        } else {
-            NSLog(@"Error getting all places");
+- (void)getNextTenGMSPlaces:(NSString *)lastPlaceID :(void(^)(NSArray<GMSPlace *> *places))completion {
+    
+    [self getTimeOfPlaceCreation:lastPlaceID withCompletion:^(NSDate *date) {
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"Place"];
+        query.limit = 10;
+        [query orderByDescending:@"createdAt"];
+        
+        if (date) {
+            [query whereKey:@"createdAt" greaterThan:date];
         }
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            if (error == nil && objects != nil) {
+                
+                NSMutableArray<Place *> *orderedObjects = [NSMutableArray arrayWithCapacity:10];
+                for (Place *myPlace in objects) {
+                    [orderedObjects addObject:myPlace];
+                }
+                
+                Place *placeHolder = [[Place alloc] init];
+                // convert array of Place objects to GMSPlace objects
+                NSMutableArray *places = [NSMutableArray arrayWithCapacity:10];
+                for (int i = 0; i < orderedObjects.count; i++) {
+                    [places addObject:placeHolder];
+                }
+                __block NSNumber *count;
+                count = [NSNumber numberWithInteger:0];
+                for (Place *myPlace in orderedObjects) {
+                    [self GMSPlaceFromPlace:myPlace withCompletion:^(GMSPlace *place) {
+                        [places replaceObjectAtIndex:[orderedObjects indexOfObject:myPlace] withObject:place];
+                        count = [NSNumber numberWithInt:[count intValue] + 1];
+
+                        if ([count isEqual:[NSNumber numberWithInteger:places.count - 1]]) {
+                            
+                            completion(places);
+                        }
+                    }];
+                }
+                
+            } else {
+                NSLog(@"Error getting all places");
+            }
+        }];
     }];
+}
+
+// block or return????
+- (void)getTimeOfPlaceCreation:(NSString *)placeId withCompletion:(void(^)(NSDate*))completion {
+    
+    if (placeId) {
+        PFQuery *query = [PFQuery queryWithClassName:@"Place"];
+        [query whereKey:@"placeID" equalTo:placeId];
+        [query includeKey:@"createdAt"];
+        [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            
+            Place *lastPlace = objects[0];
+            NSDate *timeCreatedAt = lastPlace.createdAt;
+            // timeCreatedAt = [timeCreatedAt substringToIndex:19];
+            completion(timeCreatedAt);
+        }];
+    }
+    else {
+        completion(nil);
+    }
 }
             
 // gets the GMSPlacePhotoMetadata for the first ten images

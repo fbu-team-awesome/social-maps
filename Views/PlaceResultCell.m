@@ -38,7 +38,7 @@
     }];
 }
 
--(void)loadFirstImage:(NSArray<GMSPlacePhotoMetadata *> *)photoMetadata WithCompletion:(void(^)(void))completion {
+- (void)loadFirstImage:(NSArray<GMSPlacePhotoMetadata *> *)photoMetadata WithCompletion:(void(^)(void))completion {
     
     GMSPlacePhotoMetadata *firstPhoto = photoMetadata.firstObject;
     
