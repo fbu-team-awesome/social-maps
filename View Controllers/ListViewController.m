@@ -12,6 +12,7 @@
 #import "HMSegmentedControl.h"
 #import "ProfileListCell.h"
 #import "DetailsViewController.h"
+#import "NCHelper.h"
 
 static NSString* NO_FAVORITE_MSG = @"You have no favorites!";
 static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
@@ -32,18 +33,13 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self addNotificationObservers];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setView)
-                                                 name:@"AddFavoriteNotification"
-                                               object:nil];
-    // add notification listener for adding to wishlist
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setView)
-                                                 name:@"AddToWishlistNotification"
-                                               object:nil];
+    // initialize arrays
+    self.favorites = [NSArray new];
+    self.wishlist = [NSArray new];
     
+    // set up tableview
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.hidden = NO;
@@ -51,6 +47,11 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
     [self.tableView setRowHeight:91];
     [self setSegmentControlView];
     [self retrieveCurrentUserData];
+}
+
+- (void)addNotificationObservers {
+    [NCHelper addObserver:self type:NTAddFavorite selector:@selector(didAddFavorite:)];
+    [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(didAddToWishlist:)];
 }
 
 - (void)retrieveCurrentUserData {
