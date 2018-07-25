@@ -8,13 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum RelationshipType : NSUInteger
-{
-    RTFollowers,
-    RTFollowing
-}
-RelationshipType;
-
 @interface RelationshipsViewController : UIViewController
-- (void)setUser:(PFUser *)user withRelationshipType:(RelationshipType)relationshipType;
+- (void)setUsers:(NSArray<PFUser*>*)users;
 @end

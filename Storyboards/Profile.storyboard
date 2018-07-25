@@ -280,17 +280,24 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Mcp-RL-tgd">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Pru-he-Egg">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="HvY-85-eT2"/>
+                                    <constraint firstAttribute="width" constant="37" id="f4m-Co-Rda"/>
+                                </constraints>
                                 <color key="color" name="VTR_BlackLabel"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Pru-he-Egg" firstAttribute="centerX" secondItem="IYQ-GS-q8O" secondAttribute="centerX" id="0h3-Ho-a5h"/>
+                            <constraint firstItem="Pru-he-Egg" firstAttribute="centerY" secondItem="IYQ-GS-q8O" secondAttribute="centerY" id="J9p-p2-0bJ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="PfL-8r-Zc5"/>
                     </view>
                     <connections>
-                        <outlet property="progressIndicator" destination="Mcp-RL-tgd" id="KK8-4g-CmR"/>
+                        <outlet property="progressIndicator" destination="Pru-he-Egg" id="TQu-gg-vz1"/>
                         <outlet property="tableView" destination="Jm7-Zb-dTC" id="oBx-H4-024"/>
                     </connections>
                 </viewController>
@@ -328,6 +335,9 @@
     <resources>
         <namedColor name="VTR_Background">
             <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_BlackLabel">
+            <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="VTR_BlackLabel">
             <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
