@@ -45,11 +45,13 @@
 }
 
 - (void) fetchLists {
+    /*
     [[APIManager shared] getAllGMSPlaces:^(NSArray<GMSPlace*>* places) {
         self.places = places;
         self.filteredPlaces = self.places;
         [self.tableView reloadData];
     }];
+     */
     
     [[APIManager shared] getAllUsers:^(NSArray<PFUser*>* users) {
         self.users = users;
