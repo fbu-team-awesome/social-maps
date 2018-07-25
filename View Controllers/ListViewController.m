@@ -69,8 +69,7 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
             self.favorites = favorites;
             
             // hide default label
-            self.defaultView.hidden = YES;
-            self.tableView.hidden = NO;
+            [self toggleDefaultViewHidden:YES];
         }
         else
         {
@@ -78,8 +77,7 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
             if(self.segmentIndex == 0)
             {
                 self.defaultViewLabel.text = kNoFavoriteMsg;
-                self.tableView.hidden = YES;
-                self.defaultView.hidden = NO;
+                [self toggleDefaultViewHidden:NO];
             }
         }
         [self.tableView reloadData];
@@ -93,8 +91,7 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
             self.wishlist = wishlist;
             
             // hide default label
-            self.defaultView.hidden = YES;
-            self.tableView.hidden = NO;
+            [self toggleDefaultViewHidden:YES];
         }
         else
         {
@@ -102,8 +99,7 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
             if(self.segmentIndex == 1)
             {
                 self.defaultViewLabel.text = kNoWishlistMsg;
-                self.tableView.hidden = YES;
-                self.defaultView.hidden = NO;
+                [self toggleDefaultViewHidden:NO];
             }
         }
         [self.tableView reloadData];
@@ -152,13 +148,11 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
             if(self.wishlist.count == 0)
             {
                 self.defaultViewLabel.text = kNoWishlistMsg;
-                self.tableView.hidden = YES;
-                self.defaultView.hidden = NO;
+                [self toggleDefaultViewHidden:NO];
             }
             else
             {
-                self.tableView.hidden = NO;
-                self.defaultView.hidden = YES;
+                [self toggleDefaultViewHidden:YES];
             }
         }
         // we changed to favorites
@@ -167,13 +161,11 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
             if(self.favorites.count == 0)
             {
                 self.defaultViewLabel.text = kNoFavoriteMsg;
-                self.tableView.hidden = YES;
-                self.defaultView.hidden = NO;
+                [self toggleDefaultViewHidden:NO];
             }
             else
             {
-                self.tableView.hidden = NO;
-                self.defaultView.hidden = YES;
+                [self toggleDefaultViewHidden:YES];
             }
         }
         [self.tableView reloadData];
@@ -239,8 +231,7 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
     // hide default label
     if(self.segmentIndex == 0)
     {
-        self.tableView.hidden = NO;
-        self.defaultView.hidden = YES;
+        [self toggleDefaultViewHidden:YES];
     }
 }
 
@@ -254,10 +245,9 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
     [self.tableView reloadData];
     
     // hide default label
-    if(self.segmentIndex == 0)
+    if(self.segmentIndex == 1)
     {
-        self.tableView.hidden = NO;
-        self.defaultView.hidden = YES;
+        [self toggleDefaultViewHidden:YES];
     }
 }
 @end
