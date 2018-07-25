@@ -226,9 +226,7 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
     GMSPlace* place = (GMSPlace*)notification.object;
     
     // add to the favorites
-    NSMutableArray<GMSPlace*>* favorites = [NSMutableArray arrayWithArray:self.favorites];
-    [favorites insertObject:place atIndex:0];
-    self.favorites = (NSArray*)favorites;
+    self.favorites = [[NSArray arrayWithObject:place] arrayByAddingObjectsFromArray:self.favorites];
     
     // reload table
     [self.tableView reloadData];
@@ -245,9 +243,7 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
     GMSPlace* place = (GMSPlace*)notification.object;
     
     // add to the favorites
-    NSMutableArray<GMSPlace*>* wishlist = [NSMutableArray arrayWithArray:self.wishlist];
-    [wishlist insertObject:place atIndex:0];
-    self.wishlist = (NSArray*)wishlist;
+    self.wishlist = [[NSArray arrayWithObject:place] arrayByAddingObjectsFromArray:self.wishlist];
     
     // reload table
     [self.tableView reloadData];
