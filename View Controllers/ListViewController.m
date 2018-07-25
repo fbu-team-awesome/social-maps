@@ -22,10 +22,11 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *defaultView;
 @property (weak, nonatomic) IBOutlet UILabel *defaultViewLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
+
 @property (strong, nonatomic) NSArray<GMSPlace *> *favorites;
 @property (strong, nonatomic) NSArray<GMSPlace *> *wishlist;
 @property (assign, nonatomic) long segmentIndex;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
