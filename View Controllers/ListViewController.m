@@ -26,6 +26,7 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
 @property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 @property (assign, nonatomic) long segmentIndex;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
+@property (strong, nonatomic) UIRefreshControl* refreshControl;
 
 @end
 
@@ -47,6 +48,11 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
     [self.tableView setRowHeight:91];
     [self setSegmentControlView];
     [self retrieveCurrentUserData];
+    
+    // initialize refresh control
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(retrieveCurrentUserData) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
 - (void)addNotificationObservers {
@@ -78,6 +84,7 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
         }
         [self.tableView reloadData];
         [self.progressIndicator stopAnimating];
+        [self.refreshControl endRefreshing];
     }];
     
     [currentUser retrieveWishlistWithCompletion:^(NSArray<GMSPlace *> *wishlist) {
@@ -101,6 +108,7 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
         }
         [self.tableView reloadData];
         [self.progressIndicator stopAnimating];
+        [self.refreshControl endRefreshing];
     }];
 }
 
