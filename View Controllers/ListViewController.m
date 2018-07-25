@@ -22,11 +22,11 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *defaultView;
 @property (weak, nonatomic) IBOutlet UILabel *defaultViewLabel;
-@property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
-@property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
+@property (strong, nonatomic) NSArray<GMSPlace *> *favorites;
+@property (strong, nonatomic) NSArray<GMSPlace *> *wishlist;
 @property (assign, nonatomic) long segmentIndex;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
-@property (strong, nonatomic) UIRefreshControl* refreshControl;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -193,14 +193,14 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"detailsSegue"])
     {
-        DetailsViewController* vc = (DetailsViewController*)[segue destinationViewController];
-        ProfileListCell* cell = (ProfileListCell*)sender;
+        DetailsViewController *vc = (DetailsViewController *)[segue destinationViewController];
+        ProfileListCell *cell = (ProfileListCell *)sender;
         [vc setPlace:[cell getPlace]];
     }
 }
 
  - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-     ProfileListCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ProfileListCell" forIndexPath:indexPath];
+     ProfileListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ProfileListCell" forIndexPath:indexPath];
      
      if (self.segmentIndex == 0) {
          [cell setPlace:self.favorites[indexPath.row]];
@@ -222,8 +222,8 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
      
 }
 
-- (void)didAddFavorite:(NSNotification*)notification {
-    GMSPlace* place = (GMSPlace*)notification.object;
+- (void)didAddFavorite:(NSNotification *)notification {
+    GMSPlace *place = (GMSPlace *)notification.object;
     
     // add to the favorites
     self.favorites = [[NSArray arrayWithObject:place] arrayByAddingObjectsFromArray:self.favorites];
@@ -239,8 +239,8 @@ static const NSString *kNoWishlistMsg = @"You have no places in your wishlist!";
     }
 }
 
-- (void)didAddToWishlist:(NSNotification*)notification {
-    GMSPlace* place = (GMSPlace*)notification.object;
+- (void)didAddToWishlist:(NSNotification *)notification {
+    GMSPlace *place = (GMSPlace *)notification.object;
     
     // add to the favorites
     self.wishlist = [[NSArray arrayWithObject:place] arrayByAddingObjectsFromArray:self.wishlist];
