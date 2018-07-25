@@ -46,6 +46,7 @@
 @property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, GMSPlace*>* markers;
 @property (strong, nonatomic) PFUser* user;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation ProfileViewController
@@ -121,6 +122,11 @@
     
     // set UI styles
     [self initUIStyles];
+    
+    // set up refresh control
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(retrieveUserPlaces) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
 - (void)addNotificationObservers {
