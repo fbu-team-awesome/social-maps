@@ -102,9 +102,26 @@ static NSString* NO_WISHLIST_MSG = @"You have no places in your wishlist!";
     }];
     
     [currentUser retrieveWishlistWithCompletion:^(NSArray<GMSPlace *> *wishlist) {
-        
-        self.wishlist = wishlist;
+        if(wishlist != nil)
+        {
+            self.wishlist = wishlist;
+            
+            // hide default label
+            self.defaultView.hidden = YES;
+            self.tableView.hidden = NO;
+        }
+        else
+        {
+            // show default label
+            if(self.segmentIndex == 1)
+            {
+                self.defaultViewLabel.text = NO_WISHLIST_MSG;
+                self.tableView.hidden = YES;
+                self.defaultView.hidden = NO;
+            }
+        }
         [self.tableView reloadData];
+        [self.progressIndicator stopAnimating];
     }];
 }
 
