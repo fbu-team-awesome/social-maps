@@ -36,6 +36,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 @property (weak, nonatomic) IBOutlet UILabel *followersLabel;
 @property (weak, nonatomic) IBOutlet UILabel *followingLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
 
 // Instance Properties //
 @property (strong, nonatomic) CLLocationManager* locationManager;
@@ -45,6 +46,7 @@
 @property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, GMSPlace*>* markers;
 @property (strong, nonatomic) PFUser* user;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation ProfileViewController
@@ -96,6 +98,7 @@
     [self.tableView setRowHeight:90];
     
     // get favs and wishlist
+    [self.progressIndicator startAnimating];
     self.markers = [NSMutableDictionary new];
     [self retrieveUserPlaces];
     
@@ -119,6 +122,11 @@
     
     // set UI styles
     [self initUIStyles];
+    
+    // set up refresh control
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(retrieveUserPlaces) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
 - (void)addNotificationObservers {
@@ -170,6 +178,8 @@
               self.favorites = places;
               [self.tableView reloadData];
               [self addFavoritesPins];
+              [self.progressIndicator stopAnimating];
+              [self.refreshControl endRefreshing];
           }
      ];
     
@@ -180,6 +190,8 @@
               self.wishlist = places;
               [self.tableView reloadData];
               [self addWishlistPins];
+              [self.progressIndicator stopAnimating];
+              [self.refreshControl endRefreshing];
           }
      ];
 }
@@ -330,9 +342,7 @@
     self.markers[marker.title] = place;
     
     // add to tableview
-    NSMutableArray<GMSPlace*>* favorites = (NSMutableArray*)self.favorites;
-    [favorites addObject:place];
-    self.favorites = (NSArray*)favorites;
+    self.favorites = [[NSArray arrayWithObject:place] arrayByAddingObjectsFromArray:self.favorites];
     [self.tableView reloadData];
     NSLog(@"Added %@",place.name);
 }
@@ -357,9 +367,7 @@
     // if this is our profile, then we will add the user to our following
     if([[PFUser currentUser].objectId isEqualToString:self.user.objectId])
     {
-        NSMutableArray<NSString*>* following = (NSMutableArray*)self.user.relationships.following;
-        [following addObject:user.objectId];
-        self.user.relationships.following = (NSArray*)following;
+        self.user.relationships.following = [[NSArray arrayWithObject:user.objectId] arrayByAddingObjectsFromArray:self.user.relationships.following];
         
         // update the following label
         [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", self.user.relationships.following.count]];
@@ -367,9 +375,7 @@
     // if this user is the user that was followed, then update their followers
     else if ([self.user.objectId isEqualToString:user.objectId])
     {
-        NSMutableArray<NSString*>* followers = (NSMutableArray*)self.user.relationships.followers;
-        [followers addObject:[PFUser currentUser].objectId];
-        self.user.relationships.followers = (NSArray*)followers;
+        self.user.relationships.followers = [[NSArray arrayWithObject:[PFUser currentUser].objectId] arrayByAddingObjectsFromArray:self.user.relationships.followers];
         
         // update the followers label
         [self.followersLabel setText:[NSString stringWithFormat:@"%lu followers", self.user.relationships.followers.count]];
@@ -382,9 +388,9 @@
     // if this is our profile, then we will remove the user from our following
     if([[PFUser currentUser].objectId isEqualToString:self.user.objectId])
     {
-        NSMutableArray<NSString*>* following = (NSMutableArray*)self.user.relationships.following;
+        NSMutableArray<NSString*>* following = [NSMutableArray arrayWithArray:self.user.relationships.following];
         [following removeObject:user.objectId];
-        self.user.relationships.following = (NSArray*)following;
+        self.user.relationships.following = [NSArray arrayWithArray:following];
         
         // update the following label
         [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", self.user.relationships.following.count]];
@@ -392,9 +398,9 @@
     // if this user is the user that was unfollowed, then update their followers
     else if ([self.user.objectId isEqualToString:user.objectId])
     {
-        NSMutableArray<NSString*>* followers = (NSMutableArray*)self.user.relationships.followers;
+        NSMutableArray<NSString*>* followers = [NSMutableArray arrayWithArray:self.user.relationships.followers];
         [followers removeObject:[PFUser currentUser].objectId];
-        self.user.relationships.followers = (NSArray*)followers;
+        self.user.relationships.followers = [NSArray arrayWithArray:followers];
         
         // update the followers label
         [self.followersLabel setText:[NSString stringWithFormat:@"%lu followers", self.user.relationships.followers.count]];
