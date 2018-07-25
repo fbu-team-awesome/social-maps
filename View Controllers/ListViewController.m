@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSArray<GMSPlace*>* favorites;
 @property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 @property (assign, nonatomic) long segmentIndex;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
 
 @end
 
