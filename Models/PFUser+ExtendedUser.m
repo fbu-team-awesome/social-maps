@@ -242,6 +242,12 @@
 + (void)retrieveUsersWithIDs:(NSArray<NSString*>*)IDs withCompletion:(void(^)(NSArray<PFUser*>*))completion {
     NSMutableArray<PFUser*>* users = [NSMutableArray new];
     
+    // if there are no IDs, return before
+    if(IDs.count == 0)
+    {
+        completion([users copy]);
+    }
+    
     // loop through all IDs
     for(NSString* ID in IDs)
     {
