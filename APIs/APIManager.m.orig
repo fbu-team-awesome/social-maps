@@ -85,7 +85,7 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
      ];
 }
 
-- (void)getAllGMSPlaces:(void(^)(NSMutableArray *places))completion {
+-(void)getAllGMSPlaces:(void(^)(NSMutableArray *places))completion {
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (error == nil && objects != nil) {
@@ -108,31 +108,44 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
     }];
 }
 
-- (void)getSomeGMSPlaces:(NSInteger)num :(void(^)(NSMutableArray *places))completion {
-    PFQuery *query = [PFQuery queryWithClassName:@"Place"];
-    query.limit = num;
-    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        if (error == nil && objects != nil) {
-            
-            // convert array of Place objects to GMSPlace objects
-            NSMutableArray *array = [[NSMutableArray alloc] init];
-            for (Place *myPlace in objects) {
-                [self GMSPlaceFromPlace:myPlace withCompletion:^(GMSPlace *place) {
-                    [array addObject:place];
-                    
-                    if(array.count == objects.count)
-                    {
-                        completion(array);
-                    }
-                }];
-            }
-        } else {
-            NSLog(@"Error getting all places");
-        }
-    }];
-}
-
+<<<<<<< Updated upstream
 -(void)getAllUsers:(void(^)(NSMutableArray *users))completion {
+=======
+// gets the UIImage of the first photo
+- (void)getFirstPhoto:(NSString *)placeID WithCompletion:(void(^)(UIImage *photo))completion {
+    [[GMSPlacesClient sharedClient]
+     lookUpPhotosForPlaceID:placeID
+     callback:^(GMSPlacePhotoMetadataList *_Nullable photos,
+                NSError *_Nullable error) {
+         if (error) {
+             // TODO: handle the error.
+             NSLog(@"Error: %@", [error description]);
+         } else {
+             if (photos.results.count > 0) {
+                 GMSPlacePhotoMetadata *firstPhoto = photos.results.firstObject;
+                 [self loadImageForMetadata:firstPhoto :^(UIImage *photo) {
+                     completion(photo);
+                 }];
+             }
+         }
+     }];
+}
+
+- (void)loadImageForMetadata:(GMSPlacePhotoMetadata *)photoMetadata :(void(^)(UIImage *))completion {
+    [[GMSPlacesClient sharedClient]
+     loadPlacePhoto:photoMetadata
+     callback:^(UIImage *_Nullable photo, NSError *_Nullable error) {
+         if (error) {
+             // TODO: handle the error.
+             NSLog(@"Error: %@", [error description]);
+         } else {
+             completion(photo);
+         }
+     }];
+}
+
+- (void)getAllUsers:(void(^)(NSArray<PFUser*>* users))completion {
+>>>>>>> Stashed changes
     PFQuery *query = [PFUser query];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if(error == nil && objects != nil) {

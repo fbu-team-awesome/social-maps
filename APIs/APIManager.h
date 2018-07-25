@@ -24,5 +24,6 @@
 - (void)GMSPlaceFromID:(NSString*)placeID withCompletion:(void(^)(GMSPlace* place))completion;
 -(void)getAllGMSPlaces:(void(^)(NSMutableArray *places))completion;
 -(void)getAllUsers:(void(^)(NSMutableArray *users))completion;
+- (void)getSomeGMSPlaces:(NSInteger)num :(void(^)(NSMutableArray *places))completion;
 
 @end
