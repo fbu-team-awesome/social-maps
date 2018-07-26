@@ -69,6 +69,12 @@
     
     // create map
     GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:37.7749 longitude:-122.4194 zoom:6];
+    
+    //profile map view initially reflects the size of the phone displayed on the storyboard, must manually set mapview width while profile map view is still the wrong size
+    CGRect bounds = self.profileMapView.bounds;
+    bounds.size.width = self.view.bounds.size.width;
+    self.profileMapView.bounds = bounds;
+    
     self.mapView = [GMSMapView mapWithFrame:self.profileMapView.bounds camera:camera];
     [self.profileMapView addSubview:self.mapView];
     self.mapView.delegate = self;
