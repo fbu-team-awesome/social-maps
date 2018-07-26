@@ -133,6 +133,7 @@
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
     [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(removeFromFavorites:)];
     [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
+    [NCHelper addObserver:self type:NTRemoveFromWishlist selector:@selector(removeFromWishlist:)];
     [NCHelper addObserver:self type:NTNewFollow selector:@selector(newFollowing:)];
     [NCHelper addObserver:self type:NTUnfollow selector:@selector(newUnfollow:)];
 }
@@ -367,6 +368,19 @@
     self.markers[marker.title] = place;
     
     NSLog(@"Added %@",place.name);
+}
+
+- (void)removeFromWishlist:(NSNotification *)notification {
+    GMSPlace *place = (GMSPlace *)notification.object;
+    
+    // remove the place
+    NSMutableArray<GMSPlace *> *wishlist = [self.wishlist mutableCopy];
+    [wishlist removeObject:place];
+    self.wishlist = [wishlist copy];
+    
+    // re-add the pins
+    [self.mapView clear];
+    [self addWishlistPins];
 }
 
 - (void)newFollowing:(NSNotification*)notification {
