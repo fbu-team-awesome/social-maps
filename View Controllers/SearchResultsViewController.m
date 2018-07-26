@@ -54,7 +54,7 @@
     
     // create map
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:0 longitude:0 zoom:6];
-    self.mapView = [GMSMapView mapWithFrame:self.resultsView.bounds camera:camera];
+    self.mapView = [GMSMapView mapWithFrame:self.view.bounds camera:camera];
     self.mapView.settings.myLocationButton = YES;
     [self.mapView setMyLocationEnabled:YES];
     
