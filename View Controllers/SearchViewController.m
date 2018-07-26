@@ -42,17 +42,18 @@
     [self initSearch];
     [self setSegmentControlView];
     [self fetchLists:nil];
-    
-    self.isMoreDataLoading = NO;
 }
 
-- (void) fetchLists:(Place *)lastPlace {
-    [[APIManager shared] getNextTenGMSPlaces:lastPlace.placeID :^(NSArray<GMSPlace *> *places) {
-        
-        self.places = places;
+- (void) fetchLists:(NSString *)lastPlaceID {
+    [[APIManager shared] getNextTenGMSPlaces:lastPlaceID :^(NSArray<GMSPlace *> *places) {
+        if (!self.places) {
+            self.places = places;
+        }
+        else {
+            self.places = [self.places arrayByAddingObjectsFromArray:places];
+        }
         self.filteredPlaces = self.places;
         [self.tableView reloadData];
-        
     }];
     
     [[APIManager shared] getAllUsers:^(NSArray<PFUser*>* users) {
@@ -100,6 +101,8 @@
     }];
 }
 
+#pragma mark - Table View
+
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     if (self.segmentIndex == 1) {
@@ -143,22 +146,17 @@
     }
 }
 
-/*
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
     if (!self.isMoreDataLoading) {
-        
         int scrollViewContentHeight = self.tableView.contentSize.height;
         int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
         
         if (scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
-            
+            self.isMoreDataLoading = YES;
+            [self fetchLists:self.places.lastObject.placeID];
         }
-        
     }
-    
 }
- */
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = YES;
