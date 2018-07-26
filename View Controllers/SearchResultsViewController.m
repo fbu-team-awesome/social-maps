@@ -38,6 +38,7 @@
 
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
+    [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(removeFromFavorites:)];
     [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
     [NCHelper addObserver:self type:NTNewFollow selector:@selector(addPinsOfNewFollow:)];
 }
@@ -195,6 +196,11 @@
     {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (void)removeFromFavorites:(NSNotification *)notification {
+    // remove the places
+    [self retrieveUserPlaces];
 }
 
 - (void) addToWishlist:(NSNotification *) notification {

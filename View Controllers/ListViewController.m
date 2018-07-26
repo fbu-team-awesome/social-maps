@@ -59,6 +59,7 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(didAddFavorite:)];
+    [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(didRemoveFavorite:)];
     [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(didAddToWishlist:)];
 }
 
@@ -233,6 +234,25 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     if(self.segmentIndex == 0)
     {
         [self toggleDefaultViewHidden:YES];
+    }
+}
+
+- (void)didRemoveFavorite:(NSNotification *)notification {
+    GMSPlace *place = (GMSPlace *)notification.object;
+    
+    // remove from favorites
+    NSMutableArray<GMSPlace *> *favorites = [self.favorites mutableCopy];
+    [favorites removeObject:place];
+    self.favorites = [favorites copy];
+    
+    // reload table
+    [self.tableView reloadData];
+    
+    // show default label if we have no favorites
+    if(self.segmentIndex == 0 && self.favorites.count == 0)
+    {
+        self.defaultViewLabel.text = kNoFavoriteMsg;
+        [self toggleDefaultViewHidden:NO];
     }
 }
 

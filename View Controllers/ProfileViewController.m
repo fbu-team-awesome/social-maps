@@ -131,6 +131,7 @@
 
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
+    [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(removeFromFavorites:)];
     [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
     [NCHelper addObserver:self type:NTNewFollow selector:@selector(newFollowing:)];
     [NCHelper addObserver:self type:NTUnfollow selector:@selector(newUnfollow:)];
@@ -335,6 +336,23 @@
     self.favorites = [[NSArray arrayWithObject:place] arrayByAddingObjectsFromArray:self.favorites];
     [self.tableView reloadData];
     NSLog(@"Added %@",place.name);
+}
+
+- (void)removeFromFavorites:(NSNotification *)notification {
+    GMSPlace *place = (GMSPlace *)notification.object;
+    
+    // remove the places
+    NSMutableArray<GMSPlace *> *favorites = [self.favorites mutableCopy];
+    [favorites removeObject:place];
+    self.favorites = [favorites copy];
+    
+    // re-add the pins
+    [self.mapView clear];
+    [self addFavoritesPins];
+    
+    // refresh tableview
+    [self.tableView reloadData];
+    
 }
 
 - (void) addToWishlist:(NSNotification *) notification {

@@ -7,6 +7,7 @@
 //
 
 #import "DetailsViewController.h"
+#import "NCHelper.h"
 
 @interface DetailsViewController () <GMSMapViewDelegate>
 // Outlet Definitions //
@@ -14,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UIView *placeView;
 @property (weak, nonatomic) IBOutlet UILabel *checkInLabel;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -26,9 +28,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //create Parse Place from GMSPlace
+    // create Parse Place from GMSPlace
     [Place checkGMSPlaceExists:self.place result:^(Place * _Nonnull newPlace) {
         self.parsePlace = newPlace;
+        
+        // change buttons if it's favorited/wishlisted
+        [self.favoriteButton setSelected:[[PFUser currentUser].favorites containsObject:self.parsePlace]];
     }];
     
     [self updateContent];
@@ -60,7 +65,36 @@
 }
 
 - (IBAction)didTapFavorite:(id)sender {
-    [PFUser.currentUser addFavorite:_place];
+    // send it to parse
+    if(self.favoriteButton.selected)
+    {
+        [[PFUser currentUser] removeFavorite:_place];
+        
+        // send notification
+        [NCHelper notify:NTRemoveFavorite object:_place];
+    }
+    else
+    {
+        [[PFUser currentUser] addFavorite:_place];
+        
+        // send notification
+        [NCHelper notify:NTAddFavorite object:_place];
+    }
+    
+    // animate
+    [UIView animateWithDuration:0.1 animations:^{
+        self.favoriteButton.transform = CGAffineTransformMakeScale(1.25, 1.25);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.1 animations:^{
+            self.favoriteButton.transform = CGAffineTransformIdentity;
+        }];
+    }];
+    
+    // haptic feedback
+    [[UIImpactFeedbackGenerator new] impactOccurred];
+    
+    // set the state
+    [self.favoriteButton setSelected:!self.favoriteButton.selected];
 }
 
 - (IBAction)didTapWishlist:(id)sender {

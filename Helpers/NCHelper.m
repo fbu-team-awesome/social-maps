@@ -24,6 +24,8 @@
     {
         case NTAddFavorite:
             return @"AddFavoriteNotification";
+        case NTRemoveFavorite:
+            return @"RemoveFavoriteNotification";
         case NTAddToWishlist:
             return @"AddToWishlistNotification";
         case NTNewFollow:
