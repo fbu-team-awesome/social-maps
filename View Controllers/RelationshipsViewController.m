@@ -21,6 +21,7 @@
 @property (strong, nonatomic) PFUser *user;
 @property (strong, nonatomic) NSArray<PFUser*>* listedUsers;
 @property (nonatomic) RelationshipType relationshipType;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation RelationshipsViewController
@@ -34,6 +35,11 @@
     [self.tableView reloadData];
     
     [self addNotificationObservers];
+    
+    // set up refresh control
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(retrieveUserList) forControlEvents:UIControlEventValueChanged];
+    self.tableView.refreshControl = self.refreshControl;
     
     // retrieve data
     [self.progressIndicator startAnimating];
@@ -78,7 +84,7 @@
     _relationshipType = relationshipType;
     
     // update the navbar title
-    if(relationshipType == RTFollowers)
+    if(relationshipType == RTFollower)
     {
         self.title = @"Followers";
     }
