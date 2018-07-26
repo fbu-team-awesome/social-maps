@@ -57,6 +57,10 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(didAddFavorite:)];
     [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(didRemoveFavorite:)];
@@ -112,9 +116,6 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 }
 
 - (void)setSegmentControlView {
-    // hide nav bar
-    [self.navigationController setNavigationBarHidden:YES];
-    
     // get status bar height
     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     CGFloat statusBarHeight = statusBarFrame.size.height;
