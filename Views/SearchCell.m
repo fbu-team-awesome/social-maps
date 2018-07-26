@@ -9,6 +9,14 @@
 #import "SearchCell.h"
 #import "PFUser+ExtendedUser.h"
 
+@interface SearchCell ()
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+
+
+@property (strong, nonatomic) Place *parsePlace;
+@property (strong, nonatomic) GMSPlace *place;
+@end
+
 @implementation SearchCell
 
 - (void)awakeFromNib {
