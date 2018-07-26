@@ -21,6 +21,8 @@
 		1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */; };
 		1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D8A6F20FFB3C100F31851 /* SearchCell.m */; };
 		1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */; };
+		1C5BC862210A581100F67574 /* MarkerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C5BC861210A581100F67574 /* MarkerWindow.xib */; };
+		1C5BC865210A621500F67574 /* MapMarkerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BC864210A621500F67574 /* MapMarkerWindow.m */; };
 		1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948920FD4CBE00E4D630 /* ListView.storyboard */; };
 		1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */; };
 		1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */; };
@@ -72,6 +74,9 @@
 		1C2D8A6F20FFB3C100F31851 /* SearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
 		1C2D8A7120FFC0E000F31851 /* ResultsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResultsTableViewController.h; sourceTree = "<group>"; };
 		1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
+		1C5BC861210A581100F67574 /* MarkerWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkerWindow.xib; sourceTree = "<group>"; };
+		1C5BC863210A621500F67574 /* MapMarkerWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapMarkerWindow.h; sourceTree = "<group>"; };
+		1C5BC864210A621500F67574 /* MapMarkerWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapMarkerWindow.m; sourceTree = "<group>"; };
 		1C6D948920FD4CBE00E4D630 /* ListView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ListView.storyboard; sourceTree = "<group>"; };
 		1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailsView.storyboard; sourceTree = "<group>"; };
 		1C6D948D20FE59FE00E4D630 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
@@ -164,6 +169,7 @@
 				1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */,
 				0130163620EFDE650010FD04 /* LaunchScreen.storyboard */,
 				9EF4E3D320FE66C6005535C6 /* Profile.storyboard */,
+				1C5BC861210A581100F67574 /* MarkerWindow.xib */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -183,6 +189,8 @@
 				1C2D8A6F20FFB3C100F31851 /* SearchCell.m */,
 				9E6755E321012DF10056D009 /* ProfileListCell.h */,
 				9E6755E421012DF10056D009 /* ProfileListCell.m */,
+				1C5BC863210A621500F67574 /* MapMarkerWindow.h */,
+				1C5BC864210A621500F67574 /* MapMarkerWindow.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -336,6 +344,7 @@
 				1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */,
 				018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */,
 				317B3939210267900057079A /* SearchPage.storyboard in Resources */,
+				1C5BC862210A581100F67574 /* MarkerWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +414,7 @@
 				317B3937210267880057079A /* RelationshipsViewController.m in Sources */,
 				1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */,
 				9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */,
+				1C5BC865210A621500F67574 /* MapMarkerWindow.m in Sources */,
 				317B393E210267E40057079A /* RelationshipListCell.m in Sources */,
 				317B3931210267650057079A /* UserResultCell.m in Sources */,
 				01CA4A20210153230032C11F /* Relationships.m in Sources */,
