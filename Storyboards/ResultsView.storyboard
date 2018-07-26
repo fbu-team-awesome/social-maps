@@ -74,30 +74,30 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="bJ5-9f-OPr">
                                                     <rect key="frame" x="330" y="27" width="30" height="76"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggE-ka-9OB">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggE-ka-9OB">
                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                            <color key="backgroundColor" name="VTR_Orange"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="1eA-Vo-eyT"/>
                                                                 <constraint firstAttribute="width" constant="30" id="XFI-YW-gso"/>
                                                             </constraints>
-                                                            <state key="normal" title="+">
+                                                            <state key="normal" image="favorite_unselected">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <state key="selected" image="favorite_selected"/>
                                                             <connections>
                                                                 <action selector="didTapFavorite:" destination="ixv-nU-NfM" eventType="touchUpInside" id="0Xc-FU-86a"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bix-rr-mjq">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bix-rr-mjq">
                                                             <rect key="frame" x="0.0" y="46" width="30" height="30"/>
-                                                            <color key="backgroundColor" name="VTR_Secondary"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="Ysw-31-8rC"/>
                                                                 <constraint firstAttribute="width" constant="30" id="ybM-RU-HlN"/>
                                                             </constraints>
-                                                            <state key="normal" title="+">
+                                                            <state key="normal" image="wishlist_unselected">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <state key="selected" image="wishlist_selected"/>
                                                             <connections>
                                                                 <action selector="didTapWishlist:" destination="ixv-nU-NfM" eventType="touchUpInside" id="sUV-BJ-fRS"/>
                                                             </connections>
@@ -138,6 +138,7 @@
                                         <color key="backgroundColor" name="VTR_Background"/>
                                         <connections>
                                             <outlet property="addressLabel" destination="0tw-1j-HJD" id="4dH-E8-2yh"/>
+                                            <outlet property="favoriteButton" destination="bJ5-9f-OPr" id="6NN-BE-LDz"/>
                                             <outlet property="nameLabel" destination="qG7-df-OFj" id="YvQ-Rq-z0B"/>
                                         </connections>
                                     </tableViewCell>
@@ -181,6 +182,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="favorite_selected" width="38" height="36"/>
+        <image name="favorite_unselected" width="38" height="36"/>
+        <image name="wishlist_selected" width="23" height="40"/>
+        <image name="wishlist_unselected" width="24" height="40"/>
         <namedColor name="VTR_Background">
             <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -189,12 +194,6 @@
         </namedColor>
         <namedColor name="VTR_Main">
             <color red="1" green="0.60392156862745094" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="VTR_Orange">
-            <color red="1" green="0.72549019607843135" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="VTR_Secondary">
-            <color red="0.81176470588235294" green="0.39215686274509803" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
