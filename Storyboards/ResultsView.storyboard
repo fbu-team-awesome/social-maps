@@ -138,7 +138,7 @@
                                         <color key="backgroundColor" name="VTR_Background"/>
                                         <connections>
                                             <outlet property="addressLabel" destination="0tw-1j-HJD" id="4dH-E8-2yh"/>
-                                            <outlet property="favoriteButton" destination="bJ5-9f-OPr" id="6NN-BE-LDz"/>
+                                            <outlet property="favoriteButton" destination="ggE-ka-9OB" id="Osg-Zp-lV5"/>
                                             <outlet property="nameLabel" destination="qG7-df-OFj" id="YvQ-Rq-z0B"/>
                                         </connections>
                                     </tableViewCell>
