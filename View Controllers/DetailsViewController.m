@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIView *placeView;
 @property (weak, nonatomic) IBOutlet UILabel *checkInLabel;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+@property (weak, nonatomic) IBOutlet UIButton *wishlistButton;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -34,6 +35,7 @@
         
         // change buttons if it's favorited/wishlisted
         [self.favoriteButton setSelected:[[PFUser currentUser].favorites containsObject:self.parsePlace]];
+        [self.wishlistButton setSelected:[[PFUser currentUser].wishlist containsObject:self.parsePlace]];
     }];
     
     [self updateContent];
@@ -98,7 +100,36 @@
 }
 
 - (IBAction)didTapWishlist:(id)sender {
-    [PFUser.currentUser addToWishlist:_place];
+    // send it to parse
+    if(self.wishlistButton.selected)
+    {
+        [[PFUser currentUser] removeFromWishlist:_place];
+        
+        // send notification
+        [NCHelper notify:NTRemoveFromWishlist object:_place];
+    }
+    else
+    {
+        [[PFUser currentUser] addToWishlist:_place];
+        
+        // send notification
+        [NCHelper notify:NTAddToWishlist object:_place];
+    }
+    
+    // animate
+    [UIView animateWithDuration:0.1 animations:^{
+        self.wishlistButton.transform = CGAffineTransformMakeScale(1.25, 1.25);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.1 animations:^{
+            self.wishlistButton.transform = CGAffineTransformIdentity;
+        }];
+    }];
+    
+    // haptic feedback
+    [[UIImpactFeedbackGenerator new] impactOccurred];
+    
+    // set the state
+    [self.wishlistButton setSelected:!self.wishlistButton.selected];
 }
 
 - (IBAction)didTapCheckIn:(id)sender {

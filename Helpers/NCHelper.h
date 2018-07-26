@@ -13,6 +13,7 @@ typedef enum NotificationType : NSUInteger
     NTAddFavorite,
     NTRemoveFavorite,
     NTAddToWishlist,
+    NTRemoveFromWishlist,
     NTNewFollow,
     NTUnfollow
 }
