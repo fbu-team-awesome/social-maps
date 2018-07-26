@@ -71,7 +71,9 @@
                                                                         <state key="normal" title="  Favorite" image="favorite_unselected">
                                                                             <color key="titleColor" name="VTR_GrayLabel"/>
                                                                         </state>
-                                                                        <state key="selected" image="favorite_selected"/>
+                                                                        <state key="selected" image="favorite_selected">
+                                                                            <color key="titleColor" name="VTR_Orange"/>
+                                                                        </state>
                                                                         <connections>
                                                                             <action selector="didTapFavorite:" destination="eMh-9V-03L" eventType="touchUpInside" id="Elo-aS-PIQ"/>
                                                                         </connections>
@@ -87,7 +89,9 @@
                                                                         <state key="normal" title="  Wishlist" image="wishlist_unselected">
                                                                             <color key="titleColor" name="VTR_GrayLabel"/>
                                                                         </state>
-                                                                        <state key="selected" image="wishlist_selected"/>
+                                                                        <state key="selected" image="wishlist_selected">
+                                                                            <color key="titleColor" name="VTR_Secondary"/>
+                                                                        </state>
                                                                         <connections>
                                                                             <action selector="didTapWishlist:" destination="eMh-9V-03L" eventType="touchUpInside" id="yaE-Jk-9Mr"/>
                                                                         </connections>
@@ -182,6 +186,12 @@
         </namedColor>
         <namedColor name="VTR_Main">
             <color red="1" green="0.60392156862745094" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_Orange">
+            <color red="1" green="0.72549019607843135" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_Secondary">
+            <color red="0.81176470588235294" green="0.39215686274509803" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
