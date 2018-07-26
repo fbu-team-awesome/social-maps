@@ -256,7 +256,7 @@
     else if([segue.identifier isEqualToString:@"followersSegue"])
     {
         RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
-        [vc setUser:self.user withRelationshipType:RTFollowers];
+        [vc setUser:self.user withRelationshipType:RTFollower];
     }
     else if([segue.identifier isEqualToString:@"followingSegue"])
     {
