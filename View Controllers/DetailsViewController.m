@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     // create Parse Place from GMSPlace
     [Place checkGMSPlaceExists:self.place result:^(Place * _Nonnull newPlace) {
         self.parsePlace = newPlace;
@@ -39,6 +39,11 @@
     }];
     
     [self updateContent];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    // make sure the navigation bar is always visible
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning {
