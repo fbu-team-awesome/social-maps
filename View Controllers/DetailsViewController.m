@@ -13,7 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *placeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UIView *placeView;
-
+@property (weak, nonatomic) IBOutlet UILabel *checkInLabel;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -41,6 +41,7 @@
 - (void)updateContent {
     self.placeNameLabel.text = self.place.name;
     self.addressLabel.text = self.place.formattedAddress;
+    [self updateCheckInLabel];
     
     // update the map
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.place.coordinate.latitude longitude:self.place.coordinate.longitude zoom:15];
@@ -65,7 +66,17 @@
 - (IBAction)didTapWishlist:(id)sender {
     [PFUser.currentUser addToWishlist:_place];
 }
+
 - (IBAction)didTapCheckIn:(id)sender {
     [self.parsePlace didCheckIn:PFUser.currentUser];
+    [PFUser.currentUser addCheckIn:self.place.placeID withCompletion:^{
+        [self updateCheckInLabel];
+    }];
+}
+
+- (void)updateCheckInLabel {
+    [PFUser.currentUser retrieveCheckInCountForPlaceID:self.place.placeID withCompletion:^(NSNumber *count) {
+        self.checkInLabel.text = [NSString stringWithFormat: @"%@ check-ins",[count stringValue]];
+    }];
 }
 @end

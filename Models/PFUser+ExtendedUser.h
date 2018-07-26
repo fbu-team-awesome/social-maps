@@ -22,6 +22,7 @@
 @property NSArray<Place*> *favorites;
 @property NSArray<Place*> *wishlist;
 @property Relationships *relationships;
+@property NSDictionary<NSString *, NSNumber *>*checkIns;
 
 // Instance Methods //
 - (void)addFavorite:(GMSPlace*)place;
@@ -35,5 +36,7 @@
 - (void)retrieveRelationshipWithCompletion:(void(^)(Relationships*))completion;
 + (PFUser *)retrieveUserWithId:(NSString *)userId;
 + (void)retrieveUsersWithIDs:(NSArray<NSString*>*)IDs withCompletion:(void(^)(NSArray<PFUser*>*))completion;
+- (void)addCheckIn:(NSString *)placeID withCompletion:(void(^)(void))completion;
+- (void)retrieveCheckInCountForPlaceID:(NSString *)placeID withCompletion:(void(^)(NSNumber *))completion;
 
 @end

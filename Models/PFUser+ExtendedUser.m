@@ -11,7 +11,7 @@
 #import "NCHelper.h"
 
 @implementation PFUser (ExtendedUser)
-@dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships;
+@dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships, checkIns;
 
 - (BOOL)isEqual:(id)object {
     return [self.objectId isEqualToString:((PFUser*)object).objectId];
@@ -273,4 +273,47 @@
          ];
     }
 }
+
+#pragma mark - Check-in Helper Methods
+
+- (void)addCheckIn:(NSString *)placeID withCompletion:(void(^)(void))completion{
+    //create a mutable copy
+    NSMutableDictionary *newCheckIns = [self.checkIns mutableCopy];
+    
+    //if user has never checked into this place, add to checkIns with count 1
+    if ([newCheckIns objectForKey:placeID] == nil) {
+        [newCheckIns setObject:[NSNumber numberWithInteger:1] forKey:placeID];
+    } else {
+        int count = [newCheckIns[placeID] intValue] + 1;
+        [newCheckIns setObject:[NSNumber numberWithInteger:count] forKey:placeID];
+    }
+    
+    //set the dictionary to the mutable copy
+    self.checkIns = [newCheckIns copy];
+    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        completion();
+    }];
+    
+}
+
+- (void)retrieveCheckInCountForPlaceID:(NSString *)placeID withCompletion:(void(^)(NSNumber *))completion {
+    PFQuery *query = [PFUser query];
+    [query includeKey:@"checkIns"];
+    
+    //retrieves check-in count for placeID in user's checkIns dictionary
+    [query getObjectInBackgroundWithId:self.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if (object == nil) {
+            NSLog(@"Invalid user");
+            completion(nil);
+        } else {
+            NSDictionary *checkIns = object[@"checkIns"];
+            if ([checkIns objectForKey:placeID] == nil) {
+                completion([NSNumber numberWithInteger:0]);
+            } else {
+                completion(checkIns[placeID]);
+            }
+        }
+    }];
+}
+
 @end
