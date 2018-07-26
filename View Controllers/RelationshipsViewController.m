@@ -19,7 +19,7 @@
 
 // Instance Properties //
 @property (strong, nonatomic) PFUser *user;
-@property (strong, nonatomic) NSArray<PFUser*> *listedUsers;
+@property (strong, nonatomic) NSArray<PFUser*>* listedUsers;
 @property (nonatomic) RelationshipType relationshipType;
 @end
 
