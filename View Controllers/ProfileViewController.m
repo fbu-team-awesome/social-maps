@@ -256,22 +256,12 @@
     else if([segue.identifier isEqualToString:@"followersSegue"])
     {
         RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
-        [PFUser retrieveUsersWithIDs:self.user.relationships.followers
-                withCompletion:^(NSArray<PFUser*>* users)
-                {
-                    [vc setUsers:users];
-                }
-         ];
+        [vc setUser:self.user withRelationshipType:RTFollowers];
     }
     else if([segue.identifier isEqualToString:@"followingSegue"])
     {
         RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
-        [PFUser retrieveUsersWithIDs:self.user.relationships.following
-                withCompletion:^(NSArray<PFUser*>* users)
-                {
-                    [vc setUsers:users];
-                }
-         ];
+        [vc setUser:self.user withRelationshipType:RTFollowing];
     }
 }
 
