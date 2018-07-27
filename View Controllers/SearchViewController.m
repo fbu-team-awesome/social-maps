@@ -143,6 +143,12 @@
         
         [self.tableView reloadData];
     }
+    else
+    {
+        self.filteredPlaces = self.places;
+        self.filteredUsers = self.users;
+        [self.tableView reloadData];
+    }
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
