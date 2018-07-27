@@ -79,10 +79,10 @@
     
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
+            [AlertHelper showAlertWithTitle:@"Sign Up Error:" message:error.localizedDescription sender:self];
         } else {
-            NSLog(@"User registered successfully.");
-            [self dismissViewControllerAnimated:YES completion:nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            [self presentViewController:[storyboard instantiateViewControllerWithIdentifier:@"TabBarController"] animated:YES completion:nil];
         }
     }];
 }
