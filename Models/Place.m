@@ -76,6 +76,11 @@
 - (void)didCheckIn:(PFUser *)user {
     [self addObject:user.objectId forKey:@"checkIns"];
     [self saveInBackground];
+    
+}
+
+-(void)getUsersCheckedInWithCompletion:(void(^)(NSArray <PFUser*>*))completion {
+
 }
 
 @end

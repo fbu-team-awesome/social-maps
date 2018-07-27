@@ -17,6 +17,7 @@
 
 - (nonnull instancetype)initWithGMSPlace:(nonnull GMSPlace*)place;
 - (void) didCheckIn:(nonnull PFUser *)user;
+- (void)getUsersCheckedInWithCompletion:(void(^ _Nonnull)(NSArray <PFUser*>*_Nullable))completion;
 + (void)checkPlaceWithIDExists:(nonnull NSString *)placeID result:(void(^_Nonnull)(Place*_Nonnull))result;
 + (void)checkGMSPlaceExists:(nonnull GMSPlace*)place result:(void(^_Nonnull)(Place* _Nonnull))result;
 

@@ -17,11 +17,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *checkInLabel;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UIButton *wishlistButton;
+@property (weak, nonatomic) IBOutlet UILabel *usersLabel;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
 @property (strong, nonatomic) Place *parsePlace;
 @property (strong, nonatomic) GMSMapView *mapView;
+@property (strong, nonatomic) NSArray <PFUser *>* usersCheckedIn;
 @end
 
 @implementation DetailsViewController
@@ -36,9 +38,10 @@
         // change buttons if it's favorited/wishlisted
         [self.favoriteButton setSelected:[[PFUser currentUser].favorites containsObject:self.parsePlace]];
         [self.wishlistButton setSelected:[[PFUser currentUser].wishlist containsObject:self.parsePlace]];
+        
+        [self updateContent];
     }];
     
-    [self updateContent];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -54,6 +57,7 @@
     self.placeNameLabel.text = self.place.name;
     self.addressLabel.text = self.place.formattedAddress;
     [self updateCheckInLabel];
+    [self initUsersLabel];
     
     // update the map
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.place.coordinate.latitude longitude:self.place.coordinate.longitude zoom:15];
@@ -69,6 +73,37 @@
 
 - (void)setPlace:(GMSPlace*)place {
     _place = place;
+}
+
+- (void)initUsersLabel {
+    [self.parsePlace getUsersCheckedInWithCompletion:^(NSArray<PFUser *> * _Nullable users) {
+        //make a copy of the checked in users
+        NSMutableArray *mutableUsers = [[NSMutableArray alloc] init];
+        PFUser *myUser = PFUser.currentUser;
+        for (PFUser *user in users) {
+            //don't copy current user
+            if (![user.username isEqualToString:myUser.username]) {
+                [mutableUsers addObject:user];
+            }
+        }
+        //store array without current user
+        self.usersCheckedIn = [mutableUsers copy];
+        
+        long usersCount = self.usersCheckedIn.count - 2;
+        
+        //display names of the first 2 users
+        if (self.usersCheckedIn.count == 0) {
+            self.usersLabel.text = @"None of your friends have checked in here.";
+        } else if (self.usersCheckedIn.count == 1) {
+            self.usersLabel.text = [NSString stringWithFormat:@"%@ has checked in here.",self.usersCheckedIn[0].username];
+        } else if (self.usersCheckedIn.count == 2) {
+            self.usersLabel.text = [NSString stringWithFormat:@"%@ and %@ have checked in here.",self.usersCheckedIn[0].username, self.usersCheckedIn[1].username];
+        } else {
+            self.usersLabel.text = [NSString stringWithFormat:@"%@, %@, and %ld have checked in here.", self.usersCheckedIn[0].username, self.usersCheckedIn[1].username, usersCount];
+        }
+                                
+    }];
+    
 }
 
 - (IBAction)didTapFavorite:(id)sender {
