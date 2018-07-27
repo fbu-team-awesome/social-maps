@@ -25,6 +25,6 @@
 - (void)getAllGMSPlaces:(void(^)(NSArray<GMSPlace*>* places))completion;
 - (void)getAllUsers:(void(^)(NSArray<PFUser*>* users))completion;
 - (void)getPhotoMetadata:(NSString *)placeID :(void(^)(NSArray<GMSPlacePhotoMetadata *> *photoMetadata))completion;
-- (void)getNextTenGMSPlaces:(NSString *)lastPlaceID :(void(^)(NSArray<GMSPlace *> *places))completion;
+- (void)getNextGMSPlacesBatch:(void(^)(NSArray<GMSPlace *> *places))completion;
 
 @end

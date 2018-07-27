@@ -41,11 +41,12 @@
     
     [self initSearch];
     [self setSegmentControlView];
-    [self fetchLists:nil];
+    [self fetchPlaces];
+    [self fetchUsers];
 }
 
-- (void) fetchLists:(NSString *)lastPlaceID {
-    [[APIManager shared] getNextTenGMSPlaces:lastPlaceID :^(NSArray<GMSPlace *> *places) {
+- (void)fetchPlaces {
+    [[APIManager shared] getNextGMSPlacesBatch :^(NSArray<GMSPlace *> *places) {
         if (!self.places) {
             self.places = places;
         }
@@ -54,8 +55,11 @@
         }
         self.filteredPlaces = self.places;
         [self.tableView reloadData];
+        self.isMoreDataLoading = NO;
     }];
-    
+}
+
+- (void)fetchUsers {
     [[APIManager shared] getAllUsers:^(NSArray<PFUser*>* users) {
         self.users = users;
         self.filteredUsers = self.users;
@@ -153,7 +157,7 @@
         
         if (scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
             self.isMoreDataLoading = YES;
-            [self fetchLists:self.places.lastObject.placeID];
+            [self fetchPlaces];
         }
     }
 }

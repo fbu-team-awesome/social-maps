@@ -13,7 +13,7 @@ static NSString* PARSE_APP_ID = @"ID_VENTUREAWESOMEAPP";
 static NSString* PARSE_MASTER_KEY = @"KEY_VENTUREAWESOMEAPP";
 static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/parse";
 
-static const NSUInteger kQuerySize = 5;
+static const NSUInteger kQuerySize = 10;
 
 @interface APIManager()
 @property (strong, nonatomic) NSDate *lastQueryDate;
@@ -113,7 +113,7 @@ static const NSUInteger kQuerySize = 5;
     }];
 }
 
-- (void)getNextTenGMSPlaces:(NSString *)lastPlaceID :(void(^)(NSArray<GMSPlace *> *places))completion {
+- (void)getNextGMSPlacesBatch:(void(^)(NSArray<GMSPlace *> *places))completion {
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];
     query.limit = kQuerySize;
     [query orderByDescending:@"createdAt"];
@@ -142,7 +142,7 @@ static const NSUInteger kQuerySize = 5;
                 [self GMSPlaceFromPlace:myPlace withCompletion:^(GMSPlace *place) {
                     [places replaceObjectAtIndex:i withObject:place];
                     count = [NSNumber numberWithInt:[count intValue] + 1];
-                    if ([count isEqual:[NSNumber numberWithInteger:places.count - 1]]) {
+                    if ([count isEqual:[NSNumber numberWithInteger:places.count]]) {
                         [places removeObjectIdenticalTo:placeHolder];
                         completion(places);
                     }
