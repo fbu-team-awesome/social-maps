@@ -191,12 +191,6 @@
     // place pin
     [self addFavoritePin:place];
     NSLog(@"Added %@",place.name);
-        
-    // close search
-    if(self.presentedViewController != nil)
-    {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
 }
 
 - (void)updatePins:(NSNotification *)notification {
@@ -210,12 +204,6 @@
     // place pin
     [self addWishlistPin:place];
     NSLog(@"Added %@",place.name);
-        
-    // close search
-    if(self.presentedViewController != nil)
-    {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
 }
 
 - (void)addPinsOfNewFollow:(NSNotification *) notification {
