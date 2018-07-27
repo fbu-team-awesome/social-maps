@@ -53,6 +53,12 @@
     
     [[APIManager shared] getAllUsers:^(NSArray<PFUser*>* users) {
         self.users = users;
+        
+        // remove current user from the list
+        NSMutableArray<PFUser *> *mutableUsers = [self.users mutableCopy];
+        [mutableUsers removeObject:[PFUser currentUser]];
+        self.users = [mutableUsers copy];
+        
         self.filteredUsers = self.users;
         [self.tableView reloadData];
     }];
