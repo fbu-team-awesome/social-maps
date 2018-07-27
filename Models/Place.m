@@ -74,7 +74,7 @@
 }
 
 - (void)didCheckIn:(PFUser *)user {
-    [self addObject:user forKey:@"checkIns"];
+    [self addObject:user.objectId forKey:@"checkIns"];
     [self saveInBackground];
 }
 
