@@ -13,7 +13,7 @@
 // Instance Properties //
 @property (strong, nonatomic, nonnull) NSString *placeID;
 @property (strong, nonatomic, nullable) NSString *placeName;
-@property (strong, nonatomic, nullable) NSArray <PFUser*> *checkIns;
+@property (strong, nonatomic, nullable) NSArray <NSString*> *checkIns;
 
 - (nonnull instancetype)initWithGMSPlace:(nonnull GMSPlace*)place;
 - (void) didCheckIn:(nonnull PFUser *)user;
