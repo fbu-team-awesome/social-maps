@@ -12,6 +12,7 @@
 		0130163520EFDE650010FD04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0130163420EFDE650010FD04 /* Assets.xcassets */; };
 		0130163820EFDE650010FD04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0130163620EFDE650010FD04 /* LaunchScreen.storyboard */; };
 		0130163B20EFDE650010FD04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0130163A20EFDE650010FD04 /* main.m */; };
+		015C333F210AA2270065F927 /* MarkerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C333E210AA2270065F927 /* MarkerHelper.m */; };
 		018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */; };
 		018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */; };
 		018E6A9D20FEBA6E00DE10A6 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */; };
@@ -56,6 +57,8 @@
 		0130163720EFDE650010FD04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0130163920EFDE650010FD04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0130163A20EFDE650010FD04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		015C333D210AA2270065F927 /* MarkerHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkerHelper.h; sourceTree = "<group>"; };
+		015C333E210AA2270065F927 /* MarkerHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkerHelper.m; sourceTree = "<group>"; };
 		018E6A8720FD9AD000DE10A6 /* SearchResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
 		018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
 		018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ResultsView.storyboard; sourceTree = "<group>"; };
@@ -241,6 +244,8 @@
 				9EE973F3210281850056DCF2 /* ParseImageHelper.m */,
 				9E3C982F2106F051002C63F5 /* NCHelper.h */,
 				9E3C98302106F051002C63F5 /* NCHelper.m */,
+				015C333D210AA2270065F927 /* MarkerHelper.h */,
+				015C333E210AA2270065F927 /* MarkerHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -418,6 +423,7 @@
 				317B393E210267E40057079A /* RelationshipListCell.m in Sources */,
 				317B3931210267650057079A /* UserResultCell.m in Sources */,
 				01CA4A20210153230032C11F /* Relationships.m in Sources */,
+				015C333F210AA2270065F927 /* MarkerHelper.m in Sources */,
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
 				9EE973F4210281850056DCF2 /* ParseImageHelper.m in Sources */,
 				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
