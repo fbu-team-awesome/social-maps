@@ -178,6 +178,7 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     
     CGRect tableViewFrame = self.tableView.frame;
     tableViewFrame.origin.y = statusBarHeight + 60;
+    tableViewFrame.size.width = width;
     self.tableView.frame = tableViewFrame;
 }
 
