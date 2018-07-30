@@ -38,7 +38,9 @@
 
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
+    [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(updatePins:)];
     [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
+    [NCHelper addObserver:self type:NTRemoveFromWishlist selector:@selector(updatePins:)];
     [NCHelper addObserver:self type:NTNewFollow selector:@selector(addPinsOfNewFollow:)];
 }
 
@@ -52,9 +54,14 @@
     [self.locationManager startUpdatingLocation];
     self.locationManager.delegate = self;
     
+    // create the map frame
+    CGRect mapFrame = self.view.bounds;
+    CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
+    mapFrame.size.height -= tabBarHeight;
+    
     // create map
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:0 longitude:0 zoom:6];
-    self.mapView = [GMSMapView mapWithFrame:self.resultsView.bounds camera:camera];
+    self.mapView = [GMSMapView mapWithFrame:mapFrame camera:camera];
     self.mapView.settings.myLocationButton = YES;
     [self.mapView setMyLocationEnabled:YES];
     
@@ -189,12 +196,11 @@
     // place pin
     [self addFavoritePin:place];
     NSLog(@"Added %@",place.name);
-        
-    // close search
-    if(self.presentedViewController != nil)
-    {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+}
+
+- (void)updatePins:(NSNotification *)notification {
+    // remove the places
+    [self retrieveUserPlaces];
 }
 
 - (void) addToWishlist:(NSNotification *) notification {
@@ -203,12 +209,6 @@
     // place pin
     [self addWishlistPin:place];
     NSLog(@"Added %@",place.name);
-        
-    // close search
-    if(self.presentedViewController != nil)
-    {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
 }
 
 - (void)addPinsOfNewFollow:(NSNotification *) notification {

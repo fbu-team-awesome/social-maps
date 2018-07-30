@@ -36,6 +36,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 @property (weak, nonatomic) IBOutlet UILabel *followersLabel;
 @property (weak, nonatomic) IBOutlet UILabel *followingLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
 
 // Instance Properties //
 @property (strong, nonatomic) CLLocationManager* locationManager;
@@ -45,6 +46,7 @@
 @property (strong, nonatomic) NSArray<GMSPlace*>* wishlist;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, GMSPlace*>* markers;
 @property (strong, nonatomic) PFUser* user;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation ProfileViewController
@@ -61,12 +63,18 @@
     {
         if([[PFUser currentUser].relationships.following containsObject:self.user.objectId])
         {
-            [self.followButton setTitle:@"-" forState:UIControlStateNormal];
+            [self.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
         }
     }
     
     // create map
     GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:37.7749 longitude:-122.4194 zoom:6];
+    
+    //profile map view initially reflects the size of the phone displayed on the storyboard, must manually set mapview width while profile map view is still the wrong size
+    CGRect bounds = self.profileMapView.bounds;
+    bounds.size.width = self.view.bounds.size.width;
+    self.profileMapView.bounds = bounds;
+    
     self.mapView = [GMSMapView mapWithFrame:self.profileMapView.bounds camera:camera];
     [self.profileMapView addSubview:self.mapView];
     self.mapView.delegate = self;
@@ -96,6 +104,7 @@
     [self.tableView setRowHeight:90];
     
     // get favs and wishlist
+    [self.progressIndicator startAnimating];
     self.markers = [NSMutableDictionary new];
     [self retrieveUserPlaces];
     
@@ -119,11 +128,18 @@
     
     // set UI styles
     [self initUIStyles];
+    
+    // set up refresh control
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(retrieveUserPlaces) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
+    [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(removeFromFavorites:)];
     [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
+    [NCHelper addObserver:self type:NTRemoveFromWishlist selector:@selector(removeFromWishlist:)];
     [NCHelper addObserver:self type:NTNewFollow selector:@selector(newFollowing:)];
     [NCHelper addObserver:self type:NTUnfollow selector:@selector(newUnfollow:)];
 }
@@ -136,8 +152,9 @@
     [self setRoundedCornersToView:self.profilePicture];
     [self setRoundedCornersToView:self.profilePictureView];
     [self addShadowToView:self.profilePictureView withOffset:CGSizeZero];
-    [self addShadowToView:self.myPlacesView withOffset:CGSizeMake(0,6)];
-    [self setRoundedCornersToView:self.followButton];
+    [self addShadowToView:self.myPlacesView withOffset:CGSizeMake(0,0)];
+    self.followButton.layer.cornerRadius = self.followButton.frame.size.height / 2;
+    self.followButton.clipsToBounds = YES;
     [self addShadowToView:self.followButton withOffset:CGSizeMake(0,0)];
     
     // set switch background when off
@@ -170,6 +187,8 @@
               self.favorites = places;
               [self.tableView reloadData];
               [self addFavoritesPins];
+              [self.progressIndicator stopAnimating];
+              [self.refreshControl endRefreshing];
           }
      ];
     
@@ -180,6 +199,8 @@
               self.wishlist = places;
               [self.tableView reloadData];
               [self addWishlistPins];
+              [self.progressIndicator stopAnimating];
+              [self.refreshControl endRefreshing];
           }
      ];
 }
@@ -244,22 +265,12 @@
     else if([segue.identifier isEqualToString:@"followersSegue"])
     {
         RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
-        [PFUser retrieveUsersWithIDs:self.user.relationships.followers
-                withCompletion:^(NSArray<PFUser*>* users)
-                {
-                    [vc setUsers:users];
-                }
-         ];
+        [vc setUser:self.user withRelationshipType:RTFollower];
     }
     else if([segue.identifier isEqualToString:@"followingSegue"])
     {
         RelationshipsViewController* vc = (RelationshipsViewController*)[segue destinationViewController];
-        [PFUser retrieveUsersWithIDs:self.user.relationships.following
-                withCompletion:^(NSArray<PFUser*>* users)
-                {
-                    [vc setUsers:users];
-                }
-         ];
+        [vc setUser:self.user withRelationshipType:RTFollowing];
     }
 }
 
@@ -307,15 +318,15 @@
 }
 
 - (IBAction)followClicked:(id)sender {
-    if([self.followButton.titleLabel.text isEqualToString:@"+"])
+    if([self.followButton.titleLabel.text isEqualToString:@"Follow"])
     {
         [[PFUser currentUser] follow:self.user];
-        [self.followButton setTitle:@"-" forState:UIControlStateNormal];
+        [self.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
     }
     else
     {
         [[PFUser currentUser] unfollow:self.user];
-        [self.followButton setTitle:@"+" forState:UIControlStateNormal];
+        [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
     }
 }
 
@@ -330,11 +341,26 @@
     self.markers[marker.title] = place;
     
     // add to tableview
-    NSMutableArray<GMSPlace*>* favorites = (NSMutableArray*)self.favorites;
-    [favorites addObject:place];
-    self.favorites = (NSArray*)favorites;
+    self.favorites = [[NSArray arrayWithObject:place] arrayByAddingObjectsFromArray:self.favorites];
     [self.tableView reloadData];
     NSLog(@"Added %@",place.name);
+}
+
+- (void)removeFromFavorites:(NSNotification *)notification {
+    GMSPlace *place = (GMSPlace *)notification.object;
+    
+    // remove the places
+    NSMutableArray<GMSPlace *> *favorites = [self.favorites mutableCopy];
+    [favorites removeObject:place];
+    self.favorites = [favorites copy];
+    
+    // re-add the pins
+    [self.mapView clear];
+    [self addFavoritesPins];
+    
+    // refresh tableview
+    [self.tableView reloadData];
+    
 }
 
 - (void) addToWishlist:(NSNotification *) notification {
@@ -351,15 +377,26 @@
     NSLog(@"Added %@",place.name);
 }
 
+- (void)removeFromWishlist:(NSNotification *)notification {
+    GMSPlace *place = (GMSPlace *)notification.object;
+    
+    // remove the place
+    NSMutableArray<GMSPlace *> *wishlist = [self.wishlist mutableCopy];
+    [wishlist removeObject:place];
+    self.wishlist = [wishlist copy];
+    
+    // re-add the pins
+    [self.mapView clear];
+    [self addWishlistPins];
+}
+
 - (void)newFollowing:(NSNotification*)notification {
     PFUser* user = (PFUser*)notification.object;
     
     // if this is our profile, then we will add the user to our following
     if([[PFUser currentUser].objectId isEqualToString:self.user.objectId])
     {
-        NSMutableArray<NSString*>* following = (NSMutableArray*)self.user.relationships.following;
-        [following addObject:user.objectId];
-        self.user.relationships.following = (NSArray*)following;
+        self.user.relationships.following = [[NSArray arrayWithObject:user.objectId] arrayByAddingObjectsFromArray:self.user.relationships.following];
         
         // update the following label
         [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", self.user.relationships.following.count]];
@@ -367,9 +404,7 @@
     // if this user is the user that was followed, then update their followers
     else if ([self.user.objectId isEqualToString:user.objectId])
     {
-        NSMutableArray<NSString*>* followers = (NSMutableArray*)self.user.relationships.followers;
-        [followers addObject:[PFUser currentUser].objectId];
-        self.user.relationships.followers = (NSArray*)followers;
+        self.user.relationships.followers = [[NSArray arrayWithObject:[PFUser currentUser].objectId] arrayByAddingObjectsFromArray:self.user.relationships.followers];
         
         // update the followers label
         [self.followersLabel setText:[NSString stringWithFormat:@"%lu followers", self.user.relationships.followers.count]];
@@ -382,9 +417,9 @@
     // if this is our profile, then we will remove the user from our following
     if([[PFUser currentUser].objectId isEqualToString:self.user.objectId])
     {
-        NSMutableArray<NSString*>* following = (NSMutableArray*)self.user.relationships.following;
+        NSMutableArray<NSString*>* following = [NSMutableArray arrayWithArray:self.user.relationships.following];
         [following removeObject:user.objectId];
-        self.user.relationships.following = (NSArray*)following;
+        self.user.relationships.following = [NSArray arrayWithArray:following];
         
         // update the following label
         [self.followingLabel setText:[NSString stringWithFormat:@"%lu following", self.user.relationships.following.count]];
@@ -392,9 +427,9 @@
     // if this user is the user that was unfollowed, then update their followers
     else if ([self.user.objectId isEqualToString:user.objectId])
     {
-        NSMutableArray<NSString*>* followers = (NSMutableArray*)self.user.relationships.followers;
+        NSMutableArray<NSString*>* followers = [NSMutableArray arrayWithArray:self.user.relationships.followers];
         [followers removeObject:[PFUser currentUser].objectId];
-        self.user.relationships.followers = (NSArray*)followers;
+        self.user.relationships.followers = [NSArray arrayWithArray:followers];
         
         // update the followers label
         [self.followersLabel setText:[NSString stringWithFormat:@"%lu followers", self.user.relationships.followers.count]];

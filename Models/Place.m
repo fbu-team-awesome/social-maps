@@ -74,9 +74,8 @@
 }
 
 - (void)didCheckIn:(PFUser *)user {
-    [self addObject:user forKey:@"checkIns"];
+    [self addObject:user.objectId forKey:@"checkIns"];
     [self saveInBackground];
-    NSLog(@"%@ just checked in to %@", user.username, self.placeName);
 }
 
 @end

@@ -43,6 +43,19 @@
     [self setSegmentControlView];
     [self fetchPlaces];
     [self fetchUsers];
+    [self fetchLists];
+    
+    // set navbar color
+    self.navigationItem.titleView = self.searchBar;
+    [self.searchBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    if(indexPath != nil)
+    {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 - (void)fetchPlaces {
@@ -62,6 +75,12 @@
 - (void)fetchUsers {
     [[APIManager shared] getAllUsers:^(NSArray<PFUser*>* users) {
         self.users = users;
+        
+        // remove current user from the list
+        NSMutableArray<PFUser *> *mutableUsers = [self.users mutableCopy];
+        [mutableUsers removeObject:[PFUser currentUser]];
+        self.users = [mutableUsers copy];
+        
         self.filteredUsers = self.users;
         [self.tableView reloadData];
     }];
@@ -77,19 +96,26 @@
 
 - (void)setSegmentControlView {
     
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    //self.edgesForExtendedLayout = UIRectEdgeNone;
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat height = 60;
     
     // Initialize custom segmented control
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Places", @"Users"]];
     
+    // calculate Y position of segmentcontrol
+    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+    CGFloat statusBarHeight = statusBarFrame.size.height;
+    CGFloat navBarHeight = self.navigationController.navigationBar.bounds.size.height;
+    CGFloat segmentControlHeight = statusBarHeight + navBarHeight + 12;
+    
     // Customize appearance
-    [segmentedControl setFrame:CGRectMake(0, 56, width, 60)];
+    [segmentedControl setFrame:CGRectMake(0, segmentControlHeight, width, height)];
     segmentedControl.selectionIndicatorHeight = 4.0f;
-    segmentedControl.backgroundColor = [UIColor colorWithRed:1.00 green:0.92 blue:0.87 alpha:1.0];
-    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:1.00 green:0.60 blue:0.47 alpha:1.0]};
+    segmentedControl.backgroundColor = [UIColor colorNamed:@"VTR_Background"];
+    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorNamed:@"VTR_BlackLabel"]};
     segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:1.00 green:0.60 blue:0.47 alpha:1.0];
-    segmentedControl.selectionIndicatorBoxColor = [UIColor colorWithRed:1.00 green:0.92 blue:0.87 alpha:1.0];
+    segmentedControl.selectionIndicatorBoxColor = [UIColor colorNamed:@"VTR_Background"];
     segmentedControl.selectionIndicatorBoxOpacity = 1.0;
     segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleBox;
     segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
@@ -103,6 +129,11 @@
         [self.view endEditing:YES];
         [self.tableView reloadData];
     }];
+    
+    // fix the tableview's y position
+    CGRect frame = self.tableView.frame;
+    frame.origin.y = segmentedControl.frame.origin.y + height;
+    self.tableView.frame = frame;
 }
 
 #pragma mark - Table View
@@ -146,6 +177,12 @@
         }];
         self.filteredUsers = [self.users filteredArrayUsingPredicate:userPredicate];
         
+        [self.tableView reloadData];
+    }
+    else
+    {
+        self.filteredPlaces = self.places;
+        self.filteredUsers = self.users;
         [self.tableView reloadData];
     }
 }

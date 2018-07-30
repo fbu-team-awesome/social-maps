@@ -22,10 +22,11 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *defaultView;
 @property (weak, nonatomic) IBOutlet UILabel *defaultViewLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
+
 @property (strong, nonatomic) NSArray<GMSPlace *> *favorites;
 @property (strong, nonatomic) NSArray<GMSPlace *> *wishlist;
 @property (assign, nonatomic) long segmentIndex;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
@@ -43,8 +44,8 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     // set up tableview
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.hidden = NO;
-    self.defaultView.hidden = YES;
+    [self toggleDefaultViewHidden:YES];
+    
     [self.tableView setRowHeight:91];
     [self setSegmentControlView];
     [self.progressIndicator startAnimating];
@@ -56,15 +57,21 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(didAddFavorite:)];
+    [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(didRemoveFavorite:)];
     [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(didAddToWishlist:)];
+    [NCHelper addObserver:self type:NTRemoveFromWishlist selector:@selector(didRemoveFromWishlist:)];
 }
 
 - (void)retrieveCurrentUserData {
     PFUser *currentUser = [PFUser currentUser];
     [currentUser retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *favorites) {
-        if(favorites != nil)
+        if(favorites.count > 0)
         {
             self.favorites = favorites;
             
@@ -86,7 +93,7 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     }];
     
     [currentUser retrieveWishlistWithCompletion:^(NSArray<GMSPlace *> *wishlist) {
-        if(wishlist != nil)
+        if(wishlist.count > 0)
         {
             self.wishlist = wishlist;
             
@@ -109,9 +116,6 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 }
 
 - (void)setSegmentControlView {
-    // hide nav bar
-    [self.navigationController setNavigationBarHidden:YES];
-    
     // get status bar height
     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     CGFloat statusBarHeight = statusBarFrame.size.height;
@@ -174,6 +178,7 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     
     CGRect tableViewFrame = self.tableView.frame;
     tableViewFrame.origin.y = statusBarHeight + 60;
+    tableViewFrame.size.width = width;
     self.tableView.frame = tableViewFrame;
 }
 
@@ -235,10 +240,29 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     }
 }
 
+- (void)didRemoveFavorite:(NSNotification *)notification {
+    GMSPlace *place = (GMSPlace *)notification.object;
+    
+    // remove from favorites
+    NSMutableArray<GMSPlace *> *favorites = [self.favorites mutableCopy];
+    [favorites removeObject:place];
+    self.favorites = [favorites copy];
+    
+    // reload table
+    [self.tableView reloadData];
+    
+    // show default label if we have no favorites
+    if(self.segmentIndex == 0 && self.favorites.count == 0)
+    {
+        self.defaultViewLabel.text = kNoFavoriteMsg;
+        [self toggleDefaultViewHidden:NO];
+    }
+}
+
 - (void)didAddToWishlist:(NSNotification *)notification {
     GMSPlace *place = (GMSPlace *)notification.object;
     
-    // add to the favorites
+    // add to the wishlist
     self.wishlist = [[NSArray arrayWithObject:place] arrayByAddingObjectsFromArray:self.wishlist];
     
     // reload table
@@ -249,5 +273,25 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     {
         [self toggleDefaultViewHidden:YES];
     }
+}
+
+- (void)didRemoveFromWishlist:(NSNotification *)notification {
+    GMSPlace *place = (GMSPlace *)notification.object;
+    
+    // remove from wishlist
+    NSMutableArray<GMSPlace *> *wishlist = [self.wishlist mutableCopy];
+    [wishlist removeObject:place];
+    self.wishlist = [wishlist copy];
+    
+    // reload table
+    [self.tableView reloadData];
+    
+    // show default label if we have no wishlist
+    if(self.segmentIndex == 1 && self.wishlist.count == 0)
+    {
+        self.defaultViewLabel.text = kNoWishlistMsg;
+        [self toggleDefaultViewHidden:NO];
+    }
+    
 }
 @end

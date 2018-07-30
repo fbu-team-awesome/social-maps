@@ -11,7 +11,7 @@
 #import "NCHelper.h"
 
 @implementation PFUser (ExtendedUser)
-@dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships;
+@dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships, checkIns;
 
 - (BOOL)isEqual:(id)object {
     return [self.objectId isEqualToString:((PFUser*)object).objectId];
@@ -27,7 +27,9 @@
                {
                    if(![self.favorites containsObject:result])
                    {
-                       [self.favorites addObject:result];
+                       NSMutableArray *mutableFavorites = [self.favorites mutableCopy];
+                       [mutableFavorites addObject:result];
+                       self.favorites = [mutableFavorites copy];
                        [self setObject:self.favorites forKey:@"favorites"];
                        [self saveInBackground];
                    }
@@ -47,7 +49,9 @@
            {
                if(result != nil)
                {
-                   [self.favorites removeObject:result];
+                   NSMutableArray *mutableFavorites = [self.favorites mutableCopy];
+                   [mutableFavorites removeObject:result];
+                   self.favorites = [mutableFavorites copy];
                }
          
                [self setObject:self.favorites forKey:@"favorites"];
@@ -66,7 +70,9 @@
                {
                    if(![self.wishlist containsObject:result])
                    {
-                       [self.wishlist addObject:result];
+                       NSMutableArray *mutableWishlist = [self.wishlist mutableCopy];
+                       [mutableWishlist addObject:result];
+                       self.wishlist = [mutableWishlist copy];
                        [self setObject:self.wishlist forKey:@"wishlist"];
                        [self saveInBackground];
                    }
@@ -86,7 +92,9 @@
            {
                if(result != nil)
                {
-                   [self.wishlist removeObject:result];
+                   NSMutableArray *mutableWishlist = [self.wishlist mutableCopy];
+                   [mutableWishlist removeObject:result];
+                   self.wishlist = [mutableWishlist copy];
                }
          
                [self setObject:self.wishlist forKey:@"wishlist"];
@@ -98,12 +106,13 @@
 - (void)retrieveFavoritesWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion {
     NSMutableArray<GMSPlace*>* places = [NSMutableArray new];
     
-    // if there's no favorites, call completion with nothing
-    if(self.favorites.count <= 0)
+    // if we have no places, return an empty array
+    if ([self.favorites count] == 0)
     {
-        completion(nil);
+        completion([NSArray arrayWithArray:places]);
     }
     
+    // if we do have places, convert them all to GMSPlace
     for(Place* favorite in self.favorites)
     {
         // we need to query the place first
@@ -131,13 +140,14 @@
 
 - (void)retrieveWishlistWithCompletion:(void(^)(NSArray<GMSPlace*>*))completion {
     NSMutableArray<GMSPlace*>* places = [NSMutableArray new];
-   
-    // if there's no wishlist, call completion with nothing
-    if(self.wishlist.count <= 0)
+    
+    // if we have no places, return an empty array
+    if([self.favorites count] == 0)
     {
-        completion(nil);
+        completion([NSArray arrayWithArray:places]);
     }
     
+    // if we do have places, convert them all to GMSPlace
     for(Place* todo in self.wishlist)
     {
         // we need to query the place first
@@ -234,6 +244,12 @@
 + (void)retrieveUsersWithIDs:(NSArray<NSString*>*)IDs withCompletion:(void(^)(NSArray<PFUser*>*))completion {
     NSMutableArray<PFUser*>* users = [NSMutableArray new];
     
+    // if there are no IDs, return before
+    if(IDs.count == 0)
+    {
+        completion([users copy]);
+    }
+    
     // loop through all IDs
     for(NSString* ID in IDs)
     {
@@ -257,4 +273,47 @@
          ];
     }
 }
+
+#pragma mark - Check-in Helper Methods
+
+- (void)addCheckIn:(NSString *)placeID withCompletion:(void(^)(void))completion{
+    //create a mutable copy
+    NSMutableDictionary *newCheckIns = [self.checkIns mutableCopy];
+    
+    //if user has never checked into this place, add to checkIns with count 1
+    if ([newCheckIns objectForKey:placeID] == nil) {
+        [newCheckIns setObject:[NSNumber numberWithInteger:1] forKey:placeID];
+    } else {
+        int count = [newCheckIns[placeID] intValue] + 1;
+        [newCheckIns setObject:[NSNumber numberWithInteger:count] forKey:placeID];
+    }
+    
+    //set the dictionary to the mutable copy
+    self.checkIns = [newCheckIns copy];
+    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        completion();
+    }];
+    
+}
+
+- (void)retrieveCheckInCountForPlaceID:(NSString *)placeID withCompletion:(void(^)(NSNumber *))completion {
+    PFQuery *query = [PFUser query];
+    [query includeKey:@"checkIns"];
+    
+    //retrieves check-in count for placeID in user's checkIns dictionary
+    [query getObjectInBackgroundWithId:self.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if (object == nil) {
+            NSLog(@"Invalid user");
+            completion(nil);
+        } else {
+            NSDictionary *checkIns = object[@"checkIns"];
+            if ([checkIns objectForKey:placeID] == nil) {
+                completion([NSNumber numberWithInteger:0]);
+            } else {
+                completion(checkIns[placeID]);
+            }
+        }
+    }];
+}
+
 @end

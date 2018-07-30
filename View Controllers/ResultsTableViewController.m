@@ -62,6 +62,10 @@
     return self.results.count;
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+}
+
 - (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
     //tell GMS fetcher that search text has changed
     [_fetcher sourceTextHasChanged:searchController.searchBar.text];
