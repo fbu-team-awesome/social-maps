@@ -34,12 +34,15 @@
     switch(type) {
         case favorites: {
             [[self.markersByMarkerType objectForKey:@"favorites"] addObject:marker];
+            break;
         }
         case followFavorites: {
             [[self.markersByMarkerType objectForKey:@"followFavorite"] addObject:marker];
+            break;
         }
         case wishlist: {
             [[self.markersByMarkerType objectForKey:@"wishlist"] addObject:marker];
+            break;
         }
     }
 }

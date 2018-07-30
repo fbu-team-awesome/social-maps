@@ -22,7 +22,8 @@
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) ResultsTableViewController <UISearchResultsUpdating>* resultsViewController;
 @property (strong, nonatomic) MarkerManager *markerManager;
-
+@property (nonatomic, assign) BOOL userPlacesRetrieved;
+@property (nonatomic, assign) BOOL followPlacesRetrieved;
 
 @end
 
@@ -69,12 +70,17 @@
     [self.markerManager initMarkerDictionaries];
     [self.markerManager initDefaultFilters];
     
+    self.userPlacesRetrieved = NO;
+    self.followPlacesRetrieved = NO;
+    
     // get the places and show on map based on filters
     [self retrieveUserPlacesWithCompletion:^{
-        [self addPinsToMap];
+        self.userPlacesRetrieved = YES;
+        [self addPinsIfFinished];
     }];
     [self retrievePlacesOfUsersFollowingWithCompletion:^{
-        [self addPinsToMap];
+        self.followPlacesRetrieved = YES;
+        [self addPinsIfFinished];
     }];
 }
 
@@ -91,6 +97,12 @@
     self.navigationItem.titleView = _searchController.searchBar;
     
     _searchController.hidesNavigationBarDuringPresentation = NO;
+}
+
+- (void)addPinsIfFinished {
+    if (self.userPlacesRetrieved && self.followPlacesRetrieved) {
+        [self addPinsToMap];
+    }
 }
 
 - (void)retrievePlacesOfUsersFollowingWithCompletion:(void(^)(void))completion {
@@ -187,6 +199,7 @@
 }
 
 #pragma - Add pins to dictionaries and map when notification is receieved
+
 - (void)setNewFavoritePin:(NSNotification *)notification {
     GMSMarker *marker = [self.markerManager setFavoritePin:notification.object];
     marker.map = self.mapView;
@@ -205,18 +218,6 @@
             marker.map = self.mapView;
         }
     }];
-}
-
-- (void) addToFavorites:(NSNotification *) notification {
-    GMSPlace* place = (GMSPlace*)notification.object;
-    [self.markerManager setFavoritePin:place];
-    NSLog(@"Added %@",place.name);
-}
-
-- (void) addToWishlist:(NSNotification *) notification {
-    GMSPlace* place = (GMSPlace*)notification.object;
-    [self.markerManager setWishlistPin:place];
-    NSLog(@"Added %@",place.name);
 }
 
 #pragma mark - Navigation
