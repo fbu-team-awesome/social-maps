@@ -13,6 +13,7 @@
 		0130163820EFDE650010FD04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0130163620EFDE650010FD04 /* LaunchScreen.storyboard */; };
 		0130163B20EFDE650010FD04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0130163A20EFDE650010FD04 /* main.m */; };
 		015C3342210BCA960065F927 /* MarkerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3341210BCA960065F927 /* MarkerManager.m */; };
+		015C3345210F71AC0065F927 /* Marker.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3344210F71AC0065F927 /* Marker.m */; };
 		018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */; };
 		018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */; };
 		018E6A9D20FEBA6E00DE10A6 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */; };
@@ -59,6 +60,8 @@
 		0130163A20EFDE650010FD04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		015C3340210BCA960065F927 /* MarkerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkerManager.h; sourceTree = "<group>"; };
 		015C3341210BCA960065F927 /* MarkerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkerManager.m; sourceTree = "<group>"; };
+		015C3343210F71AC0065F927 /* Marker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Marker.h; sourceTree = "<group>"; };
+		015C3344210F71AC0065F927 /* Marker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Marker.m; sourceTree = "<group>"; };
 		018E6A8720FD9AD000DE10A6 /* SearchResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
 		018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
 		018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ResultsView.storyboard; sourceTree = "<group>"; };
@@ -259,6 +262,8 @@
 				1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */,
 				01CA4A1E210153230032C11F /* Relationships.h */,
 				01CA4A1F210153230032C11F /* Relationships.m */,
+				015C3343210F71AC0065F927 /* Marker.h */,
+				015C3344210F71AC0065F927 /* Marker.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -410,6 +415,7 @@
 				9EE973F1210280F60056DCF2 /* ImageHelper.m in Sources */,
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
 				9EE973EE2102805A0056DCF2 /* AlertHelper.m in Sources */,
+				015C3345210F71AC0065F927 /* Marker.m in Sources */,
 				317B392E210267590057079A /* PlaceResultCell.m in Sources */,
 				0130162D20EFDE620010FD04 /* AppDelegate.m in Sources */,
 				018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */,

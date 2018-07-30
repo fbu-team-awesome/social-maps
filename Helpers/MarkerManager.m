@@ -7,6 +7,7 @@
 //
 
 #import "MarkerManager.h"
+#import "Marker.h"
 
 @implementation MarkerManager
 
@@ -51,9 +52,11 @@
 
 - (GMSMarker *)setFavoritePin:(GMSPlace *)place {
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place];
+    
     marker.title = place.name;
     marker.appearAnimation = kGMSMarkerAnimationPop;
-    marker.userData = place;
+    marker.userData = thisMarker;
     
     [self addMarkerByType:marker :favorites];
     
@@ -62,10 +65,12 @@
 
 - (GMSMarker *)setWishlistPin:(GMSPlace *)place {
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place];
+    
     marker.title = place.name;
     marker.appearAnimation = kGMSMarkerAnimationPop;
     marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
-    marker.userData = place;
+    marker.userData = thisMarker;
     
     [self addMarkerByType:marker :wishlist];
     
@@ -74,10 +79,12 @@
 
 - (GMSMarker *)setFavoriteOfFollowingPin:(GMSPlace *)place :(PFUser *)user {
     GMSMarker *marker = [GMSMarker markerWithPosition:place.coordinate];
+    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place];
+    
     marker.title = place.name;
     marker.appearAnimation = kGMSMarkerAnimationPop;
     marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
-    marker.userData = place;
+    marker.userData = thisMarker;
     
     [self addMarkerByType:marker :followFavorites];
     
