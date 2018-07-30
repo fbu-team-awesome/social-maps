@@ -52,20 +52,23 @@ static const NSUInteger kQuerySize = 10;
     
     // send request for place using ID
     [placesClient lookUpPlaceID:place.placeID
-                  callback:^(GMSPlace * _Nullable result, NSError * _Nullable error)
-                  {
-                      if(error == nil)
-                      {
-                          if(result != nil)
-                          {
-                              completion(result);
-                          }
-                      }
-                      else
-                      {
-                          NSLog(@"Error looking up place with ID '%@':%@", place.placeID, error.localizedDescription);
-                      }
-                  }
+                       callback:^(GMSPlace * _Nullable result, NSError * _Nullable error)
+     {
+         if(error == nil)
+         {
+             if(result != nil)
+             {
+                 completion(result);
+             }
+             else {
+                 NSLog(@"No result was returned");
+             }
+         }
+         else
+         {
+             NSLog(@"Error looking up place with ID '%@':%@", place.placeID, error.localizedDescription);
+         }
+     }
      ];
 }
 
@@ -133,16 +136,15 @@ static const NSUInteger kQuerySize = 10;
                 [places addObject:placeHolder];
             }
             
-            __block NSNumber *count;
-            count = [NSNumber numberWithInteger:0];
+            __block NSUInteger count = 0;
             for (int i = 0; i < orderedObjects.count; ++i) {
                 Place *myPlace = orderedObjects[i];
                 
                 // convert each Place to a GMSPlace
                 [self GMSPlaceFromPlace:myPlace withCompletion:^(GMSPlace *place) {
                     [places replaceObjectAtIndex:i withObject:place];
-                    count = [NSNumber numberWithInt:[count intValue] + 1];
-                    if ([count isEqual:[NSNumber numberWithInteger:places.count]]) {
+                    count++;
+                    if (count == objects.count) {
                         [places removeObjectIdenticalTo:placeHolder];
                         completion(places);
                     }
