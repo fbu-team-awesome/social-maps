@@ -7,8 +7,6 @@
 //
 
 #import "ProfileListCell.h"
-#import "APIManager.h"
-#import <QuartzCore/QuartzCore.h>
 
 @interface ProfileListCell ()
 // Outlet Definitions //
@@ -28,33 +26,14 @@
     // Initialization code
 }
 
-- (void)loadFirstImage:(NSArray<GMSPlacePhotoMetadata *> *)photoMetadata {
-    
-    GMSPlacePhotoMetadata *firstPhoto = photoMetadata.firstObject;
-    
-    [[GMSPlacesClient sharedClient]
-     loadPlacePhoto:firstPhoto
-     constrainedToSize:self.placeImage.bounds.size
-     scale:self.placeImage.window.screen.scale
-     callback:^(UIImage *_Nullable photo, NSError *_Nullable error) {
-         if (error) {
-             NSLog(@"Error: %@", [error description]);
-         }
-         else {
-             self.placeImage.image = photo;
-         }
-     }];
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+
 }
 
 - (void)updateUI {
     // todo image
     self.nameLabel.text = self.place.name;
     self.addressLabel.text = self.place.formattedAddress;
-    
-    [[APIManager shared] getPhotoMetadata:self.place.placeID :^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
-        
-        [self loadFirstImage:photoMetadata];
-    }];
 }
 
 - (void)setPlace:(GMSPlace*)place {

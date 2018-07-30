@@ -21,6 +21,8 @@
     _place = place;
     
     self.titleLabel.text = self.place.name;
+    
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

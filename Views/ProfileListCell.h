@@ -11,9 +11,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ProfileListCell : UITableViewCell
-
-@property (weak, nonatomic) IBOutlet UIImageView *placeImage;
-
 // Instance Methods //
 - (void)setPlace:(GMSPlace*)place;
 - (GMSPlace*)getPlace;
