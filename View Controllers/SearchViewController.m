@@ -44,6 +44,14 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    if(indexPath != nil)
+    {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
 - (void) fetchLists {
     [[APIManager shared] getAllGMSPlaces:^(NSArray<GMSPlace*>* places) {
         self.places = places;
