@@ -54,9 +54,14 @@
     [self.locationManager startUpdatingLocation];
     self.locationManager.delegate = self;
     
+    // create the map frame
+    CGRect mapFrame = self.view.bounds;
+    CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
+    mapFrame.size.height -= tabBarHeight;
+    
     // create map
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:0 longitude:0 zoom:6];
-    self.mapView = [GMSMapView mapWithFrame:self.view.bounds camera:camera];
+    self.mapView = [GMSMapView mapWithFrame:mapFrame camera:camera];
     self.mapView.settings.myLocationButton = YES;
     [self.mapView setMyLocationEnabled:YES];
     
