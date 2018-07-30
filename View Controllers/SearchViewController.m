@@ -18,13 +18,14 @@
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSArray<GMSPlace*>* places;
 @property (strong, nonatomic) NSArray<PFUser*>* users;
 @property (strong, nonatomic) NSArray *filteredPlaces;
 @property (strong, nonatomic) NSArray *filteredUsers;
-@property (assign, nonatomic) long segmentIndex;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSArray<GMSPlacePhotoMetadata *> *photoMetadata;
+@property (assign, nonatomic) long segmentIndex;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
 
 @end
 
@@ -40,6 +41,8 @@
     
     [self initSearch];
     [self setSegmentControlView];
+    [self fetchPlaces];
+    [self fetchUsers];
     [self fetchLists];
     
     // set navbar color
@@ -55,13 +58,21 @@
     }
 }
 
-- (void) fetchLists {
-    [[APIManager shared] getAllGMSPlaces:^(NSArray<GMSPlace*>* places) {
-        self.places = places;
+- (void)fetchPlaces {
+    [[APIManager shared] getNextGMSPlacesBatch :^(NSArray<GMSPlace *> *places) {
+        if (!self.places) {
+            self.places = places;
+        }
+        else {
+            self.places = [self.places arrayByAddingObjectsFromArray:places];
+        }
         self.filteredPlaces = self.places;
         [self.tableView reloadData];
+        self.isMoreDataLoading = NO;
     }];
-    
+}
+
+- (void)fetchUsers {
     [[APIManager shared] getAllUsers:^(NSArray<PFUser*>* users) {
         self.users = users;
         
@@ -125,6 +136,8 @@
     self.tableView.frame = frame;
 }
 
+#pragma mark - Table View
+
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     if (self.segmentIndex == 1) {
@@ -171,6 +184,18 @@
         self.filteredPlaces = self.places;
         self.filteredUsers = self.users;
         [self.tableView reloadData];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (!self.isMoreDataLoading) {
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+        
+        if (scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+            self.isMoreDataLoading = YES;
+            [self fetchPlaces];
+        }
     }
 }
 

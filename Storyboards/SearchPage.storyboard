@@ -106,7 +106,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="addressLabel" destination="apw-pG-tQt" id="LqK-iP-y98"/>
-                                            <outlet property="nameLabel" destination="fqw-hh-BCz" id="8xP-BX-7LJ"/>
+                                            <outlet property="nameLabel" destination="fqw-hh-BCz" id="1fm-1f-RIE"/>
                                             <outlet property="placeImage" destination="tRd-un-qxi" id="RQS-Cq-Ozj"/>
                                         </connections>
                                     </tableViewCell>

@@ -13,6 +13,12 @@ static NSString* PARSE_APP_ID = @"ID_VENTUREAWESOMEAPP";
 static NSString* PARSE_MASTER_KEY = @"KEY_VENTUREAWESOMEAPP";
 static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/parse";
 
+static const NSUInteger kQuerySize = 10;
+
+@interface APIManager()
+@property (strong, nonatomic) NSDate *lastQueryDate;
+@end
+
 @implementation APIManager
 + (instancetype)shared {
     static APIManager* sharedManager = nil;
@@ -46,20 +52,23 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
     
     // send request for place using ID
     [placesClient lookUpPlaceID:place.placeID
-                  callback:^(GMSPlace * _Nullable result, NSError * _Nullable error)
-                  {
-                      if(error == nil)
-                      {
-                          if(result != nil)
-                          {
-                              completion(result);
-                          }
-                      }
-                      else
-                      {
-                          NSLog(@"Error looking up place with ID '%@':%@", place.placeID, error.localizedDescription);
-                      }
-                  }
+                       callback:^(GMSPlace * _Nullable result, NSError * _Nullable error)
+     {
+         if(error == nil)
+         {
+             if(result != nil)
+             {
+                 completion(result);
+             }
+             else {
+                 NSLog(@"No result was returned");
+             }
+         }
+         else
+         {
+             NSLog(@"Error looking up place with ID '%@':%@", place.placeID, error.localizedDescription);
+         }
+     }
      ];
 }
 
@@ -107,9 +116,48 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
     }];
 }
 
+- (void)getNextGMSPlacesBatch:(void(^)(NSArray<GMSPlace *> *places))completion {
+    PFQuery *query = [PFQuery queryWithClassName:@"Place"];
+    query.limit = kQuerySize;
+    [query orderByDescending:@"createdAt"];
+    if (self.lastQueryDate != nil) {
+        [query whereKey:@"createdAt" lessThan:self.lastQueryDate];
+    }
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        Place *lastPlace = [objects lastObject];
+        self.lastQueryDate = lastPlace.createdAt;
+        if (error == nil && objects != nil) {
+            NSArray<Place *> *orderedObjects = [NSArray arrayWithArray:objects];
+            
+            Place *placeHolder = [[Place alloc] init];
+            NSMutableArray *places = [NSMutableArray arrayWithCapacity:kQuerySize];
+            for (int i = 0; i < orderedObjects.count; i++) {
+                [places addObject:placeHolder];
+            }
+            
+            __block NSUInteger count = 0;
+            for (int i = 0; i < orderedObjects.count; ++i) {
+                Place *myPlace = orderedObjects[i];
+                
+                // convert each Place to a GMSPlace
+                [self GMSPlaceFromPlace:myPlace withCompletion:^(GMSPlace *place) {
+                    [places replaceObjectAtIndex:i withObject:place];
+                    count++;
+                    if (count == objects.count) {
+                        [places removeObjectIdenticalTo:placeHolder];
+                        completion(places);
+                    }
+                }];
+            }
+        } else {
+            NSLog(@"Error getting all places");
+        }
+    }];
+}
+            
 // gets the GMSPlacePhotoMetadata for the first ten images
 - (void)getPhotoMetadata:(NSString *)placeID :(void(^)(NSArray<GMSPlacePhotoMetadata *> *photoMetadata))completion {
-    
     [[GMSPlacesClient sharedClient] lookUpPhotosForPlaceID:placeID callback:^(GMSPlacePhotoMetadataList *_Nullable photos, NSError *_Nullable error) {
         
         if (error) {
@@ -128,7 +176,7 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
         }
     }];
 }
-
+            
 - (void)getAllUsers:(void(^)(NSArray<PFUser*>* users))completion {
     PFQuery *query = [PFUser query];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {

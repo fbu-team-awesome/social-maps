@@ -32,7 +32,6 @@
 }
 
 -(void)loadFirstImage:(NSArray<GMSPlacePhotoMetadata *> *)photoMetadata {
-    
     GMSPlacePhotoMetadata *firstPhoto = photoMetadata.firstObject;
     
     [[GMSPlacesClient sharedClient]
