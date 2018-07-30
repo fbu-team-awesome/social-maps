@@ -65,6 +65,7 @@
     newUser.username = self.usernameField.text;
     newUser.password = self.passwordField.text;
     newUser.email = email;
+    newUser.profilePicture = [ParseImageHelper getPFFileFromImage:self.profileImage.image];
     newUser.displayName = displayName;
     newUser.hometown = hometown;
     newUser.bio = bio;
@@ -75,13 +76,6 @@
     
     newUser.relationships.followers = [NSMutableArray new];
     newUser.relationships.following = [NSMutableArray new];
-    
-    if (self.profileImage.image) {
-        newUser.profilePicture = [ParseImageHelper getPFFileFromImage:self.profileImage.image];
-    }
-    else {
-        newUser.profilePicture = [ParseImageHelper getPFFileFromImage:[UIImage imageNamed:@"default-profile-pic"]];
-    }
     
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {

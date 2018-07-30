@@ -20,22 +20,12 @@
 - (void)configureCell {
     self.nameLabel.text = self.user.displayName;
     self.cityLabel.text = self.user.hometown;
-    self.usernameLabel.text = self.user.username;
-    [self setProfilePic];
-}
-
-- (void)setProfilePic {
     if (self.user.profilePicture == nil) {
         self.profilePicture.image = nil;
     } else {
         [ParseImageHelper setImageFromPFFile:self.user.profilePicture forImageView:self.profilePicture];
     }
-    self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width/2;
-    self.profilePicture.clipsToBounds = YES;
-    self.profilePicture.layer.borderWidth = 2.0f;
-    self.profilePicture.layer.borderColor = [[UIColor whiteColor] CGColor];
-    
-    
+    self.usernameLabel.text = self.user.username;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
