@@ -12,6 +12,7 @@
 #import "ResultsTableViewController.h"
 #import "NCHelper.h"
 #import "MarkerManager.h"
+#import "Marker.h"
 
 @interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate>
 
@@ -41,9 +42,9 @@
 
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(setNewFavoritePin:)];
-    // [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(updatePins:)];
+    [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(removeFavoritePin:)];
     [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(setNewWishlistPin:)];
-    // [NCHelper addObserver:self type:NTRemoveFromWishlist selector:@selector(updatePins:)];
+    [NCHelper addObserver:self type:NTRemoveFromWishlist selector:@selector(removeWishlistPin:)];
     [NCHelper addObserver:self type:NTNewFollow selector:@selector(setNewFollowPins:)];
 }
 
@@ -218,6 +219,34 @@
             marker.map = self.mapView;
         }
     }];
+}
+
+#pragma - Remove pins from dictionary when notification is receieved
+
+- (void)removeFavoritePin:(NSNotification *)notification {
+    NSMutableArray *favoritesArray = [self.markerManager.markersByMarkerType valueForKey:@"favorites"];
+    for (NSUInteger i = favoritesArray.count; i > 0; i--) {
+        GMSMarker *thisGMSMarker = favoritesArray[i-1];
+        Marker *thisMarker = thisGMSMarker.userData;
+        GMSPlace *thisPlace = notification.object;
+        if ([thisMarker.place.placeID isEqualToString:thisPlace.placeID]) {
+            [favoritesArray removeObjectAtIndex:(i-1)];
+            thisGMSMarker.map = nil;
+        }
+    }
+}
+
+- (void)removeWishlistPin:(NSNotification *)notification {
+    NSMutableArray *wishlistArray = [self.markerManager.markersByMarkerType valueForKey:@"wishlist"];
+    for (NSUInteger i = wishlistArray.count; i > 0; i--) {
+        GMSMarker *thisGMSMarker = wishlistArray[i-1];
+        Marker *thisMarker = thisGMSMarker.userData;
+        GMSPlace *thisPlace = notification.object;
+        if ([thisMarker.place.placeID isEqualToString:thisPlace.placeID]) {
+            [wishlistArray removeObjectAtIndex:(i-1)];
+            thisGMSMarker.map = nil;
+        }
+    }
 }
 
 #pragma mark - Navigation
