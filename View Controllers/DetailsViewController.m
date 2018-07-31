@@ -8,6 +8,8 @@
 
 #import "DetailsViewController.h"
 #import "NCHelper.h"
+#import "PFUser+ExtendedUser.h"
+#import "Place.h"
 
 @interface DetailsViewController () <GMSMapViewDelegate>
 // Outlet Definitions //
@@ -23,7 +25,7 @@
 @property (strong, nonatomic) GMSPlace *place;
 @property (strong, nonatomic) Place *parsePlace;
 @property (strong, nonatomic) GMSMapView *mapView;
-@property (strong, nonatomic) NSArray <PFUser *>* usersCheckedIn;
+@property (strong, nonatomic) NSArray<PFUser *> *usersCheckedIn;
 @end
 
 @implementation DetailsViewController
@@ -76,34 +78,35 @@
 }
 
 - (void)initUsersLabel {
-    [self.parsePlace getUsersCheckedInWithCompletion:^(NSArray<PFUser *> * _Nullable users) {
-        //make a copy of the checked in users
-        NSMutableArray *mutableUsers = [[NSMutableArray alloc] init];
-        PFUser *myUser = PFUser.currentUser;
-        for (PFUser *user in users) {
-            //don't copy current user
-            if (![user.username isEqualToString:myUser.username]) {
-                [mutableUsers addObject:user];
+    [self.parsePlace getUsersCheckedInWithCompletion:^(NSArray<NSString *> * _Nullable users) {
+        self.usersCheckedIn = [[NSArray alloc] init];
+        
+        //init array of user objects from object ids
+        NSMutableArray *mutableUsers = [users mutableCopy];
+        NSString *myUserObjectId = PFUser.currentUser.objectId;
+        
+        //remove self from array
+        if ([mutableUsers containsObject:myUserObjectId]) {
+            [mutableUsers removeObject:myUserObjectId];
+        }
+        
+        //convert array of object IDs to array of PFUsers
+        [PFUser retrieveUsersWithIDs:[mutableUsers copy] withCompletion:^(NSArray<PFUser *> *userObjects) {
+            self.usersCheckedIn = userObjects;
+            long usersCount = self.usersCheckedIn.count - 2;
+            
+            //display names of the first 2 users
+            if (self.usersCheckedIn.count == 0) {
+                self.usersLabel.text = @"None of your friends have checked in here.";
+            } else if (self.usersCheckedIn.count == 1) {
+                self.usersLabel.text = [NSString stringWithFormat:@"%@ has checked in here.",self.usersCheckedIn[0].displayName];
+            } else if (self.usersCheckedIn.count == 2) {
+                self.usersLabel.text = [NSString stringWithFormat:@"%@ and %@ have checked in here.",self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName];
+            } else {
+                self.usersLabel.text = [NSString stringWithFormat:@"%@, %@, and %ld have checked in here.", self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName, usersCount];
             }
-        }
-        //store array without current user
-        self.usersCheckedIn = [mutableUsers copy];
-        
-        long usersCount = self.usersCheckedIn.count - 2;
-        
-        //display names of the first 2 users
-        if (self.usersCheckedIn.count == 0) {
-            self.usersLabel.text = @"None of your friends have checked in here.";
-        } else if (self.usersCheckedIn.count == 1) {
-            self.usersLabel.text = [NSString stringWithFormat:@"%@ has checked in here.",self.usersCheckedIn[0].username];
-        } else if (self.usersCheckedIn.count == 2) {
-            self.usersLabel.text = [NSString stringWithFormat:@"%@ and %@ have checked in here.",self.usersCheckedIn[0].username, self.usersCheckedIn[1].username];
-        } else {
-            self.usersLabel.text = [NSString stringWithFormat:@"%@, %@, and %ld have checked in here.", self.usersCheckedIn[0].username, self.usersCheckedIn[1].username, usersCount];
-        }
-                                
+        }];
     }];
-    
 }
 
 - (IBAction)didTapFavorite:(id)sender {
