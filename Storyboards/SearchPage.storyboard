@@ -60,6 +60,7 @@
                                                             <state key="normal" image="favorite_unselected">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <state key="selected" image="favorite_selected"/>
                                                             <connections>
                                                                 <action selector="didTapFavorite:" destination="po7-1g-UQF" eventType="touchUpInside" id="pdR-gu-303"/>
                                                             </connections>
@@ -73,6 +74,7 @@
                                                             <state key="normal" image="wishlist_unselected">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <state key="selected" image="wishlist_selected"/>
                                                             <connections>
                                                                 <action selector="didTapWishlist:" destination="po7-1g-UQF" eventType="touchUpInside" id="dsi-1p-PSo"/>
                                                             </connections>
@@ -104,8 +106,10 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="addressLabel" destination="apw-pG-tQt" id="LqK-iP-y98"/>
+                                            <outlet property="favoriteButton" destination="S6S-RU-tUj" id="bcI-vI-U6K"/>
                                             <outlet property="nameLabel" destination="fqw-hh-BCz" id="8xP-BX-7LJ"/>
                                             <outlet property="placeImage" destination="tRd-un-qxi" id="RQS-Cq-Ozj"/>
+                                            <outlet property="wishlistButton" destination="mBD-ak-684" id="5LR-Yc-tLO"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserResultCell" rowHeight="124" id="5I8-P5-AHK" customClass="UserResultCell">
@@ -253,7 +257,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="favorite_selected" width="38" height="36"/>
         <image name="favorite_unselected" width="38" height="36"/>
+        <image name="wishlist_selected" width="23" height="40"/>
         <image name="wishlist_unselected" width="24" height="40"/>
         <namedColor name="VTR_Background">
             <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
