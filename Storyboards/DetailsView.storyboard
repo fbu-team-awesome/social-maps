@@ -200,6 +200,7 @@
                         <outlet property="favoriteButton" destination="2sB-TQ-YH0" id="3bC-CG-fB8"/>
                         <outlet property="placeNameLabel" destination="z5R-BN-ECD" id="jwA-9x-1UX"/>
                         <outlet property="placeView" destination="EV2-CO-0DA" id="uhh-Uu-mGf"/>
+                        <outlet property="userPicsView" destination="g0Q-Yw-iPm" id="8ot-mR-Fr9"/>
                         <outlet property="usersLabel" destination="btR-gd-Zn8" id="xfj-bb-W7n"/>
                         <outlet property="wishlistButton" destination="Tcv-BM-Wmg" id="6ud-Fh-aeh"/>
                     </connections>

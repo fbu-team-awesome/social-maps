@@ -10,6 +10,7 @@
 #import "NCHelper.h"
 #import "PFUser+ExtendedUser.h"
 #import "Place.h"
+#import "ParseImageHelper.h"
 
 @interface DetailsViewController () <GMSMapViewDelegate>
 // Outlet Definitions //
@@ -20,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UIButton *wishlistButton;
 @property (weak, nonatomic) IBOutlet UILabel *usersLabel;
+@property (weak, nonatomic) IBOutlet UIView *userPicsView;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -59,7 +61,7 @@
     self.placeNameLabel.text = self.place.name;
     self.addressLabel.text = self.place.formattedAddress;
     [self updateCheckInLabel];
-    [self initUsersLabel];
+    [self initUsersCheckedIn];
     
     // update the map
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.place.coordinate.latitude longitude:self.place.coordinate.longitude zoom:15];
@@ -77,7 +79,7 @@
     _place = place;
 }
 
-- (void)initUsersLabel {
+- (void)initUsersCheckedIn {
     [self.parsePlace getUsersCheckedInWithCompletion:^(NSArray<NSString *> * _Nullable users) {
         self.usersCheckedIn = [[NSArray alloc] init];
         
@@ -103,7 +105,26 @@
             } else if (self.usersCheckedIn.count == 2) {
                 self.usersLabel.text = [NSString stringWithFormat:@"%@ and %@ have checked in here.",self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName];
             } else {
-                self.usersLabel.text = [NSString stringWithFormat:@"%@, %@, and %ld have checked in here.", self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName, usersCount];
+                self.usersLabel.text = [NSString stringWithFormat:@"%@, %@, and %ld others have checked in here.", self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName, usersCount];
+            }
+            
+            //display profile pics of first 5 users
+            int i = 0;
+            while(i < 5 && i < self.usersCheckedIn.count){
+                //create image view
+                UIImageView *userPicView = [[UIImageView alloc] initWithFrame:CGRectMake(i*48, 0, 40, 40)];
+                userPicView.backgroundColor = [UIColor colorNamed:@"VTR_GrayLabel"];
+
+                //add profile picture
+                [ParseImageHelper setImageFromPFFile:self.usersCheckedIn[i].profilePicture forImageView:userPicView];
+                
+                //rounded corners
+                userPicView.layer.cornerRadius = userPicView.frame.size.width / 2;
+                userPicView.clipsToBounds = YES;
+                
+                //add image to subview
+                [self.userPicsView addSubview:userPicView];
+                i++;
             }
         }];
     }];
