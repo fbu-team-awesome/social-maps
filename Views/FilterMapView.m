@@ -10,14 +10,12 @@
 
 @implementation FilterMapView
 
-- (void)initView {
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button addTarget:self action:@selector(toFilterList:) forControlEvents:UIControlEventTouchDown];
-    [button setTitle:@"Filters" forState:UIControlStateNormal];
-    button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
-    [self addSubview:button];
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
 }
-
+*/
 
 @end

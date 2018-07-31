@@ -7,9 +7,15 @@
 //
 
 #import "FilterListViewController.h"
-#import 
+#import "MarkerManager.h"
+#import "FilterCheckboxCell.h"
 
 @interface FilterListViewController ()
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) MarkerManager *markerManager;
+@property (strong, nonatomic) NSArray *sections;
+@property (strong, nonatomic) NSArray *filterNames;
 
 @end
 
@@ -17,30 +23,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.sections = @[@"Your Lists", @"Your Follows", @"Place Categories"];
+    self.markerManager = [MarkerManager shared];
+    self.filterNames = [self.markerManager.filters allKeys];
+    self.tableView.allowsSelection = NO;
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.tableView reloadData];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    <#code#>
+    FilterCheckboxCell *checkboxCell = [tableView dequeueReusableCellWithIdentifier:@"CheckboxCell" forIndexPath:indexPath];
+    
+    checkboxCell.list = self.filterNames[indexPath.row];
+    checkboxCell.selected = [self.markerManager.filters objectForKey:self.filterNames[indexPath.row]];
+    [checkboxCell configureCell];
+    
+    return checkboxCell;
+    
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    <#code#>
+    if (section == 0) {
+        return 2;
+    }
+    else if (section == 1) {
+        return 1;
+    }
+    return self.markerManager.filters.count - 3;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.sections.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return self.sections[section];
 }
 
 @end

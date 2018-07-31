@@ -22,7 +22,6 @@
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) ResultsTableViewController <UISearchResultsUpdating>* resultsViewController;
-@property (strong, nonatomic) MarkerManager *markerManager;
 @property (nonatomic, assign) BOOL userPlacesRetrieved;
 @property (nonatomic, assign) BOOL followPlacesRetrieved;
 
@@ -32,8 +31,6 @@
 
 - (void)viewDidLoad {
     self.definesPresentationContext = true;
-    
-    self.markerManager = [MarkerManager new];
     
     [self addNotificationObservers];
     [self initMap];
@@ -68,8 +65,8 @@
     self.mapView.delegate = self;
     
     // initialize marker dictionaries
-    [self.markerManager initMarkerDictionaries];
-    [self.markerManager initDefaultFilters];
+    [[MarkerManager shared] initMarkerDictionaries];
+    [[MarkerManager shared] initDefaultFilters];
     
     self.userPlacesRetrieved = NO;
     self.followPlacesRetrieved = NO;
@@ -119,7 +116,8 @@
                 [user retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
                     // add each place to map
                     for (GMSPlace *place in places) {
-                        [self.markerManager setFavoriteOfFollowingPin:place :user];
+                        
+                        [[MarkerManager shared] setFavoriteOfFollowingPin:place :user];
                     }
                     completion();
                 }];
@@ -137,7 +135,7 @@
      ^(NSArray<GMSPlace*>* places)
      {
          for (GMSPlace * place in places) {
-             [self.markerManager setFavoritePin:place];
+             [[MarkerManager shared] setFavoritePin:place];
          }
          completion();
      }];
@@ -147,7 +145,7 @@
      ^(NSArray<GMSPlace*>* places)
      {
          for (GMSPlace *place in places) {
-             [self.markerManager setWishlistPin:place];
+             [[MarkerManager shared]setWishlistPin:place];
          }
          completion();
      }];
@@ -188,10 +186,11 @@
 - (void)addPinsToMap {
     [self.mapView clear];
     NSMutableArray<GMSMarker *> *currentPins = [NSMutableArray new];
-    for (NSString *key in self.markerManager.filters) {
-        if ([[self.markerManager.filters valueForKey:key] boolValue]) {
-            [currentPins addObjectsFromArray:[self.markerManager.markersByPlaceType valueForKey:key]];
-            [currentPins addObjectsFromArray:[self.markerManager.markersByMarkerType valueForKey:key]];
+    MarkerManager *markerManager = [MarkerManager shared];
+    for (NSString *key in markerManager.filters) {
+        if ([[markerManager.filters valueForKey:key] boolValue]) {
+            [currentPins addObjectsFromArray:[markerManager.markersByPlaceType valueForKey:key]];
+            [currentPins addObjectsFromArray:[markerManager.markersByMarkerType valueForKey:key]];
         }
     }
     for (GMSMarker *marker in currentPins) {
@@ -202,12 +201,12 @@
 #pragma - Add pins to dictionaries and map when notification is receieved
 
 - (void)setNewFavoritePin:(NSNotification *)notification {
-    GMSMarker *marker = [self.markerManager setFavoritePin:notification.object];
+    GMSMarker *marker = [[MarkerManager shared] setFavoritePin:notification.object];
     marker.map = self.mapView;
 }
 
 - (void)setNewWishlistPin:(NSNotification *)notification {
-    GMSMarker *marker = [self.markerManager setWishlistPin:notification.object];
+    GMSMarker *marker = [[MarkerManager shared] setWishlistPin:notification.object];
     marker.map = self.mapView;
 }
 
@@ -215,16 +214,18 @@
     [notification.object retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
         // add each place to map
         for (GMSPlace *place in places) {
-            GMSMarker *marker = [self.markerManager setFavoriteOfFollowingPin:place :notification.object];
+            GMSMarker *marker = [[MarkerManager shared] setFavoriteOfFollowingPin:place :notification.object];
             marker.map = self.mapView;
         }
     }];
 }
 
+
 #pragma - Remove pins from dictionary when notification is receieved
 
 - (void)removeFavoritePin:(NSNotification *)notification {
-    NSMutableArray *favoritesArray = [self.markerManager.markersByMarkerType valueForKey:@"favorites"];
+    MarkerManager *markerManager = [MarkerManager shared];
+    NSMutableArray *favoritesArray = [markerManager.markersByMarkerType valueForKey:@"favorites"];
     for (NSUInteger i = favoritesArray.count; i > 0; i--) {
         GMSMarker *thisGMSMarker = favoritesArray[i-1];
         Marker *thisMarker = thisGMSMarker.userData;
@@ -237,7 +238,8 @@
 }
 
 - (void)removeWishlistPin:(NSNotification *)notification {
-    NSMutableArray *wishlistArray = [self.markerManager.markersByMarkerType valueForKey:@"wishlist"];
+    MarkerManager *markerManager = [MarkerManager shared];
+    NSMutableArray *wishlistArray = [markerManager.markersByMarkerType valueForKey:@"wishlist"];
     for (NSUInteger i = wishlistArray.count; i > 0; i--) {
         GMSMarker *thisGMSMarker = wishlistArray[i-1];
         Marker *thisMarker = thisGMSMarker.userData;

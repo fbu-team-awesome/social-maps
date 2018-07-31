@@ -10,6 +10,15 @@
 #import "Marker.h"
 
 @implementation MarkerManager
++ (instancetype)shared {
+    static MarkerManager* sharedManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedManager = [[self alloc] init];
+    });
+    
+    return sharedManager;
+}
 
 - (void)initMarkerDictionaries {
     self.markersByMarkerType = [NSMutableDictionary new];

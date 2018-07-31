@@ -30,4 +30,6 @@ typedef enum MarkerType : NSUInteger {
 - (GMSMarker *)setWishlistPin:(GMSPlace *)place;
 - (GMSMarker *)setFavoriteOfFollowingPin:(GMSPlace *)place :(PFUser *)user;
 
++ (instancetype)shared;
+
 @end
