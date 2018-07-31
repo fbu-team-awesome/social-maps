@@ -13,6 +13,7 @@
 #import "NCHelper.h"
 #import "MarkerManager.h"
 #import "Marker.h"
+#import "MapMarkerWindow.h"
 
 @interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate>
 
@@ -25,6 +26,8 @@
 @property (strong, nonatomic) MarkerManager *markerManager;
 @property (nonatomic, assign) BOOL userPlacesRetrieved;
 @property (nonatomic, assign) BOOL followPlacesRetrieved;
+@property (strong, nonatomic) MapMarkerWindow *infoWindow;
+@property (strong, nonatomic) GMSMarker *locationMarker;
 
 @end
 
@@ -199,7 +202,7 @@
     }
 }
 
-#pragma - Add pins to dictionaries and map when notification is receieved
+#pragma mark - Add pins to dictionaries and map when notification is receieved
 
 - (void)setNewFavoritePin:(NSNotification *)notification {
     GMSMarker *marker = [self.markerManager setFavoritePin:notification.object];
@@ -221,7 +224,7 @@
     }];
 }
 
-#pragma - Remove pins from dictionary when notification is receieved
+#pragma mark - Remove pins from dictionary when notification is receieved
 
 - (void)removeFavoritePin:(NSNotification *)notification {
     NSMutableArray *favoritesArray = [self.markerManager.markersByMarkerType valueForKey:@"favorites"];
@@ -257,4 +260,16 @@
     DetailsViewController *detailsController = (DetailsViewController *)[segue destinationViewController];
     [detailsController setPlace:sender];
 }
+
+#pragma mark - Marker Windows
+
+- (MapMarkerWindow *) loadNib {
+    MapMarkerWindow *markerWindow = (MapMarkerWindow *)[MapMarkerWindow instanceFromNib];
+    return markerWindow;
+}
+
+- (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
+    return false;
+}
+
 @end

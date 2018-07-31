@@ -8,11 +8,14 @@
 
 #import "MapMarkerWindow.h"
 
-@implementation MapMarkerWindow
+@implementation MapMarkerWindow 
 
 - (IBAction)didTapView:(id)sender {
     [self.delegate didTapInfo:self.place];
 }
 
++ (UIView *) instanceFromNib{
+    return (UIView *)[[NSBundle mainBundle] loadNibNamed:@"MarkerWindow" owner:self options:nil];
+}
 
 @end
