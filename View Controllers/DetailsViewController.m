@@ -81,8 +81,8 @@
     [self.parsePlace getUsersCheckedInWithCompletion:^(NSArray<NSString *> * _Nullable users) {
         self.usersCheckedIn = [[NSArray alloc] init];
         
-        //init array of user objects from object ids
-        NSMutableArray *mutableUsers = [users mutableCopy];
+        //init set of user objects from object ids; we only want unique users
+        NSMutableSet *mutableUsers = [NSMutableSet setWithArray:users];
         NSString *myUserObjectId = PFUser.currentUser.objectId;
         
         //remove self from array
@@ -91,7 +91,7 @@
         }
         
         //convert array of object IDs to array of PFUsers
-        [PFUser retrieveUsersWithIDs:[mutableUsers copy] withCompletion:^(NSArray<PFUser *> *userObjects) {
+        [PFUser retrieveUsersWithIDs:[mutableUsers allObjects] withCompletion:^(NSArray<PFUser *> *userObjects) {
             self.usersCheckedIn = userObjects;
             long usersCount = self.usersCheckedIn.count - 2;
             
