@@ -7,18 +7,32 @@
 //
 
 #import "AdditionFeedCell.h"
+#import "ParseImageHelper.h"
+
+@interface AdditionFeedCell ()
+@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *profilePictureImage;
+@property (strong, nonatomic) ListAdditionEvent *event;
+@end
 
 @implementation AdditionFeedCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)initUI {
+    // set up content formatting
+    NSString *listType = (self.event.type == LTFavorite ? @"favorites" : @"wishlist");
+    NSString *content = [NSString stringWithFormat:@"%@ just added '%@' to their %@!", self.event.user.displayName, self.event.place.placeName, listType];
+    
+    // update UI
+    self.contentLabel.text = content;
+    [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
 }
 
+- (void)setEvent:(ListAdditionEvent *)event {
+    _event = event;
+    [self initUI];
+}
 @end
