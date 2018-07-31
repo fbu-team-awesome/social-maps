@@ -94,7 +94,7 @@
                                 <color key="color" name="VTR_BlackLabel"/>
                             </activityIndicatorView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="laX-tE-8Bk">
-                                <rect key="frame" x="24" y="166" width="327" height="65"/>
+                                <rect key="frame" x="24" y="166" width="327" height="103"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi! This is my bio. I love so and so places. Lorem ipsum dolor sit amet." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TkC-qT-sCg">
                                         <rect key="frame" x="0.0" y="0.0" width="300.5" height="33"/>
@@ -105,8 +105,15 @@
                                         <color key="textColor" name="VTR_BlackLabel"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2GD-kN-64c">
+                                        <rect key="frame" x="0.0" y="41" width="35" height="30"/>
+                                        <state key="normal" title="Filter"/>
+                                        <connections>
+                                            <segue destination="GEx-wZ-t3Q" kind="show" id="qgm-DI-drM"/>
+                                        </connections>
+                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="V4A-X0-NNA">
-                                        <rect key="frame" x="0.0" y="41" width="141" height="24"/>
+                                        <rect key="frame" x="0.0" y="79" width="141" height="24"/>
                                         <subviews>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qx2-qN-5vy">
                                                 <rect key="frame" x="0.0" y="0.0" width="62" height="24"/>
@@ -136,7 +143,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLM-mN-M1T">
-                                <rect key="frame" x="0.0" y="247" width="375" height="56"/>
+                                <rect key="frame" x="0.0" y="285" width="375" height="56"/>
                                 <subviews>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wa7-5R-Sot">
                                         <rect key="frame" x="302" y="12.5" width="51" height="31"/>
@@ -171,13 +178,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mIX-UM-qy7">
-                                <rect key="frame" x="0.0" y="303" width="375" height="364"/>
+                                <rect key="frame" x="0.0" y="341" width="375" height="326"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LcL-eY-fb3">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="364"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="326"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1wX-mj-TVr">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="364"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="326"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileListCell" rowHeight="110" id="7rg-jY-HTT" customClass="ProfileListCell">
@@ -309,6 +316,14 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="517.60000000000002" y="102.99850074962519"/>
+        </scene>
+        <!--FilterList-->
+        <scene sceneID="dhm-Zr-wtd">
+            <objects>
+                <viewControllerPlaceholder storyboardName="FilterList" id="GEx-wZ-t3Q" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MOq-pu-DGl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="395" y="504"/>
         </scene>
         <!--Relationships View Controller-->
         <scene sceneID="o1H-IQ-jwD">

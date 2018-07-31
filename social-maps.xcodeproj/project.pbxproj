@@ -12,6 +12,10 @@
 		0130163520EFDE650010FD04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0130163420EFDE650010FD04 /* Assets.xcassets */; };
 		0130163820EFDE650010FD04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0130163620EFDE650010FD04 /* LaunchScreen.storyboard */; };
 		0130163B20EFDE650010FD04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0130163A20EFDE650010FD04 /* main.m */; };
+		0144075121111717001F67BD /* FilterMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0144075021111717001F67BD /* FilterMapView.m */; };
+		014407532111172D001F67BD /* FilterList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 014407522111172D001F67BD /* FilterList.storyboard */; };
+		0144075621111748001F67BD /* FilterListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0144075521111748001F67BD /* FilterListViewController.m */; };
+		0144075C21111A5A001F67BD /* FilterCheckboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0144075B21111A5A001F67BD /* FilterCheckboxCell.m */; };
 		015C3342210BCA960065F927 /* MarkerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3341210BCA960065F927 /* MarkerManager.m */; };
 		015C3345210F71AC0065F927 /* Marker.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3344210F71AC0065F927 /* Marker.m */; };
 		018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */; };
@@ -58,6 +62,13 @@
 		0130163720EFDE650010FD04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0130163920EFDE650010FD04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0130163A20EFDE650010FD04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0144074F21111717001F67BD /* FilterMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterMapView.h; sourceTree = "<group>"; };
+		0144075021111717001F67BD /* FilterMapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterMapView.m; sourceTree = "<group>"; };
+		014407522111172D001F67BD /* FilterList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FilterList.storyboard; sourceTree = "<group>"; };
+		0144075421111748001F67BD /* FilterListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterListViewController.h; sourceTree = "<group>"; };
+		0144075521111748001F67BD /* FilterListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterListViewController.m; sourceTree = "<group>"; };
+		0144075A21111A5A001F67BD /* FilterCheckboxCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterCheckboxCell.h; sourceTree = "<group>"; };
+		0144075B21111A5A001F67BD /* FilterCheckboxCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterCheckboxCell.m; sourceTree = "<group>"; };
 		015C3340210BCA960065F927 /* MarkerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkerManager.h; sourceTree = "<group>"; };
 		015C3341210BCA960065F927 /* MarkerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkerManager.m; sourceTree = "<group>"; };
 		015C3343210F71AC0065F927 /* Marker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Marker.h; sourceTree = "<group>"; };
@@ -176,6 +187,7 @@
 				0130163620EFDE650010FD04 /* LaunchScreen.storyboard */,
 				9EF4E3D320FE66C6005535C6 /* Profile.storyboard */,
 				1C5BC861210A581100F67574 /* MarkerWindow.xib */,
+				014407522111172D001F67BD /* FilterList.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -197,6 +209,10 @@
 				9E6755E421012DF10056D009 /* ProfileListCell.m */,
 				1C5BC863210A621500F67574 /* MapMarkerWindow.h */,
 				1C5BC864210A621500F67574 /* MapMarkerWindow.m */,
+				0144074F21111717001F67BD /* FilterMapView.h */,
+				0144075021111717001F67BD /* FilterMapView.m */,
+				0144075A21111A5A001F67BD /* FilterCheckboxCell.h */,
+				0144075B21111A5A001F67BD /* FilterCheckboxCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -224,6 +240,8 @@
 				1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */,
 				1C9B05E321068CFC00FBF521 /* TabBarController.h */,
 				1C9B05E421068CFC00FBF521 /* TabBarController.m */,
+				0144075421111748001F67BD /* FilterListViewController.h */,
+				0144075521111748001F67BD /* FilterListViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -355,6 +373,7 @@
 				018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */,
 				317B3939210267900057079A /* SearchPage.storyboard in Resources */,
 				1C5BC862210A581100F67574 /* MarkerWindow.xib in Resources */,
+				014407532111172D001F67BD /* FilterList.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,9 +450,12 @@
 				01CA4A20210153230032C11F /* Relationships.m in Sources */,
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
 				015C3342210BCA960065F927 /* MarkerManager.m in Sources */,
+				0144075121111717001F67BD /* FilterMapView.m in Sources */,
+				0144075621111748001F67BD /* FilterListViewController.m in Sources */,
 				9EE973F4210281850056DCF2 /* ParseImageHelper.m in Sources */,
 				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
 				1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */,
+				0144075C21111A5A001F67BD /* FilterCheckboxCell.m in Sources */,
 				1C9B05E521068CFC00FBF521 /* TabBarController.m in Sources */,
 				018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */,
 				317B39342102677C0057079A /* SearchViewController.m in Sources */,
