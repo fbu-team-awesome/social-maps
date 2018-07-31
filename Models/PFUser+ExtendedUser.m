@@ -274,6 +274,20 @@
     }
 }
 
++ (void)getFollowingWithinUserArray:(NSArray <NSString*>*) objectIds withCompletion:(void(^)(NSArray <NSString*>*))completion{
+    [Relationships retrieveFollowingWithId:[PFUser currentUser].relationships.objectId WithCompletion:^(NSArray * _Nullable following) {
+        NSMutableArray *mutableUsers = [[NSMutableArray alloc] init];
+        NSSet *followingSet = [NSSet setWithArray:following];
+        
+        for (NSString *objectId in objectIds){
+            if ([followingSet containsObject:objectId]) {
+                [mutableUsers addObject:objectId];
+            }
+        }
+        completion([mutableUsers copy]);
+    }];
+}
+
 #pragma mark - Check-in Helper Methods
 
 - (void)addCheckIn:(NSString *)placeID withCompletion:(void(^)(void))completion{
