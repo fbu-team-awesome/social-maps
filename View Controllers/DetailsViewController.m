@@ -11,6 +11,7 @@
 #import "PFUser+ExtendedUser.h"
 #import "Place.h"
 #import "ParseImageHelper.h"
+#import "CheckInsViewController.h"
 
 @interface DetailsViewController () <GMSMapViewDelegate>
 // Outlet Definitions //
@@ -207,5 +208,12 @@
     [PFUser.currentUser retrieveCheckInCountForPlaceID:self.place.placeID withCompletion:^(NSNumber *count) {
         self.checkInLabel.text = [NSString stringWithFormat: @"%@ check-ins",[count stringValue]];
     }];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"checkInsSegue"]) {
+        CheckInsViewController *checkInsVC = [segue destinationViewController];
+        checkInsVC.users = self.usersCheckedIn;
+    }
 }
 @end
