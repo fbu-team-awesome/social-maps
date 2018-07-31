@@ -9,6 +9,7 @@
 #import "CheckInsViewController.h"
 #import "PFUser+ExtendedUser.h"
 #import "RelationshipListCell.h"
+#import "ProfileViewController.h"
 
 @interface CheckInsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -30,15 +31,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Profile" bundle:NSBundle.mainBundle];
+    ProfileViewController *profileVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
+    [profileVC setUser:self.users[indexPath.row]];
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
-*/
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     RelationshipListCell *userCell = [self.tableView dequeueReusableCellWithIdentifier:@"CheckInCell" forIndexPath:indexPath];
