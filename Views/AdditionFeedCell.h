@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ListAdditionEvent.h"
 
 @interface AdditionFeedCell : UITableViewCell
-
+- (void)setEvent:(ListAdditionEvent *)event;
 @end
