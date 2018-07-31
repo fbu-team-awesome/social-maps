@@ -18,12 +18,14 @@
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSArray<GMSPlace*>* places;
 @property (strong, nonatomic) NSArray<PFUser*>* users;
 @property (strong, nonatomic) NSArray *filteredPlaces;
 @property (strong, nonatomic) NSArray *filteredUsers;
 @property (assign, nonatomic) long segmentIndex;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
+
 @property (strong, nonatomic) NSArray<GMSPlacePhotoMetadata *> *photoMetadata;
 
 @end
@@ -40,7 +42,8 @@
     
     [self initSearch];
     [self setSegmentControlView];
-    [self fetchLists];
+    [self fetchPlaces];
+    [self fetchUsers];
     
     // set navbar color
     self.navigationItem.titleView = self.searchBar;
@@ -55,13 +58,21 @@
     }
 }
 
-- (void) fetchLists {
-    [[APIManager shared] getAllGMSPlaces:^(NSArray<GMSPlace*>* places) {
-        self.places = places;
+- (void)fetchPlaces {
+    [[APIManager shared] getNextGMSPlacesBatch :^(NSArray<GMSPlace *> *places) {
+        if (!self.places) {
+            self.places = places;
+        }
+        else {
+            self.places = [self.places arrayByAddingObjectsFromArray:places];
+        }
         self.filteredPlaces = self.places;
         [self.tableView reloadData];
+        self.isMoreDataLoading = NO;
     }];
-    
+}
+
+- (void)fetchUsers {
     [[APIManager shared] getAllUsers:^(NSArray<PFUser*>* users) {
         self.users = users;
         
@@ -178,7 +189,19 @@
     self.searchBar.showsCancelButton = YES;
 }
 
--(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (!self.isMoreDataLoading) {
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+        
+        if (scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+            self.isMoreDataLoading = YES;
+            [self fetchPlaces];
+        }
+    }
+}
+
+- (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
 }
 
