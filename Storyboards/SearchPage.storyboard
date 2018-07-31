@@ -39,8 +39,8 @@
                                                         <constraint firstAttribute="height" constant="68" id="hhf-b5-ZXw"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqw-hh-BCz">
-                                                    <rect key="frame" x="97" y="28" width="217" height="24"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqw-hh-BCz">
+                                                    <rect key="frame" x="97" y="28" width="209" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="Lmk-kN-wia"/>
                                                     </constraints>
@@ -49,30 +49,28 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="c3m-ce-eXf">
-                                                    <rect key="frame" x="322" y="24" width="30" height="76"/>
+                                                    <rect key="frame" x="314" y="27" width="30" height="76"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6S-RU-tUj">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6S-RU-tUj">
                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                            <color key="backgroundColor" name="VTR_Orange"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="Cuh-G2-x5o"/>
                                                                 <constraint firstAttribute="width" constant="30" id="DN0-Fc-9dq"/>
                                                             </constraints>
-                                                            <state key="normal" title="+">
+                                                            <state key="normal" image="favorite_unselected">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <connections>
                                                                 <action selector="didTapFavorite:" destination="po7-1g-UQF" eventType="touchUpInside" id="pdR-gu-303"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBD-ak-684">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBD-ak-684">
                                                             <rect key="frame" x="0.0" y="46" width="30" height="30"/>
-                                                            <color key="backgroundColor" name="VTR_Secondary"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="53H-Nc-bcf"/>
                                                                 <constraint firstAttribute="width" constant="30" id="Bi5-is-rvD"/>
                                                             </constraints>
-                                                            <state key="normal" title="+">
+                                                            <state key="normal" image="wishlist_unselected">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <connections>
@@ -81,8 +79,8 @@
                                                         </button>
                                                     </subviews>
                                                 </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="1234 Address St San Francsico CA " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apw-pG-tQt">
-                                                    <rect key="frame" x="97" y="51" width="216" height="63.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="1234 Address St San Francsico CA " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apw-pG-tQt">
+                                                    <rect key="frame" x="97" y="51" width="208" height="63.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" name="VTR_GrayLabel"/>
                                                     <nil key="highlightedColor"/>
@@ -90,12 +88,12 @@
                                             </subviews>
                                             <color key="backgroundColor" name="VTR_Background"/>
                                             <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="c3m-ce-eXf" secondAttribute="trailing" constant="16" id="1xq-8d-1cK"/>
                                                 <constraint firstItem="apw-pG-tQt" firstAttribute="top" secondItem="fqw-hh-BCz" secondAttribute="bottom" constant="-1" id="GFU-HK-HDi"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="c3m-ce-eXf" secondAttribute="bottom" priority="750" constant="16" id="P5y-bu-tAX"/>
                                                 <constraint firstItem="fqw-hh-BCz" firstAttribute="top" secondItem="oDF-Ou-GLt" secondAttribute="top" constant="28" id="WEN-no-jAc"/>
                                                 <constraint firstAttribute="bottom" secondItem="apw-pG-tQt" secondAttribute="bottom" constant="17" id="ekY-6e-cKG"/>
-                                                <constraint firstItem="c3m-ce-eXf" firstAttribute="trailing" secondItem="oDF-Ou-GLt" secondAttribute="trailingMargin" constant="-8" id="hI2-TL-A0e"/>
-                                                <constraint firstItem="c3m-ce-eXf" firstAttribute="top" secondItem="oDF-Ou-GLt" secondAttribute="topMargin" constant="13" id="iSr-fF-yq9"/>
+                                                <constraint firstItem="c3m-ce-eXf" firstAttribute="top" secondItem="oDF-Ou-GLt" secondAttribute="topMargin" constant="16" id="iSr-fF-yq9"/>
                                                 <constraint firstItem="tRd-un-qxi" firstAttribute="top" secondItem="oDF-Ou-GLt" secondAttribute="top" constant="28" id="kAq-40-WRw"/>
                                                 <constraint firstItem="c3m-ce-eXf" firstAttribute="leading" secondItem="apw-pG-tQt" secondAttribute="trailing" constant="9" id="l2z-v9-e8J"/>
                                                 <constraint firstItem="tRd-un-qxi" firstAttribute="leading" secondItem="oDF-Ou-GLt" secondAttribute="leading" constant="15" id="rx7-0o-Cwx"/>
@@ -255,26 +253,16 @@
         </scene>
     </scenes>
     <resources>
+        <image name="favorite_unselected" width="38" height="36"/>
+        <image name="wishlist_unselected" width="24" height="40"/>
         <namedColor name="VTR_Background">
             <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="VTR_Background">
-            <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="VTR_BlackLabel">
-            <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="VTR_BlackLabel">
             <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="VTR_GrayLabel">
             <color red="0.65098039215686276" green="0.65098039215686276" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="VTR_Orange">
-            <color red="1" green="0.72549019607843135" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="VTR_Secondary">
-            <color red="0.81176470588235294" green="0.39215686274509803" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
