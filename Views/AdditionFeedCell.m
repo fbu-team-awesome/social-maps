@@ -23,7 +23,15 @@
 
 - (void)initUI {
     // set up content formatting
-    NSString *listType = (self.event.type == LTFavorite ? @"favorites" : @"wishlist");
+    NSString *listType = nil;
+    if(self.event.listType == LTFavorite)
+    {
+        listType = @"favorites";
+    }
+    else
+    {
+        listType = @"wishlist";
+    }
     NSString *content = [NSString stringWithFormat:@"%@ just added '%@' to their %@!", self.event.user.displayName, self.event.place.placeName, listType];
     
     // update UI
@@ -33,6 +41,8 @@
 
 - (void)setEvent:(ListAdditionEvent *)event {
     _event = event;
-    [self initUI];
+    [self.event queryInfoWithCompletion:^{
+        [self initUI];
+    }];
 }
 @end
