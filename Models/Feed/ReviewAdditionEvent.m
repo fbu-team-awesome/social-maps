@@ -20,4 +20,22 @@
     [super setParseProperties];
     self.parseObject[@"review"] = self.review;
 }
+
+- (void)queryInfoWithCompletion:(void (^)(void))completion {
+    PFQuery *userQuery = [PFUser query];
+    [userQuery getObjectInBackgroundWithId:self.user.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        self.user = (PFUser *)object;
+        
+        PFQuery *placeQuery = [PFQuery queryWithClassName:@"Place"];
+        [placeQuery getObjectInBackgroundWithId:self.place.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            self.place = (Place *)object;
+            
+            PFQuery *reviewQuery = [PFQuery queryWithClassName:@"Review"];
+            [reviewQuery getObjectInBackgroundWithId:self.review.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+                self.review = (Review *)object;
+                completion();
+            }];
+        }];
+    }];
+}
 @end
