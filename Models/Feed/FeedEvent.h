@@ -24,5 +24,7 @@ FeedEventType;
 @property (nonatomic) FeedEventType eventType;
 
 - (instancetype)initWithParseObject:(PFObject *)object;
+- (void)setParseProperties;
+- (void)saveInBackground;
 - (void)queryInfoWithCompletion:(void(^)(void))completion;
 @end

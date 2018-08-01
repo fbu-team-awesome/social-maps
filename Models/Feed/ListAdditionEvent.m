@@ -11,14 +11,15 @@
 @implementation ListAdditionEvent
 @synthesize listType;
 
-- (void)saveParseObject {
-    PFObject *object = [PFObject objectWithClassName:@"FeedEvent"];
-    object[@"user"] = self.user;
-    object[@"place"] = self.place;
-    object[@"eventType"] = [NSNumber numberWithUnsignedInteger:self.eventType];
-    object[@"listType"] = [NSNumber numberWithUnsignedInteger:self.listType];
-    self.parseObject = object;
+- (instancetype)initWithParseObject:(PFObject *)object {
+    self = [super initWithParseObject:object];
+    self.listType = [object[@"listType"] unsignedIntegerValue];
     
-    [object saveInBackground];
+    return self;
+}
+
+- (void)setParseProperties {
+    [super setParseProperties];
+    self.parseObject[@"listType"] = [NSNumber numberWithUnsignedInteger:self.listType];
 }
 @end

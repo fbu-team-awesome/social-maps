@@ -40,7 +40,7 @@
                        event.eventType = ETListAddition;
                        event.listType = LTFavorite;
                        event.place = result;
-                       [event saveParseObject];
+                       [event saveInBackground];
                    }
                    else
                    {

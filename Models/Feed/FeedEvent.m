@@ -12,34 +12,25 @@
 
 @implementation FeedEvent
 - (instancetype)initWithParseObject:(PFObject *)object {
-    FeedEventType eventType = [object[@"eventType"] unsignedIntegerValue];
-
-    if(eventType == ETListAddition)
-    {
-        ListAdditionEvent *event = [[ListAdditionEvent alloc] init];
-        event.user = object[@"user"];
-        event.place = object[@"place"];
-        event.eventType = eventType;
-        event.listType = [object[@"listType"] unsignedIntegerValue];
-        event.parseObject = object;
-        
-        return (FeedEvent *)event;
-    }
-    else if(eventType == ETCheckin)
-    {
-        
-    }
-    
-    // otherwise, init normally
     self = [super init];
-    if(self)
-    {
-        self.user = object[@"user"];
-        self.place = object[@"place"];
-        self.eventType = [object[@"eventType"] unsignedIntegerValue];
-    }
+    self.parseObject = object;
+    self.user = object[@"user"];
+    self.place = object[@"place"];
+    self.eventType = [object[@"eventType"] unsignedIntegerValue];
     
     return self;
+}
+
+- (void)setParseProperties {
+    self.parseObject[@"user"] = self.user;
+    self.parseObject[@"place"] = self.place;
+    self.parseObject[@"eventType"] = [NSNumber numberWithUnsignedInteger:self.eventType];
+}
+
+- (void)saveInBackground {
+    self.parseObject = [PFObject objectWithClassName:@"FeedEvent"];
+    [self setParseProperties];
+    [self.parseObject saveInBackground];
 }
 
 - (void)queryInfoWithCompletion:(void (^)(void))completion {
