@@ -26,11 +26,64 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView setRowHeight:64];
+    [self fetchEvents];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)fetchEvents {
+    PFQuery *query = [PFQuery queryWithClassName:@"FeedEvent"];
+    PFUser *currentUser = [PFUser currentUser];
+    NSMutableArray<FeedEvent *> *totalEvents = [NSMutableArray new];
+    
+    // get events from current user
+    [query whereKey:@"user" equalTo:currentUser];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if(objects != nil)
+        {
+            for(PFObject *object in objects)
+            {
+                [totalEvents addObject:[[FeedEvent alloc] initWithParseObject:object]];
+            }
+            
+            // get the events from the user's following
+            [currentUser retrieveRelationshipWithCompletion:^(Relationships *relationship) {
+                if(relationship.following.count > 0)
+                {
+                    [PFUser retrieveUsersWithIDs:relationship.following
+                                  withCompletion:^(NSArray<PFUser *> *users) {
+                                      for(int i = 0; i < users.count; i++)
+                                      {
+                                          PFUser *user = users[i];
+                                          PFQuery *newQuery = [PFQuery queryWithClassName:@"FeedEvent"];
+                                          [newQuery whereKey:@"user" equalTo:user];
+                                          [newQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                                              for(PFObject *object in objects)
+                                              {
+                                                  [totalEvents addObject:[[FeedEvent alloc] initWithParseObject:object]];
+                                              }
+                                              
+                                              // if we're finished, sort the array by date (descending)
+                                              if(i == users.count - 1)
+                                              {
+                                                  [self sortEventsDescendingWithArray:[totalEvents copy]];
+                                                  [self.tableView reloadData];
+                                              }
+                                          }];
+                                      }
+                                  }];
+                }
+                else
+                {
+                    [self sortEventsDescendingWithArray:[totalEvents copy]];
+                    [self.tableView reloadData];
+                }
+            }];
+        }
+    }];
 }
 
 - (void)sortEventsDescendingWithArray:(NSArray *)arrayToSort {
