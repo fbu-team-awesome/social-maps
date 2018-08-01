@@ -18,5 +18,6 @@ ListType;
 @interface ListAdditionEvent : FeedEvent
 @property (nonatomic) ListType listType;
 
+- (instancetype)initWithParseObject:(PFObject *)object;
 - (void)saveParseObject;
 @end
