@@ -41,6 +41,7 @@
                        event.listType = LTFavorite;
                        event.place = result;
                        [event saveParseObject];
+                       [NCHelper notify:NTNewFeedEvent object:event];
                    }
                    else
                    {
@@ -84,6 +85,15 @@
                        self.wishlist = [mutableWishlist copy];
                        [self setObject:self.wishlist forKey:@"wishlist"];
                        [self saveInBackground];
+                       
+                       // create the feed event
+                       ListAdditionEvent *event = [[ListAdditionEvent alloc] init];
+                       event.user = self;
+                       event.eventType = ETListAddition;
+                       event.listType = LTWishlist;
+                       event.place = result;
+                       [event saveParseObject];
+                       [NCHelper notify:NTNewFeedEvent object:event];
                    }
                    else
                    {
