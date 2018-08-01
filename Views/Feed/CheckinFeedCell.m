@@ -7,6 +7,13 @@
 //
 
 #import "CheckinFeedCell.h"
+#import "ParseImageHelper.h"
+
+@interface CheckinFeedCell ()
+@property (weak, nonatomic) IBOutlet UIImageView *profilePictureImage;
+@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (strong, nonatomic) CheckInEvent *event;
+@end
 
 @implementation CheckinFeedCell
 
@@ -15,10 +22,23 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (void)initUI {
+    // set up content formatting
+    NSString *content = [NSString stringWithFormat:@"%@ just checked-in at '%@'!", self.event.user.displayName, self.event.place.placeName];
+    
+    // update UI
+    self.contentLabel.text = content;
+    [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
+}
 
-    // Configure the view for the selected state
+- (void)setEvent:(CheckInEvent *)event {
+    _event = event;
+    [event queryInfoWithCompletion:^{
+       if(event.user.isDataAvailable && event.place.isDataAvailable)
+       {
+           [self initUI];
+       }
+    }];
 }
 
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CheckInEvent.h"
 
 @interface CheckinFeedCell : UITableViewCell
-
+- (void)setEvent:(CheckInEvent *)event;
 @end
