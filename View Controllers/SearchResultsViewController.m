@@ -18,9 +18,7 @@
 @interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate, MarkerWindowDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *resultsView;
-@property (strong, nonatomic) UISearchController *searchController;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) IBOutlet MapMarkerWindow *markerWindowView;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *markerWindowGestureRecognizer;
@@ -30,15 +28,19 @@
 @property (nonatomic, assign) BOOL followPlacesRetrieved;
 @property (strong, nonatomic) MapMarkerWindow *infoWindow;
 @property (strong, nonatomic) GMSMarker *locationMarker;
+@property (strong, nonatomic) CLLocation *currentLocation;
+@property (strong, nonatomic) ResultsTableViewController <UISearchResultsUpdating>* resultsViewController;
+@property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) NSMutableDictionary<NSString*, GMSPlace*>* markers;
 
 @end
 
-@implementation SearchResultsViewController
+@implementation SearchResultsViewController {
+    
+}
 
 - (void)viewDidLoad {
     self.definesPresentationContext = true;
-    
-    self.markerManager = [MarkerManager new];
     
     [self addNotificationObservers];
     [self initMap];
@@ -46,11 +48,11 @@
 }
 
 - (void)addNotificationObservers {
-    [NCHelper addObserver:self type:NTAddFavorite selector:@selector(setNewFavoritePin:)];
-    [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(removeFavoritePin:)];
-    [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(setNewWishlistPin:)];
-    [NCHelper addObserver:self type:NTRemoveFromWishlist selector:@selector(removeWishlistPin:)];
-    [NCHelper addObserver:self type:NTNewFollow selector:@selector(setNewFollowPins:)];
+    [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
+    [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(updatePins:)];
+    [NCHelper addObserver:self type:NTAddToWishlist selector:@selector(addToWishlist:)];
+    [NCHelper addObserver:self type:NTRemoveFromWishlist selector:@selector(updatePins:)];
+    [NCHelper addObserver:self type:NTNewFollow selector:@selector(addPinsOfNewFollow:)];
 }
 
 - (void)initMap {
@@ -63,31 +65,23 @@
     [self.locationManager startUpdatingLocation];
     self.locationManager.delegate = self;
     
+    // create the map frame
+    CGRect mapFrame = self.view.bounds;
+    CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
+    mapFrame.size.height -= tabBarHeight;
+    
     // create map
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:0 longitude:0 zoom:6];
-    self.mapView = [GMSMapView mapWithFrame:self.view.bounds camera:camera];
+    self.mapView = [GMSMapView mapWithFrame:mapFrame camera:camera];
     self.mapView.settings.myLocationButton = YES;
     [self.mapView setMyLocationEnabled:YES];
     
     [self.resultsView addSubview:self.mapView];
     self.mapView.delegate = self;
     
-    // initialize marker dictionaries
-    [self.markerManager initMarkerDictionaries];
-    [self.markerManager initDefaultFilters];
-    
-    self.userPlacesRetrieved = NO;
-    self.followPlacesRetrieved = NO;
-    
-    // get the places and show on map based on filters
-    [self retrieveUserPlacesWithCompletion:^{
-        self.userPlacesRetrieved = YES;
-        [self addPinsIfFinished];
-    }];
-    [self retrievePlacesOfUsersFollowingWithCompletion:^{
-        self.followPlacesRetrieved = YES;
-        [self addPinsIfFinished];
-    }];
+    self.markers = [NSMutableDictionary new];
+    [self retrieveUserPlaces];
+    [self retrievePlacesOfUsersFollowing];
 }
 
 - (void)initSearch {
@@ -95,6 +89,7 @@
     
     _resultsViewController = [storyboard instantiateViewControllerWithIdentifier:@"ResultsTable"];
     _resultsViewController.delegate = self;
+    
     _searchController = [[UISearchController alloc] initWithSearchResultsController:_resultsViewController];
     _searchController.searchResultsUpdater = _resultsViewController;
     
@@ -103,37 +98,36 @@
     self.navigationItem.titleView = _searchController.searchBar;
     
     _searchController.hidesNavigationBarDuringPresentation = NO;
+    
 }
 
-- (void)addPinsIfFinished {
-    if (self.userPlacesRetrieved && self.followPlacesRetrieved) {
-        [self addPinsToMap];
-    }
-}
-
-- (void)retrievePlacesOfUsersFollowingWithCompletion:(void(^)(void))completion {
+- (void)retrievePlacesOfUsersFollowing {
+    
     // get the Relationships of the current user
     [PFUser.currentUser retrieveRelationshipWithCompletion:^(Relationships *relationships) {
+        
         // get array of users that current user is following
         [Relationships retrieveFollowingWithId:relationships.objectId WithCompletion:^(NSArray *following) {
+            
             for (NSString *userId in following) {
+                
                 // get the user that has id userId
                 PFUser *user = [PFUser retrieveUserWithId:userId];
                 
                 // get the favorites of each user
                 [user retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
+                    
                     // add each place to map
                     for (GMSPlace *place in places) {
-                        [self.markerManager setFavoriteOfFollowingPin:place :user];
+                        [self addFavoriteOfFollowingPin:place];
                     }
-                    completion();
                 }];
             }
         }];
     }];
 }
 
-- (void)retrieveUserPlacesWithCompletion:(void(^)(void))completion {
+- (void)retrieveUserPlaces {
     // clear map first
     [self.mapView clear];
     
@@ -141,49 +135,74 @@
     [PFUser.currentUser retrieveFavoritesWithCompletion:
      ^(NSArray<GMSPlace*>* places)
      {
+         //self.favorites = places;
          for (GMSPlace * place in places) {
-             [self.markerManager setFavoritePin:place];
+             [self addFavoritePin:place];
          }
-         completion();
-     }];
+     }
+     ];
     
     // retrieve wishlist
     [PFUser.currentUser retrieveWishlistWithCompletion:
      ^(NSArray<GMSPlace*>* places)
      {
          for (GMSPlace *place in places) {
-             [self.markerManager setWishlistPin:place];
+             [self addWishlistPin:place];
          }
-         completion();
-     }];
+     }
+     ];
 }
 
+
+
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
+    
     CLLocation* location = [locations lastObject];
     GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude zoom:15];
     self.mapView.camera = camera;
     [self.mapView animateToCameraPosition:camera];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    DetailsViewController *detailsController = (DetailsViewController *)[segue destinationViewController];
+    [detailsController setPlace:sender];
+}
+
 - (void)didSelectPlace:(GMSPlace *)place {
+    
     NSArray *whitelistedTypes = @[@"locality", @"cities", @"sublocality", @"country", @"continent"];
     BOOL isRegion = NO;
     
     for (NSString *type in place.types) {
+        
         if ([whitelistedTypes containsObject:type]) {
             isRegion = YES;
         }
     }
+    
     if (isRegion) {
+        
         NSLog(@"Is a location");
         GMSCameraPosition *newPosition = [GMSCameraPosition cameraWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude zoom:6];
         [self.mapView setCamera:newPosition];
         [self dismissViewControllerAnimated:YES completion:nil];
+        
     }
     else {
         [self performSegueWithIdentifier:@"toDetailsView" sender: place];
     }
 }
+- (void) addToFavorites:(NSNotification *) notification {
+    GMSPlace* place = (GMSPlace*)notification.object;
 
 - (void)addPinsToMap {
     [self.mapView clear];
@@ -204,19 +223,31 @@
 - (void)setNewFavoritePin:(NSNotification *)notification {
     GMSMarker *marker = [self.markerManager setFavoritePin:notification.object];
     marker.map = self.mapView;
+    // place pin
+    [self addFavoritePin:place];
+    NSLog(@"Added %@",place.name);
 }
 
-- (void)setNewWishlistPin:(NSNotification *)notification {
-    GMSMarker *marker = [self.markerManager setWishlistPin:notification.object];
-    marker.map = self.mapView;
+- (void)updatePins:(NSNotification *)notification {
+    // remove the places
+    [self retrieveUserPlaces];
 }
 
-- (void)setNewFollowPins:(NSNotification *)notification {
+- (void) addToWishlist:(NSNotification *) notification {
+    GMSPlace* place = (GMSPlace*)notification.object;
+    
+    // place pin
+    [self addWishlistPin:place];
+    NSLog(@"Added %@",place.name);
+}
+
+- (void)addPinsOfNewFollow:(NSNotification *) notification {
+    
     [notification.object retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
+        
         // add each place to map
         for (GMSPlace *place in places) {
-            GMSMarker *marker = [self.markerManager setFavoriteOfFollowingPin:place :notification.object];
-            marker.map = self.mapView;
+            [self addFavoriteOfFollowingPin:place];
         }
     }];
 }
@@ -234,28 +265,42 @@
             thisGMSMarker.map = nil;
         }
     }
-}
-
-- (void)removeWishlistPin:(NSNotification *)notification {
-    NSMutableArray *wishlistArray = [self.markerManager.markersByMarkerType valueForKey:@"wishlist"];
-    for (NSUInteger i = wishlistArray.count; i > 0; i--) {
-        GMSMarker *thisGMSMarker = wishlistArray[i-1];
-        Marker *thisMarker = thisGMSMarker.userData;
-        GMSPlace *thisPlace = notification.object;
-        if ([thisMarker.place.placeID isEqualToString:thisPlace.placeID]) {
-            [wishlistArray removeObjectAtIndex:(i-1)];
-            thisGMSMarker.map = nil;
-        }
-    }
-}
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)addFavoritePin:(GMSPlace *)place {
+    GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+    marker.title = place.name;
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.map = self.mapView;
     
-    DetailsViewController *detailsController = (DetailsViewController *)[segue destinationViewController];
-    [detailsController setPlace:sender];
+    // add the key to our dictionary
+    self.markers[marker.title] = place;
+}
+
+- (void)addWishlistPin:(GMSPlace *)place {
+    GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+    marker.title = place.name;
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+    marker.map = self.mapView;
+        
+        // add the key to our dictionary
+    self.markers[marker.title] = place;
+}
+
+- (void)addFavoriteOfFollowingPin:(GMSPlace *)place {
+    
+    GMSMarker *marker = [GMSMarker markerWithPosition:place.coordinate];
+    marker.title = place.name;
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.map = self.mapView;
+    marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
+    
+    self.markers[marker.title] = place;
+    
+}
+
+- (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
+    GMSPlace* place = self.markers[marker.title];
+    [self performSegueWithIdentifier:@"toDetailsView" sender:place];
 }
 
 #pragma mark - Marker Windows
