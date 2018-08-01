@@ -9,8 +9,6 @@
 #import "ListAdditionEvent.h"
 
 @implementation ListAdditionEvent
-@synthesize listType;
-
 - (instancetype)initWithParseObject:(PFObject *)object {
     self = [super initWithParseObject:object];
     self.listType = [object[@"listType"] unsignedIntegerValue];

@@ -20,7 +20,6 @@
     
     return self;
 }
-
 - (void)setParseProperties {
     self.parseObject[@"user"] = self.user;
     self.parseObject[@"place"] = self.place;
