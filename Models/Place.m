@@ -79,6 +79,18 @@
 - (void)didCheckIn:(PFUser *)user {
     [self addObject:user.objectId forKey:@"checkIns"];
     [self saveInBackground];
+    
+}
+
+- (void)getUsersCheckedInWithCompletion:(void(^)(NSArray <NSString*>*))completion {
+    PFQuery* query = [PFQuery queryWithClassName:@"Place"];
+    [query getObjectInBackgroundWithId:self.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if(error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+        } else {
+            completion(object[@"checkIns"]);
+        }
+    }];
 }
 
 @end
