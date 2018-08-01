@@ -11,6 +11,17 @@
 @implementation ListAdditionEvent
 @synthesize listType;
 
+- (instancetype)initWithParseObject:(PFObject *)object {
+    self = [super init];
+    self.user = object[@"user"];
+    self.place = object[@"place"];
+    self.eventType = [object[@"eventType"] unsignedIntegerValue];
+    self.listType = [object[@"listType"] unsignedIntegerValue];
+    self.parseObject = object;
+    
+    return self;
+}
+
 - (void)saveParseObject {
     PFObject *object = [PFObject objectWithClassName:@"FeedEvent"];
     object[@"user"] = self.user;

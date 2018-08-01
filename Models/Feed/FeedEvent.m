@@ -16,14 +16,7 @@
 
     if(eventType == ETListAddition)
     {
-        ListAdditionEvent *event = [[ListAdditionEvent alloc] init];
-        event.user = object[@"user"];
-        event.place = object[@"place"];
-        event.eventType = eventType;
-        event.listType = [object[@"listType"] unsignedIntegerValue];
-        event.parseObject = object;
-        
-        return (FeedEvent *)event;
+        return (FeedEvent *)[[ListAdditionEvent alloc] initWithParseObject:object];
     }
     else if(eventType == ETCheckin)
     {
