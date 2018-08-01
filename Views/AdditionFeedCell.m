@@ -19,6 +19,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [self.contentView setAlpha:0];
 }
 
 - (void)initUI {
@@ -37,6 +38,11 @@
     // update UI
     self.contentLabel.text = content;
     [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
+    
+    // animate into visibility
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.contentView setAlpha:1];
+    }];
 }
 
 - (void)setEvent:(ListAdditionEvent *)event {
