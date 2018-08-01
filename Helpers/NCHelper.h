@@ -15,7 +15,8 @@ typedef enum NotificationType : NSUInteger
     NTAddToWishlist,
     NTRemoveFromWishlist,
     NTNewFollow,
-    NTUnfollow
+    NTUnfollow,
+    NTNewFeedEvent
 }
 NotificationType;
 
