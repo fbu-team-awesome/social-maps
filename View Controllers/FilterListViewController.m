@@ -44,15 +44,18 @@
     [self.sections setObject:[NSMutableArray new] forKey:self.sectionTitles[1]];
     [self.sections setObject:[NSMutableArray new] forKey:self.sectionTitles[2]];
     
-    for (NSUInteger i = 0; i < filterNames.count; i++) {
-        if (i < 2) {
-            [[self.sections objectForKey:self.sectionTitles[0]] addObject:filterNames[i]];
+    for (NSString *filterName in filterNames) {
+        if ([filterName isEqualToString:@"favorites"]) {
+            [[self.sections objectForKey:self.sectionTitles[0]] addObject:@"Favorites"];
         }
-        else if (i == 2) {
-            [[self.sections objectForKey:self.sectionTitles[1]] addObject:filterNames[i]];
+        else if ([filterName isEqualToString:@"wishlist"]) {
+            [[self.sections objectForKey:self.sectionTitles[0]] addObject:@"Wishlist"];
+        }
+        else if ([filterName isEqualToString:@"followFavorite"]) {
+            [[self.sections objectForKey:self.sectionTitles[1]] addObject:@"Favorites"];
         }
         else {
-            [[self.sections objectForKey:self.sectionTitles[2]] addObject:filterNames[i]];
+            [[self.sections objectForKey:self.sectionTitles[2]] addObject:filterName];
         }
     }
 }
@@ -90,7 +93,7 @@
 }
 
 - (IBAction)doneClicked:(id)sender {
-    // TO DO: dismiss view
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

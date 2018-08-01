@@ -26,7 +26,33 @@
     [self.markersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:@"wishlist"];
     [self.markersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:@"followFavorite"];
     
-    self.markersByPlaceType = [NSMutableDictionary new];
+    self.typeDict = @{
+                      @"Entertainment":@[@"amusement_park", @"aquarium", @"casino", @"movie_theater", @"bowling_alley", @"zoo", @"night_club"],
+                      @"Restaurant":@[@"restaurant", @"meal_delivery", @"meal_takeaway"], @"Café":@[@"cafe", @"bakery"],
+                      @"Shopping":@[@"clothing_store", @"department_store", @"home_goods_store", @"shopping_mall", @"shoe_store", @"furniture_store"],
+                      @"Outdoors":@[@"park", @"campground", @"rv_park"],
+                      @"Beauty":@[@"beauty_salon", @"hair_care"],
+                      @"Museums":@[@"art_gallery", @"museum"]
+                      
+                      };
+    
+    self.placeCategories = [self.typeDict allKeys];
+    self.markersByPlaceCategory = [NSMutableDictionary new];
+    for (NSString *key in self.placeCategories) {
+        [self.markersByPlaceCategory setObject:[NSMutableArray new] forKey:key];
+    }
+    
+    // Reverse typeDict so that each Google Place type is mapped to its category name
+    NSMutableDictionary *mutableDetailedTypeDict = [NSMutableDictionary new];
+    for (NSString *key in self.placeCategories) {
+        [self.markersByPlaceCategory setObject:[[NSMutableArray alloc] init] forKey:key];
+        NSArray *arrayOfGTypes = [self.markersByPlaceCategory objectForKey:key];
+        for (NSString *type in arrayOfGTypes) {
+            [mutableDetailedTypeDict setObject:key forKey:type];
+        }
+    }
+    self.detailedTypeDict = (NSDictionary *)mutableDetailedTypeDict;
+    
 }
 
 - (void)initDefaultFilters {
@@ -34,7 +60,7 @@
     for (NSString *key in self.markersByMarkerType) {
         [self.filters setObject:[NSNumber numberWithBool:YES] forKey:key];
     }
-    for (NSString *key in self.markersByPlaceType) {
+    for (NSString *key in self.markersByPlaceCategory) {
         [self.filters setObject:[NSNumber numberWithBool:YES] forKey:key];
     }
 }
@@ -53,6 +79,13 @@
             [[self.markersByMarkerType objectForKey:@"wishlist"] addObject:marker];
             break;
         }
+    }
+}
+
+- (void)addMarkerByPlaceTypes:(GMSMarker *)marker :(GMSPlace *)place {
+    for (NSString *type in place.types) {
+        NSString *categoryName = [self.detailedTypeDict objectForKey:type];
+        [self.markersByPlaceCategory objectForKey:categoryName];
     }
 }
 
@@ -81,6 +114,7 @@
     marker.userData = thisMarker;
     
     [self addMarkerByType:marker :wishlist];
+    [self addMarkerByPlaceTypes:marker :place];
     
     return marker;
 }

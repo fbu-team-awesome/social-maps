@@ -19,9 +19,12 @@ typedef enum MarkerType : NSUInteger {
 
 @interface MarkerManager : NSObject
 
-@property (strong, nonatomic) NSMutableDictionary<NSString*, NSMutableArray<GMSMarker*>*> *markersByPlaceType;
+@property (strong, nonatomic) NSMutableDictionary<NSString*, NSMutableArray<GMSMarker*>*> *markersByPlaceCategory;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, NSMutableArray<GMSMarker*>*> *markersByMarkerType;
 @property (strong, nonatomic) NSMutableDictionary<NSString *, NSNumber*> *filters;
+@property (strong, nonatomic) NSDictionary<NSString *, NSArray *> *typeDict;
+@property (strong, nonatomic) NSDictionary<NSString *, NSString *> *detailedTypeDict;
+@property (strong, nonatomic) NSArray<NSString *> *placeCategories;
 
 - (void)initMarkerDictionaries;
 - (void)initDefaultFilters;
