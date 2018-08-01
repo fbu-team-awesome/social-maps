@@ -9,5 +9,5 @@
 #import "CheckInEvent.h"
 
 @implementation CheckInEvent
-@dynamic photos, review;
+
 @end
