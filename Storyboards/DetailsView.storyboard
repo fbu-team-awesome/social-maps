@@ -39,7 +39,7 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="sic-KM-D9i">
-                                                <rect key="frame" x="24" y="207" width="327" height="134.5"/>
+                                                <rect key="frame" x="24" y="207.5" width="327" height="134.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 check-ins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIj-d5-76r">
                                                         <rect key="frame" x="0.0" y="0.0" width="72" height="19.5"/>
@@ -117,21 +117,21 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxd-lk-JSV">
-                                                <rect key="frame" x="0.0" y="365.5" width="375" height="1"/>
+                                                <rect key="frame" x="0.0" y="366" width="375" height="1"/>
                                                 <color key="backgroundColor" name="VTR_Borders"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="zyU-82-aVO"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="crj-Pc-VJu">
-                                                <rect key="frame" x="0.0" y="482" width="375" height="1"/>
+                                                <rect key="frame" x="0.0" y="482.5" width="375" height="1"/>
                                                 <color key="backgroundColor" name="VTR_Borders"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="edQ-OR-Qek"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfv-yH-ewU">
-                                                <rect key="frame" x="0.0" y="366.5" width="375" height="115.5"/>
+                                                <rect key="frame" x="0.0" y="367" width="375" height="115.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tuW-Bq-fCi">
                                                         <rect key="frame" x="24" y="24" width="327" height="67.5"/>
@@ -176,12 +176,70 @@
                                                     <outletCollection property="gestureRecognizers" destination="OGs-UL-AIT" appends="YES" id="YeW-Ho-bBH"/>
                                                 </connections>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFx-Wc-XL8">
+                                                <rect key="frame" x="0.0" y="483.5" width="375" height="136"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHOTOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scf-dM-qfD">
+                                                        <rect key="frame" x="24" y="10" width="58" height="19.5"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
+                                                        <color key="textColor" name="VTR_BlackLabel"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="obO-zu-z8X">
+                                                        <rect key="frame" x="0.0" y="36.5" width="375" height="72"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1rI-GH-9P0">
+                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </view>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="1rI-GH-9P0" secondAttribute="bottom" id="DWj-f6-65f"/>
+                                                            <constraint firstAttribute="height" constant="72" id="Fi7-G5-3Oo"/>
+                                                            <constraint firstAttribute="trailing" secondItem="1rI-GH-9P0" secondAttribute="trailing" id="N5D-JI-d0f"/>
+                                                            <constraint firstItem="1rI-GH-9P0" firstAttribute="centerX" secondItem="obO-zu-z8X" secondAttribute="centerX" id="Zex-uq-g9I"/>
+                                                            <constraint firstItem="1rI-GH-9P0" firstAttribute="leading" secondItem="obO-zu-z8X" secondAttribute="leading" id="eYL-cC-WZf"/>
+                                                            <constraint firstItem="1rI-GH-9P0" firstAttribute="top" secondItem="obO-zu-z8X" secondAttribute="top" id="v6E-os-0pv"/>
+                                                            <constraint firstItem="1rI-GH-9P0" firstAttribute="centerY" secondItem="obO-zu-z8X" secondAttribute="centerY" id="yGQ-Nk-3an"/>
+                                                        </constraints>
+                                                    </scrollView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload a photo" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoW-YJ-d2M">
+                                                        <rect key="frame" x="249.5" y="10" width="101.5" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="20" id="8A5-pk-yZv"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
+                                                        <color key="textColor" name="VTR_Main"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="136" id="E81-8C-rZX"/>
+                                                    <constraint firstItem="scf-dM-qfD" firstAttribute="top" secondItem="FFx-Wc-XL8" secondAttribute="top" constant="10" id="F64-PW-9aU"/>
+                                                    <constraint firstItem="CoW-YJ-d2M" firstAttribute="top" secondItem="FFx-Wc-XL8" secondAttribute="top" constant="10" id="PF1-DW-YRh"/>
+                                                    <constraint firstAttribute="trailing" secondItem="CoW-YJ-d2M" secondAttribute="trailing" constant="24" id="nLF-vJ-3dH"/>
+                                                    <constraint firstItem="obO-zu-z8X" firstAttribute="leading" secondItem="FFx-Wc-XL8" secondAttribute="leading" id="pXp-yy-BJR"/>
+                                                    <constraint firstAttribute="trailing" secondItem="obO-zu-z8X" secondAttribute="trailing" id="toY-Yg-PNj"/>
+                                                    <constraint firstItem="obO-zu-z8X" firstAttribute="top" secondItem="scf-dM-qfD" secondAttribute="bottom" constant="7" id="u0s-hf-vUe"/>
+                                                    <constraint firstItem="scf-dM-qfD" firstAttribute="leading" secondItem="FFx-Wc-XL8" secondAttribute="leading" constant="24" id="xlo-af-rsC"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2GV-3P-HEH">
+                                                <rect key="frame" x="0.0" y="619.5" width="375" height="1"/>
+                                                <color key="backgroundColor" name="VTR_Borders"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="NkX-pv-aw4"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="2GV-3P-HEH" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="0dh-a7-Kui"/>
                                             <constraint firstItem="z5R-BN-ECD" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" constant="24" id="3XP-S9-oWr"/>
                                             <constraint firstItem="OUy-ow-OAU" firstAttribute="leading" secondItem="z5R-BN-ECD" secondAttribute="trailing" constant="8" id="5FE-Aa-1H7"/>
                                             <constraint firstItem="OUy-ow-OAU" firstAttribute="top" secondItem="EV2-CO-0DA" secondAttribute="bottom" constant="24" id="7C5-a6-BOy"/>
+                                            <constraint firstItem="FFx-Wc-XL8" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="7py-GV-U8Q"/>
                                             <constraint firstItem="EV2-CO-0DA" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="87h-nK-UKp"/>
                                             <constraint firstItem="z5R-BN-ECD" firstAttribute="top" secondItem="EV2-CO-0DA" secondAttribute="bottom" constant="24" id="9az-ab-yNM"/>
                                             <constraint firstItem="sic-KM-D9i" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" constant="24" id="Ctg-TP-IEd"/>
@@ -190,11 +248,15 @@
                                             <constraint firstAttribute="trailing" secondItem="jfv-yH-ewU" secondAttribute="trailing" id="KLY-SQ-w3A"/>
                                             <constraint firstItem="jfv-yH-ewU" firstAttribute="top" secondItem="uxd-lk-JSV" secondAttribute="bottom" id="RaT-EV-Xe8"/>
                                             <constraint firstAttribute="trailing" secondItem="sic-KM-D9i" secondAttribute="trailing" constant="24" id="UYX-1p-zcV"/>
+                                            <constraint firstAttribute="trailing" secondItem="2GV-3P-HEH" secondAttribute="trailing" id="W9L-2D-8nv"/>
                                             <constraint firstItem="crj-Pc-VJu" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="aCw-OY-DcU"/>
+                                            <constraint firstItem="2GV-3P-HEH" firstAttribute="top" secondItem="FFx-Wc-XL8" secondAttribute="bottom" id="dic-Ot-i7b"/>
                                             <constraint firstItem="uxd-lk-JSV" firstAttribute="top" secondItem="sic-KM-D9i" secondAttribute="bottom" constant="24" id="hIn-km-bkH"/>
                                             <constraint firstAttribute="trailing" secondItem="OUy-ow-OAU" secondAttribute="trailing" constant="24" id="hxT-02-W3X"/>
+                                            <constraint firstAttribute="trailing" secondItem="FFx-Wc-XL8" secondAttribute="trailing" id="lzh-Dp-ZnN"/>
                                             <constraint firstItem="sic-KM-D9i" firstAttribute="top" secondItem="z5R-BN-ECD" secondAttribute="bottom" constant="12" id="nI0-up-FAk"/>
                                             <constraint firstItem="jfv-yH-ewU" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="qC0-M0-WoC"/>
+                                            <constraint firstItem="FFx-Wc-XL8" firstAttribute="top" secondItem="crj-Pc-VJu" secondAttribute="bottom" id="s9b-1O-aWa"/>
                                             <constraint firstItem="crj-Pc-VJu" firstAttribute="top" secondItem="jfv-yH-ewU" secondAttribute="bottom" id="vD7-Uz-aeR"/>
                                             <constraint firstItem="uxd-lk-JSV" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="wkS-qW-WIU"/>
                                         </constraints>
@@ -263,11 +325,20 @@
         <namedColor name="VTR_BlackLabel">
             <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="VTR_BlackLabel">
+            <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_Borders">
+            <color red="0.91000002619999998" green="0.91000002619999998" blue="0.91000002619999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="VTR_Borders">
             <color red="0.91000002619999998" green="0.91000002619999998" blue="0.91000002619999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="VTR_GrayLabel">
             <color red="0.65098039215686276" green="0.65098039215686276" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_Main">
+            <color red="1" green="0.60392156862745094" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="VTR_Main">
             <color red="1" green="0.60392156862745094" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
