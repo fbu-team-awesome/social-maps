@@ -15,6 +15,7 @@
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray<FeedEvent *> *events;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation FeedViewController
@@ -27,6 +28,12 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView setRowHeight:64];
+    
+    // set up refreshcontrol
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(fetchEvents) forControlEvents:UIControlEventValueChanged];
+    self.tableView.refreshControl = self.refreshControl;
+    
     [self fetchEvents];
     [self addNotificationObservers];
 }
@@ -77,6 +84,7 @@
                                               {
                                                   [self sortEventsDescendingWithArray:[totalEvents copy]];
                                                   [self.tableView reloadData];
+                                                  [self.refreshControl endRefreshing];
                                               }
                                           }];
                                       }
@@ -86,6 +94,7 @@
                 {
                     [self sortEventsDescendingWithArray:[totalEvents copy]];
                     [self.tableView reloadData];
+                    [self.refreshControl endRefreshing];
                 }
             }];
         }
