@@ -13,11 +13,14 @@
 #import "NCHelper.h"
 #import "MarkerManager.h"
 #import "Marker.h"
+#import "FilterListViewController.h"
 
 @interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *resultsView;
+@property (strong, nonatomic) UIView *filterView;
 @property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) UIButton *filterButton;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) GMSMapView *mapView;
@@ -33,8 +36,9 @@
     self.definesPresentationContext = true;
     
     [self addNotificationObservers];
-    [self initMap];
     [self initSearch];
+    [self initFilter];
+    [self initMap];
 }
 
 - (void)addNotificationObservers {
@@ -55,9 +59,15 @@
     [self.locationManager startUpdatingLocation];
     self.locationManager.delegate = self;
     
+    // create the map frame
+    CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
+    CGFloat filterViewHeight = self.filterView.frame.size.height;
+    CGFloat searchBarHeight = self.navigationItem.titleView.frame.size.height;
+    CGRect mapFrame = CGRectMake(self.filterView.frame.origin.x, self.filterView.frame.origin.y + self.filterView.frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height - filterViewHeight - tabBarHeight - searchBarHeight);
+
     // create map
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:0 longitude:0 zoom:6];
-    self.mapView = [GMSMapView mapWithFrame:self.view.bounds camera:camera];
+    self.mapView = [GMSMapView mapWithFrame:mapFrame camera:camera];
     self.mapView.settings.myLocationButton = YES;
     [self.mapView setMyLocationEnabled:YES];
     
@@ -99,6 +109,20 @@
     if (self.userPlacesRetrieved && self.followPlacesRetrieved) {
         [self addPinsToMap];
     }
+}
+
+- (void)initFilter {
+    self.filterView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationItem.titleView.bounds.origin.y + self.navigationItem.titleView.bounds.size.height, self.view.bounds.size.width, 75)];
+    [self.filterView setBackgroundColor:[UIColor whiteColor]];
+    [self.resultsView addSubview:self.filterView];
+    
+    self.filterButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.filterButton addTarget:self action:@selector(addFilterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.filterButton setUserInteractionEnabled:YES];
+    self.filterButton.center = CGPointMake(self.filterView.frame.size.width/2, self.filterView.frame.size.height/2);
+    [self.filterButton setTitle:@"Filter" forState:UIControlStateNormal];
+    [self.filterButton sizeToFit];
+    [self.filterView addSubview:self.filterButton];
 }
 
 - (void)retrievePlacesOfUsersFollowingWithCompletion:(void(^)(void))completion {
@@ -247,6 +271,14 @@
             thisGMSMarker.map = nil;
         }
     }
+}
+
+- (void)addFilterButtonTapped {
+    NSLog(@"tapped");
+    UIStoryboard *filterStoryboard = [UIStoryboard storyboardWithName:@"FilterList" bundle:nil];
+    FilterListViewController *filter = [filterStoryboard instantiateViewControllerWithIdentifier:@"filter"];
+    
+    [self presentViewController:filter animated:YES completion:nil];
 }
 
 #pragma mark - Navigation

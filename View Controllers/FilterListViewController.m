@@ -90,7 +90,7 @@
 }
 
 - (IBAction)doneClicked:(id)sender {
-    // TO DO: dismiss view
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
