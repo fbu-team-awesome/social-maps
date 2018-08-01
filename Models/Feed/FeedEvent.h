@@ -10,7 +10,19 @@
 #import "PFUser+ExtendedUser.h"
 #import "Place.h"
 
-@interface FeedEvent : PFObject <PFSubclassing>
+typedef enum FeedEventType : NSUInteger
+{
+    ETCheckin,
+    ETListAddition
+}
+FeedEventType;
+
+@interface FeedEvent : NSObject
+@property (strong, nonatomic) PFObject *parseObject;
 @property (strong, nonatomic) PFUser *user;
 @property (strong, nonatomic) Place *place;
+@property (nonatomic) FeedEventType eventType;
+
+- (instancetype)initWithParseObject:(PFObject *)object;
+- (void)queryInfoWithCompletion:(void(^)(void))completion;
 @end
