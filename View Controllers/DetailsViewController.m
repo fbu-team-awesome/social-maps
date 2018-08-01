@@ -11,6 +11,8 @@
 #import "PFUser+ExtendedUser.h"
 #import "Place.h"
 #import "ParseImageHelper.h"
+#import "CheckInsViewController.h"
+#import "Relationships.h"
 
 @interface DetailsViewController () <GMSMapViewDelegate>
 // Outlet Definitions //
@@ -81,51 +83,50 @@
 
 - (void)initUsersCheckedIn {
     [self.parsePlace getUsersCheckedInWithCompletion:^(NSArray<NSString *> * _Nullable users) {
-        self.usersCheckedIn = [[NSArray alloc] init];
-        
-        //init set of user objects from object ids; we only want unique users
-        NSMutableSet *mutableUsers = [NSMutableSet setWithArray:users];
-        NSString *myUserObjectId = PFUser.currentUser.objectId;
-        
-        //remove self from array
-        if ([mutableUsers containsObject:myUserObjectId]) {
-            [mutableUsers removeObject:myUserObjectId];
-        }
-        
-        //convert array of object IDs to array of PFUsers
-        [PFUser retrieveUsersWithIDs:[mutableUsers allObjects] withCompletion:^(NSArray<PFUser *> *userObjects) {
-            self.usersCheckedIn = userObjects;
-            long usersCount = self.usersCheckedIn.count - 2;
+        //only get users we're following
+        [PFUser getFollowingWithinUserArray:users withCompletion:^(NSArray<NSString *> *followedUsers) {
+            //init usersCheckedIn array
+            self.usersCheckedIn = [[NSArray alloc] init];
             
-            //display names of the first 2 users
-            if (self.usersCheckedIn.count == 0) {
-                self.usersLabel.text = @"None of your friends have checked in here.";
-            } else if (self.usersCheckedIn.count == 1) {
-                self.usersLabel.text = [NSString stringWithFormat:@"%@ has checked in here.",self.usersCheckedIn[0].displayName];
-            } else if (self.usersCheckedIn.count == 2) {
-                self.usersLabel.text = [NSString stringWithFormat:@"%@ and %@ have checked in here.",self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName];
-            } else {
-                self.usersLabel.text = [NSString stringWithFormat:@"%@, %@, and %ld others have checked in here.", self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName, usersCount];
-            }
+            //move elements into a set to remove duplicates
+            NSSet *followedUsersSet = [NSSet setWithArray:followedUsers];
             
-            //display profile pics of first 5 users
-            int i = 0;
-            while(i < 5 && i < self.usersCheckedIn.count){
-                //create image view
-                UIImageView *userPicView = [[UIImageView alloc] initWithFrame:CGRectMake(i*48, 0, 40, 40)];
-                userPicView.backgroundColor = [UIColor colorNamed:@"VTR_GrayLabel"];
-
-                //add profile picture
-                [ParseImageHelper setImageFromPFFile:self.usersCheckedIn[i].profilePicture forImageView:userPicView];
+            //convert objectId array to PFUser array
+            [PFUser retrieveUsersWithIDs:[followedUsersSet allObjects] withCompletion:^(NSArray<PFUser *> *userObjects) {
+                self.usersCheckedIn = userObjects;
                 
-                //rounded corners
-                userPicView.layer.cornerRadius = userPicView.frame.size.width / 2;
-                userPicView.clipsToBounds = YES;
+                //display names of the first 2 users
+                if (self.usersCheckedIn.count == 0) {
+                    self.usersLabel.text = @"None of your friends have checked in here.";
+                } else if (self.usersCheckedIn.count == 1) {
+                    self.usersLabel.text = [NSString stringWithFormat:@"%@ has checked in here.",self.usersCheckedIn[0].displayName];
+                } else if (self.usersCheckedIn.count == 2) {
+                    self.usersLabel.text = [NSString stringWithFormat:@"%@ and %@ have checked in here.",self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName];
+                } else {
+                    //store number of other users checked in
+                    long otherUsersCount = self.usersCheckedIn.count - 2;
+                    self.usersLabel.text = [NSString stringWithFormat:@"%@, %@, and %ld others have checked in here.", self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName, otherUsersCount];
+                }
                 
-                //add image to subview
-                [self.userPicsView addSubview:userPicView];
-                i++;
-            }
+                //display profile pics of first 5 users
+                int i = 0;
+                while(i < 5 && i < self.usersCheckedIn.count){
+                    //create image view
+                    UIImageView *userPicView = [[UIImageView alloc] initWithFrame:CGRectMake(i*48, 0, 40, 40)];
+                    userPicView.backgroundColor = [UIColor colorNamed:@"VTR_GrayLabel"];
+                    
+                    //add profile picture
+                    [ParseImageHelper setImageFromPFFile:self.usersCheckedIn[i].profilePicture forImageView:userPicView];
+                    
+                    //rounded corners
+                    userPicView.layer.cornerRadius = userPicView.frame.size.width / 2;
+                    userPicView.clipsToBounds = YES;
+                    
+                    //add image to subview
+                    [self.userPicsView addSubview:userPicView];
+                    i++;
+                }
+            }];
         }];
     }];
 }
@@ -207,5 +208,12 @@
     [PFUser.currentUser retrieveCheckInCountForPlaceID:self.place.placeID withCompletion:^(NSNumber *count) {
         self.checkInLabel.text = [NSString stringWithFormat: @"%@ check-ins",[count stringValue]];
     }];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"checkInsSegue"]) {
+        CheckInsViewController *checkInsVC = [segue destinationViewController];
+        checkInsVC.users = self.usersCheckedIn;
+    }
 }
 @end

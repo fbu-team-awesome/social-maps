@@ -41,7 +41,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="sic-KM-D9i">
                                                 <rect key="frame" x="24" y="207" width="327" height="134.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 check-ins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIj-d5-76r">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 check-ins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIj-d5-76r">
                                                         <rect key="frame" x="0.0" y="0.0" width="72" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
                                                         <color key="textColor" name="VTR_BlackLabel"/>
@@ -124,30 +124,58 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="crj-Pc-VJu">
-                                                <rect key="frame" x="0.0" y="481.5" width="375" height="1"/>
+                                                <rect key="frame" x="0.0" y="482" width="375" height="1"/>
                                                 <color key="backgroundColor" name="VTR_Borders"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="edQ-OR-Qek"/>
                                                 </constraints>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hf6-m4-n8x">
-                                                <rect key="frame" x="24" y="390" width="327" height="67.5"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfv-yH-ewU">
+                                                <rect key="frame" x="0.0" y="366.5" width="375" height="115.5"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g0Q-Yw-iPm">
-                                                        <rect key="frame" x="0.0" y="0.0" width="327" height="40"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="UMF-pq-pmA"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bevin, César, and 3 others have checked in here." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btR-gd-Zn8">
-                                                        <rect key="frame" x="0.0" y="48" width="327" height="19.5"/>
-                                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
-                                                        <color key="textColor" name="VTR_GrayLabel"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tuW-Bq-fCi">
+                                                        <rect key="frame" x="24" y="24" width="327" height="67.5"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hf6-m4-n8x">
+                                                                <rect key="frame" x="0.0" y="0.0" width="322" height="67.5"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g0Q-Yw-iPm">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="322" height="40"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="40" id="UMF-pq-pmA"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="None of your friends have checked in here." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btR-gd-Zn8">
+                                                                        <rect key="frame" x="0.0" y="48" width="322" height="19.5"/>
+                                                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                                        <color key="textColor" name="VTR_GrayLabel"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="Inv-74-9P5">
+                                                                <rect key="frame" x="322" y="30" width="5" height="8"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="8" id="FZA-eX-nkd"/>
+                                                                    <constraint firstAttribute="width" constant="5" id="L9L-tX-Cvc"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
-                                            </stackView>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstItem="tuW-Bq-fCi" firstAttribute="leading" secondItem="jfv-yH-ewU" secondAttribute="leading" constant="24" id="4QN-KR-z8U"/>
+                                                    <constraint firstItem="tuW-Bq-fCi" firstAttribute="top" secondItem="jfv-yH-ewU" secondAttribute="top" constant="24" id="VLb-uX-sfg"/>
+                                                    <constraint firstAttribute="trailing" secondItem="tuW-Bq-fCi" secondAttribute="trailing" constant="24" id="ayP-uM-KCG"/>
+                                                    <constraint firstAttribute="bottom" secondItem="tuW-Bq-fCi" secondAttribute="bottom" constant="24" id="mus-zQ-TPM"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="OGs-UL-AIT" appends="YES" id="YeW-Ho-bBH"/>
+                                                </connections>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -156,18 +184,18 @@
                                             <constraint firstItem="OUy-ow-OAU" firstAttribute="top" secondItem="EV2-CO-0DA" secondAttribute="bottom" constant="24" id="7C5-a6-BOy"/>
                                             <constraint firstItem="EV2-CO-0DA" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="87h-nK-UKp"/>
                                             <constraint firstItem="z5R-BN-ECD" firstAttribute="top" secondItem="EV2-CO-0DA" secondAttribute="bottom" constant="24" id="9az-ab-yNM"/>
-                                            <constraint firstItem="hf6-m4-n8x" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" constant="24" id="AO4-Ru-quC"/>
                                             <constraint firstItem="sic-KM-D9i" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" constant="24" id="Ctg-TP-IEd"/>
                                             <constraint firstItem="EV2-CO-0DA" firstAttribute="top" secondItem="Yrq-zh-yGL" secondAttribute="top" id="DQ0-R7-MTr"/>
                                             <constraint firstAttribute="trailing" secondItem="EV2-CO-0DA" secondAttribute="trailing" id="Fv1-rb-IhR"/>
-                                            <constraint firstAttribute="trailing" secondItem="hf6-m4-n8x" secondAttribute="trailing" constant="24" id="HdU-Zf-URG"/>
-                                            <constraint firstItem="hf6-m4-n8x" firstAttribute="top" secondItem="uxd-lk-JSV" secondAttribute="bottom" constant="24" id="QXP-EO-epR"/>
-                                            <constraint firstItem="crj-Pc-VJu" firstAttribute="top" secondItem="hf6-m4-n8x" secondAttribute="bottom" constant="24" id="Qbr-D2-Upq"/>
+                                            <constraint firstAttribute="trailing" secondItem="jfv-yH-ewU" secondAttribute="trailing" id="KLY-SQ-w3A"/>
+                                            <constraint firstItem="jfv-yH-ewU" firstAttribute="top" secondItem="uxd-lk-JSV" secondAttribute="bottom" id="RaT-EV-Xe8"/>
                                             <constraint firstAttribute="trailing" secondItem="sic-KM-D9i" secondAttribute="trailing" constant="24" id="UYX-1p-zcV"/>
                                             <constraint firstItem="crj-Pc-VJu" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="aCw-OY-DcU"/>
                                             <constraint firstItem="uxd-lk-JSV" firstAttribute="top" secondItem="sic-KM-D9i" secondAttribute="bottom" constant="24" id="hIn-km-bkH"/>
                                             <constraint firstAttribute="trailing" secondItem="OUy-ow-OAU" secondAttribute="trailing" constant="24" id="hxT-02-W3X"/>
                                             <constraint firstItem="sic-KM-D9i" firstAttribute="top" secondItem="z5R-BN-ECD" secondAttribute="bottom" constant="12" id="nI0-up-FAk"/>
+                                            <constraint firstItem="jfv-yH-ewU" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="qC0-M0-WoC"/>
+                                            <constraint firstItem="crj-Pc-VJu" firstAttribute="top" secondItem="jfv-yH-ewU" secondAttribute="bottom" id="vD7-Uz-aeR"/>
                                             <constraint firstItem="uxd-lk-JSV" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="wkS-qW-WIU"/>
                                         </constraints>
                                     </view>
@@ -206,13 +234,27 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="koR-5E-IM5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="OGs-UL-AIT">
+                    <connections>
+                        <segue destination="1Vr-3I-k9K" kind="show" identifier="checkInsSegue" id="p5N-ju-8dF"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1460" y="88.605697151424295"/>
+        </scene>
+        <!--CheckIns-->
+        <scene sceneID="GOH-Xd-WWK">
+            <objects>
+                <viewControllerPlaceholder storyboardName="CheckIns" id="1Vr-3I-k9K" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xuO-Mp-Mil" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2306" y="149"/>
         </scene>
     </scenes>
     <resources>
         <image name="favorite_selected" width="38" height="36"/>
         <image name="favorite_unselected" width="38" height="36"/>
+        <image name="right_arrow" width="28" height="46"/>
         <image name="wishlist_selected" width="23" height="40"/>
         <image name="wishlist_unselected" width="24" height="40"/>
         <namedColor name="VTR_Background">
@@ -223,6 +265,9 @@
         </namedColor>
         <namedColor name="VTR_Borders">
             <color red="0.91000002619999998" green="0.91000002619999998" blue="0.91000002619999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="VTR_GrayLabel">
+            <color red="0.65098039215686276" green="0.65098039215686276" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="VTR_Main">
             <color red="1" green="0.60392156862745094" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

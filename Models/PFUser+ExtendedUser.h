@@ -38,5 +38,6 @@
 + (void)retrieveUsersWithIDs:(NSArray<NSString*>*)IDs withCompletion:(void(^)(NSArray<PFUser*>*))completion;
 - (void)addCheckIn:(NSString *)placeID withCompletion:(void(^)(void))completion;
 - (void)retrieveCheckInCountForPlaceID:(NSString *)placeID withCompletion:(void(^)(NSNumber *))completion;
++ (void)getFollowingWithinUserArray:(NSArray <NSString*>*) objectIds withCompletion:(void(^)(NSArray <NSString*>*))completion;
 
 @end
