@@ -10,8 +10,10 @@
 
 @implementation PhotoAdditionEvent
 - (instancetype)initWithParseObject:(PFObject *)object {
-    self = [super initWithParseObject:object];
-    self.photos = object[@"photos"];
+    if(self = [super initWithParseObject:object])
+    {
+        self.photos = object[@"photos"];
+    }
     
     return self;
 }

@@ -10,7 +10,10 @@
 
 @implementation CheckInEvent
 - (instancetype)initWithParseObject:(PFObject *)object {
-    self = [super initWithParseObject:object];
+    if(self = [super initWithParseObject:object])
+    {
+        
+    }
     
     return self;
 }
