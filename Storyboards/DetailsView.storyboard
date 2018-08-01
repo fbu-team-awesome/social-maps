@@ -203,8 +203,8 @@
                                                             <constraint firstItem="1rI-GH-9P0" firstAttribute="centerY" secondItem="obO-zu-z8X" secondAttribute="centerY" id="yGQ-Nk-3an"/>
                                                         </constraints>
                                                     </scrollView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload a photo" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoW-YJ-d2M">
-                                                        <rect key="frame" x="249.5" y="10" width="101.5" height="20"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ Upload a photo" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoW-YJ-d2M">
+                                                        <rect key="frame" x="236.5" y="10" width="114.5" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="8A5-pk-yZv"/>
                                                         </constraints>

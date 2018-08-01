@@ -79,7 +79,6 @@
 - (void)didCheckIn:(PFUser *)user {
     [self addObject:user.objectId forKey:@"checkIns"];
     [self saveInBackground];
-    
 }
 
 - (void)getUsersCheckedInWithCompletion:(void(^)(NSArray <NSString*>*))completion {
@@ -91,6 +90,29 @@
             completion(object[@"checkIns"]);
         }
     }];
+}
+
+- (void)addPhoto:(PFFile *)photo withCompletion:(void(^)(void))completion{
+    //create a mutable copy
+    NSMutableDictionary *newPhotos = [self.photos mutableCopy];
+    
+    //if user has never added photos to this place, add to photos array
+    if ([newPhotos objectForKey:PFUser.currentUser.objectId] == nil) {
+        NSArray *newPhotosArray = [NSArray arrayWithObject:photo];
+        [newPhotos setObject:newPhotosArray forKey:PFUser.currentUser.objectId];
+    }
+    //else add to existing photos array
+    else {
+        NSArray *photosArray = [newPhotos[PFUser.currentUser.objectId] arrayByAddingObject:photo];
+        [newPhotos setObject:photosArray forKey:PFUser.currentUser.objectId];
+    }
+    
+    //set the photos dictionary to the mutable copy
+    self.photos = [newPhotos copy];
+    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        completion();
+    }];
+    
 }
 
 @end
