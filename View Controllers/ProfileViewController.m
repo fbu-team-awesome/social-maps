@@ -18,6 +18,7 @@
 #import "RelationshipsViewController.h"
 #import "Relationships.h"
 #import "NCHelper.h"
+#import "ListViewController.h"
 
 @interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
@@ -95,7 +96,7 @@
         [self.mapView setMyLocationEnabled:YES];
         
         // show list button instead
-        self.followButton.titleLabel.text = @"My Lists";
+        [self.followButton setTitle:@"View Lists" forState:UIControlStateNormal];
     }
     
     // init tableview
@@ -318,9 +319,12 @@
 }
 
 - (IBAction)followClicked:(id)sender {
-    //if we are on our own profile
+    //if we are on our own profile, show lists instead
     if([[PFUser currentUser].objectId isEqualToString:self.user.objectId]) {
-        [self performSegueWithIdentifier:@"listSegue" sender:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ListView" bundle:[NSBundle mainBundle]];
+        ListViewController *listVC = (ListViewController *)[storyboard instantiateViewControllerWithIdentifier:@"List"];
+        [self.navigationController pushViewController:listVC animated:YES];
+        
     }
     else if([self.followButton.titleLabel.text isEqualToString:@"Follow"])
     {
