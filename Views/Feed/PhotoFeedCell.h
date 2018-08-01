@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PhotoAdditionEvent.h"
 
 @interface PhotoFeedCell : UITableViewCell
-
+- (void)setEvent:(PhotoAdditionEvent *)event;
 @end
