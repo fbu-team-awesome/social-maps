@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ReviewAdditionEvent.h"
 
 @interface ReviewFeedCell : UITableViewCell
-
+- (void)setEvent:(ReviewAdditionEvent *)event;
 @end
