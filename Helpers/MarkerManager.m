@@ -34,7 +34,6 @@
     for (NSString *key in self.markersByMarkerType) {
         [self.filters setObject:[NSNumber numberWithBool:YES] forKey:key];
     }
-    [self.filters setObject:[NSNumber numberWithBool:NO] forKey:@"favorites"];
     for (NSString *key in self.markersByPlaceType) {
         [self.filters setObject:[NSNumber numberWithBool:YES] forKey:key];
     }

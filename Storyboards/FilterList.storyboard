@@ -74,7 +74,11 @@
                         <viewLayoutGuide key="safeArea" id="77q-tR-ZRU"/>
                     </view>
                     <navigationItem key="navigationItem" id="Zhb-7K-czk">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="ct4-kQ-D8T"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="ct4-kQ-D8T">
+                            <connections>
+                                <action selector="doneClicked:" destination="xy4-Ef-6Kh" id="RfO-1S-qN0"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="bvp-Ap-lzr" id="4gf-fW-Dev"/>

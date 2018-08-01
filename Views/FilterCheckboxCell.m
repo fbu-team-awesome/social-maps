@@ -7,6 +7,7 @@
 //
 
 #import "FilterCheckboxCell.h"
+#import "MarkerManager.h"
 
 @implementation FilterCheckboxCell
 
@@ -16,7 +17,7 @@
     self.listName.text = self.list;
     
     if (self.selected) {
-        [self.checkbox setSelected:NO];
+        [self.checkbox setSelected:YES];
     }
     else {
         [self.checkbox setSelected:NO];
@@ -36,11 +37,14 @@
 }
 
 - (IBAction)checkboxTapped:(id)sender {
+    MarkerManager *markerManager = [MarkerManager shared];
     if (self.checkbox.selected) {
         [self.checkbox setSelected:NO];
+        [markerManager.filters setValue:[NSNumber numberWithBool:NO] forKey:self.list];
     }
     else {
         [self.checkbox setSelected:YES];
+        [markerManager.filters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
     }
 }
 
