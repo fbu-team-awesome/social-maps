@@ -35,12 +35,21 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    AdditionFeedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AdditionFeedCell" forIndexPath:indexPath];
     FeedEvent *event = self.events[indexPath.row];
+    UITableViewCell *cell = nil;
     
     if(event != nil)
     {
-        [cell setEvent:event];
+        if(event.eventType == ETCheckin)
+        {
+
+        }
+        else if(event.eventType == ETListAddition)
+        {
+            AdditionFeedCell *additionCell = [tableView dequeueReusableCellWithIdentifier:@"AdditionFeedCell" forIndexPath:indexPath];
+            [additionCell setEvent:(ListAdditionEvent *)event];
+            cell = additionCell;
+        }
     }
     
     return cell;
