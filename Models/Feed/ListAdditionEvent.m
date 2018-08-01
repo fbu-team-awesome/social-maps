@@ -9,5 +9,16 @@
 #import "ListAdditionEvent.h"
 
 @implementation ListAdditionEvent
-@dynamic type;
+@synthesize listType;
+
+- (void)saveParseObject {
+    PFObject *object = [PFObject objectWithClassName:@"FeedEvent"];
+    object[@"user"] = self.user;
+    object[@"place"] = self.place;
+    object[@"eventType"] = [NSNumber numberWithUnsignedInteger:self.eventType];
+    object[@"listType"] = [NSNumber numberWithUnsignedInteger:self.listType];
+    self.parseObject = object;
+    
+    [object saveInBackground];
+}
 @end
