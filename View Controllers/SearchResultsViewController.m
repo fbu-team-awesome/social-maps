@@ -15,13 +15,15 @@
 #import "Marker.h"
 #import "MapMarkerWindow.h"
 
-@interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate>
+@interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate, MarkerWindowDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *resultsView;
 @property (strong, nonatomic) UISearchController *searchController;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) GMSMapView *mapView;
+@property (strong, nonatomic) IBOutlet MapMarkerWindow *markerWindowView;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *markerWindowGestureRecognizer;
 @property (strong, nonatomic) ResultsTableViewController <UISearchResultsUpdating>* resultsViewController;
 @property (strong, nonatomic) MarkerManager *markerManager;
 @property (nonatomic, assign) BOOL userPlacesRetrieved;
@@ -183,11 +185,6 @@
     }
 }
 
-- (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
-    GMSPlace* place = marker.userData;
-    [self performSegueWithIdentifier:@"toDetailsView" sender:place];
-}
-
 - (void)addPinsToMap {
     [self.mapView clear];
     NSMutableArray<GMSMarker *> *currentPins = [NSMutableArray new];
@@ -264,12 +261,45 @@
 #pragma mark - Marker Windows
 
 - (MapMarkerWindow *) loadNib {
-    MapMarkerWindow *markerWindow = (MapMarkerWindow *)[MapMarkerWindow instanceFromNib];
+    [[NSBundle mainBundle] loadNibNamed:@"MarkerWindow" owner:self options:nil];
+    MapMarkerWindow *markerWindow = self.markerWindowView;
+    [markerWindow addGestureRecognizer:self.markerWindowGestureRecognizer];
     return markerWindow;
 }
 
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
+    //store location so we can move window accordingly when map moves
+    self.locationMarker = marker;
+    
+    //remove info from marker window so we can reuse it
+    [self.infoWindow removeFromSuperview];
+    
+    //instantiate new infoWindow
+    self.infoWindow = [self loadNib];
+    self.infoWindow.delegate = self;
+    
+    //pass info to window
+    self.infoWindow.marker = (Marker *)marker.userData;
+    [self.infoWindow configureWindow];
+    self.infoWindow.center = [self.mapView.projection pointForCoordinate:marker.position];
+    self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y - 80, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
+    [self.resultsView addSubview:self.infoWindow];
+    
     return false;
+}
+
+- (void)didTapInfo:(GMSPlace *)place {
+    [self performSegueWithIdentifier:@"toDetailsView" sender:place];
+}
+
+- (void)mapView:(GMSMapView *)mapView didChangeCameraPosition:(GMSCameraPosition *)position {
+    if (self.locationMarker != nil) {
+        CLLocationCoordinate2D location = self.locationMarker.position;
+        self.infoWindow.center = [self.mapView.projection pointForCoordinate:location];
+        self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y - 80, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
+    } else {
+        NSLog(@"location marker is nil");
+    }
 }
 
 @end
