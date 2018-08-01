@@ -282,7 +282,7 @@
     self.infoWindow.marker = (Marker *)marker.userData;
     [self.infoWindow configureWindow];
     self.infoWindow.center = [self.mapView.projection pointForCoordinate:marker.position];
-    self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y - 80, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
+    self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y - 85, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
     [self.resultsView addSubview:self.infoWindow];
     
     return false;
@@ -296,10 +296,14 @@
     if (self.locationMarker != nil) {
         CLLocationCoordinate2D location = self.locationMarker.position;
         self.infoWindow.center = [self.mapView.projection pointForCoordinate:location];
-        self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y - 80, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
+        self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y - 85, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
     } else {
         NSLog(@"location marker is nil");
     }
+}
+
+- (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
+    [self.infoWindow removeFromSuperview];
 }
 
 @end

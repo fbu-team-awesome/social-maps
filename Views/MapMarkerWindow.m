@@ -30,9 +30,4 @@
     }
 }
 
-+ (instancetype) instanceFromNib{
-   [[NSBundle mainBundle] loadNibNamed:@"MarkerWindow" owner:self options:nil];
-    return nil;
-}
-
 @end

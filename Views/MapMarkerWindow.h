@@ -21,7 +21,6 @@
 @property (strong, nonatomic) Marker *marker;
 @property (strong, nonatomic) id<MarkerWindowDelegate> delegate;
 
-+ (UIView *) instanceFromNib;
 - (void) configureWindow;
 
 @end
