@@ -324,7 +324,6 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ListView" bundle:[NSBundle mainBundle]];
         ListViewController *listVC = (ListViewController *)[storyboard instantiateViewControllerWithIdentifier:@"List"];
         [self.navigationController pushViewController:listVC animated:YES];
-        
     }
     else if([self.followButton.titleLabel.text isEqualToString:@"Follow"])
     {
