@@ -65,7 +65,6 @@
     newUser.username = self.usernameField.text;
     newUser.password = self.passwordField.text;
     newUser.email = email;
-    newUser.profilePicture = [ParseImageHelper getPFFileFromImage:self.profileImage.image];
     newUser.displayName = displayName;
     newUser.hometown = hometown;
     newUser.bio = bio;
@@ -77,12 +76,19 @@
     newUser.relationships.followers = [NSMutableArray new];
     newUser.relationships.following = [NSMutableArray new];
     
+    if (self.profileImage.image) {
+        newUser.profilePicture = [ParseImageHelper getPFFileFromImage:self.profileImage.image];
+    }
+    else {
+        newUser.profilePicture = [ParseImageHelper getPFFileFromImage:[UIImage imageNamed:@"default-profile-pic"]];
+    }
+    
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
+            [AlertHelper showAlertWithTitle:@"Sign Up Error:" message:error.localizedDescription sender:self];
         } else {
-            NSLog(@"User registered successfully.");
-            [self dismissViewControllerAnimated:YES completion:nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            [self presentViewController:[storyboard instantiateViewControllerWithIdentifier:@"TabBarController"] animated:YES completion:nil];
         }
     }];
 }

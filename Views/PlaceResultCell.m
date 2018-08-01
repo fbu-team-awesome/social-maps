@@ -22,23 +22,16 @@
     self.nameLabel.text = nil;
     self.addressLabel.text = nil;
     self.placeImage.image = nil;
-    
-    [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
-        self.nameLabel.text = self.place.name;
-        self.addressLabel.text = self.place.formattedAddress;
-    }];
+    self.nameLabel.text = self.place.name;
+    self.addressLabel.text = self.place.formattedAddress;
     
     [[APIManager shared] getPhotoMetadata:self.place.placeID :^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
         
-        [self loadFirstImage:photoMetadata WithCompletion:^{
-            
-            self.nameLabel.text = self.place.name;
-            self.addressLabel.text = self.place.formattedAddress;
-        }];
+        [self loadFirstImage:photoMetadata];
     }];
 }
 
--(void)loadFirstImage:(NSArray<GMSPlacePhotoMetadata *> *)photoMetadata WithCompletion:(void(^)(void))completion {
+-(void)loadFirstImage:(NSArray<GMSPlacePhotoMetadata *> *)photoMetadata {
     
     GMSPlacePhotoMetadata *firstPhoto = photoMetadata.firstObject;
     
@@ -53,7 +46,6 @@
          else {
              self.placeImage.image = photo;
          }
-         completion();
      }];
 }
 

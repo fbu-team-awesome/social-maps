@@ -8,12 +8,16 @@
 
 #import <Parse/Parse.h>
 #import <GooglePlaces/GooglePlaces.h>
+#import "Review.h"
 
 @interface Place : PFObject<PFSubclassing>
 // Instance Properties //
 @property (strong, nonatomic, nonnull) NSString *placeID;
 @property (strong, nonatomic, nullable) NSString *placeName;
 @property (strong, nonatomic, nullable) NSArray <NSString*> *checkIns;
+@property (strong, nonatomic, nullable) NSDictionary<NSString *, NSArray<PFFile *> *> *photos;
+@property (strong, nonatomic, nullable) NSDictionary<NSString *, NSArray<Review *> *> *reviews;
+@property (nonatomic) double rating;
 
 - (nonnull instancetype)initWithGMSPlace:(nonnull GMSPlace*)place;
 - (void) didCheckIn:(nonnull PFUser *)user;

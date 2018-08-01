@@ -10,14 +10,17 @@
 #import "APIManager.h"
 
 @implementation Place
-@dynamic placeID, placeName, checkIns;
+@dynamic placeID, placeName, checkIns, photos, reviews, rating;
 
 - (nonnull instancetype)initWithGMSPlace:(GMSPlace*)place {
     Place *newPlace = [Place object];
     newPlace.placeID = place.placeID;
     newPlace.placeName = place.name;
     newPlace.checkIns = [NSArray new];
-    
+    newPlace.photos = [NSDictionary new];
+    newPlace.reviews = [NSDictionary new];
+    newPlace.rating = 0;
+ 
     return newPlace;
 }
 
