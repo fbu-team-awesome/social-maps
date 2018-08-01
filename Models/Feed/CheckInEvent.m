@@ -11,15 +11,11 @@
 @implementation CheckInEvent
 - (instancetype)initWithParseObject:(PFObject *)object {
     self = [super initWithParseObject:object];
-    self.photos = object[@"photos"];
-    self.review = object[@"review"];
     
     return self;
 }
 
 - (void)setParseProperties {
     [super setParseProperties];
-    self.parseObject[@"photos"] = self.photos;
-    self.parseObject[@"review"] = self.review;
 }
 @end
