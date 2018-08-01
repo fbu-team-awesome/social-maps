@@ -94,8 +94,8 @@
         self.mapView.settings.myLocationButton = YES;
         [self.mapView setMyLocationEnabled:YES];
         
-        // hide follow button
-        self.followButton.hidden = YES;
+        // show list button instead
+        self.followButton.titleLabel.text = @"My Lists";
     }
     
     // init tableview
@@ -318,7 +318,11 @@
 }
 
 - (IBAction)followClicked:(id)sender {
-    if([self.followButton.titleLabel.text isEqualToString:@"Follow"])
+    //if we are on our own profile
+    if([[PFUser currentUser].objectId isEqualToString:self.user.objectId]) {
+        [self performSegueWithIdentifier:@"listSegue" sender:nil];
+    }
+    else if([self.followButton.titleLabel.text isEqualToString:@"Follow"])
     {
         [[PFUser currentUser] follow:self.user];
         [self.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
