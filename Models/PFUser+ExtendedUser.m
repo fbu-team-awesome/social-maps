@@ -9,6 +9,7 @@
 #import "PFUser+ExtendedUser.h"
 #import <Parse/Parse.h>
 #import "NCHelper.h"
+#import "ListAdditionEvent.h"
 
 @implementation PFUser (ExtendedUser)
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships, checkIns;
@@ -32,6 +33,14 @@
                        self.favorites = [mutableFavorites copy];
                        [self setObject:self.favorites forKey:@"favorites"];
                        [self saveInBackground];
+                       
+                       // create the feed event
+                       ListAdditionEvent *event = [[ListAdditionEvent alloc] init];
+                       event.user = self;
+                       event.eventType = ETListAddition;
+                       event.listType = LTFavorite;
+                       event.place = result;
+                       [event saveInBackground];
                    }
                    else
                    {

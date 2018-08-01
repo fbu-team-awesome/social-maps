@@ -9,5 +9,17 @@
 #import "ListAdditionEvent.h"
 
 @implementation ListAdditionEvent
-@dynamic type;
+@synthesize listType;
+
+- (instancetype)initWithParseObject:(PFObject *)object {
+    self = [super initWithParseObject:object];
+    self.listType = [object[@"listType"] unsignedIntegerValue];
+    
+    return self;
+}
+
+- (void)setParseProperties {
+    [super setParseProperties];
+    self.parseObject[@"listType"] = [NSNumber numberWithUnsignedInteger:self.listType];
+}
 @end

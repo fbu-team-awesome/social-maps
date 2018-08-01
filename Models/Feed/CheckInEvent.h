@@ -11,4 +11,6 @@
 @interface CheckInEvent : FeedEvent
 @property (strong, nonatomic, nullable) NSArray<PFFile *> *photos;
 @property (strong, nonatomic, nullable) Review *review;
+
+- (instancetype)initWithParseObject:(PFObject *)object;
 @end

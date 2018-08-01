@@ -16,5 +16,7 @@ typedef enum ListType : NSUInteger
 ListType;
 
 @interface ListAdditionEvent : FeedEvent
-@property (nonatomic) ListType type;
+@property (nonatomic) ListType listType;
+
+- (instancetype)initWithParseObject:(PFObject *)object;
 @end

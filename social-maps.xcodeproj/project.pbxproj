@@ -42,6 +42,9 @@
 		9E8A9C46210FBED1001EE3F0 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C45210FBED1001EE3F0 /* Review.m */; };
 		9E8A9C49210FBFF2001EE3F0 /* CheckInEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C48210FBFF2001EE3F0 /* CheckInEvent.m */; };
 		9E8A9C4C210FC084001EE3F0 /* ListAdditionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C4B210FC084001EE3F0 /* ListAdditionEvent.m */; };
+		9E8A9C50210FDB6E001EE3F0 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A9C4F210FDB6E001EE3F0 /* Feed.storyboard */; };
+		9E8A9C53210FDC48001EE3F0 /* AdditionFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C52210FDC48001EE3F0 /* AdditionFeedCell.m */; };
+		9E8A9C56210FDC64001EE3F0 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C55210FDC64001EE3F0 /* FeedViewController.m */; };
 		9EE973EE2102805A0056DCF2 /* AlertHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973ED2102805A0056DCF2 /* AlertHelper.m */; };
 		9EE973F1210280F60056DCF2 /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973F0210280F60056DCF2 /* ImageHelper.m */; };
 		9EE973F4210281850056DCF2 /* ParseImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973F3210281850056DCF2 /* ParseImageHelper.m */; };
@@ -114,6 +117,11 @@
 		9E8A9C48210FBFF2001EE3F0 /* CheckInEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckInEvent.m; sourceTree = "<group>"; };
 		9E8A9C4A210FC084001EE3F0 /* ListAdditionEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListAdditionEvent.h; sourceTree = "<group>"; };
 		9E8A9C4B210FC084001EE3F0 /* ListAdditionEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListAdditionEvent.m; sourceTree = "<group>"; };
+		9E8A9C4F210FDB6E001EE3F0 /* Feed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
+		9E8A9C51210FDC48001EE3F0 /* AdditionFeedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdditionFeedCell.h; sourceTree = "<group>"; };
+		9E8A9C52210FDC48001EE3F0 /* AdditionFeedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdditionFeedCell.m; sourceTree = "<group>"; };
+		9E8A9C54210FDC64001EE3F0 /* FeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
+		9E8A9C55210FDC64001EE3F0 /* FeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		9EE973EC2102805A0056DCF2 /* AlertHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertHelper.h; sourceTree = "<group>"; };
 		9EE973ED2102805A0056DCF2 /* AlertHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertHelper.m; sourceTree = "<group>"; };
 		9EE973EF210280F60056DCF2 /* ImageHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageHelper.h; sourceTree = "<group>"; };
@@ -182,6 +190,7 @@
 				0130163620EFDE650010FD04 /* LaunchScreen.storyboard */,
 				9EF4E3D320FE66C6005535C6 /* Profile.storyboard */,
 				1C5BC861210A581100F67574 /* MarkerWindow.xib */,
+				9E8A9C4F210FDB6E001EE3F0 /* Feed.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -203,6 +212,8 @@
 				9E6755E421012DF10056D009 /* ProfileListCell.m */,
 				1C5BC863210A621500F67574 /* MapMarkerWindow.h */,
 				1C5BC864210A621500F67574 /* MapMarkerWindow.m */,
+				9E8A9C51210FDC48001EE3F0 /* AdditionFeedCell.h */,
+				9E8A9C52210FDC48001EE3F0 /* AdditionFeedCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -230,6 +241,8 @@
 				1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */,
 				1C9B05E321068CFC00FBF521 /* TabBarController.h */,
 				1C9B05E421068CFC00FBF521 /* TabBarController.m */,
+				9E8A9C54210FDC64001EE3F0 /* FeedViewController.h */,
+				9E8A9C55210FDC64001EE3F0 /* FeedViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -372,6 +385,7 @@
 				1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */,
 				018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */,
 				317B3939210267900057079A /* SearchPage.storyboard in Resources */,
+				9E8A9C50210FDB6E001EE3F0 /* Feed.storyboard in Resources */,
 				1C5BC862210A581100F67574 /* MarkerWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,12 +447,14 @@
 				9E8A9C49210FBFF2001EE3F0 /* CheckInEvent.m in Sources */,
 				9E8A9C4C210FC084001EE3F0 /* ListAdditionEvent.m in Sources */,
 				9EE973F1210280F60056DCF2 /* ImageHelper.m in Sources */,
+				9E8A9C56210FDC64001EE3F0 /* FeedViewController.m in Sources */,
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
 				9EE973EE2102805A0056DCF2 /* AlertHelper.m in Sources */,
 				317B392E210267590057079A /* PlaceResultCell.m in Sources */,
 				0130162D20EFDE620010FD04 /* AppDelegate.m in Sources */,
 				018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */,
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
+				9E8A9C53210FDC48001EE3F0 /* AdditionFeedCell.m in Sources */,
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
 				9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */,
 				317B3937210267880057079A /* RelationshipsViewController.m in Sources */,
