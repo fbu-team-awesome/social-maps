@@ -7,9 +7,15 @@
 //
 
 #import "FeedViewController.h"
-#import "ListAdditionEvent.h"
 #import "FeedEvent.h"
+#import "ListAdditionEvent.h"
+#import "CheckInEvent.h"
+#import "PhotoAdditionEvent.h"
+#import "ReviewAdditionEvent.h"
 #import "AdditionFeedCell.h"
+#import "CheckinFeedCell.h"
+#import "PhotoFeedCell.h"
+#import "ReviewFeedCell.h"
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -99,7 +105,15 @@
         }
         else if(eventType == ETCheckin)
         {
-            
+            [temp addObject:[[CheckInEvent alloc] initWithParseObject:object]];
+        }
+        else if(eventType == ETPhotoAddition)
+        {
+            [temp addObject:[[PhotoAdditionEvent alloc] initWithParseObject:object]];
+        }
+        else if(eventType == ETReviewAddition)
+        {
+            [temp addObject:[[ReviewAdditionEvent alloc] initWithParseObject:object]];
         }
     }
     
@@ -113,15 +127,29 @@
     
     if(event != nil)
     {
-        if(event.eventType == ETCheckin)
-        {
-
-        }
-        else if(event.eventType == ETListAddition)
+       if(event.eventType == ETListAddition)
         {
             AdditionFeedCell *additionCell = [tableView dequeueReusableCellWithIdentifier:@"AdditionFeedCell" forIndexPath:indexPath];
             [additionCell setEvent:(ListAdditionEvent *)event];
             cell = additionCell;
+        }
+        else if(event.eventType == ETCheckin)
+        {
+            CheckinFeedCell *checkinCell = [tableView dequeueReusableCellWithIdentifier:@"CheckinFeedCell" forIndexPath:indexPath];
+            [checkinCell setEvent:(CheckInEvent *)event];
+            cell = checkinCell;
+        }
+        else if(event.eventType == ETPhotoAddition)
+        {
+            PhotoFeedCell *photoCell = [tableView dequeueReusableCellWithIdentifier:@"PhotoFeedCell" forIndexPath:indexPath];
+            [photoCell setEvent:(PhotoAdditionEvent *)event];
+            cell = photoCell;
+        }
+        else if(event.eventType == ETReviewAddition)
+        {
+            ReviewFeedCell *reviewCell = [tableView dequeueReusableCellWithIdentifier:@"ReviewFeedCell" forIndexPath:indexPath];
+            [reviewCell setEvent:(ReviewAdditionEvent *)event];
+            cell = reviewCell;
         }
     }
     
