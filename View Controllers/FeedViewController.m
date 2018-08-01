@@ -33,6 +33,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)sortEventsDescendingWithArray:(NSArray *)arrayToSort {
+    self.events = [arrayToSort sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSDate *date1 = ((FeedEvent *)obj1).parseObject.createdAt;
+        NSDate *date2 = ((FeedEvent *)obj2).parseObject.createdAt;
+        return [date2 compare:date1];
+    }];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FeedEvent *event = self.events[indexPath.row];
