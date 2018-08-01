@@ -10,16 +10,23 @@
 
 @implementation FilterCheckboxCell
 
+@synthesize selected;
+
 - (void)configureCell {
     
     self.listName.text = self.list;
-    if ([self.selected boolValue]) {
-        [self.checkbox setSelected:NO];
-    }
-    else {
+    
+    // [self setSelected:NO];
+    // self.selected = [self isSelected];
+    
+    if (self.selected) {
         [self.checkbox setSelected:YES];
     }
+    else {
+        [self.checkbox setSelected:NO];
+    }
 }
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];

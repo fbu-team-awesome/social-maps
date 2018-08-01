@@ -14,8 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) MarkerManager *markerManager;
-@property (strong, nonatomic) NSArray *sections;
-@property (strong, nonatomic) NSArray *filterNames;
+@property (strong, nonatomic) NSArray<NSString *> *sectionTitles;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSMutableArray *> *sections;
 
 @end
 
@@ -26,19 +26,45 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.sections = @[@"Your Lists", @"Your Follows", @"Place Categories"];
     self.markerManager = [MarkerManager shared];
-    self.filterNames = [self.markerManager.filters allKeys];
+    [self organizeFiltersIntoSections];
+    
     self.tableView.allowsSelection = NO;
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView reloadData];
 }
 
+- (void)organizeFiltersIntoSections {
+    self.sectionTitles = @[@"Your Lists", @"Lists of Your Follows", @"Places Categories"];
+    NSArray *filterNames = [self.markerManager.filters allKeys];
+    
+    self.sections = [NSMutableDictionary new];
+    
+    [self.sections setObject:[NSMutableArray new] forKey:self.sectionTitles[0]];
+    [self.sections setObject:[NSMutableArray new] forKey:self.sectionTitles[1]];
+    [self.sections setObject:[NSMutableArray new] forKey:self.sectionTitles[2]];
+    
+    for (NSUInteger i = 0; i < filterNames.count; i++) {
+        if (i < 2) {
+            [[self.sections objectForKey:self.sectionTitles[0]] addObject:filterNames[i]];
+        }
+        else if (i == 2) {
+            [[self.sections objectForKey:self.sectionTitles[1]] addObject:filterNames[i]];
+        }
+        else {
+            [[self.sections objectForKey:self.sectionTitles[2]] addObject:filterNames[i]];
+        }
+    }
+}
+
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     FilterCheckboxCell *checkboxCell = [tableView dequeueReusableCellWithIdentifier:@"CheckboxCell" forIndexPath:indexPath];
     
-    checkboxCell.list = self.filterNames[indexPath.row];
-    checkboxCell.selected = [self.markerManager.filters objectForKey:self.filterNames[indexPath.row]];
+    // gets the list names in the section
+    NSArray *listsOfSection = [self.sections objectForKey:self.sectionTitles[indexPath.section]];
+    NSString *listName = listsOfSection[indexPath.row];
+    checkboxCell.list = listName;
+    checkboxCell.selected = [[self.markerManager.filters objectForKey:listName] boolValue];
     [checkboxCell configureCell];
     
     return checkboxCell;
@@ -56,11 +82,11 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.sections.count;
+    return self.sectionTitles.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return self.sections[section];
+    return self.sectionTitles[section];
 }
 
 @end

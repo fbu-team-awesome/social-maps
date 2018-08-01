@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *checkbox;
 
 @property (strong, nonatomic) NSString *list;
-@property (nonatomic, assign) NSNumber *selected;
+@property (nonatomic, getter=isSelected) BOOL selected;
 
 - (void)configureCell;
 
