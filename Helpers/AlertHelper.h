@@ -12,4 +12,6 @@
 @interface AlertHelper : NSObject
 + (void)showAlertWithTitle:(NSString*)title message:(NSString*)message sender:(UIViewController*)sender;
 + (void)showPhotoAlertFrom:(UIViewController*)sender;
++ (void)showPhotoAlertWithoutCroppingFrom:(UIViewController *)sender;
+
 @end

@@ -10,9 +10,10 @@
 
 @implementation ReviewAdditionEvent
 - (instancetype)initWithParseObject:(PFObject *)object {
-    self = [super initWithParseObject:object];
-    self.review = object[@"review"];
-    
+    if(self = [super initWithParseObject:object])
+    {
+        self.review = object[@"review"];
+    }
     return self;
 }
 

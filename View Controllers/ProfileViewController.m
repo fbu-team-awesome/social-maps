@@ -18,6 +18,7 @@
 #import "RelationshipsViewController.h"
 #import "Relationships.h"
 #import "NCHelper.h"
+#import "ListViewController.h"
 
 @interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
@@ -94,8 +95,8 @@
         self.mapView.settings.myLocationButton = YES;
         [self.mapView setMyLocationEnabled:YES];
         
-        // hide follow button
-        self.followButton.hidden = YES;
+        // show list button instead
+        [self.followButton setTitle:@"View Lists" forState:UIControlStateNormal];
     }
     
     // init tableview
@@ -318,7 +319,13 @@
 }
 
 - (IBAction)followClicked:(id)sender {
-    if([self.followButton.titleLabel.text isEqualToString:@"Follow"])
+    //if we are on our own profile, show lists instead
+    if([[PFUser currentUser].objectId isEqualToString:self.user.objectId]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ListView" bundle:[NSBundle mainBundle]];
+        ListViewController *listVC = (ListViewController *)[storyboard instantiateViewControllerWithIdentifier:@"List"];
+        [self.navigationController pushViewController:listVC animated:YES];
+    }
+    else if([self.followButton.titleLabel.text isEqualToString:@"Follow"])
     {
         [[PFUser currentUser] follow:self.user];
         [self.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];

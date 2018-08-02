@@ -141,7 +141,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="glN-iZ-1cY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1898" y="-195"/>
+            <point key="canvasLocation" x="1906" y="-179"/>
         </scene>
         <!--ResultsView-->
         <scene sceneID="19w-UH-TmC">
@@ -151,7 +151,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4qC-c4-CTg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1941" y="-71"/>
+            <point key="canvasLocation" x="1939" y="4"/>
         </scene>
         <!--ListView-->
         <scene sceneID="ptW-9f-5Bh">
@@ -161,7 +161,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l1n-Y5-bXG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1924" y="56"/>
+            <point key="canvasLocation" x="1933" y="87"/>
         </scene>
         <!--Profile-->
         <scene sceneID="imS-nq-SOJ">
@@ -171,7 +171,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kyJ-al-HCY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1906" y="195"/>
+            <point key="canvasLocation" x="1933" y="134"/>
         </scene>
         <!--SearchPage-->
         <scene sceneID="De4-ht-oIg">
@@ -181,7 +181,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1u-Ti-GZh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1924" y="4"/>
+            <point key="canvasLocation" x="1937" y="-81"/>
         </scene>
         <!--TabBarController-->
         <scene sceneID="ynd-sj-bTy">
@@ -195,11 +195,11 @@
                         <color key="barTintColor" name="VTR_Main"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Uhz-qu-YxX" kind="relationship" relationship="viewControllers" id="aOG-px-yXh"/>
-                        <segue destination="RHe-W1-V7z" kind="relationship" relationship="viewControllers" id="3UM-mw-dw6"/>
-                        <segue destination="XJZ-pF-t9S" kind="relationship" relationship="viewControllers" id="YXq-OK-6Om"/>
-                        <segue destination="SBn-ws-uWO" kind="relationship" relationship="viewControllers" id="mto-JN-EkN"/>
-                        <segue destination="PjV-Dj-pFp" kind="relationship" relationship="viewControllers" id="iC4-AN-yzt"/>
+                        <segue destination="PjV-Dj-pFp" kind="relationship" relationship="viewControllers" id="Vlb-20-9SJ"/>
+                        <segue destination="SBn-ws-uWO" kind="relationship" relationship="viewControllers" id="YVg-0n-YXg"/>
+                        <segue destination="Uhz-qu-YxX" kind="relationship" relationship="viewControllers" id="BeI-1c-NrT"/>
+                        <segue destination="RHe-W1-V7z" kind="relationship" relationship="viewControllers" id="HvO-AU-1xL"/>
+                        <segue destination="XJZ-pF-t9S" kind="relationship" relationship="viewControllers" id="o5E-i1-efb"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P1K-nL-YRI" userLabel="First Responder" sceneMemberID="firstResponder"/>

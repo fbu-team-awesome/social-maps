@@ -10,8 +10,10 @@
 
 @implementation ListAdditionEvent
 - (instancetype)initWithParseObject:(PFObject *)object {
-    self = [super initWithParseObject:object];
-    self.listType = [object[@"listType"] unsignedIntegerValue];
+    if(self = [super initWithParseObject:object])
+    {
+        self.listType = [object[@"listType"] unsignedIntegerValue];
+    }
     
     return self;
 }
