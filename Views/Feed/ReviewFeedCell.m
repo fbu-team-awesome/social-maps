@@ -21,8 +21,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-}
+    
+    // hide the cell
+    [self.contentView setAlpha:0];}
 
 - (void)initUI {
     // set up content formatting
@@ -33,6 +34,15 @@
     self.ratingLabel.text = [NSString stringWithFormat:@"%i/5", self.event.review.rating];
     self.reviewLabel.text = self.event.review.content;
     [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
+    
+    // set rounded image
+    self.profilePictureImage.layer.cornerRadius = self.profilePictureImage.frame.size.width / 2;
+    self.profilePictureImage.clipsToBounds = YES;
+    
+    // fade into visibility
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.contentView setAlpha:1];
+    }];
 }
 
 - (void)setEvent:(ReviewAdditionEvent *)event {

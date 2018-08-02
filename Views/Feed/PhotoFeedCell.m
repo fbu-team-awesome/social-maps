@@ -20,8 +20,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-}
+    
+    // hide the cell
+    [self.contentView setAlpha:0];}
 
 - (void)initUI {
     // set up content formatting
@@ -31,6 +32,15 @@
     self.contentLabel.text = content;
     [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
     [ParseImageHelper setImageFromPFFile:self.event.photo forImageView:self.photoImage];
+    
+    // set rounded image
+    self.profilePictureImage.layer.cornerRadius = self.profilePictureImage.frame.size.width / 2;
+    self.profilePictureImage.clipsToBounds = YES;
+    
+    // fade into visibility
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.contentView setAlpha:1];
+    }];
 }
 
 - (void)setEvent:(PhotoAdditionEvent *)event {
