@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "NCHelper.h"
 #import "ListAdditionEvent.h"
+#include "NCHelper.h"
 
 @implementation PFUser (ExtendedUser)
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships, checkIns;
@@ -41,6 +42,9 @@
                        event.listType = LTFavorite;
                        event.place = result;
                        [event saveInBackground];
+                       
+                       // send the notification
+                       [NCHelper notify:NTNewFeedEvent object:event];
                    }
                    else
                    {
@@ -92,6 +96,9 @@
                        event.listType = LTWishlist;
                        event.place = result;
                        [event saveInBackground];
+                       
+                       // send the notification
+                       [NCHelper notify:NTNewFeedEvent object:event];
                    }
                    else
                    {

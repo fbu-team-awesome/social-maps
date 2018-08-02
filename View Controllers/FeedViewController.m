@@ -10,6 +10,7 @@
 #import "ListAdditionEvent.h"
 #import "FeedEvent.h"
 #import "AdditionFeedCell.h"
+#import "NCHelper.h"
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -21,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self addNotificationObservers];
     
     // set up tableview
     self.tableView.dataSource = self;
@@ -28,6 +30,10 @@
     [self.tableView setRowHeight:64];
     self.events = [NSArray new];
     [self fetchEvents];
+}
+
+- (void)addNotificationObservers {
+    [NCHelper addObserver:self type:NTNewFeedEvent selector:@selector(newFeedEventAdded:)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -130,6 +136,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.events.count;
+}
+
+- (void)newFeedEventAdded:(NSNotification *)notification {
+    FeedEvent *event = (FeedEvent *)notification.object;
+    self.events = [[NSArray arrayWithObject:event] arrayByAddingObjectsFromArray:self.events];
+    [self.tableView reloadData];
 }
 
 /*
