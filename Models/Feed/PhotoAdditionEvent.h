@@ -9,7 +9,7 @@
 #import "FeedEvent.h"
 
 @interface PhotoAdditionEvent : FeedEvent
-@property (strong, nonatomic) NSArray<PFFile *> *photos;
+@property (strong, nonatomic) PFFile *photo;
 
 - (instancetype)initWithParseObject:(PFObject *)object;
 @end

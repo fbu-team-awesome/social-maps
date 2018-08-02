@@ -37,6 +37,9 @@
 		317B393E210267E40057079A /* RelationshipListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 317B393D210267E40057079A /* RelationshipListCell.m */; };
 		340E6CCEA9D6E4EE79FB3144 /* libPods-social-maps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0669C073917F375AFFBB6F32 /* libPods-social-maps.a */; };
 		9E3C98312106F051002C63F5 /* NCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3C98302106F051002C63F5 /* NCHelper.m */; };
+		9E3E4226211267A1002AA981 /* CheckinFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E4225211267A1002AA981 /* CheckinFeedCell.m */; };
+		9E3E4229211267C2002AA981 /* PhotoFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E4228211267C2002AA981 /* PhotoFeedCell.m */; };
+		9E3E422C211267D0002AA981 /* ReviewFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E422B211267D0002AA981 /* ReviewFeedCell.m */; };
 		9E4D281C20FEBE090069CBF2 /* SignUpView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */; };
 		9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */; };
 		9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6755E421012DF10056D009 /* ProfileListCell.m */; };
@@ -111,6 +114,12 @@
 		317B393D210267E40057079A /* RelationshipListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationshipListCell.m; sourceTree = "<group>"; };
 		9E3C982F2106F051002C63F5 /* NCHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NCHelper.h; sourceTree = "<group>"; };
 		9E3C98302106F051002C63F5 /* NCHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NCHelper.m; sourceTree = "<group>"; };
+		9E3E4224211267A1002AA981 /* CheckinFeedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckinFeedCell.h; sourceTree = "<group>"; };
+		9E3E4225211267A1002AA981 /* CheckinFeedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckinFeedCell.m; sourceTree = "<group>"; };
+		9E3E4227211267C2002AA981 /* PhotoFeedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoFeedCell.h; sourceTree = "<group>"; };
+		9E3E4228211267C2002AA981 /* PhotoFeedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoFeedCell.m; sourceTree = "<group>"; };
+		9E3E422A211267D0002AA981 /* ReviewFeedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReviewFeedCell.h; sourceTree = "<group>"; };
+		9E3E422B211267D0002AA981 /* ReviewFeedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReviewFeedCell.m; sourceTree = "<group>"; };
 		9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUpView.storyboard; sourceTree = "<group>"; };
 		9E4D281D20FEBE120069CBF2 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
@@ -210,6 +219,7 @@
 		018E6A9E20FEBABE00DE10A6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9E3E42232112675F002AA981 /* Feed */,
 				317B393C210267E40057079A /* RelationshipListCell.h */,
 				317B393D210267E40057079A /* RelationshipListCell.m */,
 				317B392C2102674D0057079A /* PlaceResultCell.h */,
@@ -224,8 +234,6 @@
 				9E6755E421012DF10056D009 /* ProfileListCell.m */,
 				1C5BC863210A621500F67574 /* MapMarkerWindow.h */,
 				1C5BC864210A621500F67574 /* MapMarkerWindow.m */,
-				9E8A9C51210FDC48001EE3F0 /* AdditionFeedCell.h */,
-				9E8A9C52210FDC48001EE3F0 /* AdditionFeedCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,6 +275,21 @@
 				0669C073917F375AFFBB6F32 /* libPods-social-maps.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9E3E42232112675F002AA981 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				9E8A9C51210FDC48001EE3F0 /* AdditionFeedCell.h */,
+				9E8A9C52210FDC48001EE3F0 /* AdditionFeedCell.m */,
+				9E3E4224211267A1002AA981 /* CheckinFeedCell.h */,
+				9E3E4225211267A1002AA981 /* CheckinFeedCell.m */,
+				9E3E4227211267C2002AA981 /* PhotoFeedCell.h */,
+				9E3E4228211267C2002AA981 /* PhotoFeedCell.m */,
+				9E3E422A211267D0002AA981 /* ReviewFeedCell.h */,
+				9E3E422B211267D0002AA981 /* ReviewFeedCell.m */,
+			);
+			path = Feed;
 			sourceTree = "<group>";
 		};
 		9E8A9C3F210FB8E5001EE3F0 /* Feed */ = {
@@ -481,12 +504,15 @@
 				1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */,
 				9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */,
 				9E8A9C46210FBED1001EE3F0 /* Review.m in Sources */,
+				9E3E422C211267D0002AA981 /* ReviewFeedCell.m in Sources */,
 				1C5BC865210A621500F67574 /* MapMarkerWindow.m in Sources */,
 				317B393E210267E40057079A /* RelationshipListCell.m in Sources */,
+				9E3E4229211267C2002AA981 /* PhotoFeedCell.m in Sources */,
 				1CAC864321103D7700A7A294 /* CheckInsViewController.m in Sources */,
 				9E8A9C6521125808001EE3F0 /* ReviewAdditionEvent.m in Sources */,
 				317B3931210267650057079A /* UserResultCell.m in Sources */,
 				01CA4A20210153230032C11F /* Relationships.m in Sources */,
+				9E3E4226211267A1002AA981 /* CheckinFeedCell.m in Sources */,
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
 				9EE973F4210281850056DCF2 /* ParseImageHelper.m in Sources */,
 				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
