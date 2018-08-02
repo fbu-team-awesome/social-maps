@@ -12,6 +12,12 @@ static NSString* GOOGLE_API_KEY = @"AIzaSyDPNMeUT45545fwU_98uWqn0yNfgbtr1ZE";
 static NSString* PARSE_APP_ID = @"ID_VENTUREAWESOMEAPP";
 static NSString* PARSE_MASTER_KEY = @"KEY_VENTUREAWESOMEAPP";
 static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/parse";
+static const NSUInteger kQuerySize = 10;
+
+@interface APIManager()
+
+@property (strong, nonatomic) NSDate *lastQueryDate;
+@end
 
 @implementation APIManager
 + (instancetype)shared {
@@ -98,6 +104,46 @@ static NSString* PARSE_SERVER_URL = @"http://ventureawesomeapp.herokuapp.com/par
                     if(array.count == objects.count)
                     {
                         completion((NSArray*)array);
+                    }
+                }];
+            }
+        } else {
+            NSLog(@"Error getting all places");
+        }
+    }];
+}
+
+- (void)getNextGMSPlacesBatch:(void(^)(NSArray<GMSPlace *> *places))completion {
+    PFQuery *query = [PFQuery queryWithClassName:@"Place"];
+    query.limit = kQuerySize;
+    [query orderByDescending:@"createdAt"];
+    if (self.lastQueryDate != nil) {
+        [query whereKey:@"createdAt" lessThan:self.lastQueryDate];
+    }
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        Place *lastPlace = [objects lastObject];
+        self.lastQueryDate = lastPlace.createdAt;
+        if (error == nil && objects != nil) {
+            NSArray<Place *> *orderedObjects = [NSArray arrayWithArray:objects];
+            
+            Place *placeHolder = [[Place alloc] init];
+            NSMutableArray *places = [NSMutableArray arrayWithCapacity:kQuerySize];
+            for (int i = 0; i < orderedObjects.count; i++) {
+                [places addObject:placeHolder];
+            }
+            
+            __block NSUInteger count = 0;
+            for (int i = 0; i < orderedObjects.count; ++i) {
+                Place *myPlace = orderedObjects[i];
+                
+                // convert each Place to a GMSPlace
+                [self GMSPlaceFromPlace:myPlace withCompletion:^(GMSPlace *place) {
+                    [places replaceObjectAtIndex:i withObject:place];
+                    count++;
+                    if (count == objects.count) {
+                        [places removeObjectIdenticalTo:placeHolder];
+                        completion(places);
                     }
                 }];
             }
