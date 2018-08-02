@@ -13,6 +13,8 @@
 #import "ParseImageHelper.h"
 #import "CheckInsViewController.h"
 #import "Relationships.h"
+#import "AlertHelper.h"
+#import "ImageHelper.h"
 
 @interface DetailsViewController () <GMSMapViewDelegate>
 // Outlet Definitions //
@@ -216,4 +218,20 @@
         checkInsVC.users = self.usersCheckedIn;
     }
 }
+
+#pragma mark - Photos
+
+- (IBAction)didTapUploadPhoto:(id)sender {
+    [AlertHelper showPhotoAlertFrom:self];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage* image = [ImageHelper resizeImage:info[UIImagePickerControllerEditedImage] withSize:CGSizeMake(1000, 1000)] ;
+    PFFile *photoFile = [ParseImageHelper getPFFileFromImage:image];
+    [self.parsePlace addPhoto:photoFile withCompletion:^{
+        //add photo to scrollview
+    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

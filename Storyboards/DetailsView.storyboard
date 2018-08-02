@@ -203,22 +203,23 @@
                                                             <constraint firstItem="1rI-GH-9P0" firstAttribute="centerY" secondItem="obO-zu-z8X" secondAttribute="centerY" id="yGQ-Nk-3an"/>
                                                         </constraints>
                                                     </scrollView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ Upload a photo" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoW-YJ-d2M">
-                                                        <rect key="frame" x="236.5" y="10" width="114.5" height="20"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="20" id="8A5-pk-yZv"/>
-                                                        </constraints>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFs-2t-aki">
+                                                        <rect key="frame" x="236" y="4" width="115" height="32"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
-                                                        <color key="textColor" name="VTR_Main"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                        <state key="normal" title="+ Upload a photo">
+                                                            <color key="titleColor" name="VTR_Main"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="didTapUploadPhoto:" destination="eMh-9V-03L" eventType="touchUpInside" id="iAT-iV-AXj"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="136" id="E81-8C-rZX"/>
                                                     <constraint firstItem="scf-dM-qfD" firstAttribute="top" secondItem="FFx-Wc-XL8" secondAttribute="top" constant="10" id="F64-PW-9aU"/>
-                                                    <constraint firstItem="CoW-YJ-d2M" firstAttribute="top" secondItem="FFx-Wc-XL8" secondAttribute="top" constant="10" id="PF1-DW-YRh"/>
-                                                    <constraint firstAttribute="trailing" secondItem="CoW-YJ-d2M" secondAttribute="trailing" constant="24" id="nLF-vJ-3dH"/>
+                                                    <constraint firstItem="qFs-2t-aki" firstAttribute="centerY" secondItem="scf-dM-qfD" secondAttribute="centerY" id="MvP-Jb-jTe"/>
+                                                    <constraint firstAttribute="trailing" secondItem="qFs-2t-aki" secondAttribute="trailing" constant="24" id="fdV-t9-VPF"/>
                                                     <constraint firstItem="obO-zu-z8X" firstAttribute="leading" secondItem="FFx-Wc-XL8" secondAttribute="leading" id="pXp-yy-BJR"/>
                                                     <constraint firstAttribute="trailing" secondItem="obO-zu-z8X" secondAttribute="trailing" id="toY-Yg-PNj"/>
                                                     <constraint firstItem="obO-zu-z8X" firstAttribute="top" secondItem="scf-dM-qfD" secondAttribute="bottom" constant="7" id="u0s-hf-vUe"/>
