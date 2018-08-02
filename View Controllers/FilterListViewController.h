@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol FilterDelegate
+
+- (void)filterSelectionDone;
+
+@end
+
 @interface FilterListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, weak) id<FilterDelegate> delegate;
 
 @end

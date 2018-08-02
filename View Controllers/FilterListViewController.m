@@ -93,6 +93,7 @@
 }
 
 - (IBAction)doneClicked:(id)sender {
+    [self.delegate filterSelectionDone];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

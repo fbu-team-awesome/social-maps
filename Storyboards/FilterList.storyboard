@@ -14,7 +14,7 @@
         <!--Filter List View Controller-->
         <scene sceneID="kph-2G-gmT">
             <objects>
-                <viewController id="xy4-Ef-6Kh" customClass="FilterListViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="filter" id="xy4-Ef-6Kh" customClass="FilterListViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vFe-Z4-GGi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -91,7 +91,7 @@
         <!--Navigation Controller-->
         <scene sceneID="e9h-Sd-IH0">
             <objects>
-                <navigationController storyboardIdentifier="filter" automaticallyAdjustsScrollViewInsets="NO" id="dVY-As-qXT" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="filterNav" automaticallyAdjustsScrollViewInsets="NO" id="dVY-As-qXT" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5AM-AW-XRt">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

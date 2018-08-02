@@ -15,7 +15,7 @@
 #import "Marker.h"
 #import "FilterListViewController.h"
 
-@interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate>
+@interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate, FilterDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *resultsView;
 @property (strong, nonatomic) UIView *filterView;
@@ -25,6 +25,7 @@
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) ResultsTableViewController <UISearchResultsUpdating>* resultsViewController;
+@property (strong, nonatomic) UINavigationController *filterListNavController;
 @property (nonatomic, assign) BOOL userPlacesRetrieved;
 @property (nonatomic, assign) BOOL followPlacesRetrieved;
 
@@ -105,13 +106,12 @@
     _searchController.hidesNavigationBarDuringPresentation = NO;
 }
 
-- (void)addPinsIfFinished {
-    if (self.userPlacesRetrieved && self.followPlacesRetrieved) {
-        [self addPinsToMap];
-    }
-}
-
 - (void)initFilter {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FilterList" bundle:nil];
+    self.filterListNavController = [storyboard instantiateViewControllerWithIdentifier:@"filterNav"];
+    FilterListViewController *filterListVC = (FilterListViewController *)self.filterListNavController.topViewController;
+    filterListVC.delegate = self;
+    
     self.filterView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationItem.titleView.bounds.origin.y + self.navigationItem.titleView.bounds.size.height, self.view.bounds.size.width, 75)];
     [self.filterView setBackgroundColor:[UIColor whiteColor]];
     [self.resultsView addSubview:self.filterView];
@@ -242,7 +242,6 @@
     }];
 }
 
-
 #pragma - Remove pins from dictionary when notification is receieved
 
 - (void)removeFavoritePin:(NSNotification *)notification {
@@ -273,14 +272,6 @@
     }
 }
 
-- (void)addFilterButtonTapped {
-    NSLog(@"tapped");
-    UIStoryboard *filterStoryboard = [UIStoryboard storyboardWithName:@"FilterList" bundle:nil];
-    FilterListViewController *filter = [filterStoryboard instantiateViewControllerWithIdentifier:@"filter"];
-    
-    [self presentViewController:filter animated:YES completion:nil];
-}
-
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -288,5 +279,14 @@
     
     DetailsViewController *detailsController = (DetailsViewController *)[segue destinationViewController];
     [detailsController setPlace:sender];
+}
+
+- (void)filterSelectionDone {
+    [self addPinsToMap];
+}
+
+- (void)addFilterButtonTapped {
+    NSLog(@"tapped");
+    [self presentViewController:self.filterListNavController animated:YES completion:nil];
 }
 @end

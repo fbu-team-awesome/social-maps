@@ -9,6 +9,10 @@
 #import "MarkerManager.h"
 #import "Marker.h"
 
+NSString *const kFavoritesKey = @"favorites";
+NSString *const kWishlistKey = @"wishlist";
+NSString *const kFollowFavKey = @"followFavorites";
+
 @implementation MarkerManager
 + (instancetype)shared {
     static MarkerManager* sharedManager = nil;
@@ -33,7 +37,6 @@
                       @"Outdoors":@[@"park", @"campground", @"rv_park"],
                       @"Beauty":@[@"beauty_salon", @"hair_care"],
                       @"Museums":@[@"art_gallery", @"museum"]
-                      
                       };
     
     self.placeCategories = [self.typeDict allKeys];
