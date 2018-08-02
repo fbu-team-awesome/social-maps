@@ -35,7 +35,7 @@
                        [self saveInBackground];
                        
                        // create the feed event
-                       ListAdditionEvent *event = [[ListAdditionEvent alloc] init];
+                       ListAdditionEvent *event = [ListAdditionEvent new];
                        event.user = self;
                        event.eventType = ETListAddition;
                        event.listType = LTFavorite;
@@ -84,6 +84,14 @@
                        self.wishlist = [mutableWishlist copy];
                        [self setObject:self.wishlist forKey:@"wishlist"];
                        [self saveInBackground];
+                       
+                       // create the feed event
+                       ListAdditionEvent *event = [ListAdditionEvent new];
+                       event.user = self;
+                       event.eventType = ETListAddition;
+                       event.listType = LTWishlist;
+                       event.place = result;
+                       [event saveInBackground];
                    }
                    else
                    {
