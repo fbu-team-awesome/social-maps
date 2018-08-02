@@ -17,6 +17,10 @@ typedef enum MarkerType : NSUInteger {
     followFavorites
 } MarkerType;
 
+extern NSString *const kFavoritesKey = @"favorites";
+extern NSString *const kWishlistKey = @"wishlist";
+extern NSString *const kFollowFavKey = @"followFavorites";
+
 @interface MarkerManager : NSObject
 
 @property (strong, nonatomic) NSMutableDictionary<NSString*, NSMutableArray<GMSMarker*>*> *markersByPlaceCategory;

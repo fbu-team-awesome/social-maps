@@ -45,13 +45,13 @@
     [self.sections setObject:[NSMutableArray new] forKey:self.sectionTitles[2]];
     
     for (NSString *filterName in filterNames) {
-        if ([filterName isEqualToString:@"favorites"]) {
+        if ([filterName isEqualToString:kFavoritesKey]) {
             [[self.sections objectForKey:self.sectionTitles[0]] addObject:@"Favorites"];
         }
-        else if ([filterName isEqualToString:@"wishlist"]) {
+        else if ([filterName isEqualToString:kWishlistKey]) {
             [[self.sections objectForKey:self.sectionTitles[0]] addObject:@"Wishlist"];
         }
-        else if ([filterName isEqualToString:@"followFavorite"]) {
+        else if ([filterName isEqualToString:kFollowFavKey]) {
             [[self.sections objectForKey:self.sectionTitles[1]] addObject:@"Favorites"];
         }
         else {

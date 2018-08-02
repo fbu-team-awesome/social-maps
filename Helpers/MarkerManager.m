@@ -22,9 +22,9 @@
 
 - (void)initMarkerDictionaries {
     self.markersByMarkerType = [NSMutableDictionary new];
-    [self.markersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:@"favorites"];
-    [self.markersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:@"wishlist"];
-    [self.markersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:@"followFavorite"];
+    [self.markersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:kFavoritesKey];
+    [self.markersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:kWishlistKey];
+    [self.markersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:kFollowFavKey];
     
     self.typeDict = @{
                       @"Entertainment":@[@"amusement_park", @"aquarium", @"casino", @"movie_theater", @"bowling_alley", @"zoo", @"night_club"],
@@ -68,15 +68,15 @@
 - (void)addMarkerByType:(GMSMarker *)marker :(MarkerType)type {
     switch(type) {
         case favorites: {
-            [[self.markersByMarkerType objectForKey:@"favorites"] addObject:marker];
+            [[self.markersByMarkerType objectForKey:kFavoritesKey] addObject:marker];
             break;
         }
         case followFavorites: {
-            [[self.markersByMarkerType objectForKey:@"followFavorite"] addObject:marker];
+            [[self.markersByMarkerType objectForKey:kFollowFavKey] addObject:marker];
             break;
         }
         case wishlist: {
-            [[self.markersByMarkerType objectForKey:@"wishlist"] addObject:marker];
+            [[self.markersByMarkerType objectForKey:kWishlistKey] addObject:marker];
             break;
         }
     }
