@@ -47,6 +47,8 @@
 		9E8A9C50210FDB6E001EE3F0 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A9C4F210FDB6E001EE3F0 /* Feed.storyboard */; };
 		9E8A9C53210FDC48001EE3F0 /* AdditionFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C52210FDC48001EE3F0 /* AdditionFeedCell.m */; };
 		9E8A9C56210FDC64001EE3F0 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C55210FDC64001EE3F0 /* FeedViewController.m */; };
+		9E8A9C6221125772001EE3F0 /* PhotoAdditionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C6121125772001EE3F0 /* PhotoAdditionEvent.m */; };
+		9E8A9C6521125808001EE3F0 /* ReviewAdditionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C6421125808001EE3F0 /* ReviewAdditionEvent.m */; };
 		9EE973EE2102805A0056DCF2 /* AlertHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973ED2102805A0056DCF2 /* AlertHelper.m */; };
 		9EE973F1210280F60056DCF2 /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973F0210280F60056DCF2 /* ImageHelper.m */; };
 		9EE973F4210281850056DCF2 /* ParseImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973F3210281850056DCF2 /* ParseImageHelper.m */; };
@@ -127,6 +129,10 @@
 		9E8A9C52210FDC48001EE3F0 /* AdditionFeedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdditionFeedCell.m; sourceTree = "<group>"; };
 		9E8A9C54210FDC64001EE3F0 /* FeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		9E8A9C55210FDC64001EE3F0 /* FeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
+		9E8A9C6021125772001EE3F0 /* PhotoAdditionEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoAdditionEvent.h; sourceTree = "<group>"; };
+		9E8A9C6121125772001EE3F0 /* PhotoAdditionEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoAdditionEvent.m; sourceTree = "<group>"; };
+		9E8A9C6321125808001EE3F0 /* ReviewAdditionEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReviewAdditionEvent.h; sourceTree = "<group>"; };
+		9E8A9C6421125808001EE3F0 /* ReviewAdditionEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReviewAdditionEvent.m; sourceTree = "<group>"; };
 		9EE973EC2102805A0056DCF2 /* AlertHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertHelper.h; sourceTree = "<group>"; };
 		9EE973ED2102805A0056DCF2 /* AlertHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertHelper.m; sourceTree = "<group>"; };
 		9EE973EF210280F60056DCF2 /* ImageHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageHelper.h; sourceTree = "<group>"; };
@@ -272,6 +278,10 @@
 				9E8A9C48210FBFF2001EE3F0 /* CheckInEvent.m */,
 				9E8A9C4A210FC084001EE3F0 /* ListAdditionEvent.h */,
 				9E8A9C4B210FC084001EE3F0 /* ListAdditionEvent.m */,
+				9E8A9C6021125772001EE3F0 /* PhotoAdditionEvent.h */,
+				9E8A9C6121125772001EE3F0 /* PhotoAdditionEvent.m */,
+				9E8A9C6321125808001EE3F0 /* ReviewAdditionEvent.h */,
+				9E8A9C6421125808001EE3F0 /* ReviewAdditionEvent.m */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -456,6 +466,7 @@
 				9E8A9C49210FBFF2001EE3F0 /* CheckInEvent.m in Sources */,
 				9E8A9C4C210FC084001EE3F0 /* ListAdditionEvent.m in Sources */,
 				9EE973F1210280F60056DCF2 /* ImageHelper.m in Sources */,
+				9E8A9C6221125772001EE3F0 /* PhotoAdditionEvent.m in Sources */,
 				9E8A9C56210FDC64001EE3F0 /* FeedViewController.m in Sources */,
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
 				9EE973EE2102805A0056DCF2 /* AlertHelper.m in Sources */,
@@ -473,6 +484,7 @@
 				1C5BC865210A621500F67574 /* MapMarkerWindow.m in Sources */,
 				317B393E210267E40057079A /* RelationshipListCell.m in Sources */,
 				1CAC864321103D7700A7A294 /* CheckInsViewController.m in Sources */,
+				9E8A9C6521125808001EE3F0 /* ReviewAdditionEvent.m in Sources */,
 				317B3931210267650057079A /* UserResultCell.m in Sources */,
 				01CA4A20210153230032C11F /* Relationships.m in Sources */,
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,

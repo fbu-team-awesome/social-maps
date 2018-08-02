@@ -1,18 +1,18 @@
 //
-//  CheckInEvent.m
+//  PhotoAdditionEvent.m
 //  social-maps
 //
-//  Created by César Francisco Barraza on 7/30/18.
+//  Created by César Francisco Barraza on 8/1/18.
 //  Copyright © 2018 Bevin Benson. All rights reserved.
 //
 
-#import "CheckInEvent.h"
+#import "PhotoAdditionEvent.h"
 
-@implementation CheckInEvent
+@implementation PhotoAdditionEvent
 - (instancetype)initWithParseObject:(PFObject *)object {
     if(self = [super initWithParseObject:object])
     {
-        
+        self.photos = object[@"photos"];
     }
     
     return self;
@@ -20,5 +20,6 @@
 
 - (void)setParseProperties {
     [super setParseProperties];
+    self.parseObject[@"photos"] = self.photos;
 }
 @end
