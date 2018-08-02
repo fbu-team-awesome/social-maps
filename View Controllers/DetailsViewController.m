@@ -222,14 +222,14 @@
 #pragma mark - Photos
 
 - (IBAction)didTapUploadPhoto:(id)sender {
-    [AlertHelper showPhotoAlertFrom:self];
+    [AlertHelper showPhotoAlertWithoutCroppingFrom:self];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    UIImage* image = [ImageHelper resizeImage:info[UIImagePickerControllerEditedImage] withSize:CGSizeMake(1000, 1000)] ;
+    UIImage *image = [ImageHelper resizeImageForParse:info[UIImagePickerControllerOriginalImage]];
     PFFile *photoFile = [ParseImageHelper getPFFileFromImage:image];
     [self.parsePlace addPhoto:photoFile withCompletion:^{
-        //add photo to scrollview
+        //add photo to Details view
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
