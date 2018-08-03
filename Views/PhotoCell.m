@@ -14,6 +14,8 @@
 - (void) configureCell {
     if (self.photo) {
         [ParseImageHelper setImageFromPFFile:self.photo.file forImageView:self.photoView];
+        self.photoView.layer.cornerRadius = 5;
+        self.photoView.clipsToBounds = YES;
     }
 }
 

@@ -255,7 +255,9 @@
     Place *parsePlace = self.parsePlace;
     [parsePlace addPhoto:photoFile withCompletion:^{
         Photo *newPhoto = [[Photo alloc] initWithPFFile:photoFile userObjectId:PFUser.currentUser.objectId];
-        self.photos = [self.photos arrayByAddingObject:newPhoto];
+        NSMutableArray *mutablePhotos = [self.photos mutableCopy];
+        [mutablePhotos insertObject:newPhoto atIndex:0];
+        self.photos = [mutablePhotos copy];
         [self.collectionView reloadData];
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
