@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <GooglePlaces/GooglePlaces.h>
+#import "Marker.h"
 
 @protocol MarkerWindowDelegate;
 
@@ -15,8 +16,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *listsLabel;
-@property (strong, nonatomic) GMSPlace *place;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (strong, nonatomic) IBOutlet MapMarkerWindow *markerWindowView;
+@property (strong, nonatomic) Marker *marker;
 @property (strong, nonatomic) id<MarkerWindowDelegate> delegate;
+
+- (void) configureWindow;
 
 @end
 
