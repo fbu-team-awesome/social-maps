@@ -17,6 +17,8 @@
 		018E6A9D20FEBA6E00DE10A6 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */; };
 		018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6AA020FEBAD100DE10A6 /* ListViewCell.m */; };
 		01CA4A20210153230032C11F /* Relationships.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA4A1F210153230032C11F /* Relationships.m */; };
+		1C0D8E47211395D20013268A /* PhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D8E46211395D20013268A /* PhotoCell.m */; };
+		1C0D8E4A21139E600013268A /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D8E4921139E600013268A /* Photo.m */; };
 		1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF220FD2A740072BEFB /* LoginViewController.m */; };
 		1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */; };
 		1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D8A6F20FFB3C100F31851 /* SearchCell.m */; };
@@ -80,6 +82,10 @@
 		01CA4A1E210153230032C11F /* Relationships.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Relationships.h; sourceTree = "<group>"; };
 		01CA4A1F210153230032C11F /* Relationships.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Relationships.m; sourceTree = "<group>"; };
 		0669C073917F375AFFBB6F32 /* libPods-social-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-social-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C0D8E45211395D20013268A /* PhotoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoCell.h; sourceTree = "<group>"; };
+		1C0D8E46211395D20013268A /* PhotoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoCell.m; sourceTree = "<group>"; };
+		1C0D8E4821139E600013268A /* Photo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		1C0D8E4921139E600013268A /* Photo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		1C2C0BF120FD2A740072BEFB /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1C2C0BF220FD2A740072BEFB /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1C2C0BF420FD2CC00072BEFB /* PFUser+ExtendedUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PFUser+ExtendedUser.h"; sourceTree = "<group>"; };
@@ -234,6 +240,10 @@
 				9E6755E421012DF10056D009 /* ProfileListCell.m */,
 				1C5BC863210A621500F67574 /* MapMarkerWindow.h */,
 				1C5BC864210A621500F67574 /* MapMarkerWindow.m */,
+				9E8A9C51210FDC48001EE3F0 /* AdditionFeedCell.h */,
+				9E8A9C52210FDC48001EE3F0 /* AdditionFeedCell.m */,
+				1C0D8E45211395D20013268A /* PhotoCell.h */,
+				1C0D8E46211395D20013268A /* PhotoCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -336,6 +346,8 @@
 				1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */,
 				01CA4A1E210153230032C11F /* Relationships.h */,
 				01CA4A1F210153230032C11F /* Relationships.m */,
+				1C0D8E4821139E600013268A /* Photo.h */,
+				1C0D8E4921139E600013268A /* Photo.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -495,6 +507,7 @@
 				9EE973EE2102805A0056DCF2 /* AlertHelper.m in Sources */,
 				317B392E210267590057079A /* PlaceResultCell.m in Sources */,
 				0130162D20EFDE620010FD04 /* AppDelegate.m in Sources */,
+				1C0D8E4A21139E600013268A /* Photo.m in Sources */,
 				018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */,
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
 				9E8A9C53210FDC48001EE3F0 /* AdditionFeedCell.m in Sources */,
@@ -518,6 +531,7 @@
 				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
 				1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */,
 				9E8A9C42210FB936001EE3F0 /* FeedEvent.m in Sources */,
+				1C0D8E47211395D20013268A /* PhotoCell.m in Sources */,
 				1C9B05E521068CFC00FBF521 /* TabBarController.m in Sources */,
 				018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */,
 				317B39342102677C0057079A /* SearchViewController.m in Sources */,

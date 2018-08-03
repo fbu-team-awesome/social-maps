@@ -13,6 +13,8 @@
 #import "ParseImageHelper.h"
 #import "CheckInsViewController.h"
 #import "Relationships.h"
+#import "AlertHelper.h"
+#import "ImageHelper.h"
 
 @interface DetailsViewController () <GMSMapViewDelegate>
 // Outlet Definitions //
@@ -30,6 +32,8 @@
 @property (strong, nonatomic) Place *parsePlace;
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) NSArray<PFUser *> *usersCheckedIn;
+@property (strong, nonatomic) NSDictionary<PFFile *, NSString *> *photos;
+
 @end
 
 @implementation DetailsViewController
@@ -216,4 +220,24 @@
         checkInsVC.users = self.usersCheckedIn;
     }
 }
+
+#pragma mark - Photos
+
+- (IBAction)didTapUploadPhoto:(id)sender {
+    [AlertHelper showPhotoAlertWithoutCroppingFrom:self];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *image = [ImageHelper resizeImageForParse:info[UIImagePickerControllerOriginalImage]];
+    PFFile *photoFile = [ParseImageHelper getPFFileFromImage:image];
+    [self.parsePlace addPhoto:photoFile withCompletion:^{
+        //add photo to Details view
+    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) displayPlacePhotos {
+    
+}
+
 @end
