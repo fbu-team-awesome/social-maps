@@ -7,8 +7,8 @@
 //
 
 #import "FilterListViewController.h"
-#import "MarkerManager.h"
 #import "FilterCheckboxCell.h"
+#import "MarkerManager.h"
 
 @interface FilterListViewController ()
 

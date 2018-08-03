@@ -24,25 +24,12 @@
         self.listName.text = self.list;
     }
     
-    
     if (self.selected) {
         [self.checkbox setSelected:YES];
     }
     else {
         [self.checkbox setSelected:NO];
     }
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 - (IBAction)checkboxTapped:(id)sender {
@@ -58,5 +45,4 @@
         [markerManager.placeFilters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
     }
 }
-
 @end

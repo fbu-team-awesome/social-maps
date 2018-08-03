@@ -55,7 +55,6 @@ NSString *const kFollowFavKey = @"followFavorites";
         }
     }
     self.detailedTypeDict = (NSDictionary *)mutableDetailedTypeDict;
-    
 }
 
 - (void)initDefaultFilters {
@@ -70,34 +69,9 @@ NSString *const kFollowFavKey = @"followFavorites";
         [self.placeFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
         [self.allFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
     }
-    
 }
 
-- (void)addMarkerByType:(GMSMarker *)marker :(MarkerType)type {
-    switch(type) {
-        case favorites: {
-            [[self.markersByMarkerType objectForKey:kFavoritesKey] addObject:marker];
-            break;
-        }
-        case followFavorites: {
-            [[self.markersByMarkerType objectForKey:kFollowFavKey] addObject:marker];
-            break;
-        }
-        case wishlist: {
-            [[self.markersByMarkerType objectForKey:kWishlistKey] addObject:marker];
-            break;
-        }
-    }
-}
-
-- (void)addMarkerByPlaceTypes:(GMSMarker *)marker :(GMSPlace *)place {
-    for (NSString *type in place.types) {
-        NSString *categoryName = [self.detailedTypeDict objectForKey:type];
-        [[self.markersByPlaceCategory objectForKey:categoryName] addObject:marker];
-    }
-}
-
-#pragma - Add pins to dictionary based on type
+#pragma mark - Create the markers
 
 - (GMSMarker *)setFavoritePin:(GMSPlace *)place {
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
@@ -138,5 +112,31 @@ NSString *const kFollowFavKey = @"followFavorites";
     [self addMarkerByPlaceTypes:marker :place];
     
     return marker;
+}
+
+#pragma mark - Add marker to dictionary based on type
+
+- (void)addMarkerByType:(GMSMarker *)marker :(MarkerType)type {
+    switch(type) {
+        case favorites: {
+            [[self.markersByMarkerType objectForKey:kFavoritesKey] addObject:marker];
+            break;
+        }
+        case followFavorites: {
+            [[self.markersByMarkerType objectForKey:kFollowFavKey] addObject:marker];
+            break;
+        }
+        case wishlist: {
+            [[self.markersByMarkerType objectForKey:kWishlistKey] addObject:marker];
+            break;
+        }
+    }
+}
+
+- (void)addMarkerByPlaceTypes:(GMSMarker *)marker :(GMSPlace *)place {
+    for (NSString *type in place.types) {
+        NSString *categoryName = [self.detailedTypeDict objectForKey:type];
+        [[self.markersByPlaceCategory objectForKey:categoryName] addObject:marker];
+    }
 }
 @end

@@ -8,29 +8,27 @@
 
 #import "SearchResultsViewController.h"
 #import "DetailsViewController.h"
-#import "SearchCell.h"
 #import "ResultsTableViewController.h"
+#import "FilterListViewController.h"
 #import "NCHelper.h"
 #import "MarkerManager.h"
 #import "Marker.h"
 #import "MapMarkerWindow.h"
-#import "FilterListViewController.h"
+#import "SearchCell.h"
 
 @interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate, FilterDelegate, MarkerWindowDelegate>
   
 @property (weak, nonatomic) IBOutlet UIView *resultsView;
+@property (strong, nonatomic) IBOutlet MapMarkerWindow *markerWindowView;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *markerWindowGestureRecognizer;
 @property (strong, nonatomic) UIView *filterView;
-@property (strong, nonatomic) UISearchController *searchController;
 @property (strong, nonatomic) UIButton *filterButton;
+@property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) UINavigationController *filterListNavController;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) GMSMapView *mapView;
-@property (strong, nonatomic) IBOutlet MapMarkerWindow *markerWindowView;
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *markerWindowGestureRecognizer;
 @property (strong, nonatomic) ResultsTableViewController <UISearchResultsUpdating>* resultsViewController;
-@property (strong, nonatomic) UINavigationController *filterListNavController;
-@property (nonatomic, assign) BOOL userPlacesRetrieved;
-@property (nonatomic, assign) BOOL followPlacesRetrieved;
 @property (strong, nonatomic) MapMarkerWindow *infoWindow;
 @property (strong, nonatomic) GMSMarker *locationMarker;
 
@@ -84,9 +82,6 @@
     [[MarkerManager shared] initMarkerDictionaries];
     [[MarkerManager shared] initDefaultFilters];
     
-    self.userPlacesRetrieved = NO;
-    self.followPlacesRetrieved = NO;
-    
     // get the places and show on map based on filters
     [self retrieveUserPlacesWithCompletion:^{
         [self addPinsToMap];
@@ -94,6 +89,13 @@
     [self retrievePlacesOfUsersFollowingWithCompletion:^{
         [self addPinsToMap];
     }];
+}
+
+- (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
+    CLLocation* location = [locations lastObject];
+    GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude zoom:15];
+    self.mapView.camera = camera;
+    [self.mapView animateToCameraPosition:camera];
 }
 
 - (void)initSearch {
@@ -129,6 +131,8 @@
     [self.filterButton sizeToFit];
     [self.filterView addSubview:self.filterButton];
 }
+
+#pragma mark - Get places
 
 - (void)retrievePlacesOfUsersFollowingWithCompletion:(void(^)(void))completion {
     // get the Relationships of the current user
@@ -178,32 +182,7 @@
      }];
 }
 
-- (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
-    CLLocation* location = [locations lastObject];
-    GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude zoom:15];
-    self.mapView.camera = camera;
-    [self.mapView animateToCameraPosition:camera];
-}
-
-- (void)didSelectPlace:(GMSPlace *)place {
-    NSArray *whitelistedTypes = @[@"locality", @"cities", @"sublocality", @"country", @"continent"];
-    BOOL isRegion = NO;
-    
-    for (NSString *type in place.types) {
-        if ([whitelistedTypes containsObject:type]) {
-            isRegion = YES;
-        }
-    }
-    if (isRegion) {
-        NSLog(@"Is a location");
-        GMSCameraPosition *newPosition = [GMSCameraPosition cameraWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude zoom:6];
-        [self.mapView setCamera:newPosition];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-    else {
-        [self performSegueWithIdentifier:@"toDetailsView" sender: place];
-    }
-}
+#pragma mark - Place pins on the map
 
 - (void)addPinsToMap {
     [self.mapView clear];
@@ -300,6 +279,26 @@
 
 - (void)addFilterButtonTapped {
     [self presentViewController:self.filterListNavController animated:YES completion:nil];
+}
+
+- (void)didSelectPlace:(GMSPlace *)place {
+    NSArray *whitelistedTypes = @[@"locality", @"cities", @"sublocality", @"country", @"continent"];
+    BOOL isRegion = NO;
+    
+    for (NSString *type in place.types) {
+        if ([whitelistedTypes containsObject:type]) {
+            isRegion = YES;
+        }
+    }
+    if (isRegion) {
+        NSLog(@"Is a location");
+        GMSCameraPosition *newPosition = [GMSCameraPosition cameraWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude zoom:6];
+        [self.mapView setCamera:newPosition];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+        [self performSegueWithIdentifier:@"toDetailsView" sender: place];
+    }
 }
 
 #pragma mark - Marker Windows
