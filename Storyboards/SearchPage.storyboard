@@ -12,7 +12,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Search View Controller-->
+        <!--VENTURE-->
         <scene sceneID="aHQ-Gb-vcf">
             <objects>
                 <viewController id="Tv6-zn-1kv" customClass="SearchViewController" sceneMemberID="viewController">
@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5fY-7S-wwW">
-                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="489"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="VTR_Background"/>
                                 <prototypes>
@@ -40,7 +40,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqw-hh-BCz">
-                                                    <rect key="frame" x="97" y="28" width="209" height="24"/>
+                                                    <rect key="frame" x="97" y="28" width="224" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="Lmk-kN-wia"/>
                                                     </constraints>
@@ -49,7 +49,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="c3m-ce-eXf">
-                                                    <rect key="frame" x="314" y="27" width="30" height="76"/>
+                                                    <rect key="frame" x="329" y="27" width="30" height="76"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6S-RU-tUj">
                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -82,15 +82,15 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="1234 Address St San Francsico CA " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apw-pG-tQt">
-                                                    <rect key="frame" x="97" y="51" width="208" height="63.5"/>
+                                                    <rect key="frame" x="97" y="51" width="223" height="63.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" name="VTR_GrayLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="VTR_Background"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="c3m-ce-eXf" secondAttribute="trailing" constant="16" id="1xq-8d-1cK"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="c3m-ce-eXf" secondAttribute="trailing" constant="1" id="1xq-8d-1cK"/>
                                                 <constraint firstItem="apw-pG-tQt" firstAttribute="top" secondItem="fqw-hh-BCz" secondAttribute="bottom" constant="-1" id="GFU-HK-HDi"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="c3m-ce-eXf" secondAttribute="bottom" priority="750" constant="16" id="P5y-bu-tAX"/>
                                                 <constraint firstItem="fqw-hh-BCz" firstAttribute="top" secondItem="oDF-Ou-GLt" secondAttribute="top" constant="28" id="WEN-no-jAc"/>
@@ -165,7 +165,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="VTR_Background"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="1Xj-g1-Jyh" firstAttribute="leading" secondItem="7km-vB-fiH" secondAttribute="leading" id="2kI-lB-8G6"/>
                                                 <constraint firstAttribute="trailing" secondItem="Qq3-1q-LIY" secondAttribute="trailing" constant="24" id="5l6-C0-W8U"/>
@@ -188,22 +188,124 @@
                                             <outlet property="usernameLabel" destination="1Xj-g1-Jyh" id="adl-d3-4af"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCell" rowHeight="132" id="R0j-nj-kNz" customClass="SearchCell">
+                                        <rect key="frame" x="0.0" y="284" width="375" height="132"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R0j-nj-kNz" id="FDn-GW-7Z6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="131.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="tnF-2y-7NP">
+                                                    <rect key="frame" x="330" y="27" width="30" height="76"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yG-Wd-Ggg">
+                                                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="0vG-s7-6SB"/>
+                                                                <constraint firstAttribute="width" constant="30" id="Xkk-cx-3jp"/>
+                                                            </constraints>
+                                                            <state key="normal" image="favorite_unselected">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <state key="selected" image="favorite_selected"/>
+                                                            <connections>
+                                                                <action selector="didTapFavorite:" destination="R0j-nj-kNz" eventType="touchUpInside" id="Z0K-TZ-iI9"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeB-Ux-eTn">
+                                                            <rect key="frame" x="0.0" y="46" width="30" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="30" id="uXi-Wo-k5Q"/>
+                                                                <constraint firstAttribute="height" constant="30" id="z0K-Zc-pZ1"/>
+                                                            </constraints>
+                                                            <state key="normal" image="wishlist_unselected">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <state key="selected" image="wishlist_selected"/>
+                                                            <connections>
+                                                                <action selector="didTapWishlist:" destination="R0j-nj-kNz" eventType="touchUpInside" id="pKx-RS-Yt3"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cW9-Uu-p4E">
+                                                    <rect key="frame" x="16" y="16" width="298" height="99.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4m-LR-IIW">
+                                                            <rect key="frame" x="0.0" y="0.0" width="49" height="32"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="32" id="0kI-NK-cJW"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                                            <color key="textColor" name="VTR_Main"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="1234 Address St San Francsico CA " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jS1-2I-w3t">
+                                                            <rect key="frame" x="0.0" y="40" width="269.5" height="59.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" name="VTR_GrayLabel"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="tnF-2y-7NP" firstAttribute="trailing" secondItem="FDn-GW-7Z6" secondAttribute="trailingMargin" id="1eA-XE-esO"/>
+                                                <constraint firstItem="cW9-Uu-p4E" firstAttribute="leading" secondItem="FDn-GW-7Z6" secondAttribute="leading" constant="16" id="1wG-KC-yIG"/>
+                                                <constraint firstItem="cW9-Uu-p4E" firstAttribute="top" secondItem="FDn-GW-7Z6" secondAttribute="top" constant="16" id="6Ca-4C-Lah"/>
+                                                <constraint firstAttribute="bottom" secondItem="cW9-Uu-p4E" secondAttribute="bottom" constant="16" id="EQ0-MS-gVf"/>
+                                                <constraint firstItem="tnF-2y-7NP" firstAttribute="top" secondItem="FDn-GW-7Z6" secondAttribute="topMargin" constant="16" id="Ehz-2T-lZ8"/>
+                                                <constraint firstItem="tnF-2y-7NP" firstAttribute="leading" secondItem="cW9-Uu-p4E" secondAttribute="trailing" constant="16" id="kEt-K6-UAJ"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tnF-2y-7NP" secondAttribute="bottom" constant="16" id="mFZ-yY-baS"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="jS1-2I-w3t" id="s6B-Ij-J9B"/>
+                                            <outlet property="favoriteButton" destination="3yG-Wd-Ggg" id="Fgy-W1-XzK"/>
+                                            <outlet property="nameLabel" destination="v4m-LR-IIW" id="anc-ob-AWb"/>
+                                            <outlet property="wishlistButton" destination="eeB-Ux-eTn" id="VBT-tY-0qs"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6U1-A7-rNO">
-                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ojp-FH-j42">
+                                <rect key="frame" x="11" y="65" width="289" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" name="VTR_BlackLabel"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="djA-mn-Qo8">
+                                        <rect key="frame" x="13" y="6" width="262" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="searchBarTextChanged:" destination="Tv6-zn-1kv" eventType="editingChanged" id="Dp3-9o-xZp"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" name="VTR_Background"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ML-Zj-chH">
+                                <rect key="frame" x="313" y="71" width="48" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" name="VTR_BlackLabel"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelClicked:" destination="Tv6-zn-1kv" eventType="touchUpInside" id="VfJ-0j-EhZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="VTR_Background"/>
                         <viewLayoutGuide key="safeArea" id="OT9-SP-jYu"/>
                     </view>
-                    <navigationItem key="navigationItem" id="SVt-et-Rqd"/>
+                    <navigationItem key="navigationItem" title="VENTURE" id="SVt-et-Rqd"/>
                     <connections>
-                        <outlet property="searchBar" destination="6U1-A7-rNO" id="d4a-vH-41B"/>
                         <outlet property="searchDisplayController" destination="Xhw-lf-3ue" id="u1N-Dy-Ctx"/>
+                        <outlet property="searchFieldView" destination="ojp-FH-j42" id="Ptd-HD-5Tt"/>
+                        <outlet property="searchTextField" destination="djA-mn-Qo8" id="LEW-gh-HPw"/>
                         <outlet property="tableView" destination="5fY-7S-wwW" id="86Z-Qk-fBw"/>
                         <segue destination="23s-4a-9HG" kind="show" identifier="placeSegue" id="4nZ-zh-oCM"/>
                         <segue destination="h32-5Y-anI" kind="show" identifier="userSegue" id="6ow-oy-x5n"/>
@@ -245,6 +347,13 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LSU-HA-Uct">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="18"/>
+                            <color key="textColor" name="VTR_Main"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -264,11 +373,26 @@
         <namedColor name="VTR_Background">
             <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="VTR_Background">
+            <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_BlackLabel">
+            <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="VTR_BlackLabel">
             <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="VTR_GrayLabel">
+            <color red="0.65098039220000004" green="0.65098039220000004" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_GrayLabel">
             <color red="0.65098039215686276" green="0.65098039215686276" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_Main">
+            <color red="1" green="0.60392156862745094" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_Main">
+            <color red="1" green="0.60392156860000001" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
