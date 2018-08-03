@@ -14,5 +14,6 @@
 - (instancetype)initWithGMSPlace:(GMSPlace *)place;
 
 @property (strong, nonatomic) GMSPlace *place;
+@property (strong, nonatomic) NSArray *types;
 
 @end

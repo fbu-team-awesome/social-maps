@@ -36,7 +36,7 @@
 
 - (void)organizeFiltersIntoSections {
     self.sectionTitles = @[@"Your Lists", @"Lists of Your Follows", @"Places Categories"];
-    NSArray *filterNames = [self.markerManager.filters allKeys];
+    NSArray *filterNames = [self.markerManager.allFilters allKeys];
     
     self.sections = [NSMutableDictionary new];
     
@@ -45,14 +45,11 @@
     [self.sections setObject:[NSMutableArray new] forKey:self.sectionTitles[2]];
     
     for (NSString *filterName in filterNames) {
-        if ([filterName isEqualToString:kFavoritesKey]) {
-            [[self.sections objectForKey:self.sectionTitles[0]] addObject:@"Favorites"];
-        }
-        else if ([filterName isEqualToString:kWishlistKey]) {
-            [[self.sections objectForKey:self.sectionTitles[0]] addObject:@"Wishlist"];
+        if ([filterName isEqualToString:kFavoritesKey] || [filterName isEqualToString:kWishlistKey]) {
+            [[self.sections objectForKey:self.sectionTitles[0]] addObject:filterName];
         }
         else if ([filterName isEqualToString:kFollowFavKey]) {
-            [[self.sections objectForKey:self.sectionTitles[1]] addObject:@"Favorites"];
+            [[self.sections objectForKey:self.sectionTitles[1]] addObject:filterName];
         }
         else {
             [[self.sections objectForKey:self.sectionTitles[2]] addObject:filterName];
@@ -67,11 +64,10 @@
     NSArray *listsOfSection = [self.sections objectForKey:self.sectionTitles[indexPath.section]];
     NSString *listName = listsOfSection[indexPath.row];
     checkboxCell.list = listName;
-    checkboxCell.selected = [[self.markerManager.filters objectForKey:listName] boolValue];
+    checkboxCell.selected = [[self.markerManager.allFilters objectForKey:listName] boolValue];
     [checkboxCell configureCell];
     
     return checkboxCell;
-    
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -81,7 +77,7 @@
     else if (section == 1) {
         return 1;
     }
-    return self.markerManager.filters.count - 3;
+    return self.markerManager.allFilters.count - 3;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

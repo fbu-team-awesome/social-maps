@@ -32,7 +32,7 @@ NSString *const kFollowFavKey = @"followFavorites";
     
     self.typeDict = @{
                       @"Entertainment":@[@"amusement_park", @"aquarium", @"casino", @"movie_theater", @"bowling_alley", @"zoo", @"night_club"],
-                      @"Restaurant":@[@"restaurant", @"meal_delivery", @"meal_takeaway"], @"Café":@[@"cafe", @"bakery"],
+                      @"Restaurants":@[@"restaurant", @"meal_delivery", @"meal_takeaway"], @"Café":@[@"cafe", @"bakery"],
                       @"Shopping":@[@"clothing_store", @"department_store", @"home_goods_store", @"shopping_mall", @"shoe_store", @"furniture_store"],
                       @"Outdoors":@[@"park", @"campground", @"rv_park"],
                       @"Beauty":@[@"beauty_salon", @"hair_care"],
@@ -49,7 +49,7 @@ NSString *const kFollowFavKey = @"followFavorites";
     NSMutableDictionary *mutableDetailedTypeDict = [NSMutableDictionary new];
     for (NSString *key in self.placeCategories) {
         [self.markersByPlaceCategory setObject:[[NSMutableArray alloc] init] forKey:key];
-        NSArray *arrayOfGTypes = [self.markersByPlaceCategory objectForKey:key];
+        NSArray *arrayOfGTypes = [self.typeDict objectForKey:key];
         for (NSString *type in arrayOfGTypes) {
             [mutableDetailedTypeDict setObject:key forKey:type];
         }
@@ -59,13 +59,18 @@ NSString *const kFollowFavKey = @"followFavorites";
 }
 
 - (void)initDefaultFilters {
-    self.filters = [NSMutableDictionary new];
+    self.typeFilters = [NSMutableDictionary new];
+    self.placeFilters = [NSMutableDictionary new];
+    self.allFilters = [NSMutableDictionary new];
     for (NSString *key in self.markersByMarkerType) {
-        [self.filters setObject:[NSNumber numberWithBool:YES] forKey:key];
+        [self.typeFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
+        [self.allFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
     }
     for (NSString *key in self.markersByPlaceCategory) {
-        [self.filters setObject:[NSNumber numberWithBool:YES] forKey:key];
+        [self.placeFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
+        [self.allFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
     }
+    
 }
 
 - (void)addMarkerByType:(GMSMarker *)marker :(MarkerType)type {
@@ -88,7 +93,7 @@ NSString *const kFollowFavKey = @"followFavorites";
 - (void)addMarkerByPlaceTypes:(GMSMarker *)marker :(GMSPlace *)place {
     for (NSString *type in place.types) {
         NSString *categoryName = [self.detailedTypeDict objectForKey:type];
-        [self.markersByPlaceCategory objectForKey:categoryName];
+        [[self.markersByPlaceCategory objectForKey:categoryName] addObject:marker];
     }
 }
 
@@ -103,6 +108,7 @@ NSString *const kFollowFavKey = @"followFavorites";
     marker.userData = thisMarker;
     
     [self addMarkerByType:marker :favorites];
+    [self addMarkerByPlaceTypes:marker :place];
     
     return marker;
 }
@@ -132,6 +138,7 @@ NSString *const kFollowFavKey = @"followFavorites";
     marker.userData = thisMarker;
     
     [self addMarkerByType:marker :followFavorites];
+    [self addMarkerByPlaceTypes:marker :place];
     
     return marker;
 }

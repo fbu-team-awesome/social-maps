@@ -14,6 +14,7 @@
     self = [super init];
     if (self) {
         self.place = place;
+        self.types = place.types;
     }
     return self;
 }

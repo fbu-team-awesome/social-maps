@@ -209,10 +209,23 @@
     [self.mapView clear];
     NSMutableArray<GMSMarker *> *currentPins = [NSMutableArray new];
     MarkerManager *markerManager = [MarkerManager shared];
-    for (NSString *key in markerManager.filters) {
-        if ([[markerManager.filters valueForKey:key] boolValue]) {
-            [currentPins addObjectsFromArray:[markerManager.markersByPlaceCategory valueForKey:key]];
-            [currentPins addObjectsFromArray:[markerManager.markersByMarkerType valueForKey:key]];
+    
+    for (NSString *key in markerManager.typeFilters) {
+        if ([[markerManager.typeFilters valueForKey:key] boolValue]) {
+            NSArray *markersOfType = [markerManager.markersByMarkerType valueForKey:key];
+            for (GMSMarker *marker in markersOfType) {
+                Marker *thisMarker = marker.userData;
+                BOOL allTypesYes = YES;
+                for (NSString *type in thisMarker.types) {
+                    NSString *currentTypeCategory = [markerManager.detailedTypeDict objectForKey:type];
+                    if (currentTypeCategory && !(BOOL)[[markerManager.placeFilters objectForKey:currentTypeCategory] boolValue]) {
+                        allTypesYes = NO;
+                    }
+                }
+                if (allTypesYes) {
+                    [currentPins addObject:marker];
+                }
+            }
         }
     }
     for (GMSMarker *marker in currentPins) {
@@ -286,7 +299,6 @@
 }
 
 - (void)addFilterButtonTapped {
-    NSLog(@"tapped");
     [self presentViewController:self.filterListNavController animated:YES completion:nil];
 }
 @end

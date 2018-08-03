@@ -14,7 +14,16 @@
 @synthesize selected;
 
 - (void)configureCell {
-    self.listName.text = self.list;
+    if ([self.list isEqualToString:kFollowFavKey]  || [self.list isEqualToString:kFavoritesKey]) {
+        self.listName.text = @"Favorites";
+    }
+    else if ([self.list isEqualToString:kWishlistKey]) {
+        self.listName.text = @"Wishlist";
+    }
+    else {
+        self.listName.text = self.list;
+    }
+    
     
     if (self.selected) {
         [self.checkbox setSelected:YES];
@@ -40,11 +49,13 @@
     MarkerManager *markerManager = [MarkerManager shared];
     if (self.checkbox.selected) {
         [self.checkbox setSelected:NO];
-        [markerManager.filters setValue:[NSNumber numberWithBool:NO] forKey:self.list];
+        [markerManager.typeFilters setValue:[NSNumber numberWithBool:NO] forKey:self.list];
+        [markerManager.placeFilters setValue:[NSNumber numberWithBool:NO] forKey:self.list];
     }
     else {
         [self.checkbox setSelected:YES];
-        [markerManager.filters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
+        [markerManager.typeFilters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
+        [markerManager.placeFilters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
     }
 }
 
