@@ -109,8 +109,6 @@
 }
 
 - (void)setSegmentControlView {
-    
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = 60;
     
@@ -157,6 +155,14 @@
     if (self.segmentIndex == 1) {
         UserResultCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserResultCell" forIndexPath:indexPath];
         userCell.user = self.filteredUsers[indexPath.row];
+        
+        // add a border to the top if this is the first cell
+        if(indexPath.row == 0)
+        {
+            UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, 0, userCell.frame.size.width, 1)];
+            [border setBackgroundColor:[UIColor colorNamed:@"VTR_Borders"]];
+            [userCell addSubview:border];
+        }
         [userCell configureCell];
         cell = userCell;
     }
@@ -205,27 +211,18 @@
         return 2;
     }
     
-    return 0;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if(self.segmentIndex == 0)
-    {
-        if(section == 0)
-        {
-            return @"Recommended Places";
-        }
-        else if(section == 1)
-        {
-            return @"Google Places";
-        }
-    }
-    
-    return @"";
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 35;
+    if(self.segmentIndex == 0)
+    {
+        return 35;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -255,6 +252,10 @@
             titleLabel.text = @"Google Places";
             [view addSubview:topBorder];
         }
+    }
+    else
+    {
+        return nil;
     }
     
     [view addSubview:bottomBorder];
@@ -298,8 +299,18 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.segmentIndex == 0) {
-        GMSPlace *place = self.filteredPlaces[indexPath.row];
-        [self performSegueWithIdentifier:@"placeSegue" sender:place];
+        if(indexPath.section == 0)
+        {
+            GMSPlace *place = self.filteredPlaces[indexPath.row];
+            [self performSegueWithIdentifier:@"placeSegue" sender:place];
+        }
+        else
+        {
+            NSString *placeID = self.predictions[indexPath.row].placeID;
+            [[APIManager shared] GMSPlaceFromID:placeID withCompletion:^(GMSPlace *place) {
+                [self performSegueWithIdentifier:@"placeSegue" sender:place];
+            }];
+        }
     } else {
         PFUser *user = self.filteredUsers[indexPath.row];
         
@@ -333,6 +344,10 @@
 
 - (IBAction)cancelClicked:(id)sender {
     self.searchTextField.text = @"";
+    self.filteredPlaces = self.places;
+    self.filteredUsers = self.users;
+    self.predictions = [NSArray new];
+    [self.tableView reloadData];
     [self.searchTextField resignFirstResponder];
 }
 
