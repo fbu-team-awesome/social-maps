@@ -15,19 +15,23 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    self.placeImage.layer.cornerRadius = self.placeImage.layer.frame.size.height / 2;
+    self.placeImage.clipsToBounds = YES;
 }
 
 -(void)configureCell {
     self.nameLabel.text = nil;
     self.addressLabel.text = nil;
-    self.placeImage.image = nil;
     self.nameLabel.text = self.place.name;
     self.addressLabel.text = self.place.formattedAddress;
     
-    [[APIManager shared] getPhotoMetadata:self.place.placeID :^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
-        
-        [self loadFirstImage:photoMetadata];
-    }];
+    if(self.placeImage.image == nil)
+    {
+        [[APIManager shared] getPhotoMetadata:self.place.placeID :^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
+            [self loadFirstImage:photoMetadata];
+        }];
+    }
     
     [Place checkPlaceWithIDExists:self.place.placeID result:^(Place * _Nonnull parsePlace) {
 
