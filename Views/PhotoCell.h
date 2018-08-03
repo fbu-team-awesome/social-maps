@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Photo.h"
 
 @interface PhotoCell : UICollectionViewCell
+
+@property (weak, nonatomic) IBOutlet UIImageView *photoView;
+@property (strong, nonatomic) Photo *photo;
+- (void) configureCell;
 
 @end

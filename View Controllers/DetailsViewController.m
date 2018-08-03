@@ -15,8 +15,9 @@
 #import "Relationships.h"
 #import "AlertHelper.h"
 #import "ImageHelper.h"
+#import "PhotoCell.h"
 
-@interface DetailsViewController () <GMSMapViewDelegate>
+@interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 // Outlet Definitions //
 @property (weak, nonatomic) IBOutlet UILabel *placeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
@@ -26,13 +27,15 @@
 @property (weak, nonatomic) IBOutlet UIButton *wishlistButton;
 @property (weak, nonatomic) IBOutlet UILabel *usersLabel;
 @property (weak, nonatomic) IBOutlet UIView *userPicsView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIScrollView *contentView;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
 @property (strong, nonatomic) Place *parsePlace;
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) NSArray<PFUser *> *usersCheckedIn;
-@property (strong, nonatomic) NSDictionary<PFFile *, NSString *> *photos;
+@property (strong, nonatomic) NSArray <Photo *> *photos;
 
 @end
 
@@ -40,7 +43,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    //adjust height for tab bar
+    UIEdgeInsets adjustForTabbarInsets = UIEdgeInsetsMake(0, 0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0 );
+    self.contentView.contentInset = adjustForTabbarInsets;
+    
     // create Parse Place from GMSPlace
     [Place checkGMSPlaceExists:self.place result:^(Place * _Nonnull newPlace) {
         self.parsePlace = newPlace;
@@ -68,6 +75,21 @@
     self.addressLabel.text = self.place.formattedAddress;
     [self updateCheckInLabel];
     [self initUsersCheckedIn];
+    
+    //configure photos collection view layout
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    layout.minimumInteritemSpacing = 0;
+    layout.itemSize = CGSizeMake(72,72);
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    self.collectionView.showsHorizontalScrollIndicator = NO;
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 20, 0, 20);
+    self.collectionView.collectionViewLayout = layout;
+    
+    //configure photos view
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    self.photos = [NSArray new];
+    [self fetchPlacePhotos];
     
     // update the map
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.place.coordinate.latitude longitude:self.place.coordinate.longitude zoom:15];
@@ -236,8 +258,24 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void) displayPlacePhotos {
-    
+- (void) fetchPlacePhotos {
+    [Relationships retrieveFollowingWithId:[PFUser currentUser].relationships.objectId WithCompletion:^(NSArray * _Nullable following) {
+        [self.parsePlace retrievePhotosFromFollowing:following withCompletion:^(NSArray<Photo *> *photos) {
+            self.photos = photos;
+            [self.collectionView reloadData];
+        }];
+    }];
+}
+
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    PhotoCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    cell.photo = self.photos[indexPath.item];
+    [cell configureCell];
+    return cell;
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.photos.count;
 }
 
 @end

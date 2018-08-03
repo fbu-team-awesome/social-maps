@@ -7,7 +7,14 @@
 //
 
 #import "PhotoCell.h"
+#import "ParseImageHelper.h"
 
 @implementation PhotoCell
+
+- (void) configureCell {
+    if (self.photo) {
+        [ParseImageHelper setImageFromPFFile:self.photo.file forImageView:self.photoView];
+    }
+}
 
 @end
