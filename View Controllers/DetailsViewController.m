@@ -32,6 +32,8 @@
 @property (strong, nonatomic) Place *parsePlace;
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) NSArray<PFUser *> *usersCheckedIn;
+@property (strong, nonatomic) NSDictionary<PFFile *, NSString *> *photos;
+
 @end
 
 @implementation DetailsViewController
@@ -232,6 +234,10 @@
         //add photo to Details view
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) displayPlacePhotos {
+    
 }
 
 @end

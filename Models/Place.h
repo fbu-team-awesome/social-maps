@@ -9,6 +9,8 @@
 #import <Parse/Parse.h>
 #import <GooglePlaces/GooglePlaces.h>
 #import "Review.h"
+#import "Photo.h"
+#import "Relationships.h"
 
 @interface Place : PFObject<PFSubclassing>
 // Instance Properties //
@@ -24,7 +26,8 @@
 - (void)getUsersCheckedInWithCompletion:(void(^ _Nonnull)(NSArray <NSString*>*_Nullable))completion;
 + (void)checkPlaceWithIDExists:(nonnull NSString *)placeID result:(void(^_Nonnull)(Place*_Nonnull))result;
 + (void)checkGMSPlaceExists:(nonnull GMSPlace*)place result:(void(^_Nonnull)(Place* _Nonnull))result;
-- (void)addPhoto:(PFFile *)photo withCompletion:(void(^)(void))completion;
+- (void)addPhoto:(PFFile *_Nonnull)photo withCompletion:(void(^_Nullable)(void))completion;
+- (void)retrievePhotosFromFollowing:(NSArray <NSString*>* _Nonnull)following withCompletion:(void(^ _Nonnull)(NSArray <Photo *>* _Nonnull))completion;
 
 @end
 

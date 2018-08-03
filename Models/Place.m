@@ -112,7 +112,27 @@
     [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         completion();
     }];
+}
+
+- (void)retrievePhotosFromFollowing:(NSArray <NSString*>*)following withCompletion:(void(^)(NSArray <Photo *>*))completion {
+    //iterate through following list to add dictionary pairs to new dictionary
+    NSMutableDictionary *filteredPlacePhotos = [[NSMutableDictionary alloc] init];
+    for (NSString *followingId in following) {
+        if ([self.photos objectForKey:followingId] != nil) {
+            [filteredPlacePhotos setObject:[self.photos objectForKey:followingId] forKey:followingId];
+        }
+    }
     
+    //iterate through dictionary to put objects in a new Photo array
+    NSMutableArray <Photo *> *followingPhotos = [NSMutableArray new];
+    for (NSString *followingId in [filteredPlacePhotos allKeys]) {
+        //create Photo objects for every photo and add to new array
+        for (PFFile *file in filteredPlacePhotos[followingId]) {
+            Photo *newPhoto = [[Photo alloc] initWithPFFile:file userObjectId:followingId];
+            [followingPhotos addObject:newPhoto];
+        }
+    }
+    completion([followingPhotos copy]);
 }
 
 @end
