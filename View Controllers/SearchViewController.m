@@ -141,22 +141,108 @@
         userCell.user = self.filteredUsers[indexPath.row];
         [userCell configureCell];
         cell = userCell;
-    } else {
-        PlaceResultCell *placeCell = [tableView dequeueReusableCellWithIdentifier:@"PlaceResultCell" forIndexPath:indexPath];
-        placeCell.place = self.filteredPlaces[indexPath.row];
-        [placeCell configureCell];
-        cell = placeCell;
+    }
+    else
+    {
+        if(indexPath.section == 0)
+        {
+            PlaceResultCell *placeCell = [tableView dequeueReusableCellWithIdentifier:@"PlaceResultCell" forIndexPath:indexPath];
+            placeCell.place = self.filteredPlaces[indexPath.row];
+            [placeCell configureCell];
+            cell = placeCell;
+        }
+        else if(indexPath.section == 1)
+        {
+            SearchCell *searchCell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
+            if (self.predictions.count > 0){
+                searchCell.prediction = self.predictions[indexPath.row];
+                
+                [searchCell configureCell];
+            }
+            
+            cell = searchCell;
+        }
     }
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.segmentIndex == 0) {
-        return self.filteredPlaces.count;
+    if (self.segmentIndex == 0)
+    {
+        if(section == 0)
+        {
+            return self.filteredPlaces.count;
+        }
+        else if(section == 1)
+        {
+            return self.predictions.count;
+        }
     }
     return self.filteredUsers.count;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if(self.segmentIndex == 0)
+    {
+        return 2;
+    }
+    
+    return 0;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if(self.segmentIndex == 0)
+    {
+        if(section == 0)
+        {
+            return @"Recommended Places";
+        }
+        else if(section == 1)
+        {
+            return @"Google Places";
+        }
+    }
+    
+    return @"";
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 35;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    CGRect viewFrame = CGRectMake(0, 0, tableView.frame.size.width, 35);
+    UIView *view = [[UIView alloc] initWithFrame:viewFrame];
+    [view setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+    
+    // add label
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 9, viewFrame.size.width, 19)];
+    [titleLabel setFont:[UIFont fontWithName:@"AvenirNext-Medium" size:16]];
+    [titleLabel setTextColor:[UIColor colorNamed:@"VTR_BlackLabel"]];
+    
+    // top and bottom borders
+    UIView *topBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewFrame.size.width, 1)];
+    [topBorder setBackgroundColor:[UIColor colorNamed:@"VTR_Borders"]];
+    UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height, viewFrame.size.width, 1)];
+    [bottomBorder setBackgroundColor:[UIColor colorNamed:@"VTR_Borders"]];
+    
+    if(self.segmentIndex == 0)
+    {
+        if(section == 0)
+        {
+            titleLabel.text = @"Recommended Places";
+        }
+        else if(section == 1)
+        {
+            titleLabel.text = @"Google Places";
+            [view addSubview:topBorder];
+        }
+    }
+    
+    [view addSubview:bottomBorder];
+    [view addSubview:titleLabel];
+    return view;
+}
 #pragma mark - Search Bar
 
 - (IBAction)searchBarTextChanged:(id)sender {
