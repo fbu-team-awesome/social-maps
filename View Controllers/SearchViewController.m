@@ -109,8 +109,6 @@
 }
 
 - (void)setSegmentControlView {
-    
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = 60;
     
