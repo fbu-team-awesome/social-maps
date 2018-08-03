@@ -98,19 +98,19 @@
 - (void)addReviewFromUser:(PFUser *)user withContent:(NSString *)content withRating:(int)rating withCompletion:(void (^)(void))completion {
     [Review reviewWithUser:user withContent:content withRating:rating
             withCompletion:^(Review *review) {
-                NSMutableDictionary *mutable = [self.reviews mutableCopy];
+                NSMutableDictionary *mutableDict = [self.reviews mutableCopy];
         
-                if(mutable[user.objectId] == nil)
+                if(mutableDict[user.objectId] == nil)
                 {
                     NSArray<Review *> *reviewArray = [NSArray arrayWithObject:review];
-                    mutable[user.objectId] = reviewArray;
+                    mutableDict[user.objectId] = reviewArray;
                 }
                 else
                 {
-                    mutable[user.objectId] = [[NSArray arrayWithObject:review] arrayByAddingObjectsFromArray:mutable[user.objectId]];
+                    mutableDict[user.objectId] = [[NSArray arrayWithObject:review] arrayByAddingObjectsFromArray:mutableDict[user.objectId]];
                 }
                 
-                self.reviews = [mutable copy];
+                self.reviews = [mutableDict copy];
                 [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                     // create the feed event
                     ReviewAdditionEvent *event = [ReviewAdditionEvent new];
