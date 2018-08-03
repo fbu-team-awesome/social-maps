@@ -13,7 +13,9 @@
 typedef enum FeedEventType : NSUInteger
 {
     ETCheckin,
-    ETListAddition
+    ETListAddition,
+    ETPhotoAddition,
+    ETReviewAddition
 }
 FeedEventType;
 

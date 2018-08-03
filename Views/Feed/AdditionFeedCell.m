@@ -19,6 +19,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    // hide the cell
+    [self.contentView setAlpha:0];
 }
 
 - (void)initUI {
@@ -37,12 +40,24 @@
     // update UI
     self.contentLabel.text = content;
     [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
+    
+    // set rounded image
+    self.profilePictureImage.layer.cornerRadius = self.profilePictureImage.frame.size.width / 2;
+    self.profilePictureImage.clipsToBounds = YES;
+    
+    // fade into visibility
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.contentView setAlpha:1];
+    }];
 }
 
 - (void)setEvent:(ListAdditionEvent *)event {
     _event = event;
     [self.event queryInfoWithCompletion:^{
-        [self initUI];
+        if(event.user.isDataAvailable && event.place.isDataAvailable)
+        {
+            [self initUI];
+        }
     }];
 }
 @end

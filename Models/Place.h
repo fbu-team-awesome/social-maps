@@ -24,6 +24,8 @@
 - (nonnull instancetype)initWithGMSPlace:(nonnull GMSPlace*)place;
 - (void) didCheckIn:(nonnull PFUser *)user;
 - (void)getUsersCheckedInWithCompletion:(void(^ _Nonnull)(NSArray <NSString*>*_Nullable))completion;
+- (void)addReviewFromUser:(PFUser *)user withContent:(NSString *)content withRating:(int)rating withCompletion:(void(^)(void))completion;
+
 + (void)checkPlaceWithIDExists:(nonnull NSString *)placeID result:(void(^_Nonnull)(Place*_Nonnull))result;
 + (void)checkGMSPlaceExists:(nonnull GMSPlace*)place result:(void(^_Nonnull)(Place* _Nonnull))result;
 - (void)addPhoto:(PFFile *_Nonnull)photo withCompletion:(void(^_Nullable)(void))completion;

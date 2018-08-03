@@ -7,13 +7,21 @@
 //
 
 #import "FeedViewController.h"
-#import "ListAdditionEvent.h"
 #import "FeedEvent.h"
+#import "ListAdditionEvent.h"
+#import "CheckInEvent.h"
+#import "PhotoAdditionEvent.h"
+#import "ReviewAdditionEvent.h"
 #import "AdditionFeedCell.h"
+#import "CheckinFeedCell.h"
+#import "PhotoFeedCell.h"
+#import "ReviewFeedCell.h"
+#import "NCHelper.h"
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray<FeedEvent *> *events;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation FeedViewController
@@ -21,13 +29,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self addNotificationObservers];
     
     // set up tableview
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView setRowHeight:64];
+    
+    // set up refresh control
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(fetchEvents) forControlEvents:UIControlEventValueChanged];
+    self.tableView.refreshControl = self.refreshControl;
+    
     self.events = [NSArray new];
     [self fetchEvents];
+}
+
+- (void)addNotificationObservers {
+    [NCHelper addObserver:self type:NTNewFeedEvent selector:@selector(newFeedEventAdded:)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,6 +61,7 @@
     // get events from current user
     [query whereKey:@"user" equalTo:currentUser];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        self.events = [NSArray new];
         if(objects != nil)
         {
             [self addEventsWithArray:objects];
@@ -65,6 +85,7 @@
                                               {
                                                   [self sortEventsDescending];
                                                   [self.tableView reloadData];
+                                                  [self.refreshControl endRefreshing];
                                               }
                                           }];
                                       }
@@ -74,6 +95,7 @@
                 {
                     [self sortEventsDescending];
                     [self.tableView reloadData];
+                    [self.refreshControl endRefreshing];
                 }
             }];
         }
@@ -99,7 +121,15 @@
         }
         else if(eventType == ETCheckin)
         {
-            
+            [temp addObject:[[CheckInEvent alloc] initWithParseObject:object]];
+        }
+        else if(eventType == ETPhotoAddition)
+        {
+            [temp addObject:[[PhotoAdditionEvent alloc] initWithParseObject:object]];
+        }
+        else if(eventType == ETReviewAddition)
+        {
+            [temp addObject:[[ReviewAdditionEvent alloc] initWithParseObject:object]];
         }
     }
     
@@ -113,15 +143,29 @@
     
     if(event != nil)
     {
-        if(event.eventType == ETCheckin)
-        {
-
-        }
-        else if(event.eventType == ETListAddition)
+       if(event.eventType == ETListAddition)
         {
             AdditionFeedCell *additionCell = [tableView dequeueReusableCellWithIdentifier:@"AdditionFeedCell" forIndexPath:indexPath];
             [additionCell setEvent:(ListAdditionEvent *)event];
             cell = additionCell;
+        }
+        else if(event.eventType == ETCheckin)
+        {
+            CheckinFeedCell *checkinCell = [tableView dequeueReusableCellWithIdentifier:@"CheckinFeedCell" forIndexPath:indexPath];
+            [checkinCell setEvent:(CheckInEvent *)event];
+            cell = checkinCell;
+        }
+        else if(event.eventType == ETPhotoAddition)
+        {
+            PhotoFeedCell *photoCell = [tableView dequeueReusableCellWithIdentifier:@"PhotoFeedCell" forIndexPath:indexPath];
+            [photoCell setEvent:(PhotoAdditionEvent *)event];
+            cell = photoCell;
+        }
+        else if(event.eventType == ETReviewAddition)
+        {
+            ReviewFeedCell *reviewCell = [tableView dequeueReusableCellWithIdentifier:@"ReviewFeedCell" forIndexPath:indexPath];
+            [reviewCell setEvent:(ReviewAdditionEvent *)event];
+            cell = reviewCell;
         }
     }
     
@@ -130,6 +174,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.events.count;
+}
+
+- (void)newFeedEventAdded:(NSNotification *)notification {
+    FeedEvent *event = (FeedEvent *)notification.object;
+    self.events = [[NSArray arrayWithObject:event] arrayByAddingObjectsFromArray:self.events];
+    [self.tableView reloadData];
 }
 
 /*
