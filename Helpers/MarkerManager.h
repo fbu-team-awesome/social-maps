@@ -12,11 +12,20 @@
 #import <Parse/Parse.h>
 #import "Marker.h"
 
+extern NSString *const kFavoritesKey;
+extern NSString *const kWishlistKey;
+extern NSString *const kFollowFavKey;
+
 @interface MarkerManager : NSObject
 
-@property (strong, nonatomic) NSMutableDictionary<NSString*, NSMutableArray<GMSMarker*>*> *markersByPlaceType;
+@property (strong, nonatomic) NSMutableDictionary<NSString*, NSMutableArray<GMSMarker*>*> *markersByPlaceCategory;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, NSMutableArray<GMSMarker*>*> *markersByMarkerType;
-@property (strong, nonatomic) NSMutableDictionary<NSString *, NSNumber*> *filters;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSNumber*> *typeFilters;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSNumber *> *placeFilters;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSNumber *> *allFilters;
+@property (strong, nonatomic) NSDictionary<NSString *, NSArray *> *typeDict;
+@property (strong, nonatomic) NSDictionary<NSString *, NSString *> *detailedTypeDict;
+@property (strong, nonatomic) NSArray<NSString *> *placeCategories;
 
 - (void)initMarkerDictionaries;
 - (void)initDefaultFilters;
@@ -24,5 +33,7 @@
 - (GMSMarker *)setFavoritePin:(GMSPlace *)place;
 - (GMSMarker *)setWishlistPin:(GMSPlace *)place;
 - (GMSMarker *)setFavoriteOfFollowingPin:(GMSPlace *)place :(PFUser *)user;
+
++ (instancetype)shared;
 
 @end

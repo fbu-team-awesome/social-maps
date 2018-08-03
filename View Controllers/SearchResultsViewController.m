@@ -14,18 +14,21 @@
 #import "MarkerManager.h"
 #import "Marker.h"
 #import "MapMarkerWindow.h"
+#import "FilterListViewController.h"
 
-@interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate, MarkerWindowDelegate>
-
+@interface SearchResultsViewController () <CLLocationManagerDelegate, ResultsViewDelegate, GMSMapViewDelegate, FilterDelegate, MarkerWindowDelegate>
+  
 @property (weak, nonatomic) IBOutlet UIView *resultsView;
+@property (strong, nonatomic) UIView *filterView;
 @property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) UIButton *filterButton;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) IBOutlet MapMarkerWindow *markerWindowView;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *markerWindowGestureRecognizer;
 @property (strong, nonatomic) ResultsTableViewController <UISearchResultsUpdating>* resultsViewController;
-@property (strong, nonatomic) MarkerManager *markerManager;
+@property (strong, nonatomic) UINavigationController *filterListNavController;
 @property (nonatomic, assign) BOOL userPlacesRetrieved;
 @property (nonatomic, assign) BOOL followPlacesRetrieved;
 @property (strong, nonatomic) MapMarkerWindow *infoWindow;
@@ -38,11 +41,10 @@
 - (void)viewDidLoad {
     self.definesPresentationContext = true;
     
-    self.markerManager = [MarkerManager new];
-    
     [self addNotificationObservers];
-    [self initMap];
     [self initSearch];
+    [self initFilter];
+    [self initMap];
 }
 
 - (void)addNotificationObservers {
@@ -63,9 +65,15 @@
     [self.locationManager startUpdatingLocation];
     self.locationManager.delegate = self;
     
+    // create the map frame
+    CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
+    CGFloat filterViewHeight = self.filterView.frame.size.height;
+    CGFloat searchBarHeight = self.navigationItem.titleView.frame.size.height;
+    CGRect mapFrame = CGRectMake(self.filterView.frame.origin.x, self.filterView.frame.origin.y + self.filterView.frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height - filterViewHeight - tabBarHeight - searchBarHeight);
+
     // create map
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:0 longitude:0 zoom:6];
-    self.mapView = [GMSMapView mapWithFrame:self.view.bounds camera:camera];
+    self.mapView = [GMSMapView mapWithFrame:mapFrame camera:camera];
     self.mapView.settings.myLocationButton = YES;
     [self.mapView setMyLocationEnabled:YES];
     
@@ -73,20 +81,18 @@
     self.mapView.delegate = self;
     
     // initialize marker dictionaries
-    [self.markerManager initMarkerDictionaries];
-    [self.markerManager initDefaultFilters];
+    [[MarkerManager shared] initMarkerDictionaries];
+    [[MarkerManager shared] initDefaultFilters];
     
     self.userPlacesRetrieved = NO;
     self.followPlacesRetrieved = NO;
     
     // get the places and show on map based on filters
     [self retrieveUserPlacesWithCompletion:^{
-        self.userPlacesRetrieved = YES;
-        [self addPinsIfFinished];
+        [self addPinsToMap];
     }];
     [self retrievePlacesOfUsersFollowingWithCompletion:^{
-        self.followPlacesRetrieved = YES;
-        [self addPinsIfFinished];
+        [self addPinsToMap];
     }];
 }
 
@@ -105,10 +111,23 @@
     _searchController.hidesNavigationBarDuringPresentation = NO;
 }
 
-- (void)addPinsIfFinished {
-    if (self.userPlacesRetrieved && self.followPlacesRetrieved) {
-        [self addPinsToMap];
-    }
+- (void)initFilter {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FilterList" bundle:nil];
+    self.filterListNavController = [storyboard instantiateViewControllerWithIdentifier:@"filterNav"];
+    FilterListViewController *filterListVC = (FilterListViewController *)self.filterListNavController.topViewController;
+    filterListVC.delegate = self;
+    
+    self.filterView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationItem.titleView.bounds.origin.y + self.navigationItem.titleView.bounds.size.height, self.view.bounds.size.width, 75)];
+    [self.filterView setBackgroundColor:[UIColor whiteColor]];
+    [self.resultsView addSubview:self.filterView];
+    
+    self.filterButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.filterButton addTarget:self action:@selector(addFilterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.filterButton setUserInteractionEnabled:YES];
+    self.filterButton.center = CGPointMake(self.filterView.frame.size.width/2, self.filterView.frame.size.height/2);
+    [self.filterButton setTitle:@"Filter" forState:UIControlStateNormal];
+    [self.filterButton sizeToFit];
+    [self.filterView addSubview:self.filterButton];
 }
 
 - (void)retrievePlacesOfUsersFollowingWithCompletion:(void(^)(void))completion {
@@ -124,7 +143,8 @@
                 [user retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
                     // add each place to map
                     for (GMSPlace *place in places) {
-                        [self.markerManager setFavoriteOfFollowingPin:place :user];
+                        
+                        [[MarkerManager shared] setFavoriteOfFollowingPin:place :user];
                     }
                     completion();
                 }];
@@ -142,7 +162,7 @@
      ^(NSArray<GMSPlace*>* places)
      {
          for (GMSPlace * place in places) {
-             [self.markerManager setFavoritePin:place];
+             [[MarkerManager shared] setFavoritePin:place];
          }
          completion();
      }];
@@ -152,7 +172,7 @@
      ^(NSArray<GMSPlace*>* places)
      {
          for (GMSPlace *place in places) {
-             [self.markerManager setWishlistPin:place];
+             [[MarkerManager shared]setWishlistPin:place];
          }
          completion();
      }];
@@ -188,10 +208,24 @@
 - (void)addPinsToMap {
     [self.mapView clear];
     NSMutableArray<GMSMarker *> *currentPins = [NSMutableArray new];
-    for (NSString *key in self.markerManager.filters) {
-        if ([[self.markerManager.filters valueForKey:key] boolValue]) {
-            [currentPins addObjectsFromArray:[self.markerManager.markersByPlaceType valueForKey:key]];
-            [currentPins addObjectsFromArray:[self.markerManager.markersByMarkerType valueForKey:key]];
+    MarkerManager *markerManager = [MarkerManager shared];
+    
+    for (NSString *key in markerManager.typeFilters) {
+        if ([[markerManager.typeFilters valueForKey:key] boolValue]) {
+            NSArray *markersOfType = [markerManager.markersByMarkerType valueForKey:key];
+            for (GMSMarker *marker in markersOfType) {
+                Marker *thisMarker = marker.userData;
+                BOOL allTypesYes = YES;
+                for (NSString *type in thisMarker.types) {
+                    NSString *currentTypeCategory = [markerManager.detailedTypeDict objectForKey:type];
+                    if (currentTypeCategory && !(BOOL)[[markerManager.placeFilters objectForKey:currentTypeCategory] boolValue]) {
+                        allTypesYes = NO;
+                    }
+                }
+                if (allTypesYes) {
+                    [currentPins addObject:marker];
+                }
+            }
         }
     }
     for (GMSMarker *marker in currentPins) {
@@ -202,12 +236,12 @@
 #pragma mark - Add pins to dictionaries and map when notification is receieved
 
 - (void)setNewFavoritePin:(NSNotification *)notification {
-    GMSMarker *marker = [self.markerManager setFavoritePin:notification.object];
+    GMSMarker *marker = [[MarkerManager shared] setFavoritePin:notification.object];
     marker.map = self.mapView;
 }
 
 - (void)setNewWishlistPin:(NSNotification *)notification {
-    GMSMarker *marker = [self.markerManager setWishlistPin:notification.object];
+    GMSMarker *marker = [[MarkerManager shared] setWishlistPin:notification.object];
     marker.map = self.mapView;
 }
 
@@ -215,7 +249,7 @@
     [notification.object retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
         // add each place to map
         for (GMSPlace *place in places) {
-            GMSMarker *marker = [self.markerManager setFavoriteOfFollowingPin:place :notification.object];
+            GMSMarker *marker = [[MarkerManager shared] setFavoriteOfFollowingPin:place :notification.object];
             marker.map = self.mapView;
         }
     }];
@@ -224,7 +258,8 @@
 #pragma mark - Remove pins from dictionary when notification is receieved
 
 - (void)removeFavoritePin:(NSNotification *)notification {
-    NSMutableArray *favoritesArray = [self.markerManager.markersByMarkerType valueForKey:@"favorites"];
+    MarkerManager *markerManager = [MarkerManager shared];
+    NSMutableArray *favoritesArray = [markerManager.markersByMarkerType valueForKey:@"favorites"];
     for (NSUInteger i = favoritesArray.count; i > 0; i--) {
         GMSMarker *thisGMSMarker = favoritesArray[i-1];
         Marker *thisMarker = thisGMSMarker.userData;
@@ -237,7 +272,8 @@
 }
 
 - (void)removeWishlistPin:(NSNotification *)notification {
-    NSMutableArray *wishlistArray = [self.markerManager.markersByMarkerType valueForKey:@"wishlist"];
+    MarkerManager *markerManager = [MarkerManager shared];
+    NSMutableArray *wishlistArray = [markerManager.markersByMarkerType valueForKey:@"wishlist"];
     for (NSUInteger i = wishlistArray.count; i > 0; i--) {
         GMSMarker *thisGMSMarker = wishlistArray[i-1];
         Marker *thisMarker = thisGMSMarker.userData;
@@ -256,6 +292,14 @@
     
     DetailsViewController *detailsController = (DetailsViewController *)[segue destinationViewController];
     [detailsController setPlace:sender];
+}
+
+- (void)filterSelectionDone {
+    [self addPinsToMap];
+}
+
+- (void)addFilterButtonTapped {
+    [self presentViewController:self.filterListNavController animated:YES completion:nil];
 }
 
 #pragma mark - Marker Windows
