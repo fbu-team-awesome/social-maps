@@ -44,6 +44,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    [self initUIStyles];
     [self setSegmentControlView];
     [self fetchPlaces];
     [self fetchUsers];
@@ -58,6 +59,21 @@
     {
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+}
+
+- (void)initUIStyles {
+    self.searchFieldView.layer.cornerRadius = self.searchFieldView.frame.size.height / 2;
+    self.searchFieldView.clipsToBounds = YES;
+    self.searchFieldView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.searchFieldView.layer.shadowOffset = CGSizeMake(0, 4);
+    self.searchFieldView.layer.shadowRadius = 5;
+    self.searchFieldView.layer.shadowOpacity = 0.2;
+    self.searchFieldView.layer.masksToBounds = NO;
+    
+    // set navbar styles
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
 - (void)fetchPlaces {
@@ -105,13 +121,14 @@
     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     CGFloat statusBarHeight = statusBarFrame.size.height;
     CGFloat navBarHeight = self.navigationController.navigationBar.bounds.size.height;
-    CGFloat segmentControlHeight = statusBarHeight + navBarHeight + 12;
+    CGFloat textFieldHeight = self.searchFieldView.frame.size.height;
+    CGFloat segmentControlHeight = statusBarHeight + navBarHeight + textFieldHeight + 18;
     
     // Customize appearance
     [segmentedControl setFrame:CGRectMake(0, segmentControlHeight, width, height)];
     segmentedControl.selectionIndicatorHeight = 4.0f;
     segmentedControl.backgroundColor = [UIColor colorNamed:@"VTR_Background"];
-    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorNamed:@"VTR_BlackLabel"]};
+    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorNamed:@"VTR_BlackLabel"], NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:17]};
     segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:1.00 green:0.60 blue:0.47 alpha:1.0];
     segmentedControl.selectionIndicatorBoxColor = [UIColor colorNamed:@"VTR_Background"];
     segmentedControl.selectionIndicatorBoxOpacity = 1.0;
@@ -131,6 +148,7 @@
     // fix the tableview's y position
     CGRect frame = self.tableView.frame;
     frame.origin.y = segmentedControl.frame.origin.y + height;
+    frame.size.height = self.view.frame.size.height - frame.origin.y - self.tabBarController.tabBar.frame.size.height;
     self.tableView.frame = frame;
 }
 
