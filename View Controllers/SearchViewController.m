@@ -299,8 +299,18 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.segmentIndex == 0) {
-        GMSPlace *place = self.filteredPlaces[indexPath.row];
-        [self performSegueWithIdentifier:@"placeSegue" sender:place];
+        if(indexPath.section == 0)
+        {
+            GMSPlace *place = self.filteredPlaces[indexPath.row];
+            [self performSegueWithIdentifier:@"placeSegue" sender:place];
+        }
+        else
+        {
+            NSString *placeID = self.predictions[indexPath.row].placeID;
+            [[APIManager shared] GMSPlaceFromID:placeID withCompletion:^(GMSPlace *place) {
+                [self performSegueWithIdentifier:@"placeSegue" sender:place];
+            }];
+        }
     } else {
         PFUser *user = self.filteredUsers[indexPath.row];
         
