@@ -203,27 +203,18 @@
         return 2;
     }
     
-    return 0;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if(self.segmentIndex == 0)
-    {
-        if(section == 0)
-        {
-            return @"Recommended Places";
-        }
-        else if(section == 1)
-        {
-            return @"Google Places";
-        }
-    }
-    
-    return @"";
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 35;
+    if(self.segmentIndex == 0)
+    {
+        return 35;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -253,6 +244,10 @@
             titleLabel.text = @"Google Places";
             [view addSubview:topBorder];
         }
+    }
+    else
+    {
+        return nil;
     }
     
     [view addSubview:bottomBorder];
