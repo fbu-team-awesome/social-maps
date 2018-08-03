@@ -11,14 +11,17 @@
 #import "HMSegmentedControl.h"
 #import "PlaceResultCell.h"
 #import "UserResultCell.h"
+#import "SearchCell.h"
 #import "APIManager.h"
 #import "ProfileViewController.h"
 #import "DetailsViewController.h"
 
-@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, GMSAutocompleteFetcherDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UIView *searchFieldView;
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
+
 @property (strong, nonatomic) NSArray<GMSPlace*>* places;
 @property (strong, nonatomic) NSArray<PFUser*>* users;
 @property (strong, nonatomic) NSArray *filteredPlaces;
@@ -27,7 +30,8 @@
 @property (assign, nonatomic) BOOL isMoreDataLoading;
 
 @property (strong, nonatomic) NSArray<GMSPlacePhotoMetadata *> *photoMetadata;
-
+@property (strong, nonatomic) GMSAutocompleteFetcher *fetcher;
+@property (strong, nonatomic) NSArray<GMSAutocompletePrediction *> *predictions;
 @end
 
 @implementation SearchViewController
@@ -40,14 +44,12 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    [self initSearch];
     [self setSegmentControlView];
     [self fetchPlaces];
     [self fetchUsers];
     
-    // set navbar color
-    self.navigationItem.titleView = self.searchBar;
-    [self.searchBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+    self.fetcher = [[GMSAutocompleteFetcher alloc] init];
+    self.fetcher.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -84,10 +86,6 @@
         self.filteredUsers = self.users;
         [self.tableView reloadData];
     }];
-}
-
--(void) initSearch {
-    self.searchBar.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -161,7 +159,9 @@
 
 #pragma mark - Search Bar
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+- (IBAction)searchBarTextChanged:(id)sender {
+    NSString *searchText = self.searchTextField.text;
+    
     if (searchText.length != 0){
         //filter places
         NSPredicate *placePredicate = [NSPredicate predicateWithBlock:^BOOL(GMSPlace *place, NSDictionary *bindings) {
@@ -174,45 +174,20 @@
             return [user.username localizedCaseInsensitiveContainsString:searchText];
         }];
         self.filteredUsers = [self.users filteredArrayUsingPredicate:userPredicate];
-        
+        [self.fetcher sourceTextHasChanged:self.searchTextField.text];
         [self.tableView reloadData];
     }
     else
     {
         self.filteredPlaces = self.places;
         self.filteredUsers = self.users;
+        self.predictions = [NSArray new];
         [self.tableView reloadData];
-    }
-}
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    self.searchBar.showsCancelButton = YES;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!self.isMoreDataLoading) {
-        int scrollViewContentHeight = self.tableView.contentSize.height;
-        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
-        
-        if (scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
-            self.isMoreDataLoading = YES;
-            [self fetchPlaces];
-        }
     }
 }
 
 - (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    self.searchBar.showsCancelButton = NO;
-    self.searchBar.text = @"";
-    [self.searchBar resignFirstResponder];
-    self.filteredPlaces = self.places;
-    self.filteredUsers = self.users;
-    
-    [self.tableView reloadData];
 }
 
 #pragma mark - Navigation
@@ -237,4 +212,24 @@
          detailsVC.place = sender;
      }
  }
+
+- (void)didAutocompleteWithPredictions:(nonnull NSArray<GMSAutocompletePrediction *> *)predictions {
+    NSMutableArray *results = [[NSMutableArray alloc] init];
+    for (GMSAutocompletePrediction *prediction in predictions) {
+        
+        [results addObject:prediction];
+        
+    }
+    self.predictions = [results copy];
+}
+
+- (void)didFailAutocompleteWithError:(nonnull NSError *)error {
+    NSLog(@"Error fetching autocomplete results: %@", error.localizedDescription);
+}
+
+- (IBAction)cancelClicked:(id)sender {
+    self.searchTextField.text = @"";
+    [self.searchTextField resignFirstResponder];
+}
+
 @end
