@@ -16,8 +16,9 @@
 #import "AlertHelper.h"
 #import "ImageHelper.h"
 #import "PhotoCell.h"
+#import <NYTPhotoViewer/NYTPhotosViewController.h>
 
-@interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PhotoCellDelegate, NYTPhotosViewControllerDelegate>
 // Outlet Definitions //
 @property (weak, nonatomic) IBOutlet UILabel *placeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
@@ -275,12 +276,18 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PhotoCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
     cell.photo = self.photos[indexPath.item];
+    cell.delegate = self;
     [cell configureCell];
     return cell;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.photos.count;
+}
+
+- (void)didTapPhoto:(Photo *)photo {
+    NYTPhotosViewController *photosViewController = [[NYTPhotosViewController alloc] initWithPhotos:self.photos initialPhoto:photo];
+    [self presentViewController:photosViewController animated:YES completion:nil];
 }
 
 @end
