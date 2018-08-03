@@ -344,6 +344,10 @@
 
 - (IBAction)cancelClicked:(id)sender {
     self.searchTextField.text = @"";
+    self.filteredPlaces = self.places;
+    self.filteredUsers = self.users;
+    self.predictions = [NSArray new];
+    [self.tableView reloadData];
     [self.searchTextField resignFirstResponder];
 }
 
