@@ -122,6 +122,7 @@
             [filteredPlacePhotos setObject:[self.photos objectForKey:followingId] forKey:followingId];
         }
     }
+    [filteredPlacePhotos setObject:[self.photos objectForKey:PFUser.currentUser.objectId]];
     
     //iterate through dictionary to put objects in a new Photo array
     NSMutableArray <Photo *> *followingPhotos = [NSMutableArray new];

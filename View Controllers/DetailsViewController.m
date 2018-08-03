@@ -252,8 +252,11 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     UIImage *image = [ImageHelper resizeImageForParse:info[UIImagePickerControllerOriginalImage]];
     PFFile *photoFile = [ParseImageHelper getPFFileFromImage:image];
-    [self.parsePlace addPhoto:photoFile withCompletion:^{
-        //add photo to Details view
+    Place *parsePlace = self.parsePlace;
+    [parsePlace addPhoto:photoFile withCompletion:^{
+        Photo *newPhoto = [[Photo alloc] initWithPFFile:photoFile userObjectId:PFUser.currentUser.objectId];
+        self.photos = [self.photos arrayByAddingObject:newPhoto];
+        [self.collectionView reloadData];
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
