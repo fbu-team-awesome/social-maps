@@ -9,6 +9,8 @@
 #import "PFUser+ExtendedUser.h"
 #import <Parse/Parse.h>
 #import "NCHelper.h"
+#import "ListAdditionEvent.h"
+#include "NCHelper.h"
 
 @implementation PFUser (ExtendedUser)
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships, checkIns;
@@ -32,6 +34,17 @@
                        self.favorites = [mutableFavorites copy];
                        [self setObject:self.favorites forKey:@"favorites"];
                        [self saveInBackground];
+                       
+                       // create the feed event
+                       ListAdditionEvent *event = [ListAdditionEvent new];
+                       event.user = self;
+                       event.eventType = ETListAddition;
+                       event.listType = LTFavorite;
+                       event.place = result;
+                       [event saveInBackground];
+                       
+                       // send the notification
+                       [NCHelper notify:NTNewFeedEvent object:event];
                    }
                    else
                    {
@@ -75,6 +88,17 @@
                        self.wishlist = [mutableWishlist copy];
                        [self setObject:self.wishlist forKey:@"wishlist"];
                        [self saveInBackground];
+                       
+                       // create the feed event
+                       ListAdditionEvent *event = [ListAdditionEvent new];
+                       event.user = self;
+                       event.eventType = ETListAddition;
+                       event.listType = LTWishlist;
+                       event.place = result;
+                       [event saveInBackground];
+                       
+                       // send the notification
+                       [NCHelper notify:NTNewFeedEvent object:event];
                    }
                    else
                    {
@@ -272,6 +296,20 @@
                }
          ];
     }
+}
+
++ (void)getFollowingWithinUserArray:(NSArray <NSString*>*) objectIds withCompletion:(void(^)(NSArray <NSString*>*))completion{
+    [Relationships retrieveFollowingWithId:[PFUser currentUser].relationships.objectId WithCompletion:^(NSArray * _Nullable following) {
+        NSMutableArray *mutableUsers = [[NSMutableArray alloc] init];
+        NSSet *followingSet = [NSSet setWithArray:following];
+        
+        for (NSString *objectId in objectIds){
+            if ([followingSet containsObject:objectId]) {
+                [mutableUsers addObject:objectId];
+            }
+        }
+        completion([mutableUsers copy]);
+    }];
 }
 
 #pragma mark - Check-in Helper Methods

@@ -8,6 +8,13 @@
 
 #import "DetailsViewController.h"
 #import "NCHelper.h"
+#import "PFUser+ExtendedUser.h"
+#import "Place.h"
+#import "ParseImageHelper.h"
+#import "CheckInsViewController.h"
+#import "Relationships.h"
+#import "AlertHelper.h"
+#import "ImageHelper.h"
 
 @interface DetailsViewController () <GMSMapViewDelegate>
 // Outlet Definitions //
@@ -17,11 +24,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *checkInLabel;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UIButton *wishlistButton;
+@property (weak, nonatomic) IBOutlet UILabel *usersLabel;
+@property (weak, nonatomic) IBOutlet UIView *userPicsView;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
 @property (strong, nonatomic) Place *parsePlace;
 @property (strong, nonatomic) GMSMapView *mapView;
+@property (strong, nonatomic) NSArray<PFUser *> *usersCheckedIn;
+@property (strong, nonatomic) NSDictionary<PFFile *, NSString *> *photos;
+
 @end
 
 @implementation DetailsViewController
@@ -36,9 +48,10 @@
         // change buttons if it's favorited/wishlisted
         [self.favoriteButton setSelected:[[PFUser currentUser].favorites containsObject:self.parsePlace]];
         [self.wishlistButton setSelected:[[PFUser currentUser].wishlist containsObject:self.parsePlace]];
+        
+        [self updateContent];
     }];
     
-    [self updateContent];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -54,6 +67,7 @@
     self.placeNameLabel.text = self.place.name;
     self.addressLabel.text = self.place.formattedAddress;
     [self updateCheckInLabel];
+    [self initUsersCheckedIn];
     
     // update the map
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.place.coordinate.latitude longitude:self.place.coordinate.longitude zoom:15];
@@ -69,6 +83,56 @@
 
 - (void)setPlace:(GMSPlace*)place {
     _place = place;
+}
+
+- (void)initUsersCheckedIn {
+    [self.parsePlace getUsersCheckedInWithCompletion:^(NSArray<NSString *> * _Nullable users) {
+        //only get users we're following
+        [PFUser getFollowingWithinUserArray:users withCompletion:^(NSArray<NSString *> *followedUsers) {
+            //init usersCheckedIn array
+            self.usersCheckedIn = [[NSArray alloc] init];
+            
+            //move elements into a set to remove duplicates
+            NSSet *followedUsersSet = [NSSet setWithArray:followedUsers];
+            
+            //convert objectId array to PFUser array
+            [PFUser retrieveUsersWithIDs:[followedUsersSet allObjects] withCompletion:^(NSArray<PFUser *> *userObjects) {
+                self.usersCheckedIn = userObjects;
+                
+                //display names of the first 2 users
+                if (self.usersCheckedIn.count == 0) {
+                    self.usersLabel.text = @"None of your friends have checked in here.";
+                } else if (self.usersCheckedIn.count == 1) {
+                    self.usersLabel.text = [NSString stringWithFormat:@"%@ has checked in here.",self.usersCheckedIn[0].displayName];
+                } else if (self.usersCheckedIn.count == 2) {
+                    self.usersLabel.text = [NSString stringWithFormat:@"%@ and %@ have checked in here.",self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName];
+                } else {
+                    //store number of other users checked in
+                    long otherUsersCount = self.usersCheckedIn.count - 2;
+                    self.usersLabel.text = [NSString stringWithFormat:@"%@, %@, and %ld others have checked in here.", self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName, otherUsersCount];
+                }
+                
+                //display profile pics of first 5 users
+                int i = 0;
+                while(i < 5 && i < self.usersCheckedIn.count){
+                    //create image view
+                    UIImageView *userPicView = [[UIImageView alloc] initWithFrame:CGRectMake(i*48, 0, 40, 40)];
+                    userPicView.backgroundColor = [UIColor colorNamed:@"VTR_GrayLabel"];
+                    
+                    //add profile picture
+                    [ParseImageHelper setImageFromPFFile:self.usersCheckedIn[i].profilePicture forImageView:userPicView];
+                    
+                    //rounded corners
+                    userPicView.layer.cornerRadius = userPicView.frame.size.width / 2;
+                    userPicView.clipsToBounds = YES;
+                    
+                    //add image to subview
+                    [self.userPicsView addSubview:userPicView];
+                    i++;
+                }
+            }];
+        }];
+    }];
 }
 
 - (IBAction)didTapFavorite:(id)sender {
@@ -149,4 +213,31 @@
         self.checkInLabel.text = [NSString stringWithFormat: @"%@ check-ins",[count stringValue]];
     }];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"checkInsSegue"]) {
+        CheckInsViewController *checkInsVC = [segue destinationViewController];
+        checkInsVC.users = self.usersCheckedIn;
+    }
+}
+
+#pragma mark - Photos
+
+- (IBAction)didTapUploadPhoto:(id)sender {
+    [AlertHelper showPhotoAlertWithoutCroppingFrom:self];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *image = [ImageHelper resizeImageForParse:info[UIImagePickerControllerOriginalImage]];
+    PFFile *photoFile = [ParseImageHelper getPFFileFromImage:image];
+    [self.parsePlace addPhoto:photoFile withCompletion:^{
+        //add photo to Details view
+    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) displayPlacePhotos {
+    
+}
+
 @end

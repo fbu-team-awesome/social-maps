@@ -8,17 +8,28 @@
 
 #import <Parse/Parse.h>
 #import <GooglePlaces/GooglePlaces.h>
+#import "Review.h"
+#import "Photo.h"
+#import "Relationships.h"
 
 @interface Place : PFObject<PFSubclassing>
 // Instance Properties //
 @property (strong, nonatomic, nonnull) NSString *placeID;
 @property (strong, nonatomic, nullable) NSString *placeName;
-@property (strong, nonatomic, nullable) NSArray <PFUser*> *checkIns;
+@property (strong, nonatomic, nullable) NSArray <NSString*> *checkIns;
+@property (strong, nonatomic, nullable) NSDictionary<NSString *, NSArray<PFFile *> *> *photos;
+@property (strong, nonatomic, nullable) NSDictionary<NSString *, NSArray<Review *> *> *reviews;
+@property (nonatomic) double rating;
 
 - (nonnull instancetype)initWithGMSPlace:(nonnull GMSPlace*)place;
 - (void) didCheckIn:(nonnull PFUser *)user;
+- (void)getUsersCheckedInWithCompletion:(void(^ _Nonnull)(NSArray <NSString*>*_Nullable))completion;
+- (void)addReviewFromUser:(PFUser *)user withContent:(NSString *)content withRating:(int)rating withCompletion:(void(^)(void))completion;
+
 + (void)checkPlaceWithIDExists:(nonnull NSString *)placeID result:(void(^_Nonnull)(Place*_Nonnull))result;
 + (void)checkGMSPlaceExists:(nonnull GMSPlace*)place result:(void(^_Nonnull)(Place* _Nonnull))result;
+- (void)addPhoto:(PFFile *_Nonnull)photo withCompletion:(void(^_Nullable)(void))completion;
+- (void)retrievePhotosFromFollowing:(NSArray <NSString*>* _Nonnull)following withCompletion:(void(^ _Nonnull)(NSArray <Photo *>* _Nonnull))completion;
 
 @end
 

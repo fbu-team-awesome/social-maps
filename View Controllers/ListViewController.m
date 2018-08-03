@@ -55,10 +55,8 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(retrieveCurrentUserData) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES];
+    
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
 }
 
 - (void)addNotificationObservers {
@@ -117,7 +115,7 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 
 - (void)setSegmentControlView {
     // get status bar height
-    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+    CGRect statusBarFrame = self.navigationController.navigationBar.frame;
     CGFloat statusBarHeight = statusBarFrame.size.height;
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -127,7 +125,7 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Favorites", @"Wishlist"]];
     
     // Customize appearance
-    [segmentedControl setFrame:CGRectMake(0, statusBarHeight, width, 60)];
+    [segmentedControl setFrame:CGRectMake(0, 0, width, 60)];
     segmentedControl.selectionIndicatorHeight = 4.0f;
     segmentedControl.backgroundColor = [UIColor colorNamed:@"VTR_LightOrange"];
     segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:1.00 green:0.60 blue:0.47 alpha:1.0]};
@@ -177,7 +175,8 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     }];
     
     CGRect tableViewFrame = self.tableView.frame;
-    tableViewFrame.origin.y = statusBarHeight + 60;
+    tableViewFrame.origin.y = segmentedControl.frame.size.height;
+    tableViewFrame.size.width = width;
     self.tableView.frame = tableViewFrame;
 }
 

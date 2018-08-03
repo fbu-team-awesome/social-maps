@@ -11,4 +11,6 @@
 
 @interface ImageHelper : NSObject
 + (UIImage*)resizeImage:(UIImage*)image withSize:(CGSize)size;
++ (UIImage*)resizeImageForParse:(UIImage *)image;
+
 @end

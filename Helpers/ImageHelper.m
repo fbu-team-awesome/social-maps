@@ -23,4 +23,33 @@
     
     return newImage;
 }
+
++ (UIImage*)resizeImageForParse:(UIImage *)image{
+    //get aspect ratio of image
+    CGFloat aspectRatio = image.size.width / image.size.height;
+    
+    CGSize size;
+    UIImageView* resizeImageView;
+    
+    if(aspectRatio >= 1) { //if image is wider than tall, max value is width
+        CGFloat imageHeight = 1/aspectRatio * 1024;
+        resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, imageHeight)];
+        size = CGSizeMake(1024, imageHeight);
+    } else {
+        CGFloat imageWidth = aspectRatio * 1024;
+        resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageWidth, 1024)];
+        size = CGSizeMake(imageWidth, 1024);
+    }
+    
+    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    resizeImageView.image = image;
+    
+    UIGraphicsBeginImageContext(size);
+    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 @end

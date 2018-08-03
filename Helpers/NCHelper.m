@@ -34,6 +34,8 @@
             return @"NewFollowNotification";
         case NTUnfollow:
             return @"UnfollowNotification";
+        case NTNewFeedEvent:
+            return @"NewFeedEventNotification";
     }
     
     // throw an exception if we get here. It means there's no string equivalent of the NT.

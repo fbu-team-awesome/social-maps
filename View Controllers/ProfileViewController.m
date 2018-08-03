@@ -18,6 +18,7 @@
 #import "RelationshipsViewController.h"
 #import "Relationships.h"
 #import "NCHelper.h"
+#import "ListViewController.h"
 
 @interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
@@ -63,7 +64,7 @@
     {
         if([[PFUser currentUser].relationships.following containsObject:self.user.objectId])
         {
-            [self.followButton setTitle:@"-" forState:UIControlStateNormal];
+            [self.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
         }
     }
     
@@ -94,8 +95,8 @@
         self.mapView.settings.myLocationButton = YES;
         [self.mapView setMyLocationEnabled:YES];
         
-        // hide follow button
-        self.followButton.hidden = YES;
+        // show list button instead
+        [self.followButton setTitle:@"View Lists" forState:UIControlStateNormal];
     }
     
     // init tableview
@@ -152,8 +153,9 @@
     [self setRoundedCornersToView:self.profilePicture];
     [self setRoundedCornersToView:self.profilePictureView];
     [self addShadowToView:self.profilePictureView withOffset:CGSizeZero];
-    [self addShadowToView:self.myPlacesView withOffset:CGSizeMake(0,6)];
-    [self setRoundedCornersToView:self.followButton];
+    [self addShadowToView:self.myPlacesView withOffset:CGSizeMake(0,0)];
+    self.followButton.layer.cornerRadius = self.followButton.frame.size.height / 2;
+    self.followButton.clipsToBounds = YES;
     [self addShadowToView:self.followButton withOffset:CGSizeMake(0,0)];
     
     // set switch background when off
@@ -317,15 +319,21 @@
 }
 
 - (IBAction)followClicked:(id)sender {
-    if([self.followButton.titleLabel.text isEqualToString:@"+"])
+    //if we are on our own profile, show lists instead
+    if([[PFUser currentUser].objectId isEqualToString:self.user.objectId]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ListView" bundle:[NSBundle mainBundle]];
+        ListViewController *listVC = (ListViewController *)[storyboard instantiateViewControllerWithIdentifier:@"List"];
+        [self.navigationController pushViewController:listVC animated:YES];
+    }
+    else if([self.followButton.titleLabel.text isEqualToString:@"Follow"])
     {
         [[PFUser currentUser] follow:self.user];
-        [self.followButton setTitle:@"-" forState:UIControlStateNormal];
+        [self.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
     }
     else
     {
         [[PFUser currentUser] unfollow:self.user];
-        [self.followButton setTitle:@"+" forState:UIControlStateNormal];
+        [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
     }
 }
 

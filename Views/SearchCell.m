@@ -12,6 +12,7 @@
 
 @interface SearchCell ()
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+@property (weak, nonatomic) IBOutlet UIButton *wishlistButton;
 
 
 @property (strong, nonatomic) Place *parsePlace;
@@ -43,6 +44,7 @@
              
              // update button states
              [self.favoriteButton setSelected:[[PFUser currentUser].favorites containsObject:self.parsePlace]];
+             [self.wishlistButton setSelected:[[PFUser currentUser].wishlist containsObject:self.parsePlace]];
          }];
     } else {
         NSLog(@"No place found for cell");
@@ -85,14 +87,37 @@
 }
 
 - (IBAction)didTapWishlist:(id)sender {
-    [Place checkPlaceWithIDExists:_prediction.placeID result:^(Place * result) {
-        [[APIManager shared] GMSPlaceFromPlace:result
-                             withCompletion:^(GMSPlace *place)
-                             {
-                                 [[PFUser currentUser] addToWishlist:place];
-                                 [[NSNotificationCenter defaultCenter] postNotificationName:@"AddToWishlistNotification" object:place];
-                             }
-         ];
+    // if we have no place yet, dont do anything
+    if(self.place == nil)
+    {
+        return;
+    }
+    
+    // check if it is in the wishlist or not
+    if(self.wishlistButton.selected)
+    {
+        [[PFUser currentUser] removeFromWishlist:self.place];
+        [NCHelper notify:NTRemoveFromWishlist object:self.place];
+    }
+    else
+    {
+        [[PFUser currentUser] addToWishlist:self.place];
+        [NCHelper notify:NTAddToWishlist object:self.place];
+    }
+    
+    // animate
+    [UIView animateWithDuration:0.1 animations:^{
+        self.wishlistButton.transform = CGAffineTransformMakeScale(1.25, 1.25);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.1 animations:^{
+            self.wishlistButton.transform = CGAffineTransformIdentity;
+        }];
     }];
+    
+    // haptic feedback
+    [[UIImpactFeedbackGenerator new] impactOccurred];
+    
+    // set the state
+    [self.wishlistButton setSelected:!self.wishlistButton.selected];
 }
 @end
