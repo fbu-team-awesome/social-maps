@@ -22,10 +22,12 @@
 		018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */; };
 		018E6A9D20FEBA6E00DE10A6 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */; };
 		018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6AA020FEBAD100DE10A6 /* ListViewCell.m */; };
+		01C3DB8D2114F766002B8D26 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF220FD2A740072BEFB /* LoginViewController.m */; };
+		01C3DB8E2114F766002B8D26 /* ParseImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973F3210281850056DCF2 /* ParseImageHelper.m */; };
+		01C3DB8F2114F766002B8D26 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */; };
 		01CA4A20210153230032C11F /* Relationships.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA4A1F210153230032C11F /* Relationships.m */; };
 		1C0D8E47211395D20013268A /* PhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D8E46211395D20013268A /* PhotoCell.m */; };
 		1C0D8E4A21139E600013268A /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D8E4921139E600013268A /* Photo.m */; };
-		1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF220FD2A740072BEFB /* LoginViewController.m */; };
 		1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */; };
 		1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D8A6F20FFB3C100F31851 /* SearchCell.m */; };
 		1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */; };
@@ -33,7 +35,6 @@
 		1C5BC865210A621500F67574 /* MapMarkerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BC864210A621500F67574 /* MapMarkerWindow.m */; };
 		1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948920FD4CBE00E4D630 /* ListView.storyboard */; };
 		1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */; };
-		1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */; };
 		1C9B05E521068CFC00FBF521 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B05E421068CFC00FBF521 /* TabBarController.m */; };
 		1CAC864021103C9000A7A294 /* CheckIns.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CAC863F21103C9000A7A294 /* CheckIns.storyboard */; };
 		1CAC864321103D7700A7A294 /* CheckInsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAC864221103D7700A7A294 /* CheckInsViewController.m */; };
@@ -61,7 +62,6 @@
 		9E8A9C6521125808001EE3F0 /* ReviewAdditionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C6421125808001EE3F0 /* ReviewAdditionEvent.m */; };
 		9EE973EE2102805A0056DCF2 /* AlertHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973ED2102805A0056DCF2 /* AlertHelper.m */; };
 		9EE973F1210280F60056DCF2 /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973F0210280F60056DCF2 /* ImageHelper.m */; };
-		9EE973F4210281850056DCF2 /* ParseImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973F3210281850056DCF2 /* ParseImageHelper.m */; };
 		9EF4E3C820FD230F005535C6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3C720FD230F005535C6 /* Place.m */; };
 		9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D120FD2AED005535C6 /* APIManager.m */; };
 		9EF4E3D420FE66C6005535C6 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EF4E3D320FE66C6005535C6 /* Profile.storyboard */; };
@@ -277,8 +277,8 @@
 				018E6A8720FD9AD000DE10A6 /* SearchResultsViewController.h */,
 				018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */,
 				9EF4E3D520FE6D95005535C6 /* ProfileViewController.h */,
-				1C6D948D20FE59FE00E4D630 /* DetailsViewController.h */,
 				9EF4E3D620FE6D95005535C6 /* ProfileViewController.m */,
+				1C6D948D20FE59FE00E4D630 /* DetailsViewController.h */,
 				1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */,
 				018E6A9B20FEBA6E00DE10A6 /* ListViewController.h */,
 				018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */,
@@ -551,14 +551,11 @@
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
 				015C3342210BCA960065F927 /* MarkerManager.m in Sources */,
 				0144075621111748001F67BD /* FilterListViewController.m in Sources */,
-				9EE973F4210281850056DCF2 /* ParseImageHelper.m in Sources */,
-				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
-				1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */,
+				01C3DB8E2114F766002B8D26 /* ParseImageHelper.m in Sources */,
+				01C3DB8D2114F766002B8D26 /* LoginViewController.m in Sources */,
+				01C3DB8F2114F766002B8D26 /* DetailsViewController.m in Sources */,
 				0144075C21111A5A001F67BD /* FilterCheckboxCell.m in Sources */,
 				018D276D2114CEED00AA9B2F /* AdditionFeedCell.m in Sources */,
-				9EE973F4210281850056DCF2 /* ParseImageHelper.m in Sources */,
-				1C2C0BF320FD2A740072BEFB /* LoginViewController.m in Sources */,
-				1C6D948F20FE59FE00E4D630 /* DetailsViewController.m in Sources */,
 				9E8A9C42210FB936001EE3F0 /* FeedEvent.m in Sources */,
 				1C0D8E47211395D20013268A /* PhotoCell.m in Sources */,
 				1C9B05E521068CFC00FBF521 /* TabBarController.m in Sources */,
