@@ -10,12 +10,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
 #import <Parse/Parse.h>
-
-typedef enum MarkerType : NSUInteger {
-    favorites,
-    wishlist,
-    followFavorites
-} MarkerType;
+#import "Marker.h"
 
 extern NSString *const kFavoritesKey;
 extern NSString *const kWishlistKey;

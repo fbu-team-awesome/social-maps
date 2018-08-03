@@ -101,9 +101,8 @@ NSString *const kFollowFavKey = @"followFavorites";
 
 - (GMSMarker *)setFavoritePin:(GMSPlace *)place {
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
-    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place];
+    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place markerType:favorites user:[PFUser currentUser]];
     
-    marker.title = place.name;
     marker.appearAnimation = kGMSMarkerAnimationPop;
     marker.userData = thisMarker;
     
@@ -115,9 +114,8 @@ NSString *const kFollowFavKey = @"followFavorites";
 
 - (GMSMarker *)setWishlistPin:(GMSPlace *)place {
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
-    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place];
+    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place markerType:wishlist user:[PFUser currentUser]];
     
-    marker.title = place.name;
     marker.appearAnimation = kGMSMarkerAnimationPop;
     marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
     marker.userData = thisMarker;
@@ -130,9 +128,8 @@ NSString *const kFollowFavKey = @"followFavorites";
 
 - (GMSMarker *)setFavoriteOfFollowingPin:(GMSPlace *)place :(PFUser *)user {
     GMSMarker *marker = [GMSMarker markerWithPosition:place.coordinate];
-    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place];
+    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place markerType:followFavorites user:user];
     
-    marker.title = place.name;
     marker.appearAnimation = kGMSMarkerAnimationPop;
     marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
     marker.userData = thisMarker;

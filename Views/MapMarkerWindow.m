@@ -8,11 +8,26 @@
 
 #import "MapMarkerWindow.h"
 
-@implementation MapMarkerWindow
+@implementation MapMarkerWindow 
 
 - (IBAction)didTapView:(id)sender {
-    [self.delegate didTapInfo:self.place];
+   [self.delegate didTapInfo:self.marker.place];
 }
 
+- (void)configureWindow {
+    self.nameLabel.text = self.marker.place.name;
+    self.addressLabel.text = self.marker.place.formattedAddress;
+    switch(self.marker.type) {
+        case favorites: {
+            self.listsLabel.text = @"Added to your favorites.";
+        }
+        case wishlist: {
+            self.listsLabel.text = @"Added to your wishlist.";
+        }
+        case followFavorites: {
+            self.listsLabel.text = [NSString stringWithFormat:@"Added to %@'s favorites.", self.marker.markerOwner.displayName];
+        }
+    }
+}
 
 @end

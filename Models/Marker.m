@@ -10,11 +10,13 @@
 
 @implementation Marker
 
-- (instancetype)initWithGMSPlace:(GMSPlace *)place {
+- (instancetype)initWithGMSPlace:(GMSPlace *)place markerType:(MarkerType)type user:(PFUser*)user{
     self = [super init];
     if (self) {
         self.place = place;
         self.types = place.types;
+        self.type = type;
+        self.markerOwner = user;
     }
     return self;
 }
