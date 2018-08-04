@@ -85,16 +85,47 @@
 }
 
 - (void)fetchPlaces {
-    [[APIManager shared] getNextGMSPlacesBatch :^(NSArray<GMSPlace *> *places) {
-        if (!self.places) {
-            self.places = places;
-        }
-        else {
-            self.places = [self.places arrayByAddingObjectsFromArray:places];
-        }
-        self.filteredPlaces = self.places;
-        [self.tableView reloadData];
-        self.isMoreDataLoading = NO;
+    const double kRange = 1.0;
+    double myLatitude = (double)self.currentLocation.coordinate.latitude;
+    double myLongitude = (double)self.currentLocation.coordinate.longitude;
+    double myMinLatitude = myLatitude - kRange, myMinLongitude = myLongitude - kRange;
+    double myMaxLatitude = myLatitude + kRange, myMaxLongitude = myLongitude + kRange;
+    PFUser *currentUser = [PFUser currentUser];
+    NSMutableArray<GMSPlace *> *mutableArray = [NSMutableArray new];
+    
+    [currentUser retrieveRelationshipWithCompletion:^(Relationships *relationship) {
+        [PFUser retrieveUsersWithIDs:relationship.following withCompletion:^(NSArray<PFUser *> *users) {
+            for(int i = 0; i < users.count; i++)
+            {
+                PFUser *user = users[i];
+                [user retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
+                    
+                    // now loop through each place to compare coordinates
+                    for(GMSPlace *place in places)
+                    {
+                        double latitude = (double)place.coordinate.latitude;
+                        double longitude = (double)place.coordinate.longitude;
+                        
+                        // if it's within the range, add it to the places to show
+                        if(latitude >= myMinLatitude && latitude <= myMaxLatitude)
+                        {
+                            if(longitude >= myMinLongitude && longitude <= myMaxLongitude)
+                            {
+                                [mutableArray addObject:place];
+                            }
+                        }
+                    }
+                    
+                    // if we've looped through all users, then we can return the array
+                    if(i == users.count - 1)
+                    {
+                        self.places = [mutableArray copy];
+                        self.filteredPlaces = self.places;
+                        [self.tableView reloadData];
+                    }
+                }];
+            }
+        }];
     }];
 }
 
