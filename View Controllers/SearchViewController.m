@@ -16,7 +16,7 @@
 #import "ProfileViewController.h"
 #import "DetailsViewController.h"
 
-@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, GMSAutocompleteFetcherDelegate>
+@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, GMSAutocompleteFetcherDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *searchFieldView;
@@ -28,10 +28,11 @@
 @property (strong, nonatomic) NSArray *filteredUsers;
 @property (assign, nonatomic) long segmentIndex;
 @property (assign, nonatomic) BOOL isMoreDataLoading;
-
 @property (strong, nonatomic) NSArray<GMSPlacePhotoMetadata *> *photoMetadata;
 @property (strong, nonatomic) GMSAutocompleteFetcher *fetcher;
 @property (strong, nonatomic) NSArray<GMSAutocompletePrediction *> *predictions;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *currentLocation;
 @end
 
 @implementation SearchViewController
@@ -45,8 +46,8 @@
     self.tableView.dataSource = self;
     
     [self initUIStyles];
+    [self initMyLocation];
     [self setSegmentControlView];
-    [self fetchPlaces];
     [self fetchUsers];
     
     self.fetcher = [[GMSAutocompleteFetcher alloc] init];
@@ -74,6 +75,13 @@
     [self.navigationController.navigationBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+}
+
+- (void)initMyLocation {
+    self.locationManager = [CLLocationManager new];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void)fetchPlaces {
@@ -351,4 +359,11 @@
     [self.searchTextField resignFirstResponder];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    self.currentLocation = [locations lastObject];
+    if(self.places.count == 0)
+    {
+        [self fetchPlaces];
+    }
+}
 @end
