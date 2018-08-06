@@ -194,6 +194,14 @@
     // Called when user changes selection
     [segmentedControl setIndexChangeBlock:^(NSInteger index) {
         self.segmentIndex = index;
+        if(index == 1)
+        {
+            self.searchTextField.placeholder = @"Search for a user...";
+        }
+        else
+        {
+            self.searchTextField.placeholder = @"Search for a place...";
+        }
         [self.view endEditing:YES];
         [self.tableView reloadData];
     }];
