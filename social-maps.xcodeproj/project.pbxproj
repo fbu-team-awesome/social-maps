@@ -52,6 +52,7 @@
 		9E4D281C20FEBE090069CBF2 /* SignUpView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E4D281B20FEBE090069CBF2 /* SignUpView.storyboard */; };
 		9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */; };
 		9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6755E421012DF10056D009 /* ProfileListCell.m */; };
+		9E876BEC2118AE8F0097A85D /* UIStylesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E876BEB2118AE8F0097A85D /* UIStylesHelper.m */; };
 		9E876BEF2118BE230097A85D /* FollowEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E876BEE2118BE230097A85D /* FollowEvent.m */; };
 		9E876BF12118E65A0097A85D /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E876BF02118E65A0097A85D /* Notifications.storyboard */; };
 		9E876BF42118E73A0097A85D /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E876BF32118E73A0097A85D /* NotificationCell.m */; };
@@ -151,6 +152,8 @@
 		9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		9E6755E321012DF10056D009 /* ProfileListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileListCell.h; sourceTree = "<group>"; };
 		9E6755E421012DF10056D009 /* ProfileListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileListCell.m; sourceTree = "<group>"; };
+		9E876BEA2118AE8F0097A85D /* UIStylesHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIStylesHelper.h; sourceTree = "<group>"; };
+		9E876BEB2118AE8F0097A85D /* UIStylesHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIStylesHelper.m; sourceTree = "<group>"; };
 		9E876BED2118BE230097A85D /* FollowEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowEvent.h; sourceTree = "<group>"; };
 		9E876BEE2118BE230097A85D /* FollowEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FollowEvent.m; sourceTree = "<group>"; };
 		9E876BF02118E65A0097A85D /* Notifications.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = "<group>"; };
@@ -367,6 +370,8 @@
 				9E3C98302106F051002C63F5 /* NCHelper.m */,
 				015C3340210BCA960065F927 /* MarkerManager.h */,
 				015C3341210BCA960065F927 /* MarkerManager.m */,
+				9E876BEA2118AE8F0097A85D /* UIStylesHelper.h */,
+				9E876BEB2118AE8F0097A85D /* UIStylesHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -563,6 +568,7 @@
 				9E8A9C46210FBED1001EE3F0 /* Review.m in Sources */,
 				9E3E422C211267D0002AA981 /* ReviewFeedCell.m in Sources */,
 				1C5BC865210A621500F67574 /* MapMarkerWindow.m in Sources */,
+				9E876BEC2118AE8F0097A85D /* UIStylesHelper.m in Sources */,
 				317B393E210267E40057079A /* RelationshipListCell.m in Sources */,
 				9E3E4229211267C2002AA981 /* PhotoFeedCell.m in Sources */,
 				1CAC864321103D7700A7A294 /* CheckInsViewController.m in Sources */,
