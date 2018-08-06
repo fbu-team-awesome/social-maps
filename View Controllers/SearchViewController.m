@@ -85,11 +85,11 @@
 }
 
 - (void)fetchPlaces {
-    const double kRange = 1.0;
+    const double coordinateRange = 1.0;
     double myLatitude = (double)self.currentLocation.coordinate.latitude;
     double myLongitude = (double)self.currentLocation.coordinate.longitude;
-    double myMinLatitude = myLatitude - kRange, myMinLongitude = myLongitude - kRange;
-    double myMaxLatitude = myLatitude + kRange, myMaxLongitude = myLongitude + kRange;
+    double myMinLatitude = myLatitude - coordinateRange, myMinLongitude = myLongitude - coordinateRange;
+    double myMaxLatitude = myLatitude + coordinateRange, myMaxLongitude = myLongitude + coordinateRange;
     PFUser *currentUser = [PFUser currentUser];
     NSMutableArray<GMSPlace *> *mutableArray = [NSMutableArray new];
     
