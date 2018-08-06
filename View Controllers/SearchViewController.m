@@ -16,7 +16,7 @@
 #import "ProfileViewController.h"
 #import "DetailsViewController.h"
 
-@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, GMSAutocompleteFetcherDelegate>
+@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, GMSAutocompleteFetcherDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *searchFieldView;
@@ -28,10 +28,11 @@
 @property (strong, nonatomic) NSArray *filteredUsers;
 @property (assign, nonatomic) long segmentIndex;
 @property (assign, nonatomic) BOOL isMoreDataLoading;
-
 @property (strong, nonatomic) NSArray<GMSPlacePhotoMetadata *> *photoMetadata;
 @property (strong, nonatomic) GMSAutocompleteFetcher *fetcher;
 @property (strong, nonatomic) NSArray<GMSAutocompletePrediction *> *predictions;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *currentLocation;
 @end
 
 @implementation SearchViewController
@@ -45,8 +46,8 @@
     self.tableView.dataSource = self;
     
     [self initUIStyles];
+    [self initMyLocation];
     [self setSegmentControlView];
-    [self fetchPlaces];
     [self fetchUsers];
     
     self.fetcher = [[GMSAutocompleteFetcher alloc] init];
@@ -76,17 +77,55 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
+- (void)initMyLocation {
+    self.locationManager = [CLLocationManager new];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
+}
+
 - (void)fetchPlaces {
-    [[APIManager shared] getNextGMSPlacesBatch :^(NSArray<GMSPlace *> *places) {
-        if (!self.places) {
-            self.places = places;
-        }
-        else {
-            self.places = [self.places arrayByAddingObjectsFromArray:places];
-        }
-        self.filteredPlaces = self.places;
-        [self.tableView reloadData];
-        self.isMoreDataLoading = NO;
+    const double coordinateRange = 1.0;
+    double myLatitude = (double)self.currentLocation.coordinate.latitude;
+    double myLongitude = (double)self.currentLocation.coordinate.longitude;
+    double myMinLatitude = myLatitude - coordinateRange, myMinLongitude = myLongitude - coordinateRange;
+    double myMaxLatitude = myLatitude + coordinateRange, myMaxLongitude = myLongitude + coordinateRange;
+    PFUser *currentUser = [PFUser currentUser];
+    NSMutableArray<GMSPlace *> *mutableArray = [NSMutableArray new];
+    
+    [currentUser retrieveRelationshipWithCompletion:^(Relationships *relationship) {
+        [PFUser retrieveUsersWithIDs:relationship.following withCompletion:^(NSArray<PFUser *> *users) {
+            for(int i = 0; i < users.count; i++)
+            {
+                PFUser *user = users[i];
+                [user retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
+                    
+                    // now loop through each place to compare coordinates
+                    for(GMSPlace *place in places)
+                    {
+                        double latitude = (double)place.coordinate.latitude;
+                        double longitude = (double)place.coordinate.longitude;
+                        
+                        // if it's within the range, add it to the places to show
+                        if(latitude >= myMinLatitude && latitude <= myMaxLatitude)
+                        {
+                            if(longitude >= myMinLongitude && longitude <= myMaxLongitude)
+                            {
+                                [mutableArray addObject:place];
+                            }
+                        }
+                    }
+                    
+                    // if we've looped through all users, then we can return the array
+                    if(i == users.count - 1)
+                    {
+                        self.places = [mutableArray copy];
+                        self.filteredPlaces = self.places;
+                        [self.tableView reloadData];
+                    }
+                }];
+            }
+        }];
     }];
 }
 
@@ -351,4 +390,11 @@
     [self.searchTextField resignFirstResponder];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    self.currentLocation = [locations lastObject];
+    if(self.places.count == 0)
+    {
+        [self fetchPlaces];
+    }
+}
 @end
