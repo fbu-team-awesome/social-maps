@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FollowEvent.h"
 
 @interface NotificationCell : UITableViewCell
-
+- (void)setEvent:(FollowEvent *)event;
 @end

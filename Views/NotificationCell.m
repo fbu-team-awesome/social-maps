@@ -7,18 +7,38 @@
 //
 
 #import "NotificationCell.h"
+#import "ParseImageHelper.h"
+
+@interface NotificationCell ()
+@property (weak, nonatomic) IBOutlet UIImageView *profilePictureImage;
+@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (strong, nonatomic) FollowEvent *event;
+@end
 
 @implementation NotificationCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    [self.contentView setAlpha:0];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)initUI {
+    self.contentLabel.text = [NSString stringWithFormat:@"%@ followed you.", self.event.user.displayName];
+    [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
+    
+    // fade in
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.contentView setAlpha:1];
+    }];
 }
 
+- (void)setEvent:(FollowEvent *)event {
+    _event = event;
+    [event queryInfoWithCompletion:^{
+       if(event.user.isDataAvailable)
+       {
+           [self initUI];
+       }
+    }];
+}
 @end
