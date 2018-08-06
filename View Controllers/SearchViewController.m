@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *searchFieldView;
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
+@property (weak, nonatomic) IBOutlet UIImageView *searchIconImage;
 
 @property (strong, nonatomic) NSArray<GMSPlace*>* places;
 @property (strong, nonatomic) NSArray<PFUser*>* users;
@@ -60,14 +61,19 @@
     {
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+    
+    // hide navbar
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.navigationController.navigationBar setAlpha:0];
+    }];
 }
 
 - (void)initUIStyles {
-    self.searchFieldView.layer.cornerRadius = self.searchFieldView.frame.size.height / 2;
+    self.searchFieldView.layer.cornerRadius = 13;
     self.searchFieldView.clipsToBounds = YES;
     self.searchFieldView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.searchFieldView.layer.shadowOffset = CGSizeMake(0, 4);
-    self.searchFieldView.layer.shadowRadius = 5;
+    self.searchFieldView.layer.shadowOffset = CGSizeMake(0, 1.2);
+    self.searchFieldView.layer.shadowRadius = 1.5;
     self.searchFieldView.layer.shadowOpacity = 0.2;
     self.searchFieldView.layer.masksToBounds = NO;
     
@@ -75,6 +81,9 @@
     [self.navigationController.navigationBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    
+    // set search icon color
+    self.searchIconImage.image = [self.searchIconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 - (void)initMyLocation {
@@ -149,7 +158,7 @@
 
 - (void)setSegmentControlView {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat height = 60;
+    CGFloat height = 55;
     
     // Initialize custom segmented control
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Places", @"Users"]];
@@ -159,20 +168,27 @@
     CGFloat statusBarHeight = statusBarFrame.size.height;
     CGFloat navBarHeight = self.navigationController.navigationBar.bounds.size.height;
     CGFloat textFieldHeight = self.searchFieldView.frame.size.height;
-    CGFloat segmentControlHeight = statusBarHeight + navBarHeight + textFieldHeight + 18;
+    CGFloat segmentControlHeight = statusBarHeight + textFieldHeight + 18;
     
     // Customize appearance
     [segmentedControl setFrame:CGRectMake(0, segmentControlHeight, width, height)];
-    segmentedControl.selectionIndicatorHeight = 4.0f;
+    segmentedControl.selectionIndicatorHeight = 4.5f;
     segmentedControl.backgroundColor = [UIColor colorNamed:@"VTR_Background"];
-    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorNamed:@"VTR_BlackLabel"], NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:17]};
-    segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:1.00 green:0.60 blue:0.47 alpha:1.0];
+    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorNamed:@"VTR_BlackLabel"], NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-DemiBold" size:15.5]};
+    segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorNamed:@"VTR_Main"], NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-DemiBold" size:15.5]};
+    segmentedControl.selectionIndicatorColor = [UIColor colorNamed:@"VTR_Main"];
     segmentedControl.selectionIndicatorBoxColor = [UIColor colorNamed:@"VTR_Background"];
     segmentedControl.selectionIndicatorBoxOpacity = 1.0;
     segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleBox;
     segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl.shouldAnimateUserSelection = YES;
     
+    // add shadow
+    segmentedControl.layer.shadowColor = [UIColor blackColor].CGColor;
+    segmentedControl.layer.shadowOffset = CGSizeMake(0, 3);
+    segmentedControl.layer.shadowRadius = 2;
+    segmentedControl.layer.shadowOpacity = 0.1;
+    segmentedControl.layer.masksToBounds = NO;
     [self.view addSubview:segmentedControl];
     
     // Called when user changes selection
@@ -284,11 +300,11 @@
     {
         if(section == 0)
         {
-            titleLabel.text = @"Recommended Places";
+            titleLabel.text = @"Recommendations";
         }
         else if(section == 1)
         {
-            titleLabel.text = @"Google Places";
+            titleLabel.text = @"Google Results";
             [view addSubview:topBorder];
         }
     }
