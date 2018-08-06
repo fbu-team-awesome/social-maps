@@ -210,14 +210,6 @@
     if (self.segmentIndex == 1) {
         UserResultCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserResultCell" forIndexPath:indexPath];
         userCell.user = self.filteredUsers[indexPath.row];
-        
-        // add a border to the top if this is the first cell
-        if(indexPath.row == 0)
-        {
-            UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, 0, userCell.frame.size.width, 1)];
-            [border setBackgroundColor:[UIColor colorNamed:@"VTR_Borders"]];
-            [userCell addSubview:border];
-        }
         [userCell configureCell];
         cell = userCell;
     }
