@@ -16,21 +16,118 @@
             <objects>
                 <viewController title="Details" id="eMh-9V-03L" customClass="DetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v8m-ea-0nM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uHd-rJ-al7">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="1380"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yrq-zh-yGL">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1380"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5R-BN-ECD">
-                                                <rect key="frame" x="24" y="168" width="223" height="27.5"/>
-                                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="20"/>
-                                                <color key="textColor" name="VTR_BlackLabel"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdM-tq-m74">
+                                                <rect key="frame" x="0.0" y="144" width="375" height="222.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5R-BN-ECD">
+                                                        <rect key="frame" x="24" y="24" width="223" height="27.5"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="20"/>
+                                                        <color key="textColor" name="VTR_BlackLabel"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="sic-KM-D9i">
+                                                        <rect key="frame" x="24" y="64" width="327" height="134.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 check-ins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIj-d5-76r">
+                                                                <rect key="frame" x="0.0" y="0.0" width="72" height="19.5"/>
+                                                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
+                                                                <color key="textColor" name="VTR_BlackLabel"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Place Type" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNc-Hm-FX9">
+                                                                <rect key="frame" x="0.0" y="31.5" width="68" height="19.5"/>
+                                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                                <color key="textColor" name="VTR_GrayLabel"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="1234 Address St, San Francisco, CA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4F-9e-J1e">
+                                                                <rect key="frame" x="0.0" y="63" width="224.5" height="19.5"/>
+                                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                                <color key="textColor" name="VTR_GrayLabel"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="cy1-as-HQC">
+                                                                <rect key="frame" x="0.0" y="94.5" width="226" height="40"/>
+                                                                <subviews>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="xAP-Rn-Q7x">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="101" height="40"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sB-TQ-YH0">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="101" height="40"/>
+                                                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                                                                <state key="normal" title="  Favorite" image="favorite_unselected">
+                                                                                    <color key="titleColor" name="VTR_GrayLabel"/>
+                                                                                </state>
+                                                                                <state key="selected" image="favorite_selected">
+                                                                                    <color key="titleColor" name="VTR_Orange"/>
+                                                                                </state>
+                                                                                <connections>
+                                                                                    <action selector="didTapFavorite:" destination="eMh-9V-03L" eventType="touchUpInside" id="Elo-aS-PIQ"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ScO-Jp-4Hr">
+                                                                        <rect key="frame" x="125" y="0.0" width="101" height="40"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tcv-BM-Wmg">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="101" height="40"/>
+                                                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                                                                <state key="normal" title="  Wishlist" image="wishlist_unselected">
+                                                                                    <color key="titleColor" name="VTR_GrayLabel"/>
+                                                                                </state>
+                                                                                <state key="selected" image="wishlist_selected">
+                                                                                    <color key="titleColor" name="VTR_Secondary"/>
+                                                                                </state>
+                                                                                <connections>
+                                                                                    <action selector="didTapWishlist:" destination="eMh-9V-03L" eventType="touchUpInside" id="yaE-Jk-9Mr"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                </subviews>
+                                                            </stackView>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OUy-ow-OAU">
+                                                        <rect key="frame" x="255" y="24" width="96" height="32"/>
+                                                        <color key="backgroundColor" name="VTR_Main"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="E7m-g7-WCe"/>
+                                                            <constraint firstAttribute="width" constant="96" id="aRj-P7-hZZ"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="kRo-FC-8hh"/>
+                                                            <constraint firstAttribute="height" constant="32" id="l5B-gd-dVk"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Check In">
+                                                            <color key="titleColor" name="VTR_Background"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="didTapCheckIn:" destination="eMh-9V-03L" eventType="touchUpInside" id="cRs-oL-c6r"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="sic-KM-D9i" secondAttribute="bottom" constant="24" id="3tH-vk-cQ3"/>
+                                                    <constraint firstAttribute="trailing" secondItem="OUy-ow-OAU" secondAttribute="trailing" constant="24" id="7Im-OY-t0q"/>
+                                                    <constraint firstItem="OUy-ow-OAU" firstAttribute="leading" secondItem="z5R-BN-ECD" secondAttribute="trailing" constant="8" id="9ff-fB-9R9"/>
+                                                    <constraint firstItem="sic-KM-D9i" firstAttribute="leading" secondItem="pdM-tq-m74" secondAttribute="leading" constant="24" id="EqL-Xp-E7e"/>
+                                                    <constraint firstItem="z5R-BN-ECD" firstAttribute="top" secondItem="pdM-tq-m74" secondAttribute="top" constant="24" id="dKO-Is-4Eb"/>
+                                                    <constraint firstItem="OUy-ow-OAU" firstAttribute="top" secondItem="pdM-tq-m74" secondAttribute="top" constant="24" id="jUf-wN-qXT"/>
+                                                    <constraint firstItem="sic-KM-D9i" firstAttribute="top" secondItem="OUy-ow-OAU" secondAttribute="bottom" constant="8" id="mTN-ZL-GDj"/>
+                                                    <constraint firstItem="z5R-BN-ECD" firstAttribute="leading" secondItem="pdM-tq-m74" secondAttribute="leading" constant="24" id="wPT-M5-Tf7"/>
+                                                    <constraint firstAttribute="trailing" secondItem="sic-KM-D9i" secondAttribute="trailing" constant="24" id="yxo-rM-ahq"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EV2-CO-0DA">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="144"/>
                                                 <color key="backgroundColor" red="0.76322688765469315" green="0.88712022282213931" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -38,100 +135,22 @@
                                                     <constraint firstAttribute="height" constant="144" id="GMb-cK-gja"/>
                                                 </constraints>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="sic-KM-D9i">
-                                                <rect key="frame" x="24" y="207.5" width="327" height="134.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 check-ins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIj-d5-76r">
-                                                        <rect key="frame" x="0.0" y="0.0" width="72" height="19.5"/>
-                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
-                                                        <color key="textColor" name="VTR_BlackLabel"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Place Type" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNc-Hm-FX9">
-                                                        <rect key="frame" x="0.0" y="31.5" width="68" height="19.5"/>
-                                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
-                                                        <color key="textColor" name="VTR_GrayLabel"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="1234 Address St, San Francisco, CA" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4F-9e-J1e">
-                                                        <rect key="frame" x="0.0" y="63" width="224.5" height="19.5"/>
-                                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
-                                                        <color key="textColor" name="VTR_GrayLabel"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="cy1-as-HQC">
-                                                        <rect key="frame" x="0.0" y="94.5" width="226" height="40"/>
-                                                        <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="xAP-Rn-Q7x">
-                                                                <rect key="frame" x="0.0" y="0.0" width="101" height="40"/>
-                                                                <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sB-TQ-YH0">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="101" height="40"/>
-                                                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                                                        <state key="normal" title="  Favorite" image="favorite_unselected">
-                                                                            <color key="titleColor" name="VTR_GrayLabel"/>
-                                                                        </state>
-                                                                        <state key="selected" image="favorite_selected">
-                                                                            <color key="titleColor" name="VTR_Orange"/>
-                                                                        </state>
-                                                                        <connections>
-                                                                            <action selector="didTapFavorite:" destination="eMh-9V-03L" eventType="touchUpInside" id="Elo-aS-PIQ"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                </subviews>
-                                                            </stackView>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ScO-Jp-4Hr">
-                                                                <rect key="frame" x="125" y="0.0" width="101" height="40"/>
-                                                                <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tcv-BM-Wmg">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="101" height="40"/>
-                                                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                                                        <state key="normal" title="  Wishlist" image="wishlist_unselected">
-                                                                            <color key="titleColor" name="VTR_GrayLabel"/>
-                                                                        </state>
-                                                                        <state key="selected" image="wishlist_selected">
-                                                                            <color key="titleColor" name="VTR_Secondary"/>
-                                                                        </state>
-                                                                        <connections>
-                                                                            <action selector="didTapWishlist:" destination="eMh-9V-03L" eventType="touchUpInside" id="yaE-Jk-9Mr"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                </subviews>
-                                                            </stackView>
-                                                        </subviews>
-                                                    </stackView>
-                                                </subviews>
-                                            </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OUy-ow-OAU">
-                                                <rect key="frame" x="255" y="168" width="96" height="32"/>
-                                                <color key="backgroundColor" name="VTR_Main"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="96" id="aRj-P7-hZZ"/>
-                                                    <constraint firstAttribute="height" constant="32" id="l5B-gd-dVk"/>
-                                                </constraints>
-                                                <state key="normal" title="Check In">
-                                                    <color key="titleColor" name="VTR_Background"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="didTapCheckIn:" destination="eMh-9V-03L" eventType="touchUpInside" id="cRs-oL-c6r"/>
-                                                </connections>
-                                            </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxd-lk-JSV">
-                                                <rect key="frame" x="0.0" y="366" width="375" height="1"/>
+                                                <rect key="frame" x="0.0" y="366.5" width="375" height="1"/>
                                                 <color key="backgroundColor" name="VTR_Borders"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="zyU-82-aVO"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="crj-Pc-VJu">
-                                                <rect key="frame" x="0.0" y="482.5" width="375" height="1"/>
+                                                <rect key="frame" x="0.0" y="483" width="375" height="1"/>
                                                 <color key="backgroundColor" name="VTR_Borders"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="edQ-OR-Qek"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfv-yH-ewU">
-                                                <rect key="frame" x="0.0" y="367" width="375" height="115.5"/>
+                                                <rect key="frame" x="0.0" y="367.5" width="375" height="115.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tuW-Bq-fCi">
                                                         <rect key="frame" x="24" y="24" width="327" height="67.5"/>
@@ -177,10 +196,10 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFx-Wc-XL8">
-                                                <rect key="frame" x="0.0" y="483.5" width="375" height="144"/>
+                                                <rect key="frame" x="0.0" y="484" width="375" height="144"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHOTOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scf-dM-qfD">
-                                                        <rect key="frame" x="24" y="16" width="58" height="19.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scf-dM-qfD">
+                                                        <rect key="frame" x="24" y="16" width="45" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
                                                         <color key="textColor" name="VTR_BlackLabel"/>
                                                         <nil key="highlightedColor"/>
@@ -196,7 +215,7 @@
                                                         </connections>
                                                     </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gh3-Rp-eXx">
-                                                        <rect key="frame" x="0.0" y="48" width="375" height="72"/>
+                                                        <rect key="frame" x="0.0" y="50" width="375" height="72"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="72" id="pVk-6e-zA7"/>
@@ -240,54 +259,197 @@
                                                     <constraint firstItem="qFs-2t-aki" firstAttribute="centerY" secondItem="scf-dM-qfD" secondAttribute="centerY" id="MvP-Jb-jTe"/>
                                                     <constraint firstAttribute="trailing" secondItem="gh3-Rp-eXx" secondAttribute="trailing" id="Rr3-XT-Jla"/>
                                                     <constraint firstAttribute="trailing" secondItem="qFs-2t-aki" secondAttribute="trailing" constant="24" id="fdV-t9-VPF"/>
-                                                    <constraint firstAttribute="bottom" secondItem="gh3-Rp-eXx" secondAttribute="bottom" constant="24" id="gUr-MZ-Wst"/>
+                                                    <constraint firstAttribute="bottom" secondItem="gh3-Rp-eXx" secondAttribute="bottom" constant="22" id="gUr-MZ-Wst"/>
                                                     <constraint firstItem="gh3-Rp-eXx" firstAttribute="leading" secondItem="FFx-Wc-XL8" secondAttribute="leading" id="uKc-Qx-Ued"/>
                                                     <constraint firstItem="scf-dM-qfD" firstAttribute="leading" secondItem="FFx-Wc-XL8" secondAttribute="leading" constant="24" id="xlo-af-rsC"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2GV-3P-HEH">
-                                                <rect key="frame" x="0.0" y="627.5" width="375" height="1"/>
+                                                <rect key="frame" x="0.0" y="628" width="375" height="1"/>
                                                 <color key="backgroundColor" name="VTR_Borders"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="NkX-pv-aw4"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fTH-C3-YS2">
+                                                <rect key="frame" x="0.0" y="629" width="375" height="64"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvc-u3-Nhc">
+                                                        <rect key="frame" x="20" y="14" width="54" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
+                                                        <color key="textColor" name="VTR_BlackLabel"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3 ratings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QR-wV-FKj">
+                                                        <rect key="frame" x="20" y="33" width="55" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                        <color key="textColor" name="VTR_GrayLabel"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3 stars" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BlN-Yq-tFE">
+                                                        <rect key="frame" x="304" y="32" width="43" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
+                                                        <color key="textColor" name="VTR_BlackLabel"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BRN-De-hpN">
+                                                        <rect key="frame" x="252" y="14" width="101" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" name="VTR_LightOrange"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="64" id="S3F-6J-TlZ"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-ut-LLX">
+                                                <rect key="frame" x="0.0" y="629" width="375" height="1"/>
+                                                <color key="backgroundColor" name="VTR_Borders"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="rf8-Hq-5Mf"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oeh-HB-GHp">
+                                                <rect key="frame" x="0.0" y="693" width="375" height="436"/>
+                                                <subviews>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ahU-xE-xii">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="436"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="436" id="LOi-NC-FlC"/>
+                                                        </constraints>
+                                                        <prototypes>
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="130" id="Ida-VL-dRO">
+                                                                <rect key="frame" x="0.0" y="28" width="375" height="130"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ida-VL-dRO" id="frr-GN-Y0V">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="129.5"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reviewer Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oiS-59-oU7">
+                                                                            <rect key="frame" x="73" y="11" width="276" height="20"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
+                                                                            <color key="textColor" name="VTR_BlackLabel"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Ze-wz-4Kk">
+                                                                            <rect key="frame" x="15" y="11" width="50" height="46"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        </imageView>
+                                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ft4-FO-rPN">
+                                                                            <rect key="frame" x="73" y="34" width="84" height="20"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <color key="backgroundColor" name="VTR_LightOrange"/>
+                                                                        </view>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is my review." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFk-NC-Gve">
+                                                                            <rect key="frame" x="73" y="62" width="239" height="20"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                                            <color key="textColor" name="VTR_GrayLabel"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                </tableViewCellContentView>
+                                                            </tableViewCell>
+                                                        </prototypes>
+                                                    </tableView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="ahU-xE-xii" secondAttribute="bottom" id="Oma-1x-uWU"/>
+                                                    <constraint firstItem="ahU-xE-xii" firstAttribute="leading" secondItem="oeh-HB-GHp" secondAttribute="leading" id="RSn-gP-i3Y"/>
+                                                    <constraint firstItem="ahU-xE-xii" firstAttribute="top" secondItem="oeh-HB-GHp" secondAttribute="top" id="ypB-Yf-NT3"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ahU-xE-xii" secondAttribute="trailing" id="ztJ-dd-1Jr"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bmx-wl-7RD">
+                                                <rect key="frame" x="0.0" y="1129" width="375" height="240"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reviewer Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6HQ-gL-vL0">
+                                                        <rect key="frame" x="66" y="8" width="276" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
+                                                        <color key="textColor" name="VTR_BlackLabel"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K3p-Ax-FNV">
+                                                        <rect key="frame" x="8" y="8" width="50" height="46"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YtC-mj-uJk">
+                                                        <rect key="frame" x="66" y="31" width="84" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" name="VTR_LightOrange"/>
+                                                    </view>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Write your review here..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Pri-3w-1hW">
+                                                        <rect key="frame" x="66" y="65" width="292" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    </textView>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5LI-VI-owY">
+                                                        <rect key="frame" x="295" y="195" width="49" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <state key="normal" title="Submit"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="240" id="vlU-UX-mUE"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="2GV-3P-HEH" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="0dh-a7-Kui"/>
-                                            <constraint firstItem="z5R-BN-ECD" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" constant="24" id="3XP-S9-oWr"/>
-                                            <constraint firstItem="OUy-ow-OAU" firstAttribute="leading" secondItem="z5R-BN-ECD" secondAttribute="trailing" constant="8" id="5FE-Aa-1H7"/>
-                                            <constraint firstItem="OUy-ow-OAU" firstAttribute="top" secondItem="EV2-CO-0DA" secondAttribute="bottom" constant="24" id="7C5-a6-BOy"/>
+                                            <constraint firstAttribute="trailing" secondItem="bmx-wl-7RD" secondAttribute="trailing" id="1jI-FK-cki"/>
+                                            <constraint firstAttribute="trailing" secondItem="uxd-lk-JSV" secondAttribute="trailing" id="5dZ-gH-rlf"/>
                                             <constraint firstItem="FFx-Wc-XL8" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="7py-GV-U8Q"/>
                                             <constraint firstItem="EV2-CO-0DA" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="87h-nK-UKp"/>
-                                            <constraint firstItem="z5R-BN-ECD" firstAttribute="top" secondItem="EV2-CO-0DA" secondAttribute="bottom" constant="24" id="9az-ab-yNM"/>
-                                            <constraint firstItem="sic-KM-D9i" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" constant="24" id="Ctg-TP-IEd"/>
+                                            <constraint firstItem="bmx-wl-7RD" firstAttribute="top" secondItem="oeh-HB-GHp" secondAttribute="bottom" id="8JA-Ow-z0l"/>
+                                            <constraint firstItem="oeh-HB-GHp" firstAttribute="top" secondItem="fTH-C3-YS2" secondAttribute="bottom" id="9k1-V0-zkj"/>
                                             <constraint firstItem="EV2-CO-0DA" firstAttribute="top" secondItem="Yrq-zh-yGL" secondAttribute="top" id="DQ0-R7-MTr"/>
+                                            <constraint firstItem="pdM-tq-m74" firstAttribute="top" secondItem="EV2-CO-0DA" secondAttribute="bottom" id="F2N-fh-SCX"/>
                                             <constraint firstAttribute="trailing" secondItem="EV2-CO-0DA" secondAttribute="trailing" id="Fv1-rb-IhR"/>
+                                            <constraint firstAttribute="trailing" secondItem="fTH-C3-YS2" secondAttribute="trailing" id="G3Y-3Z-QVM"/>
                                             <constraint firstAttribute="trailing" secondItem="jfv-yH-ewU" secondAttribute="trailing" id="KLY-SQ-w3A"/>
+                                            <constraint firstItem="oeh-HB-GHp" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="M75-oO-rOQ"/>
+                                            <constraint firstItem="uxd-lk-JSV" firstAttribute="top" secondItem="pdM-tq-m74" secondAttribute="bottom" id="NNC-lS-Mp9"/>
                                             <constraint firstItem="jfv-yH-ewU" firstAttribute="top" secondItem="uxd-lk-JSV" secondAttribute="bottom" id="RaT-EV-Xe8"/>
-                                            <constraint firstAttribute="trailing" secondItem="sic-KM-D9i" secondAttribute="trailing" constant="24" id="UYX-1p-zcV"/>
+                                            <constraint firstItem="fTH-C3-YS2" firstAttribute="top" secondItem="2GV-3P-HEH" secondAttribute="bottom" id="SLT-9t-g05"/>
+                                            <constraint firstItem="TFc-ut-LLX" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="UZX-l2-clH"/>
+                                            <constraint firstItem="bmx-wl-7RD" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="VqV-9c-1kt"/>
+                                            <constraint firstAttribute="trailing" secondItem="oeh-HB-GHp" secondAttribute="trailing" id="Vtm-Ei-WWw"/>
                                             <constraint firstAttribute="trailing" secondItem="2GV-3P-HEH" secondAttribute="trailing" id="W9L-2D-8nv"/>
                                             <constraint firstItem="crj-Pc-VJu" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="aCw-OY-DcU"/>
                                             <constraint firstItem="2GV-3P-HEH" firstAttribute="top" secondItem="FFx-Wc-XL8" secondAttribute="bottom" id="dic-Ot-i7b"/>
-                                            <constraint firstItem="uxd-lk-JSV" firstAttribute="top" secondItem="sic-KM-D9i" secondAttribute="bottom" constant="24" id="hIn-km-bkH"/>
-                                            <constraint firstAttribute="trailing" secondItem="OUy-ow-OAU" secondAttribute="trailing" constant="24" id="hxT-02-W3X"/>
+                                            <constraint firstItem="pdM-tq-m74" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="fCd-EJ-WHU"/>
+                                            <constraint firstAttribute="trailing" secondItem="pdM-tq-m74" secondAttribute="trailing" id="l9K-J2-cAp"/>
+                                            <constraint firstItem="fTH-C3-YS2" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="lCG-ff-eAQ"/>
                                             <constraint firstAttribute="trailing" secondItem="FFx-Wc-XL8" secondAttribute="trailing" id="lzh-Dp-ZnN"/>
-                                            <constraint firstItem="sic-KM-D9i" firstAttribute="top" secondItem="z5R-BN-ECD" secondAttribute="bottom" constant="12" id="nI0-up-FAk"/>
+                                            <constraint firstAttribute="trailing" secondItem="TFc-ut-LLX" secondAttribute="trailing" id="mBr-SQ-XNl"/>
                                             <constraint firstItem="jfv-yH-ewU" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="qC0-M0-WoC"/>
                                             <constraint firstItem="FFx-Wc-XL8" firstAttribute="top" secondItem="crj-Pc-VJu" secondAttribute="bottom" id="s9b-1O-aWa"/>
                                             <constraint firstItem="crj-Pc-VJu" firstAttribute="top" secondItem="jfv-yH-ewU" secondAttribute="bottom" id="vD7-Uz-aeR"/>
                                             <constraint firstItem="uxd-lk-JSV" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="wkS-qW-WIU"/>
+                                            <constraint firstItem="TFc-ut-LLX" firstAttribute="top" secondItem="2GV-3P-HEH" secondAttribute="bottom" id="xd5-XA-PLL"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" name="VTR_Background"/>
                                 <constraints>
                                     <constraint firstItem="Yrq-zh-yGL" firstAttribute="leading" secondItem="uHd-rJ-al7" secondAttribute="leading" id="8vC-zm-CJE"/>
+                                    <constraint firstItem="Yrq-zh-yGL" firstAttribute="height" secondItem="uHd-rJ-al7" secondAttribute="height" id="Qka-py-ZFc"/>
                                     <constraint firstItem="Yrq-zh-yGL" firstAttribute="top" secondItem="uHd-rJ-al7" secondAttribute="top" id="XJC-nu-7zd"/>
                                     <constraint firstItem="Yrq-zh-yGL" firstAttribute="centerY" secondItem="uHd-rJ-al7" secondAttribute="centerY" id="g0L-3c-t7A"/>
                                     <constraint firstAttribute="bottom" secondItem="Yrq-zh-yGL" secondAttribute="bottom" id="osF-Ke-SE0"/>
+                                    <constraint firstItem="Yrq-zh-yGL" firstAttribute="width" secondItem="uHd-rJ-al7" secondAttribute="width" id="wgJ-Jw-09t"/>
                                     <constraint firstAttribute="trailing" secondItem="Yrq-zh-yGL" secondAttribute="trailing" id="wvE-Rh-dyx"/>
                                 </constraints>
                             </scrollView>
@@ -304,14 +466,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="e3o-os-m1e"/>
                     </view>
+                    <size key="freeformSize" width="375" height="1400"/>
                     <connections>
                         <outlet property="addressLabel" destination="s4F-9e-J1e" id="zMU-nM-ram"/>
                         <outlet property="checkInLabel" destination="qIj-d5-76r" id="GlL-9E-yFM"/>
                         <outlet property="collectionView" destination="gh3-Rp-eXx" id="TPL-VO-ajP"/>
-                        <outlet property="contentView" destination="uHd-rJ-al7" id="DSd-Jf-QQb"/>
+                        <outlet property="contentView" destination="Yrq-zh-yGL" id="NKv-sF-U97"/>
                         <outlet property="favoriteButton" destination="2sB-TQ-YH0" id="3bC-CG-fB8"/>
                         <outlet property="placeNameLabel" destination="z5R-BN-ECD" id="jwA-9x-1UX"/>
                         <outlet property="placeView" destination="EV2-CO-0DA" id="uhh-Uu-mGf"/>
+                        <outlet property="scrollView" destination="uHd-rJ-al7" id="EFT-03-gmF"/>
                         <outlet property="userPicsView" destination="g0Q-Yw-iPm" id="8ot-mR-Fr9"/>
                         <outlet property="usersLabel" destination="btR-gd-Zn8" id="xfj-bb-W7n"/>
                         <outlet property="wishlistButton" destination="Tcv-BM-Wmg" id="6ud-Fh-aeh"/>
@@ -324,7 +488,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1460" y="88.605697151424295"/>
+            <point key="canvasLocation" x="1460" y="88.15592203898052"/>
         </scene>
         <!--CheckIns-->
         <scene sceneID="GOH-Xd-WWK">
@@ -332,7 +496,7 @@
                 <viewControllerPlaceholder storyboardName="CheckIns" id="1Vr-3I-k9K" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xuO-Mp-Mil" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2306" y="149"/>
+            <point key="canvasLocation" x="2206" y="244"/>
         </scene>
     </scenes>
     <resources>
@@ -345,13 +509,43 @@
             <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="VTR_BlackLabel">
+            <color red="0.32549019610000002" green="0.32549019610000002" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_BlackLabel">
             <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_BlackLabel">
+            <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_BlackLabel">
+            <color red="0.32549019610000002" green="0.32549019610000002" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_BlackLabel">
+            <color red="0.32549019610000002" green="0.32549019610000002" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_Borders">
+            <color red="0.91000002619999998" green="0.91000002619999998" blue="0.91000002619999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="VTR_Borders">
             <color red="0.91000002619999998" green="0.91000002619999998" blue="0.91000002619999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="VTR_GrayLabel">
+            <color red="0.65098039220000004" green="0.65098039220000004" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_GrayLabel">
             <color red="0.65098039215686276" green="0.65098039215686276" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_GrayLabel">
+            <color red="0.65098039215686276" green="0.65098039215686276" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_LightOrange">
+            <color red="1" green="0.92156862750000001" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_LightOrange">
+            <color red="1" green="0.92156862745098034" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_LightOrange">
+            <color red="1" green="0.92156862750000001" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="VTR_Main">
             <color red="1" green="0.60392156862745094" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

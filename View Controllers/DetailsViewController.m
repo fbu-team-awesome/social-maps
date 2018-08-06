@@ -29,7 +29,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *usersLabel;
 @property (weak, nonatomic) IBOutlet UIView *userPicsView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIScrollView *contentView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -45,9 +46,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //adjust height for tab bar
-    UIEdgeInsets adjustForTabbarInsets = UIEdgeInsetsMake(0, 0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0 );
-    self.contentView.contentInset = adjustForTabbarInsets;
     
     // create Parse Place from GMSPlace
     [Place checkGMSPlaceExists:self.place result:^(Place * _Nonnull newPlace) {
@@ -58,6 +56,14 @@
         [self.wishlistButton setSelected:[[PFUser currentUser].wishlist containsObject:self.parsePlace]];
         
         [self updateContent];
+        
+        //adjust height for tab bar
+        CGRect contentRect = CGRectZero;
+        
+        for (UIView *view in self.contentView.subviews) {
+            contentRect = CGRectUnion(contentRect, view.frame);
+        }
+        self.scrollView.contentSize = contentRect.size;
     }];
     
 }
