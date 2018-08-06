@@ -14,4 +14,5 @@
 + (void)setShadowToView:(UIView *)view;
 + (void)setShadowToView:(UIView *)view withOffset:(CGSize)offset withRadius:(CGFloat)radius withOpacity:(float)opacity;
 + (void)setCustomNavBarStyle:(UINavigationController *)navigationController;
++ (void)animateTapOnView:(UIView *)view;
 @end

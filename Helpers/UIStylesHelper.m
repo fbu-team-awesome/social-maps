@@ -43,4 +43,17 @@
     [navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [navigationController.navigationBar setShadowImage:[UIImage new]];
 }
+
++ (void)animateTapOnView:(UIView *)view {
+    [UIView animateWithDuration:0.2 animations:^{
+        view.transform = CGAffineTransformMakeScale(1.25, 1.25);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.2 animations:^{
+            view.transform = CGAffineTransformIdentity;
+        }];
+    }];
+    
+    // haptic feedback
+    [[UIImpactFeedbackGenerator new] impactOccurred];
+}
 @end
