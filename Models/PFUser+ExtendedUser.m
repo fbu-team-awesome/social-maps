@@ -240,7 +240,7 @@
     event.user = self;
     event.eventType = ETFollow;
     event.followingID = user.objectId;
-    event.place = (Place *)[NSNull new];
+    event.place = [Place new];
     [event saveInBackground];
 }
 
