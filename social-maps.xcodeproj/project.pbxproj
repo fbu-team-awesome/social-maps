@@ -53,6 +53,10 @@
 		9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */; };
 		9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6755E421012DF10056D009 /* ProfileListCell.m */; };
 		9E876BEC2118AE8F0097A85D /* UIStylesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E876BEB2118AE8F0097A85D /* UIStylesHelper.m */; };
+		9E876BEF2118BE230097A85D /* FollowEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E876BEE2118BE230097A85D /* FollowEvent.m */; };
+		9E876BF12118E65A0097A85D /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E876BF02118E65A0097A85D /* Notifications.storyboard */; };
+		9E876BF42118E73A0097A85D /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E876BF32118E73A0097A85D /* NotificationCell.m */; };
+		9E876BF72118E9950097A85D /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E876BF62118E9950097A85D /* NotificationsViewController.m */; };
 		9E8A9C42210FB936001EE3F0 /* FeedEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C41210FB936001EE3F0 /* FeedEvent.m */; };
 		9E8A9C46210FBED1001EE3F0 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C45210FBED1001EE3F0 /* Review.m */; };
 		9E8A9C49210FBFF2001EE3F0 /* CheckInEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A9C48210FBFF2001EE3F0 /* CheckInEvent.m */; };
@@ -150,6 +154,13 @@
 		9E6755E421012DF10056D009 /* ProfileListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileListCell.m; sourceTree = "<group>"; };
 		9E876BEA2118AE8F0097A85D /* UIStylesHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIStylesHelper.h; sourceTree = "<group>"; };
 		9E876BEB2118AE8F0097A85D /* UIStylesHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIStylesHelper.m; sourceTree = "<group>"; };
+		9E876BED2118BE230097A85D /* FollowEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowEvent.h; sourceTree = "<group>"; };
+		9E876BEE2118BE230097A85D /* FollowEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FollowEvent.m; sourceTree = "<group>"; };
+		9E876BF02118E65A0097A85D /* Notifications.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = "<group>"; };
+		9E876BF22118E73A0097A85D /* NotificationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
+		9E876BF32118E73A0097A85D /* NotificationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
+		9E876BF52118E9950097A85D /* NotificationsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
+		9E876BF62118E9950097A85D /* NotificationsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		9E8A9C40210FB936001EE3F0 /* FeedEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedEvent.h; sourceTree = "<group>"; };
 		9E8A9C41210FB936001EE3F0 /* FeedEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedEvent.m; sourceTree = "<group>"; };
 		9E8A9C44210FBED1001EE3F0 /* Review.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Review.h; sourceTree = "<group>"; };
@@ -236,6 +247,7 @@
 				014407522111172D001F67BD /* FilterList.storyboard */,
 				1CAC863F21103C9000A7A294 /* CheckIns.storyboard */,
 				9E8A9C4F210FDB6E001EE3F0 /* Feed.storyboard */,
+				9E876BF02118E65A0097A85D /* Notifications.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -262,6 +274,8 @@
 				0144075B21111A5A001F67BD /* FilterCheckboxCell.m */,
 				1C0D8E45211395D20013268A /* PhotoCell.h */,
 				1C0D8E46211395D20013268A /* PhotoCell.m */,
+				9E876BF22118E73A0097A85D /* NotificationCell.h */,
+				9E876BF32118E73A0097A85D /* NotificationCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -295,6 +309,8 @@
 				1CAC864221103D7700A7A294 /* CheckInsViewController.m */,
 				9E8A9C54210FDC64001EE3F0 /* FeedViewController.h */,
 				9E8A9C55210FDC64001EE3F0 /* FeedViewController.m */,
+				9E876BF52118E9950097A85D /* NotificationsViewController.h */,
+				9E876BF62118E9950097A85D /* NotificationsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -335,6 +351,8 @@
 				9E8A9C6121125772001EE3F0 /* PhotoAdditionEvent.m */,
 				9E8A9C6321125808001EE3F0 /* ReviewAdditionEvent.h */,
 				9E8A9C6421125808001EE3F0 /* ReviewAdditionEvent.m */,
+				9E876BED2118BE230097A85D /* FollowEvent.h */,
+				9E876BEE2118BE230097A85D /* FollowEvent.m */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -466,6 +484,7 @@
 				018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */,
 				317B3939210267900057079A /* SearchPage.storyboard in Resources */,
 				9E8A9C50210FDB6E001EE3F0 /* Feed.storyboard in Resources */,
+				9E876BF12118E65A0097A85D /* Notifications.storyboard in Resources */,
 				1C5BC862210A581100F67574 /* MarkerWindow.xib in Resources */,
 				014407532111172D001F67BD /* FilterList.storyboard in Resources */,
 			);
@@ -522,6 +541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E3C98312106F051002C63F5 /* NCHelper.m in Sources */,
+				9E876BEF2118BE230097A85D /* FollowEvent.m in Sources */,
 				018E6A9D20FEBA6E00DE10A6 /* ListViewController.m in Sources */,
 				9EF4E3D220FD2AED005535C6 /* APIManager.m in Sources */,
 				9EF4E3D720FE6D95005535C6 /* ProfileViewController.m in Sources */,
@@ -537,6 +557,8 @@
 				0130162D20EFDE620010FD04 /* AppDelegate.m in Sources */,
 				1C0D8E4A21139E600013268A /* Photo.m in Sources */,
 				018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */,
+				9E876BF72118E9950097A85D /* NotificationsViewController.m in Sources */,
+				9E876BF42118E73A0097A85D /* NotificationCell.m in Sources */,
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
 				9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */,

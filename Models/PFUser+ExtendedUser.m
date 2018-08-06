@@ -11,6 +11,7 @@
 #import "NCHelper.h"
 #import "ListAdditionEvent.h"
 #include "NCHelper.h"
+#import "FollowEvent.h"
 
 @implementation PFUser (ExtendedUser)
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships, checkIns;
@@ -233,6 +234,14 @@
             [userRelationship addUserIdToFollowers:self.objectId];
         }];
     }];
+    
+    // create the notification
+    FollowEvent *event = [FollowEvent new];
+    event.user = self;
+    event.eventType = ETFollow;
+    event.followingID = user.objectId;
+    event.place = [Place new];
+    [event saveInBackground];
 }
 
 - (void)unfollow:(PFUser*)user {
