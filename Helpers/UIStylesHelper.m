@@ -9,20 +9,13 @@
 #import "UIStylesHelper.h"
 
 @implementation UIStylesHelper
-+ (void)setRoundedCornersToView:(UIView *)view {
-    CGFloat width = view.frame.size.width, height = view.frame.size.height;
-    if(width > height)
-    {
-        view.layer.cornerRadius = height / 2;
-    }
-    else if(width <= height)
-    {
-        view.layer.cornerRadius = width / 2;
-    }
++ (void)addRoundedCornersToView:(UIView *)view {
+    CGFloat min = MIN(view.frame.size.width, view.frame.size.height);
+    view.layer.cornerRadius = min / 2;
     view.clipsToBounds = YES;
 }
 
-+ (void)setShadowToView:(UIView *)view {
++ (void)addShadowToView:(UIView *)view {
     view.layer.shadowColor = [UIColor blackColor].CGColor;
     view.layer.shadowOffset = CGSizeZero;
     view.layer.shadowRadius = 5;
@@ -30,7 +23,7 @@
     view.layer.masksToBounds = NO;
 }
 
-+ (void)setShadowToView:(UIView *)view withOffset:(CGSize)offset withRadius:(CGFloat)radius withOpacity:(float)opacity {
++ (void)addShadowToView:(UIView *)view withOffset:(CGSize)offset withRadius:(CGFloat)radius withOpacity:(float)opacity {
     view.layer.shadowColor = [UIColor blackColor].CGColor;
     view.layer.shadowOffset = offset;
     view.layer.shadowRadius = radius;
@@ -45,10 +38,10 @@
 }
 
 + (void)animateTapOnView:(UIView *)view {
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.1 animations:^{
         view.transform = CGAffineTransformMakeScale(1.25, 1.25);
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:0.1 animations:^{
             view.transform = CGAffineTransformIdentity;
         }];
     }];

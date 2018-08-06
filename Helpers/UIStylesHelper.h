@@ -10,9 +10,9 @@
 #import <Foundation/Foundation.h>
 
 @interface UIStylesHelper : NSObject
-+ (void)setRoundedCornersToView:(UIView *)view;
-+ (void)setShadowToView:(UIView *)view;
-+ (void)setShadowToView:(UIView *)view withOffset:(CGSize)offset withRadius:(CGFloat)radius withOpacity:(float)opacity;
++ (void)addRoundedCornersToView:(UIView *)view;
++ (void)addShadowToView:(UIView *)view;
++ (void)addShadowToView:(UIView *)view withOffset:(CGSize)offset withRadius:(CGFloat)radius withOpacity:(float)opacity;
 + (void)setCustomNavBarStyle:(UINavigationController *)navigationController;
 + (void)animateTapOnView:(UIView *)view;
 @end
