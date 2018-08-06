@@ -153,10 +153,10 @@
             </objects>
             <point key="canvasLocation" x="1939" y="4"/>
         </scene>
-        <!--ListView-->
+        <!--Notifications-->
         <scene sceneID="ptW-9f-5Bh">
             <objects>
-                <viewControllerPlaceholder storyboardName="ListView" id="RHe-W1-V7z" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Notifications" id="RHe-W1-V7z" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="List" id="wGv-ID-Rl6"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l1n-Y5-bXG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -176,10 +176,10 @@
         <!--SearchPage-->
         <scene sceneID="De4-ht-oIg">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b1u-Ti-GZh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewControllerPlaceholder storyboardName="SearchPage" id="SBn-ws-uWO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="z2D-6u-VRz"/>
                 </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="b1u-Ti-GZh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1937" y="-81"/>
         </scene>
