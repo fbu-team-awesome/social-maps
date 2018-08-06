@@ -9,8 +9,7 @@
 #import "FeedEvent.h"
 
 @interface FollowEvent : FeedEvent
-@property (strong, nonatomic) NSString *followerID;
-@property (strong, nonatomic) NSString *followeeID;
+@property (strong, nonatomic) NSString *followingID;
 
 - (instancetype)initWithParseObject:(PFObject *)object;
 @end

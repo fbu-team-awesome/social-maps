@@ -12,8 +12,7 @@
 - (instancetype)initWithParseObject:(PFObject *)object {
     if(self = [super initWithParseObject:object])
     {
-        self.followerID = object[@"followerID"];
-        self.followeeID = object[@"followeeID"];
+        self.followingID = object[@"followingID"];
     }
     
     return self;
@@ -21,7 +20,14 @@
 
 - (void)setParseProperties {
     [super setParseProperties];
-    self.parseObject[@"followerID"] = self.followerID;
-    self.parseObject[@"followeeID"] = self.followeeID;
+    self.parseObject[@"followingID"] = self.followingID;
+}
+
+- (void)queryInfoWithCompletion:(void (^)(void))completion {
+    PFQuery *userQuery = [PFUser query];
+    [userQuery getObjectInBackgroundWithId:self.user.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        self.user = (PFUser *)object;
+        completion();
+    }];
 }
 @end
