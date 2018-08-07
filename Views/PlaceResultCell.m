@@ -16,7 +16,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.placeImage.layer.cornerRadius = self.placeImage.layer.frame.size.height / 2;
+    self.placeImage.layer.cornerRadius = 10;
     self.placeImage.clipsToBounds = YES;
 }
 
