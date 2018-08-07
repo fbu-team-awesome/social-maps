@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *composeView;
 @property (weak, nonatomic) IBOutlet UIView *infoView;
+@property (weak, nonatomic) IBOutlet UITextView *reviewTextView;
 
 
 // Instance Properties //
@@ -42,6 +43,7 @@
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) NSArray<PFUser *> *usersCheckedIn;
 @property (strong, nonatomic) NSArray <Photo *> *photos;
+@property (nonatomic) CGFloat userRating;
 
 @end
 
@@ -61,15 +63,15 @@
         
         [self updateContent];
         
-        //adjust height for tab bar
+        //adjust height
         CGRect contentRect = CGRectZero;
         
         for (UIView *view in self.contentView.subviews) {
             contentRect = CGRectUnion(contentRect, view.frame);
         }
         self.scrollView.contentSize = contentRect.size;
+        
     }];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -86,24 +88,7 @@
     self.addressLabel.text = self.place.formattedAddress;
     [self updateCheckInLabel];
     [self initUsersCheckedIn];
-    
-    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(72, 32, 100, 25)];
-    ratingView.minimumValue = 0;
-    ratingView.maximumValue = 5;
-    [ratingView setEnabled:YES];
-   
-    
-    //weird error: ratingView is editable when added to the infoView but not the composeView
-    [self.infoView addSubview:ratingView];
-    
-    
-    HCSStarRatingView *ratingView2 = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(72, 32, 100, 25)];
-    ratingView2.minimumValue = 0;
-    ratingView2.maximumValue = 5;
-    [ratingView2 setEnabled:YES];
-    
-    
-    [self.composeView addSubview:ratingView];
+    [self initWriteReview];
     
     //configure photos collection view layout
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
@@ -317,8 +302,33 @@
     NYTPhotosViewController *photosViewController = [[NYTPhotosViewController alloc] initWithPhotos:self.photos initialPhoto:photo];
     [self presentViewController:photosViewController animated:YES completion:nil];
 }
-- (IBAction)didTapSubmit:(id)sender {
-    NSLog(@"Button is being tapped");
+
+#pragma mark - Reviews
+- (void) initWriteReview {
+    
+    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(72, 32, 100, 25)];
+    ratingView.minimumValue = 0;
+    ratingView.maximumValue = 5;
+    [ratingView addTarget:self action:@selector(didChangeRating:) forControlEvents:UIControlEventValueChanged];
+    
+    //weird error: ratingView is editable when added to the infoView but not the composeView
+    [self.composeView addSubview:ratingView];
 }
+
+- (void)didChangeRating:(id)sender {
+    HCSStarRatingView *ratingView = (HCSStarRatingView *)sender;
+    self.userRating = ratingView.value;
+}
+
+- (IBAction)didTapSubmit:(id)sender {
+    Review *review = [[Review alloc] init];
+    review.user = PFUser.currentUser;
+    review.content = self.reviewTextView.text;
+    review.rating = (NSInteger) (floor(self.userRating));
+    [self.parsePlace addReview:review withCompletion:^{
+        //do something after uploading a review
+    }];
+}
+
 
 @end

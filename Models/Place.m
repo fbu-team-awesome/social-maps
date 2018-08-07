@@ -139,4 +139,26 @@
     completion([followingPhotos copy]);
 }
 
+- (void)addReview:(Review *)review withCompletion:(void(^)(void))completion {
+    //create a mutable copy
+    NSMutableDictionary *newReviews = [self.reviews mutableCopy];
+    
+    //if user has never added reviews to this place, add to new reviews array
+    if ([newReviews objectForKey:PFUser.currentUser.objectId] == nil) {
+        NSArray *newReviewsArray = [NSArray arrayWithObject:review];
+        [newReviews setObject:newReviewsArray forKey:PFUser.currentUser.objectId];
+    }
+    //else add to existing reviews array
+    else {
+        NSArray *reviewsArray = [newReviews[PFUser.currentUser.objectId] arrayByAddingObject:review];
+        [newReviews setObject:reviewsArray forKey:PFUser.currentUser.objectId];
+    }
+    
+    //set the reviews dictionary to the mutable copy
+    self.reviews = [newReviews copy];
+    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        completion();
+    }];
+}
+
 @end

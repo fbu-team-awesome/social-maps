@@ -314,15 +314,8 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bmx-wl-7RD">
-                                                <rect key="frame" x="0.0" y="693" width="375" height="168"/>
+                                                <rect key="frame" x="0.0" y="1129" width="375" height="168"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Write a review" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6HQ-gL-vL0">
-                                                        <rect key="frame" x="66" y="8" width="276" height="20"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
-                                                        <color key="textColor" name="VTR_BlackLabel"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K3p-Ax-FNV">
                                                         <rect key="frame" x="8" y="8" width="50" height="46"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -334,11 +327,6 @@
                                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dah-E6-h0X">
-                                                        <rect key="frame" x="67" y="32" width="117" height="25"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </view>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5LI-VI-owY">
                                                         <rect key="frame" x="293" y="138" width="49" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -347,6 +335,18 @@
                                                             <action selector="didTapSubmit:" destination="eMh-9V-03L" eventType="touchUpInside" id="xif-eC-5KJ"/>
                                                         </connections>
                                                     </button>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dah-E6-h0X">
+                                                        <rect key="frame" x="67" y="36" width="117" height="25"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Write a review" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6HQ-gL-vL0">
+                                                        <rect key="frame" x="67" y="8" width="276" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
+                                                        <color key="textColor" name="VTR_BlackLabel"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -354,7 +354,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oeh-HB-GHp">
-                                                <rect key="frame" x="0.0" y="861" width="375" height="436"/>
+                                                <rect key="frame" x="0.0" y="693" width="375" height="436"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ahU-xE-xii">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="436"/>
@@ -444,6 +444,7 @@
                                             <constraint firstAttribute="trailing" secondItem="uxd-lk-JSV" secondAttribute="trailing" id="5dZ-gH-rlf"/>
                                             <constraint firstItem="FFx-Wc-XL8" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="7py-GV-U8Q"/>
                                             <constraint firstItem="EV2-CO-0DA" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="87h-nK-UKp"/>
+                                            <constraint firstItem="bmx-wl-7RD" firstAttribute="top" secondItem="oeh-HB-GHp" secondAttribute="bottom" id="9qU-Mp-AYM"/>
                                             <constraint firstItem="EV2-CO-0DA" firstAttribute="top" secondItem="Yrq-zh-yGL" secondAttribute="top" id="DQ0-R7-MTr"/>
                                             <constraint firstItem="pdM-tq-m74" firstAttribute="top" secondItem="EV2-CO-0DA" secondAttribute="bottom" id="F2N-fh-SCX"/>
                                             <constraint firstAttribute="trailing" secondItem="EV2-CO-0DA" secondAttribute="trailing" id="Fv1-rb-IhR"/>
@@ -453,7 +454,6 @@
                                             <constraint firstItem="oeh-HB-GHp" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="M75-oO-rOQ"/>
                                             <constraint firstItem="uxd-lk-JSV" firstAttribute="top" secondItem="pdM-tq-m74" secondAttribute="bottom" id="NNC-lS-Mp9"/>
                                             <constraint firstItem="jfv-yH-ewU" firstAttribute="top" secondItem="uxd-lk-JSV" secondAttribute="bottom" id="RaT-EV-Xe8"/>
-                                            <constraint firstItem="oeh-HB-GHp" firstAttribute="top" secondItem="bmx-wl-7RD" secondAttribute="bottom" id="S1I-X3-Nu9"/>
                                             <constraint firstItem="fTH-C3-YS2" firstAttribute="top" secondItem="2GV-3P-HEH" secondAttribute="bottom" id="SLT-9t-g05"/>
                                             <constraint firstItem="TFc-ut-LLX" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="UZX-l2-clH"/>
                                             <constraint firstAttribute="trailing" secondItem="oeh-HB-GHp" secondAttribute="trailing" id="Vtm-Ei-WWw"/>
@@ -461,6 +461,7 @@
                                             <constraint firstItem="crj-Pc-VJu" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="aCw-OY-DcU"/>
                                             <constraint firstAttribute="trailing" secondItem="bmx-wl-7RD" secondAttribute="trailing" id="akV-Ne-IeN"/>
                                             <constraint firstItem="2GV-3P-HEH" firstAttribute="top" secondItem="FFx-Wc-XL8" secondAttribute="bottom" id="dic-Ot-i7b"/>
+                                            <constraint firstItem="oeh-HB-GHp" firstAttribute="top" secondItem="fTH-C3-YS2" secondAttribute="bottom" id="eso-ne-4vE"/>
                                             <constraint firstItem="pdM-tq-m74" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="fCd-EJ-WHU"/>
                                             <constraint firstAttribute="trailing" secondItem="pdM-tq-m74" secondAttribute="trailing" id="l9K-J2-cAp"/>
                                             <constraint firstItem="fTH-C3-YS2" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="lCG-ff-eAQ"/>
@@ -469,7 +470,7 @@
                                             <constraint firstItem="jfv-yH-ewU" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="qC0-M0-WoC"/>
                                             <constraint firstItem="FFx-Wc-XL8" firstAttribute="top" secondItem="crj-Pc-VJu" secondAttribute="bottom" id="s9b-1O-aWa"/>
                                             <constraint firstItem="crj-Pc-VJu" firstAttribute="top" secondItem="jfv-yH-ewU" secondAttribute="bottom" id="vD7-Uz-aeR"/>
-                                            <constraint firstItem="bmx-wl-7RD" firstAttribute="top" secondItem="fTH-C3-YS2" secondAttribute="bottom" id="wY5-wU-Qvf"/>
+                                            <constraint firstAttribute="height" constant="1380" id="w45-4L-yxc"/>
                                             <constraint firstItem="uxd-lk-JSV" firstAttribute="leading" secondItem="Yrq-zh-yGL" secondAttribute="leading" id="wkS-qW-WIU"/>
                                             <constraint firstItem="TFc-ut-LLX" firstAttribute="top" secondItem="2GV-3P-HEH" secondAttribute="bottom" id="xd5-XA-PLL"/>
                                         </constraints>
@@ -477,11 +478,9 @@
                                 </subviews>
                                 <color key="backgroundColor" name="VTR_Background"/>
                                 <constraints>
+                                    <constraint firstItem="Yrq-zh-yGL" firstAttribute="top" secondItem="uHd-rJ-al7" secondAttribute="top" id="0Fr-qC-crE"/>
                                     <constraint firstItem="Yrq-zh-yGL" firstAttribute="leading" secondItem="uHd-rJ-al7" secondAttribute="leading" id="8vC-zm-CJE"/>
-                                    <constraint firstItem="Yrq-zh-yGL" firstAttribute="height" secondItem="uHd-rJ-al7" secondAttribute="height" id="Qka-py-ZFc"/>
-                                    <constraint firstItem="Yrq-zh-yGL" firstAttribute="top" secondItem="uHd-rJ-al7" secondAttribute="top" id="XJC-nu-7zd"/>
-                                    <constraint firstItem="Yrq-zh-yGL" firstAttribute="centerY" secondItem="uHd-rJ-al7" secondAttribute="centerY" id="g0L-3c-t7A"/>
-                                    <constraint firstAttribute="bottom" secondItem="Yrq-zh-yGL" secondAttribute="bottom" id="osF-Ke-SE0"/>
+                                    <constraint firstAttribute="bottom" secondItem="Yrq-zh-yGL" secondAttribute="bottom" id="jeu-3b-Wxz"/>
                                     <constraint firstItem="Yrq-zh-yGL" firstAttribute="width" secondItem="uHd-rJ-al7" secondAttribute="width" id="wgJ-Jw-09t"/>
                                     <constraint firstAttribute="trailing" secondItem="Yrq-zh-yGL" secondAttribute="trailing" id="wvE-Rh-dyx"/>
                                 </constraints>
@@ -510,6 +509,7 @@
                         <outlet property="infoView" destination="pdM-tq-m74" id="SCF-ee-2Ax"/>
                         <outlet property="placeNameLabel" destination="z5R-BN-ECD" id="jwA-9x-1UX"/>
                         <outlet property="placeView" destination="EV2-CO-0DA" id="uhh-Uu-mGf"/>
+                        <outlet property="reviewTextView" destination="Pri-3w-1hW" id="QMO-c9-qhw"/>
                         <outlet property="scrollView" destination="uHd-rJ-al7" id="EFT-03-gmF"/>
                         <outlet property="userPicsView" destination="g0Q-Yw-iPm" id="8ot-mR-Fr9"/>
                         <outlet property="usersLabel" destination="btR-gd-Zn8" id="xfj-bb-W7n"/>

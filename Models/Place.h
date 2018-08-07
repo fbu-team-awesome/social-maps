@@ -28,6 +28,7 @@
 + (void)checkGMSPlaceExists:(nonnull GMSPlace*)place result:(void(^_Nonnull)(Place* _Nonnull))result;
 - (void)addPhoto:(PFFile *_Nonnull)photo withCompletion:(void(^_Nullable)(void))completion;
 - (void)retrievePhotosFromFollowing:(NSArray <NSString*>* _Nonnull)following withCompletion:(void(^ _Nonnull)(NSArray <Photo *>* _Nonnull))completion;
-
+- (void)addReview:(Review *_Nonnull)review withCompletion:(void(^_Nullable)(void))completion;
+    
 @end
 
