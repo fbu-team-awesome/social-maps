@@ -120,7 +120,10 @@
                         {
                             if(longitude >= myMinLongitude && longitude <= myMaxLongitude)
                             {
-                                [mutableArray addObject:place];
+                                if(![mutableArray containsObject:place])
+                                {
+                                    [mutableArray addObject:place];
+                                }
                             }
                         }
                     }
