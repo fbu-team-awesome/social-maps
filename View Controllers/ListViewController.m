@@ -56,8 +56,12 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     [self.refreshControl addTarget:self action:@selector(retrieveCurrentUserData) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
     
+    // set navbar styles
     [self.navigationController.navigationBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
+
 
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(didAddFavorite:)];
@@ -125,16 +129,25 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Favorites", @"Wishlist"]];
     
     // Customize appearance
-    [segmentedControl setFrame:CGRectMake(0, 0, width, 60)];
-    segmentedControl.selectionIndicatorHeight = 4.0f;
-    segmentedControl.backgroundColor = [UIColor colorNamed:@"VTR_LightOrange"];
-    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:1.00 green:0.60 blue:0.47 alpha:1.0]};
-    segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:1.00 green:0.60 blue:0.47 alpha:1.0];
-    segmentedControl.selectionIndicatorBoxColor = [UIColor colorWithRed:1.00 green:0.92 blue:0.87 alpha:1.0];
+    // Customize appearance
+    [segmentedControl setFrame:CGRectMake(0, 0, width, 55)];
+    segmentedControl.selectionIndicatorHeight = 4.5f;
+    segmentedControl.backgroundColor = [UIColor colorNamed:@"VTR_Background"];
+    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorNamed:@"VTR_BlackLabel"], NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-DemiBold" size:15.5]};
+    segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorNamed:@"VTR_Main"], NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-DemiBold" size:15.5]};
+    segmentedControl.selectionIndicatorColor = [UIColor colorNamed:@"VTR_Main"];
+    segmentedControl.selectionIndicatorBoxColor = [UIColor colorNamed:@"VTR_Background"];
     segmentedControl.selectionIndicatorBoxOpacity = 1.0;
     segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleBox;
     segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl.shouldAnimateUserSelection = YES;
+    
+    // add shadow
+    segmentedControl.layer.shadowColor = [UIColor blackColor].CGColor;
+    segmentedControl.layer.shadowOffset = CGSizeMake(0, 3);
+    segmentedControl.layer.shadowRadius = 2;
+    segmentedControl.layer.shadowOpacity = 0.1;
+    segmentedControl.layer.masksToBounds = NO;
     [self.view addSubview:segmentedControl];
     
     // Called when user changes selection
@@ -174,10 +187,12 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
         [self.progressIndicator stopAnimating];
     }];
     
-    CGRect tableViewFrame = self.tableView.frame;
-    tableViewFrame.origin.y = segmentedControl.frame.size.height;
-    tableViewFrame.size.width = width;
-    self.tableView.frame = tableViewFrame;
+    
+    // fix the tableview's y position
+    CGRect frame = self.tableView.frame;
+    frame.origin.y = segmentedControl.frame.origin.y + 55;
+    frame.size.height = self.view.frame.size.height - frame.origin.y - self.tabBarController.tabBar.frame.size.height - self.navigationController.navigationBar.frame.size.height - 20;
+    self.tableView.frame = frame;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -46,7 +46,8 @@
 }
 
 - (void)updateUI {
-    // todo image
+    self.placeImage.layer.cornerRadius = 10;
+    self.placeImage.clipsToBounds = YES;
     self.nameLabel.text = self.place.name;
     self.addressLabel.text = self.place.formattedAddress;
     
