@@ -10,5 +10,6 @@ target 'social-maps' do
   pod 'GooglePlaces'
   pod 'Parse'
   pod 'HMSegmentedControl', '~> 1.5'
+  pod 'DateTools'
 
 end
