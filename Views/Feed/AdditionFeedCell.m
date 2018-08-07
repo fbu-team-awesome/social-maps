@@ -12,6 +12,7 @@
 @interface AdditionFeedCell ()
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImage;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (strong, nonatomic) ListAdditionEvent *event;
 @end
 
@@ -40,6 +41,7 @@
     // update UI
     self.contentLabel.text = content;
     [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
+    self.timeLabel.text = [self.event getTimpestamp];
     
     // set rounded image
     self.profilePictureImage.layer.cornerRadius = self.profilePictureImage.frame.size.width / 2;

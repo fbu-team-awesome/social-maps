@@ -9,6 +9,7 @@
 #import "FeedEvent.h"
 #import "ListAdditionEvent.h"
 #import "Place.h"
+#import "NSDate+DateTools.h"
 
 @implementation FeedEvent
 - (instancetype)initWithParseObject:(PFObject *)object {
@@ -44,5 +45,9 @@
             completion();
         }];
     }];
+}
+
+- (NSString *)getTimpestamp {
+    return self.parseObject.createdAt.shortTimeAgoSinceNow;
 }
 @end
