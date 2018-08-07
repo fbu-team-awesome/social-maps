@@ -19,6 +19,7 @@
 #import "Relationships.h"
 #import "NCHelper.h"
 #import "ListViewController.h"
+#import "UIStylesHelper.h"
 
 @interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
@@ -136,6 +137,24 @@
     [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // set navbar title
+    if([self.user.username isEqualToString:[PFUser currentUser].username])
+    {
+        [self.navigationController.navigationBar.topItem setTitle:@"MY PROFILE"];
+    }
+    else
+    {
+        [self.navigationController.navigationBar.topItem setTitle:self.user.username];
+    }
+    
+    // fade in
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.navigationController.navigationBar.topItem.titleView setAlpha:1];
+    }];
+}
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
     [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(removeFromFavorites:)];
@@ -153,7 +172,7 @@
     [self setRoundedCornersToView:self.profilePicture];
     [self setRoundedCornersToView:self.profilePictureView];
     [self addShadowToView:self.profilePictureView withOffset:CGSizeZero];
-    [self addShadowToView:self.myPlacesView withOffset:CGSizeMake(0,0)];
+    [self addShadowToView:self.myPlacesView withOffset:CGSizeMake(0, 4)];
     self.followButton.layer.cornerRadius = self.followButton.frame.size.height / 2;
     self.followButton.clipsToBounds = YES;
     [self addShadowToView:self.followButton withOffset:CGSizeMake(0,0)];
@@ -162,6 +181,11 @@
     self.placesSwitch.layer.cornerRadius = self.placesSwitch.frame.size.height / 2;
     self.placesSwitch.clipsToBounds = YES;
     self.placesSwitch.backgroundColor = [UIColor colorNamed:@"VTR_Main"];
+    
+    // set navbar styles
+    [UIStylesHelper setCustomNavBarStyle:self.navigationController];
+    [UIStylesHelper addShadowToView:self.navigationController.navigationBar withOffset:CGSizeMake(0, 2) withRadius:1.5 withOpacity:0.1];
+    [self.navigationController.navigationBar.topItem.titleView setAlpha:0];
 }
 
 - (void)setRoundedCornersToView:(UIView*)view {
