@@ -124,8 +124,9 @@
     }
     
     //also add current user's photos
-    [filteredPlacePhotos setObject:[self.photos objectForKey:PFUser.currentUser.objectId] forKey:PFUser.currentUser.objectId];
-    
+    if ([self.photos objectForKey:PFUser.currentUser.objectId]) {
+        [filteredPlacePhotos setObject:[self.photos objectForKey:PFUser.currentUser.objectId] forKey:PFUser.currentUser.objectId];
+    }
     //iterate through dictionary to put objects in a new Photo array
     NSMutableArray <Photo *> *followingPhotos = [NSMutableArray new];
     for (NSString *followingId in [filteredPlacePhotos allKeys]) {
