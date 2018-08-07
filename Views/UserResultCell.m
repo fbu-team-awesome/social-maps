@@ -40,20 +40,17 @@
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", self.user.username];
     [self setProfilePic];
 
-    [[PFUser currentUser] retrieveRelationshipWithCompletion:^(Relationships *relationship) {
-        if([relationship.following containsObject:self.user.objectId])
-        {
-            [self.followButton setTitle:@"Following" forState:UIControlStateNormal];
-            self.followButton.layer.borderWidth = 1;
-            self.followButton.layer.borderColor = [UIColor colorNamed:@"VTR_Main"].CGColor;
-            [self.followButton setTitleColor:[UIColor colorNamed:@"VTR_Main"] forState:UIControlStateNormal];
-            [self.followButton setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
-        }
-        // fade in
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.contentView setAlpha:1];
+    if(![PFUser currentUser].relationships.isDataAvailable)
+    {
+        [[PFUser currentUser] retrieveRelationshipWithCompletion:^(Relationships *relationship) {
+            [PFUser currentUser].relationships = relationship;
+            [self checkIfFollowing];
         }];
-    }];
+    }
+    else
+    {
+        [self checkIfFollowing];
+    }
 }
 
 - (void)setProfilePic {
@@ -77,6 +74,29 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)checkIfFollowing {
+    if([[PFUser currentUser].relationships.following containsObject:self.user.objectId])
+    {
+        [self.followButton setTitle:@"Following" forState:UIControlStateNormal];
+        self.followButton.layer.borderWidth = 1;
+        self.followButton.layer.borderColor = [UIColor colorNamed:@"VTR_Main"].CGColor;
+        [self.followButton setTitleColor:[UIColor colorNamed:@"VTR_Main"] forState:UIControlStateNormal];
+        [self.followButton setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+    }
+    else
+    {
+        [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
+        self.followButton.layer.borderWidth = 0;
+        self.followButton.layer.borderColor = [UIColor clearColor].CGColor;
+        [self.followButton setTitleColor:[UIColor colorNamed:@"VTR_Background"] forState:UIControlStateNormal];
+        [self.followButton setBackgroundColor:[UIColor colorNamed:@"VTR_Main"]];
+    }
+    // fade in
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.contentView setAlpha:1];
+    }];
 }
 
 - (void)toggleFollowButton {
