@@ -47,12 +47,7 @@
 
 - (void)setEvent:(PhotoAdditionEvent *)event {
     _event = event;
-    [event queryInfoWithCompletion:^{
-        if(event.user.isDataAvailable && event.place.isDataAvailable)
-        {
-            [self initUI];
-        }
-    }];
+    [self initUI];
 }
 
 @end

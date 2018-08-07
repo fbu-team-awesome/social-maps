@@ -34,7 +34,7 @@
     // set up tableview
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    [self.tableView setRowHeight:64];
+    [self.tableView setRowHeight:UITableViewAutomaticDimension];
     
     // set up refresh control
     self.refreshControl = [UIRefreshControl new];
@@ -57,14 +57,17 @@
 - (void)fetchEvents {
     PFQuery *query = [PFQuery queryWithClassName:@"FeedEvent"];
     PFUser *currentUser = [PFUser currentUser];
+    NSMutableArray<FeedEvent *> *mutableEvents = [NSMutableArray new];
     
     // get events from current user
     [query whereKey:@"user" equalTo:currentUser];
+    [query includeKey:@"user"];
+    [query includeKey:@"place"];
+    [query includeKey:@"review"];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        self.events = [NSArray new];
         if(objects != nil)
         {
-            [self addEventsWithArray:objects];
+            [self addEventsToArray:mutableEvents fromArray:objects];
             
             // get the events from the user's following
             [currentUser retrieveRelationshipWithCompletion:^(Relationships *relationship) {
@@ -77,12 +80,16 @@
                                           PFUser *user = users[i];
                                           PFQuery *newQuery = [PFQuery queryWithClassName:@"FeedEvent"];
                                           [newQuery whereKey:@"user" equalTo:user];
+                                          [newQuery includeKey:@"user"];
+                                          [newQuery includeKey:@"place"];
+                                          [newQuery includeKey:@"review"];
                                           [newQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-                                              [self addEventsWithArray:objects];
+                                              [self addEventsToArray:mutableEvents fromArray:objects];
                                               
                                               // if we're finished, sort the array by date (descending)
                                               if(i == users.count - 1)
                                               {
+                                                  self.events = [mutableEvents copy];
                                                   [self sortEventsDescending];
                                                   [self.tableView reloadData];
                                                   [self.refreshControl endRefreshing];
@@ -93,6 +100,7 @@
                 }
                 else
                 {
+                    self.events = [mutableEvents copy];
                     [self sortEventsDescending];
                     [self.tableView reloadData];
                     [self.refreshControl endRefreshing];
@@ -110,31 +118,27 @@
     }];
 }
 
-- (void)addEventsWithArray:(NSArray<PFObject *> *)objects {
-    NSMutableArray<FeedEvent *> *temp = [NSMutableArray new];
+- (void)addEventsToArray:(NSMutableArray<FeedEvent *> *)mutableArray fromArray:(NSArray<PFObject *> *)objects {
     for(PFObject *object in objects)
     {
         FeedEventType eventType = [object[@"eventType"] unsignedIntegerValue];
         if(eventType == ETListAddition)
         {
-            [temp addObject:[[ListAdditionEvent alloc] initWithParseObject:object]];
+            [mutableArray addObject:[[ListAdditionEvent alloc] initWithParseObject:object]];
         }
         else if(eventType == ETCheckin)
         {
-            [temp addObject:[[CheckInEvent alloc] initWithParseObject:object]];
+            [mutableArray addObject:[[CheckInEvent alloc] initWithParseObject:object]];
         }
         else if(eventType == ETPhotoAddition)
         {
-            [temp addObject:[[PhotoAdditionEvent alloc] initWithParseObject:object]];
+            [mutableArray addObject:[[PhotoAdditionEvent alloc] initWithParseObject:object]];
         }
         else if(eventType == ETReviewAddition)
         {
-            [temp addObject:[[ReviewAdditionEvent alloc] initWithParseObject:object]];
+            [mutableArray addObject:[[ReviewAdditionEvent alloc] initWithParseObject:object]];
         }
     }
-    
-    // add the temporary array to our events array
-    self.events = [self.events arrayByAddingObjectsFromArray:[temp copy]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
