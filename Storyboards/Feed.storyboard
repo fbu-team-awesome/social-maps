@@ -139,6 +139,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="contentLabel" destination="S06-Mk-pg3" id="mwW-Qu-JwU"/>
+                                            <outlet property="pictureView" destination="aHf-Is-7BB" id="Y9O-ZI-hcn"/>
                                             <outlet property="profilePictureImage" destination="RRR-N0-Oii" id="lqf-C0-rzR"/>
                                             <outlet property="timeLabel" destination="x6D-wm-J9z" id="QdB-0l-tty"/>
                                         </connections>
@@ -208,6 +209,7 @@
                                         <connections>
                                             <outlet property="contentLabel" destination="5Yo-kp-EdH" id="2aq-uj-kTo"/>
                                             <outlet property="photoImage" destination="cUJ-or-bsR" id="yMB-ls-byM"/>
+                                            <outlet property="pictureView" destination="CBc-kC-qLE" id="URn-rf-FEp"/>
                                             <outlet property="profilePictureImage" destination="ckT-hA-78G" id="aTf-np-TK6"/>
                                             <outlet property="timeLabel" destination="BGB-Wn-BCI" id="58p-gv-x7w"/>
                                         </connections>
@@ -263,6 +265,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="contentLabel" destination="78V-MF-x8t" id="DCv-sO-pz9"/>
+                                            <outlet property="pictureView" destination="ZzO-lN-2P1" id="agN-x3-1cW"/>
                                             <outlet property="profilePictureImage" destination="jy4-B8-VBq" id="j4d-g5-4l5"/>
                                             <outlet property="ratingLabel" destination="Szc-5N-aG0" id="Ada-Z9-5gt"/>
                                             <outlet property="reviewLabel" destination="4Gn-bW-LmS" id="997-BS-596"/>
