@@ -17,6 +17,7 @@
 #import "ImageHelper.h"
 #import "PhotoCell.h"
 #import <NYTPhotoViewer/NYTPhotosViewController.h>
+#import "HCSStarRatingView.h"
 
 @interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PhotoCellDelegate, NYTPhotosViewControllerDelegate>
 // Outlet Definitions //
@@ -31,6 +32,9 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *composeView;
+@property (weak, nonatomic) IBOutlet UIView *infoView;
+
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -82,6 +86,24 @@
     self.addressLabel.text = self.place.formattedAddress;
     [self updateCheckInLabel];
     [self initUsersCheckedIn];
+    
+    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(72, 32, 100, 25)];
+    ratingView.minimumValue = 0;
+    ratingView.maximumValue = 5;
+    [ratingView setEnabled:YES];
+   
+    
+    //weird error: ratingView is editable when added to the infoView but not the composeView
+    [self.infoView addSubview:ratingView];
+    
+    
+    HCSStarRatingView *ratingView2 = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(72, 32, 100, 25)];
+    ratingView2.minimumValue = 0;
+    ratingView2.maximumValue = 5;
+    [ratingView2 setEnabled:YES];
+    
+    
+    [self.composeView addSubview:ratingView];
     
     //configure photos collection view layout
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
@@ -294,6 +316,9 @@
 - (void)didTapPhoto:(Photo *)photo {
     NYTPhotosViewController *photosViewController = [[NYTPhotosViewController alloc] initWithPhotos:self.photos initialPhoto:photo];
     [self presentViewController:photosViewController animated:YES completion:nil];
+}
+- (IBAction)didTapSubmit:(id)sender {
+    NSLog(@"Button is being tapped");
 }
 
 @end
