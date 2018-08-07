@@ -7,7 +7,6 @@
 //
 
 #import "SearchViewController.h"
-#import "ResultsTableViewController.h"
 #import "HMSegmentedControl.h"
 #import "PlaceResultCell.h"
 #import "UserResultCell.h"
