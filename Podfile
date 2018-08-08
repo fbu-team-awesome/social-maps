@@ -10,5 +10,7 @@ target 'social-maps' do
   pod 'GooglePlaces'
   pod 'Parse'
   pod 'HMSegmentedControl', '~> 1.5'
+  pod 'NYTPhotoViewer', '~> 1.0.0'
+
 
 end

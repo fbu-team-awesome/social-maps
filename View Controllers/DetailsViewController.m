@@ -16,8 +16,11 @@
 #import "AlertHelper.h"
 #import "ImageHelper.h"
 #import "PhotoCell.h"
+#import <NYTPhotoViewer/NYTPhotosViewController.h>
+#import "HCSStarRatingView.h"
+#import "ReviewCell.h"
 
-@interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PhotoCellDelegate, NYTPhotosViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 // Outlet Definitions //
 @property (weak, nonatomic) IBOutlet UILabel *placeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
@@ -28,7 +31,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *usersLabel;
 @property (weak, nonatomic) IBOutlet UIView *userPicsView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIScrollView *contentView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *composeView;
+@property (weak, nonatomic) IBOutlet UIView *infoView;
+@property (weak, nonatomic) IBOutlet UITextView *reviewTextView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *reviewHeaderView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewLayoutHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewLayoutHeight;
+@property (weak, nonatomic) IBOutlet UIView *overallRatingView;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -36,6 +48,10 @@
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) NSArray<PFUser *> *usersCheckedIn;
 @property (strong, nonatomic) NSArray <Photo *> *photos;
+@property (strong, nonatomic) NSArray <Review *> *reviews;
+@property (nonatomic) CGFloat userRating;
+@property (nonatomic) CGFloat tableViewHeight;
+@property (nonatomic) double overallRating;
 
 @end
 
@@ -44,11 +60,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //adjust height for tab bar
-    UIEdgeInsets adjustForTabbarInsets = UIEdgeInsetsMake(0, 0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0 );
-    self.contentView.contentInset = adjustForTabbarInsets;
-    
-    // create Parse Place from GMSPlace
+    // create Parse Place from GMSPlace 
     [Place checkGMSPlaceExists:self.place result:^(Place * _Nonnull newPlace) {
         self.parsePlace = newPlace;
         
@@ -58,7 +70,6 @@
         
         [self updateContent];
     }];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -75,6 +86,8 @@
     self.addressLabel.text = self.place.formattedAddress;
     [self updateCheckInLabel];
     [self initUsersCheckedIn];
+    [self initWriteReview];
+    [self initShowReviews];
     
     //configure photos collection view layout
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
@@ -275,12 +288,127 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PhotoCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
     cell.photo = self.photos[indexPath.item];
+    cell.delegate = self;
     [cell configureCell];
     return cell;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.photos.count;
+}
+
+- (void)didTapPhoto:(Photo *)photo {
+    NYTPhotosViewController *photosViewController = [[NYTPhotosViewController alloc] initWithPhotos:self.photos initialPhoto:photo];
+    [self presentViewController:photosViewController animated:YES completion:nil];
+}
+
+#pragma mark - Reviews
+
+- (void) initWriteReview {
+    
+    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(72, 32, 100, 25)];
+    ratingView.minimumValue = 0;
+    ratingView.maximumValue = 5;
+    [ratingView addTarget:self action:@selector(didChangeRating:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.composeView addSubview:ratingView];
+}
+
+- (void) initShowReviews {
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.reviews = [[NSArray alloc] init];
+    [self fetchReviews];
+}
+
+- (void) reloadAndResize {
+    [self.tableView reloadData];
+    
+    [self updatePlaceRating];
+    
+    [self.tableView layoutIfNeeded];
+    self.tableViewLayoutHeight.constant = self.tableView.contentSize.height;
+    
+    CGFloat height = 0;
+    for (UIView *view in self.contentView.subviews) {
+        if (view == self.tableView)
+        {
+            [self.tableView layoutIfNeeded];
+            height += self.tableView.contentSize.height;
+        } else {
+            height += view.frame.size.height;
+        }
+    }
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, height+self.tabBarController.tabBar.frame.size.height+10);
+    self.contentViewLayoutHeight.constant = height+self.tabBarController.tabBar.frame.size.height+10;
+}
+
+- (void)didChangeRating:(id)sender {
+    HCSStarRatingView *ratingView = (HCSStarRatingView *)sender;
+    self.userRating = ratingView.value;
+}
+
+- (IBAction)didTapSubmit:(id)sender {
+    Review *review = [Review object];
+    review.user = PFUser.currentUser;
+    review.content = self.reviewTextView.text;
+    review.rating = (NSInteger) (floor(self.userRating));
+    [self.parsePlace addReview:review withCompletion:^{
+        self.reviews = [self.reviews arrayByAddingObject:review];
+        [self reloadAndResize];
+    }];
+}
+
+- (void) fetchReviews {
+    [PFUser.currentUser retrieveRelationshipWithCompletion:^(Relationships *relationships)  {
+        [Relationships retrieveFollowingWithId:relationships.objectId WithCompletion:^(NSArray * _Nullable following) {
+            NSLog(@"Fetched all following");
+            [self.parsePlace retrieveReviewsFromFollowing:following withCompletion:^(NSArray<Review *> *reviews) {
+                self.reviews = reviews;
+                [self reloadAndResize];
+            }];
+        }];
+    }];
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ReviewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ReviewCell" forIndexPath:indexPath];
+    cell.review = self.reviews[indexPath.row];
+    [cell configureCell];
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.reviews.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+}
+
+- (void)viewWillLayoutSubviews {
+    [self.tableView layoutIfNeeded];
+    self.tableViewLayoutHeight.constant = self.tableView.contentSize.height +
+        self.tableView.tableFooterView.frame.size.height +
+        self.tableView.tableHeaderView.frame.size.height;
+}
+
+- (void) updatePlaceRating {
+    double newRatingSum = 0;
+    for (Review *review in self.reviews) {
+        newRatingSum += review.rating;
+    }
+    self.overallRating = newRatingSum / self.reviews.count;
+    for (UIView *view in [self.overallRatingView subviews])
+    {
+        [view removeFromSuperview];
+    }
+    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
+    ratingView.value = (CGFloat) self.overallRating;
+    ratingView.allowsHalfStars = YES;
+    [ratingView setEnabled:NO];
+    [self.overallRatingView addSubview:ratingView];
 }
 
 @end

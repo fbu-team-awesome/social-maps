@@ -9,10 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "Photo.h"
 
+@protocol PhotoCellDelegate;
+
 @interface PhotoCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property (strong, nonatomic) Photo *photo;
+@property (strong, nonatomic) id <PhotoCellDelegate> delegate;
+
 - (void) configureCell;
+
+@end
+
+@protocol PhotoCellDelegate
+
+- (void)didTapPhoto:(Photo *)photo;
 
 @end

@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
+#import <NYTPhotoViewer/NYTPhoto.h>
 
-@interface Photo : NSObject
+@interface Photo : NSObject <NYTPhoto>
 
 @property (strong, nonatomic) PFFile *file;
 @property (strong, nonatomic) NSString *userObjectId;
