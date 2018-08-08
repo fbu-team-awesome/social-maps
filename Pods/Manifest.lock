@@ -1,5 +1,6 @@
 PODS:
   - Bolts/Tasks (1.9.0)
+  - DateTools (2.0.0)
   - GoogleMaps (2.7.0):
     - GoogleMaps/Maps (= 2.7.0)
   - GoogleMaps/Base (2.7.0)
@@ -14,6 +15,7 @@ PODS:
     - Bolts/Tasks (~> 1.9)
 
 DEPENDENCIES:
+  - DateTools
   - GoogleMaps
   - GooglePlaces
   - HMSegmentedControl (~> 1.5)
@@ -22,6 +24,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Bolts
+    - DateTools
     - GoogleMaps
     - GooglePlaces
     - HMSegmentedControl
@@ -29,11 +32,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   HMSegmentedControl: f514c6dad47aa3065e0ed2e8046b73efc71221b9
   Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
 
-PODFILE CHECKSUM: 548de9f5ebe601477f5d729b3abe5a19cd9798aa
+PODFILE CHECKSUM: ef0687a5a19b9596115ae232de03fac2f342cf3f
 
 COCOAPODS: 1.5.3

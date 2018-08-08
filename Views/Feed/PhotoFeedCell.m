@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImage;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *photoImage;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (strong, nonatomic) PhotoAdditionEvent *event;
 @end
 
@@ -32,6 +33,7 @@
     self.contentLabel.text = content;
     [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
     [ParseImageHelper setImageFromPFFile:self.event.photo forImageView:self.photoImage];
+    self.timeLabel.text = [self.event getTimestamp];
     
     // set rounded image
     self.profilePictureImage.layer.cornerRadius = self.profilePictureImage.frame.size.width / 2;

@@ -6,12 +6,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Feed-->
+        <!--VENTURE-->
         <scene sceneID="SAH-34-4EA">
             <objects>
                 <viewController id="Y3Y-3V-Wjd" customClass="FeedViewController" sceneMemberID="viewController">
@@ -25,119 +26,192 @@
                                 <color key="backgroundColor" name="VTR_Background"/>
                                 <color key="separatorColor" name="VTR_Borders"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdditionFeedCell" rowHeight="64" id="BEV-XA-RN6" customClass="AdditionFeedCell">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="64"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdditionFeedCell" rowHeight="74" id="BEV-XA-RN6" customClass="AdditionFeedCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BEV-XA-RN6" id="49g-et-8ZU">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="73.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sqi-LF-Fcj">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sqi-LF-Fcj">
                                                     <rect key="frame" x="13" y="11" width="32" height="32"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="32" id="BfW-FT-Lh1"/>
+                                                        <constraint firstAttribute="height" constant="32" id="Ccm-fu-Svw"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cesar Barraza added &quot;Facebook Building 20&quot; to their favorites." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hma-bP-1yM">
-                                                    <rect key="frame" x="55" y="1" width="310" height="53"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cesar Barraza added &quot;Facebook Building 20&quot; to their favorites." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hma-bP-1yM">
+                                                    <rect key="frame" x="55" y="8" width="310" height="38.5"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                     <color key="textColor" name="VTR_BlackLabel"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsS-fz-NBS">
+                                                    <rect key="frame" x="55" y="51" width="27" height="18"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="13"/>
+                                                    <color key="textColor" name="VTR_GrayLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" name="VTR_Background"/>
+                                            <constraints>
+                                                <constraint firstItem="Hma-bP-1yM" firstAttribute="leading" secondItem="Sqi-LF-Fcj" secondAttribute="trailing" constant="10" id="1MJ-ew-l3y"/>
+                                                <constraint firstAttribute="trailing" secondItem="Hma-bP-1yM" secondAttribute="trailing" constant="10" id="4R4-1v-64D"/>
+                                                <constraint firstAttribute="bottom" secondItem="jsS-fz-NBS" secondAttribute="bottom" constant="4.5" id="7Jc-4r-yBF"/>
+                                                <constraint firstItem="Hma-bP-1yM" firstAttribute="top" secondItem="49g-et-8ZU" secondAttribute="top" constant="8" id="8W7-e9-4zC"/>
+                                                <constraint firstItem="jsS-fz-NBS" firstAttribute="top" secondItem="Hma-bP-1yM" secondAttribute="bottom" constant="4.5" id="ODg-c0-egI"/>
+                                                <constraint firstItem="Sqi-LF-Fcj" firstAttribute="top" secondItem="49g-et-8ZU" secondAttribute="top" constant="11" id="TnU-HD-Pbu"/>
+                                                <constraint firstItem="jsS-fz-NBS" firstAttribute="leading" secondItem="49g-et-8ZU" secondAttribute="leading" constant="55" id="Yo7-O9-1zM"/>
+                                                <constraint firstItem="Sqi-LF-Fcj" firstAttribute="leading" secondItem="49g-et-8ZU" secondAttribute="leading" constant="13" id="yqP-pF-8gT"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="contentLabel" destination="Hma-bP-1yM" id="atW-h7-V2G"/>
                                             <outlet property="profilePictureImage" destination="Sqi-LF-Fcj" id="FFx-tV-hc8"/>
+                                            <outlet property="timeLabel" destination="jsS-fz-NBS" id="p3x-hx-8tL"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CheckinFeedCell" rowHeight="64" id="gbk-hU-2TW" customClass="CheckinFeedCell">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="64"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CheckinFeedCell" rowHeight="74" id="gbk-hU-2TW" customClass="CheckinFeedCell">
+                                        <rect key="frame" x="0.0" y="102" width="375" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gbk-hU-2TW" id="ENb-Tm-5KR">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="73.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RRR-N0-Oii">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RRR-N0-Oii">
                                                     <rect key="frame" x="13" y="11" width="32" height="32"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="32" id="Fz1-0K-C4E"/>
+                                                        <constraint firstAttribute="width" constant="32" id="fxa-6g-YVN"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cesar Barraza just checked-in at &quot;Facebook Building 20&quot;!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S06-Mk-pg3">
-                                                    <rect key="frame" x="55" y="0.0" width="310" height="53"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cesar Barraza just checked-in at &quot;Facebook Building 20&quot;!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S06-Mk-pg3">
+                                                    <rect key="frame" x="55" y="8" width="310" height="38.5"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                     <color key="textColor" name="VTR_BlackLabel"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6D-wm-J9z">
+                                                    <rect key="frame" x="55" y="51" width="27" height="18"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="13"/>
+                                                    <color key="textColor" name="VTR_GrayLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" name="VTR_Background"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="x6D-wm-J9z" secondAttribute="bottom" constant="4.5" id="4IP-sp-Xd1"/>
+                                                <constraint firstItem="RRR-N0-Oii" firstAttribute="top" secondItem="ENb-Tm-5KR" secondAttribute="top" constant="11" id="D8d-an-4tJ"/>
+                                                <constraint firstItem="RRR-N0-Oii" firstAttribute="leading" secondItem="ENb-Tm-5KR" secondAttribute="leading" constant="13" id="Dqr-2k-y40"/>
+                                                <constraint firstItem="S06-Mk-pg3" firstAttribute="leading" secondItem="RRR-N0-Oii" secondAttribute="trailing" constant="10" id="LMQ-xa-QbG"/>
+                                                <constraint firstAttribute="trailing" secondItem="S06-Mk-pg3" secondAttribute="trailing" constant="10" id="MX6-Bi-EWH"/>
+                                                <constraint firstItem="S06-Mk-pg3" firstAttribute="top" secondItem="ENb-Tm-5KR" secondAttribute="top" constant="8" id="VzF-cl-w37"/>
+                                                <constraint firstItem="x6D-wm-J9z" firstAttribute="leading" secondItem="ENb-Tm-5KR" secondAttribute="leading" constant="55" id="YcS-HW-Wio"/>
+                                                <constraint firstItem="x6D-wm-J9z" firstAttribute="top" secondItem="S06-Mk-pg3" secondAttribute="bottom" constant="4.5" id="m6y-DG-Bz3"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="contentLabel" destination="S06-Mk-pg3" id="mwW-Qu-JwU"/>
                                             <outlet property="profilePictureImage" destination="RRR-N0-Oii" id="lqf-C0-rzR"/>
+                                            <outlet property="timeLabel" destination="x6D-wm-J9z" id="QdB-0l-tty"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoFeedCell" rowHeight="256" id="vu2-WX-Pia" customClass="PhotoFeedCell">
-                                        <rect key="frame" x="0.0" y="156" width="375" height="256"/>
+                                        <rect key="frame" x="0.0" y="176" width="375" height="256"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vu2-WX-Pia" id="dCy-lM-dOK">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="255.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ckT-hA-78G">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ckT-hA-78G">
                                                     <rect key="frame" x="13" y="11" width="32" height="32"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="32" id="Fxf-K6-YNl"/>
+                                                        <constraint firstAttribute="width" constant="32" id="mNT-yC-JXD"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cUJ-or-bsR">
-                                                    <rect key="frame" x="0.0" y="66" width="375" height="190"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cUJ-or-bsR">
+                                                    <rect key="frame" x="52" y="46" width="305" height="185"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="185" id="KUe-PE-9SW"/>
+                                                        <constraint firstAttribute="width" constant="305" id="PTD-j0-uZU"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cesar Barraza added a picture for &quot;Facebook Building 20&quot;." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yo-kp-EdH">
-                                                    <rect key="frame" x="55" y="1" width="310" height="53"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGB-Wn-BCI">
+                                                    <rect key="frame" x="55" y="234" width="27" height="18"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="13"/>
+                                                    <color key="textColor" name="VTR_GrayLabel"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cesar Barraza added a photo to Pier 39." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yo-kp-EdH">
+                                                    <rect key="frame" x="55" y="0.0" width="310" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="iZV-fL-k19"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                     <color key="textColor" name="VTR_BlackLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" name="VTR_Background"/>
+                                            <constraints>
+                                                <constraint firstItem="cUJ-or-bsR" firstAttribute="leading" secondItem="dCy-lM-dOK" secondAttribute="leadingMargin" constant="37" id="8Rm-tH-2hN"/>
+                                                <constraint firstAttribute="trailing" secondItem="5Yo-kp-EdH" secondAttribute="trailing" constant="10" id="G2Q-zv-7lQ"/>
+                                                <constraint firstItem="BGB-Wn-BCI" firstAttribute="top" secondItem="cUJ-or-bsR" secondAttribute="bottom" constant="3" id="GCK-Bi-bfw"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="cUJ-or-bsR" secondAttribute="trailing" constant="3" id="OLU-MR-WI4"/>
+                                                <constraint firstItem="cUJ-or-bsR" firstAttribute="top" secondItem="5Yo-kp-EdH" secondAttribute="bottom" constant="2" id="UJs-lo-IJo"/>
+                                                <constraint firstItem="5Yo-kp-EdH" firstAttribute="leading" secondItem="ckT-hA-78G" secondAttribute="trailing" constant="10" id="Zwu-IJ-5uJ"/>
+                                                <constraint firstItem="ckT-hA-78G" firstAttribute="leading" secondItem="dCy-lM-dOK" secondAttribute="leading" constant="13" id="bTQ-yW-ar5"/>
+                                                <constraint firstItem="BGB-Wn-BCI" firstAttribute="leading" secondItem="dCy-lM-dOK" secondAttribute="leading" constant="55" id="grs-i4-AKz"/>
+                                                <constraint firstAttribute="bottom" secondItem="BGB-Wn-BCI" secondAttribute="bottom" constant="3.5" id="kgR-rr-BTT"/>
+                                                <constraint firstItem="ckT-hA-78G" firstAttribute="top" secondItem="dCy-lM-dOK" secondAttribute="top" constant="11" id="pei-uI-pFQ"/>
+                                                <constraint firstItem="5Yo-kp-EdH" firstAttribute="top" secondItem="dCy-lM-dOK" secondAttribute="top" id="x1h-Uq-mdv"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="contentLabel" destination="5Yo-kp-EdH" id="2aq-uj-kTo"/>
                                             <outlet property="photoImage" destination="cUJ-or-bsR" id="yMB-ls-byM"/>
                                             <outlet property="profilePictureImage" destination="ckT-hA-78G" id="aTf-np-TK6"/>
+                                            <outlet property="timeLabel" destination="BGB-Wn-BCI" id="58p-gv-x7w"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReviewFeedCell" rowHeight="155" id="MEi-gV-o1C" customClass="ReviewFeedCell">
-                                        <rect key="frame" x="0.0" y="412" width="375" height="155"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReviewFeedCell" rowHeight="167" id="MEi-gV-o1C" customClass="ReviewFeedCell">
+                                        <rect key="frame" x="0.0" y="432" width="375" height="167"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MEi-gV-o1C" id="vEP-wq-K9H">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="154.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="166.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jy4-B8-VBq">
                                                     <rect key="frame" x="13" y="11" width="32" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating: 5/5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Szc-5N-aG0">
-                                                    <rect key="frame" x="9" y="55" width="310" height="22"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="I love this place!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Gn-bW-LmS">
+                                                    <rect key="frame" x="57" y="76" width="310" height="54"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                                    <color key="textColor" name="VTR_BlackLabel"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cesar Barraza added a review for &quot;Facebook Building 20&quot;." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78V-MF-x8t">
+                                                    <rect key="frame" x="57" y="5" width="310" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                     <color key="textColor" name="VTR_BlackLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="I love this place!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Gn-bW-LmS">
-                                                    <rect key="frame" x="9" y="76" width="358" height="72"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating: 5/5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Szc-5N-aG0">
+                                                    <rect key="frame" x="57" y="51" width="300" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="13"/>
                                                     <color key="textColor" name="VTR_BlackLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cesar Barraza added a review for &quot;Facebook Building 20&quot;." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78V-MF-x8t">
-                                                    <rect key="frame" x="57" y="1" width="310" height="53"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBt-BP-PGc">
+                                                    <rect key="frame" x="55" y="138" width="27" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                                    <color key="textColor" name="VTR_BlackLabel"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="13"/>
+                                                    <color key="textColor" name="VTR_GrayLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -148,6 +222,7 @@
                                             <outlet property="profilePictureImage" destination="jy4-B8-VBq" id="j4d-g5-4l5"/>
                                             <outlet property="ratingLabel" destination="Szc-5N-aG0" id="Ada-Z9-5gt"/>
                                             <outlet property="reviewLabel" destination="4Gn-bW-LmS" id="997-BS-596"/>
+                                            <outlet property="timeLabel" destination="mBt-BP-PGc" id="2QV-CB-xN9"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -156,7 +231,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="fKB-2K-jOB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Feed" id="dV1-Lk-snN"/>
+                    <navigationItem key="navigationItem" title="VENTURE" id="dV1-Lk-snN"/>
                     <connections>
                         <outlet property="tableView" destination="nwr-sI-HVy" id="4d7-TC-EAb"/>
                     </connections>
@@ -173,6 +248,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GhE-jM-7pR">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                            <color key="textColor" name="VTR_Main"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -193,6 +272,21 @@
         </namedColor>
         <namedColor name="VTR_Borders">
             <color red="0.9100000262260437" green="0.9100000262260437" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="VTR_GrayLabel">
+            <color red="0.65098039220000004" green="0.65098039220000004" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_GrayLabel">
+            <color red="0.65098039220000004" green="0.65098039220000004" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_GrayLabel">
+            <color red="0.65098039220000004" green="0.65098039220000004" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_GrayLabel">
+            <color red="0.65098039215686276" green="0.65098039215686276" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_Main">
+            <color red="1" green="0.60392156862745094" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

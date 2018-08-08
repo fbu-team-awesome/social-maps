@@ -30,4 +30,5 @@ FeedEventType;
 - (void)setParseProperties;
 - (void)saveInBackground;
 - (void)queryInfoWithCompletion:(void(^)(void))completion;
+- (NSString *)getTimestamp;
 @end
