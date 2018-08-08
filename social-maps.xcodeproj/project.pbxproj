@@ -17,8 +17,8 @@
 		0144075C21111A5A001F67BD /* FilterCheckboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0144075B21111A5A001F67BD /* FilterCheckboxCell.m */; };
 		015C3342210BCA960065F927 /* MarkerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3341210BCA960065F927 /* MarkerManager.m */; };
 		015C3345210F71AC0065F927 /* Marker.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3344210F71AC0065F927 /* Marker.m */; };
+		018A31E22119FD170043926B /* MainMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018A31E12119FD170043926B /* MainMapViewController.m */; };
 		018D276D2114CEED00AA9B2F /* AdditionFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 018D276B2114CEED00AA9B2F /* AdditionFeedCell.m */; };
-		018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */; };
 		018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */; };
 		018E6A9D20FEBA6E00DE10A6 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */; };
 		018E6AA120FEBAD100DE10A6 /* ListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6AA020FEBAD100DE10A6 /* ListViewCell.m */; };
@@ -26,11 +26,13 @@
 		01C3DB8E2114F766002B8D26 /* ParseImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973F3210281850056DCF2 /* ParseImageHelper.m */; };
 		01C3DB8F2114F766002B8D26 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */; };
 		01CA4A20210153230032C11F /* Relationships.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA4A1F210153230032C11F /* Relationships.m */; };
+		01EDFD0D211912AC000BF178 /* SearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EDFD0C211912AC000BF178 /* SearchBar.m */; };
+		01EDFD0F21191A49000BF178 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EDFD0E21191A49000BF178 /* QuartzCore.framework */; };
+		01EDFD182119243B000BF178 /* FilterPill.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EDFD172119243B000BF178 /* FilterPill.m */; };
 		1C0D8E47211395D20013268A /* PhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D8E46211395D20013268A /* PhotoCell.m */; };
 		1C0D8E4A21139E600013268A /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D8E4921139E600013268A /* Photo.m */; };
 		1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */; };
 		1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D8A6F20FFB3C100F31851 /* SearchCell.m */; };
-		1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */; };
 		1C5BC862210A581100F67574 /* MarkerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C5BC861210A581100F67574 /* MarkerWindow.xib */; };
 		1C5BC865210A621500F67574 /* MapMarkerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BC864210A621500F67574 /* MapMarkerWindow.m */; };
 		1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948920FD4CBE00E4D630 /* ListView.storyboard */; };
@@ -91,10 +93,10 @@
 		015C3341210BCA960065F927 /* MarkerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkerManager.m; sourceTree = "<group>"; };
 		015C3343210F71AC0065F927 /* Marker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Marker.h; sourceTree = "<group>"; };
 		015C3344210F71AC0065F927 /* Marker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Marker.m; sourceTree = "<group>"; };
+		018A31E02119FD170043926B /* MainMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainMapViewController.h; sourceTree = "<group>"; };
+		018A31E12119FD170043926B /* MainMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMapViewController.m; sourceTree = "<group>"; };
 		018D276B2114CEED00AA9B2F /* AdditionFeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdditionFeedCell.m; sourceTree = "<group>"; };
 		018D276C2114CEED00AA9B2F /* AdditionFeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdditionFeedCell.h; sourceTree = "<group>"; };
-		018E6A8720FD9AD000DE10A6 /* SearchResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
-		018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
 		018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ResultsView.storyboard; sourceTree = "<group>"; };
 		018E6A9B20FEBA6E00DE10A6 /* ListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
@@ -102,6 +104,11 @@
 		018E6AA020FEBAD100DE10A6 /* ListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListViewCell.m; sourceTree = "<group>"; };
 		01CA4A1E210153230032C11F /* Relationships.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Relationships.h; sourceTree = "<group>"; };
 		01CA4A1F210153230032C11F /* Relationships.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Relationships.m; sourceTree = "<group>"; };
+		01EDFD0B211912AC000BF178 /* SearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBar.h; sourceTree = "<group>"; };
+		01EDFD0C211912AC000BF178 /* SearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBar.m; sourceTree = "<group>"; };
+		01EDFD0E21191A49000BF178 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		01EDFD162119243B000BF178 /* FilterPill.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterPill.h; sourceTree = "<group>"; };
+		01EDFD172119243B000BF178 /* FilterPill.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterPill.m; sourceTree = "<group>"; };
 		0669C073917F375AFFBB6F32 /* libPods-social-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-social-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C0D8E45211395D20013268A /* PhotoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoCell.h; sourceTree = "<group>"; };
 		1C0D8E46211395D20013268A /* PhotoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoCell.m; sourceTree = "<group>"; };
@@ -113,8 +120,6 @@
 		1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PFUser+ExtendedUser.m"; sourceTree = "<group>"; };
 		1C2D8A6E20FFB3C100F31851 /* SearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		1C2D8A6F20FFB3C100F31851 /* SearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
-		1C2D8A7120FFC0E000F31851 /* ResultsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResultsTableViewController.h; sourceTree = "<group>"; };
-		1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
 		1C5BC861210A581100F67574 /* MarkerWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkerWindow.xib; sourceTree = "<group>"; };
 		1C5BC863210A621500F67574 /* MapMarkerWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapMarkerWindow.h; sourceTree = "<group>"; };
 		1C5BC864210A621500F67574 /* MapMarkerWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapMarkerWindow.m; sourceTree = "<group>"; };
@@ -197,6 +202,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01EDFD0F21191A49000BF178 /* QuartzCore.framework in Frameworks */,
 				340E6CCEA9D6E4EE79FB3144 /* libPods-social-maps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,9 +224,9 @@
 				018E6A9E20FEBABE00DE10A6 /* Views */,
 				0130163920EFDE650010FD04 /* Info.plist */,
 				0130163420EFDE650010FD04 /* Assets.xcassets */,
+				6BA07D378CF1BB8296B3DBB6 /* Frameworks */,
 				0130162920EFDE620010FD04 /* Products */,
 				FC1C43E3DDA3D3D63573E5A2 /* Pods */,
-				6BA07D378CF1BB8296B3DBB6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -280,9 +286,22 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		01EDFD0A211911DA000BF178 /* UI Models */ = {
+			isa = PBXGroup;
+			children = (
+				01EDFD0B211912AC000BF178 /* SearchBar.h */,
+				01EDFD0C211912AC000BF178 /* SearchBar.m */,
+				01EDFD162119243B000BF178 /* FilterPill.h */,
+				01EDFD172119243B000BF178 /* FilterPill.m */,
+			);
+			path = "UI Models";
+			sourceTree = "<group>";
+		};
 		1C2C0BF020FD2A630072BEFB /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				018A31E02119FD170043926B /* MainMapViewController.h */,
+				018A31E12119FD170043926B /* MainMapViewController.m */,
 				317B3935210267880057079A /* RelationshipsViewController.h */,
 				317B3936210267880057079A /* RelationshipsViewController.m */,
 				317B3932210267740057079A /* SearchViewController.h */,
@@ -291,16 +310,12 @@
 				9E4D281E20FEBE130069CBF2 /* SignUpViewController.m */,
 				1C2C0BF120FD2A740072BEFB /* LoginViewController.h */,
 				1C2C0BF220FD2A740072BEFB /* LoginViewController.m */,
-				018E6A8720FD9AD000DE10A6 /* SearchResultsViewController.h */,
-				018E6A8820FD9AD000DE10A6 /* SearchResultsViewController.m */,
 				9EF4E3D520FE6D95005535C6 /* ProfileViewController.h */,
 				9EF4E3D620FE6D95005535C6 /* ProfileViewController.m */,
 				1C6D948D20FE59FE00E4D630 /* DetailsViewController.h */,
 				1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */,
 				018E6A9B20FEBA6E00DE10A6 /* ListViewController.h */,
 				018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */,
-				1C2D8A7120FFC0E000F31851 /* ResultsTableViewController.h */,
-				1C2D8A7220FFC0E000F31851 /* ResultsTableViewController.m */,
 				1C9B05E321068CFC00FBF521 /* TabBarController.h */,
 				1C9B05E421068CFC00FBF521 /* TabBarController.m */,
 				0144075421111748001F67BD /* FilterListViewController.h */,
@@ -318,6 +333,7 @@
 		6BA07D378CF1BB8296B3DBB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01EDFD0E21191A49000BF178 /* QuartzCore.framework */,
 				0669C073917F375AFFBB6F32 /* libPods-social-maps.a */,
 			);
 			name = Frameworks;
@@ -379,6 +395,7 @@
 		9EF4E3C520FD210E005535C6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				01EDFD0A211911DA000BF178 /* UI Models */,
 				9E8A9C3F210FB8E5001EE3F0 /* Feed */,
 				9E8A9C44210FBED1001EE3F0 /* Review.h */,
 				9E8A9C45210FBED1001EE3F0 /* Review.m */,
@@ -567,7 +584,7 @@
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
 				9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */,
 				317B3937210267880057079A /* RelationshipsViewController.m in Sources */,
-				1C2D8A7320FFC0E000F31851 /* ResultsTableViewController.m in Sources */,
+				018A31E22119FD170043926B /* MainMapViewController.m in Sources */,
 				9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */,
 				9E8A9C46210FBED1001EE3F0 /* Review.m in Sources */,
 				9E3E422C211267D0002AA981 /* ReviewFeedCell.m in Sources */,
@@ -576,11 +593,13 @@
 				317B393E210267E40057079A /* RelationshipListCell.m in Sources */,
 				9E3E4229211267C2002AA981 /* PhotoFeedCell.m in Sources */,
 				1CAC864321103D7700A7A294 /* CheckInsViewController.m in Sources */,
+				01EDFD182119243B000BF178 /* FilterPill.m in Sources */,
 				9E8A9C6521125808001EE3F0 /* ReviewAdditionEvent.m in Sources */,
 				317B3931210267650057079A /* UserResultCell.m in Sources */,
 				01CA4A20210153230032C11F /* Relationships.m in Sources */,
 				9E3E4226211267A1002AA981 /* CheckinFeedCell.m in Sources */,
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
+				01EDFD0D211912AC000BF178 /* SearchBar.m in Sources */,
 				015C3342210BCA960065F927 /* MarkerManager.m in Sources */,
 				0144075621111748001F67BD /* FilterListViewController.m in Sources */,
 				01C3DB8E2114F766002B8D26 /* ParseImageHelper.m in Sources */,
@@ -591,7 +610,6 @@
 				9E8A9C42210FB936001EE3F0 /* FeedEvent.m in Sources */,
 				1C0D8E47211395D20013268A /* PhotoCell.m in Sources */,
 				1C9B05E521068CFC00FBF521 /* TabBarController.m in Sources */,
-				018E6A8920FD9AD000DE10A6 /* SearchResultsViewController.m in Sources */,
 				317B39342102677C0057079A /* SearchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
