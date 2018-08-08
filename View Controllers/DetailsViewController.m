@@ -51,6 +51,7 @@
 @property (strong, nonatomic) NSArray <Review *> *reviews;
 @property (nonatomic) CGFloat userRating;
 @property (nonatomic) CGFloat tableViewHeight;
+@property (nonatomic) double overallRating;
 
 @end
 
@@ -59,8 +60,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    // create Parse Place from GMSPlace
+    // create Parse Place from GMSPlace 
     [Place checkGMSPlaceExists:self.place result:^(Place * _Nonnull newPlace) {
         self.parsePlace = newPlace;
         
@@ -303,6 +303,7 @@
 }
 
 #pragma mark - Reviews
+
 - (void) initWriteReview {
     
     HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(72, 32, 100, 25)];
@@ -316,11 +317,14 @@
 - (void) initShowReviews {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.reviews = [[NSArray alloc] init];
     [self fetchReviews];
 }
 
 - (void) reloadAndResize {
     [self.tableView reloadData];
+    
+    [self updatePlaceRating];
     
     [self.tableView layoutIfNeeded];
     self.tableViewLayoutHeight.constant = self.tableView.contentSize.height;
@@ -356,12 +360,16 @@
 }
 
 - (void) fetchReviews {
-    [Relationships retrieveFollowingWithId:[PFUser currentUser].relationships.objectId WithCompletion:^(NSArray * _Nullable following) {
-        [self.parsePlace retrieveReviewsFromFollowing:following withCompletion:^(NSArray<Review *> *reviews) {
-            self.reviews = reviews;
-            [self reloadAndResize];
+    [PFUser.currentUser retrieveRelationshipWithCompletion:^(Relationships *relationships)  {
+        [Relationships retrieveFollowingWithId:relationships.objectId WithCompletion:^(NSArray * _Nullable following) {
+            NSLog(@"Fetched all following");
+            [self.parsePlace retrieveReviewsFromFollowing:following withCompletion:^(NSArray<Review *> *reviews) {
+                self.reviews = reviews;
+                [self reloadAndResize];
+            }];
         }];
     }];
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -380,14 +388,27 @@
 }
 
 - (void)viewWillLayoutSubviews {
-    
-    CGFloat tableViewHeight = self.reviewHeaderView.frame.size.height + self.composeView.frame.size.height;
-    
-    for (int i = 0; i < [self.tableView numberOfRowsInSection:0]; i++) {
-        tableViewHeight += [self tableView:self.tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-    }
     [self.tableView layoutIfNeeded];
-    self.tableViewLayoutHeight.constant = self.tableView.contentSize.height + tableViewHeight;
+    self.tableViewLayoutHeight.constant = self.tableView.contentSize.height +
+        self.tableView.tableFooterView.frame.size.height +
+        self.tableView.tableHeaderView.frame.size.height;
+}
+
+- (void) updatePlaceRating {
+    double newRatingSum = 0;
+    for (Review *review in self.reviews) {
+        newRatingSum += review.rating;
+    }
+    self.overallRating = newRatingSum / self.reviews.count;
+    for (UIView *view in [self.overallRatingView subviews])
+    {
+        [view removeFromSuperview];
+    }
+    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
+    ratingView.value = (CGFloat) self.overallRating;
+    ratingView.allowsHalfStars = YES;
+    [ratingView setEnabled:NO];
+    [self.overallRatingView addSubview:ratingView];
 }
 
 @end

@@ -22,6 +22,10 @@
         [ParseImageHelper setImageFromPFFile:self.review.user.profilePicture forImageView:self.profilePicture];
         self.content.text = self.review.content;
         self.name.text = self.review.user.displayName;
+        for (UIView *view in [self.rateView subviews])
+        {
+            [view removeFromSuperview];
+        }
         HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
         ratingView.value = (CGFloat) self.review.rating;
         [ratingView setEnabled:NO];
