@@ -49,12 +49,7 @@
 
 - (void)setEvent:(ReviewAdditionEvent *)event {
     _event = event;
-    [event queryInfoWithCompletion:^{
-       if(event.user.isDataAvailable && event.place.isDataAvailable && event.review.isDataAvailable)
-       {
-           [self initUI];
-       }
-    }];
+    [self initUI];
 }
 
 @end

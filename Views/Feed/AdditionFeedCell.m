@@ -55,11 +55,6 @@
 
 - (void)setEvent:(ListAdditionEvent *)event {
     _event = event;
-    [self.event queryInfoWithCompletion:^{
-        if(event.user.isDataAvailable && event.place.isDataAvailable)
-        {
-            [self initUI];
-        }
-    }];
+    [self initUI];
 }
 @end
