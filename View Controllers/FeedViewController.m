@@ -65,6 +65,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"FeedEvent"];
     PFUser *currentUser = [PFUser currentUser];
     NSMutableArray<FeedEvent *> *mutableEvents = [NSMutableArray new];
+    __block NSUInteger completedUsers = 0;
     
     // get events from current user
     [query whereKey:@"user" equalTo:currentUser];
@@ -92,9 +93,10 @@
                                           [newQuery includeKey:@"review"];
                                           [newQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
                                               [self addEventsToArray:mutableEvents fromArray:objects];
+                                              completedUsers++;
                                               
                                               // if we're finished, sort the array by date (descending)
-                                              if(i == users.count - 1)
+                                              if(completedUsers == users.count)
                                               {
                                                   self.events = [mutableEvents copy];
                                                   [self sortEventsDescending];
