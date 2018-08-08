@@ -9,6 +9,7 @@
 #import "NotificationsViewController.h"
 #import "FollowEvent.h"
 #import "NotificationCell.h"
+#import "UIStylesHelper.h"
 
 @interface NotificationsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -20,15 +21,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initUIStyles];
     
     // set up tableview
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    [self.tableView setRowHeight:65];
+    [self.tableView setRowHeight:UITableViewAutomaticDimension];
     
     // fetch the events
     self.events = [NSArray new];
     [self fetchEvents];
+}
+
+- (void)initUIStyles {
+    [UIStylesHelper setCustomNavBarStyle:self.navigationController];
+    [UIStylesHelper addShadowToView:self.navigationController.navigationBar withOffset:CGSizeMake(0, 2) withRadius:1.5 withOpacity:0.1];
 }
 
 - (void)didReceiveMemoryWarning {
