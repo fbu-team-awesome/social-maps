@@ -25,13 +25,11 @@
         controller.tabBarItem.imageInsets =  UIEdgeInsetsMake(6, 0, -6, 0);
     }
     
-    /* TODO: no icon for home yet
-    [[self.viewControllers objectAtIndex:0].tabBarItem setImage:[UIImage imageNamed:@"home"]];
-    */
-    
+    [[self.viewControllers objectAtIndex:0].tabBarItem setImage:[UIImage imageNamed:@"home-icon"]];
+    [self.viewControllers objectAtIndex:0].tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
     [[self.viewControllers objectAtIndex:1].tabBarItem setImage:[UIImage imageNamed:@"search_icon"]];
     [[self.viewControllers objectAtIndex:2].tabBarItem setImage:[UIImage imageNamed:@"map_icon"]];
-    [[self.viewControllers objectAtIndex:3].tabBarItem setImage:[UIImage imageNamed:@"list_icon"]];
+    [[self.viewControllers objectAtIndex:3].tabBarItem setImage:[UIImage imageNamed:@"notification-icon"]];
     [[self.viewControllers objectAtIndex:4].tabBarItem setImage:[UIImage imageNamed:@"user_icon"]];
 }
 
