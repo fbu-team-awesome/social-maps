@@ -36,6 +36,11 @@
     self.tableView.delegate = self;
     [self.tableView setRowHeight:UITableViewAutomaticDimension];
     
+    // set the size of the tableview
+    CGRect frame = self.tableView.frame;
+    frame.size.height -= self.tabBarController.tabBar.frame.size.height;
+    self.tableView.frame = frame;
+    
     // set up refresh control
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(fetchEvents) forControlEvents:UIControlEventValueChanged];
