@@ -84,6 +84,10 @@
                                     <action selector="didTapLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1my-vT-MPe"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="orange-venture-logo" translatesAutoresizingMaskIntoConstraints="NO" id="n8z-Br-gad">
+                                <rect key="frame" x="169" y="99" width="39" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="VTR_Background"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -190,6 +194,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="orange-venture-logo" width="39" height="56"/>
         <namedColor name="VTR_Background">
             <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
