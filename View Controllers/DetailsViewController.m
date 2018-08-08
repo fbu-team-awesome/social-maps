@@ -333,13 +333,19 @@
     
     CGFloat tableViewHeight = self.reviewHeaderView.frame.size.height + self.composeView.frame.size.height;
     [self.tableView layoutIfNeeded];
-    self.tableViewLayoutHeight.constant = self.tableView.contentSize.height + tableViewHeight;
+    self.tableViewLayoutHeight.constant = self.tableView.contentSize.height;
     
     CGFloat height = 0;
     for (UIView *view in self.contentView.subviews) {
-        height += view.frame.size.height;
+        if (view == self.tableView)
+        {
+            [self.tableView layoutIfNeeded];
+            height += self.tableView.contentSize.height;
+        } else {
+            height += view.frame.size.height;
+        }
     }
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, 2243);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, height);
 }
 
 - (void)didChangeRating:(id)sender {
