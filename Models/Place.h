@@ -29,6 +29,7 @@
 - (void)addPhoto:(PFFile *_Nonnull)photo withCompletion:(void(^_Nullable)(void))completion;
 - (void)retrievePhotosFromFollowing:(NSArray <NSString*>* _Nonnull)following withCompletion:(void(^ _Nonnull)(NSArray <Photo *>* _Nonnull))completion;
 - (void)addReview:(Review *_Nonnull)review withCompletion:(void(^_Nullable)(void))completion;
+- (void)retrieveReviewsFromFollowing:(NSArray <NSString*>* _Nonnull)following withCompletion:(void(^ _Nonnull)(NSArray <Review *>* _Nonnull))completion;
     
 @end
 

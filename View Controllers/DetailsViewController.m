@@ -18,8 +18,9 @@
 #import "PhotoCell.h"
 #import <NYTPhotoViewer/NYTPhotosViewController.h>
 #import "HCSStarRatingView.h"
+#import "ReviewCell.h"
 
-@interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PhotoCellDelegate, NYTPhotosViewControllerDelegate>
+@interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PhotoCellDelegate, NYTPhotosViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 // Outlet Definitions //
 @property (weak, nonatomic) IBOutlet UILabel *placeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
@@ -35,7 +36,7 @@
 @property (weak, nonatomic) IBOutlet UIView *composeView;
 @property (weak, nonatomic) IBOutlet UIView *infoView;
 @property (weak, nonatomic) IBOutlet UITextView *reviewTextView;
-
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -43,6 +44,7 @@
 @property (strong, nonatomic) GMSMapView *mapView;
 @property (strong, nonatomic) NSArray<PFUser *> *usersCheckedIn;
 @property (strong, nonatomic) NSArray <Photo *> *photos;
+@property (strong, nonatomic) NSArray <Review *> *reviews;
 @property (nonatomic) CGFloat userRating;
 
 @end
@@ -89,6 +91,7 @@
     [self updateCheckInLabel];
     [self initUsersCheckedIn];
     [self initWriteReview];
+    [self initShowReviews];
     
     //configure photos collection view layout
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
@@ -315,6 +318,17 @@
     [self.composeView addSubview:ratingView];
 }
 
+- (void) initShowReviews {
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self fetchReviews];
+}
+
+- (void) reloadAndResize {
+    [self.tableView reloadData];
+    //resize tableview
+}
+
 - (void)didChangeRating:(id)sender {
     HCSStarRatingView *ratingView = (HCSStarRatingView *)sender;
     self.userRating = ratingView.value;
@@ -330,5 +344,28 @@
     }];
 }
 
+- (void) fetchReviews {
+    [Relationships retrieveFollowingWithId:[PFUser currentUser].relationships.objectId WithCompletion:^(NSArray * _Nullable following) {
+        [self.parsePlace retrieveReviewsFromFollowing:following withCompletion:^(NSArray<Review *> *reviews) {
+            self.reviews = reviews;
+            [self reloadAndResize];
+        }];
+    }];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ReviewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ReviewCell" forIndexPath:indexPath];
+    cell.review = self.reviews[indexPath.row];
+    [cell configureCell];
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.reviews.count;
+}
+
+- (void) resizeTable {
+    
+}
 
 @end

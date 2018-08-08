@@ -161,4 +161,40 @@
     }];
 }
 
+- (void)retrieveReviewsFromFollowing:(NSArray <NSString*>*)following withCompletion:(void(^)(NSArray <Review *>*))completion {
+    //iterate through following list to add dictionary pairs to new dictionary
+    NSMutableDictionary <NSString *, NSArray<Review *>*> *filteredPlaceReviews = [[NSMutableDictionary alloc] init];
+    for (NSString *followingId in following) {
+        if ([self.reviews objectForKey:followingId] != nil) {
+            [filteredPlaceReviews setObject:[self.reviews objectForKey:followingId] forKey:followingId];
+        }
+    }
+    
+    //also add current user's reviews
+    if ([self.reviews objectForKey:PFUser.currentUser.objectId]) {
+        [filteredPlaceReviews setObject:[self.reviews objectForKey:PFUser.currentUser.objectId] forKey:PFUser.currentUser.objectId];
+    }
+    //iterate through dictionary to put objects in a new Photo array
+    NSMutableArray <Review *> *followingReviews = [NSMutableArray new];
+    __block long userCount = 0;
+    for (NSString *followingId in [filteredPlaceReviews allKeys]) {
+        long reviewsCount = filteredPlaceReviews[followingId].count;
+        for (Review *review in filteredPlaceReviews[followingId]) {
+            PFQuery *query = [PFQuery queryWithClassName:@"Review"];
+            [query includeKey:@"user"];
+            [query getObjectInBackgroundWithId:review.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+                Review *newReview = (Review *)object;
+                [followingReviews addObject:newReview];
+                //if we have added all reviews, add this user to our userCount
+                if (followingReviews.count == reviewsCount) {
+                    userCount++;
+                    if (userCount == [filteredPlaceReviews allKeys].count) {
+                        completion([followingReviews copy]);
+                    }
+                }
+            }];
+        }
+    }
+    
+}
 @end

@@ -363,7 +363,7 @@
                                                             <constraint firstAttribute="height" constant="436" id="LOi-NC-FlC"/>
                                                         </constraints>
                                                         <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="130" id="Ida-VL-dRO">
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReviewCell" rowHeight="130" id="Ida-VL-dRO" customClass="ReviewCell">
                                                                 <rect key="frame" x="0.0" y="28" width="375" height="130"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ida-VL-dRO" id="frr-GN-Y0V">
@@ -425,6 +425,12 @@
                                                                         <constraint firstItem="xgo-7H-g6L" firstAttribute="top" secondItem="frr-GN-Y0V" secondAttribute="top" constant="16" id="xSQ-AL-rl5"/>
                                                                     </constraints>
                                                                 </tableViewCellContentView>
+                                                                <connections>
+                                                                    <outlet property="content" destination="bFk-NC-Gve" id="xW1-pe-fU9"/>
+                                                                    <outlet property="name" destination="oiS-59-oU7" id="15J-2m-wFz"/>
+                                                                    <outlet property="profilePicture" destination="6Ze-wz-4Kk" id="WWi-fv-FWp"/>
+                                                                    <outlet property="rateView" destination="Ft4-FO-rPN" id="qpI-Sd-lea"/>
+                                                                </connections>
                                                             </tableViewCell>
                                                         </prototypes>
                                                     </tableView>
@@ -511,6 +517,7 @@
                         <outlet property="placeView" destination="EV2-CO-0DA" id="uhh-Uu-mGf"/>
                         <outlet property="reviewTextView" destination="Pri-3w-1hW" id="QMO-c9-qhw"/>
                         <outlet property="scrollView" destination="uHd-rJ-al7" id="EFT-03-gmF"/>
+                        <outlet property="tableView" destination="ahU-xE-xii" id="Ibp-2k-pTu"/>
                         <outlet property="userPicsView" destination="g0Q-Yw-iPm" id="8ot-mR-Fr9"/>
                         <outlet property="usersLabel" destination="btR-gd-Zn8" id="xfj-bb-W7n"/>
                         <outlet property="wishlistButton" destination="Tcv-BM-Wmg" id="6ud-Fh-aeh"/>
