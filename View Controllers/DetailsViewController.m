@@ -37,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UIView *infoView;
 @property (weak, nonatomic) IBOutlet UITextView *reviewTextView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *reviewHeaderView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewLayoutHeight;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -46,6 +48,7 @@
 @property (strong, nonatomic) NSArray <Photo *> *photos;
 @property (strong, nonatomic) NSArray <Review *> *reviews;
 @property (nonatomic) CGFloat userRating;
+@property (nonatomic) CGFloat tableViewHeight;
 
 @end
 
@@ -79,6 +82,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     // make sure the navigation bar is always visible
     [self.navigationController setNavigationBarHidden:NO];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -314,7 +319,6 @@
     ratingView.maximumValue = 5;
     [ratingView addTarget:self action:@selector(didChangeRating:) forControlEvents:UIControlEventValueChanged];
     
-    //weird error: ratingView is editable when added to the infoView but not the composeView
     [self.composeView addSubview:ratingView];
 }
 
@@ -326,7 +330,16 @@
 
 - (void) reloadAndResize {
     [self.tableView reloadData];
-    //resize tableview
+    
+    CGFloat tableViewHeight = self.reviewHeaderView.frame.size.height + self.composeView.frame.size.height;
+    [self.tableView layoutIfNeeded];
+    self.tableViewLayoutHeight.constant = self.tableView.contentSize.height + tableViewHeight;
+    
+    CGFloat height = 0;
+    for (UIView *view in self.contentView.subviews) {
+        height += view.frame.size.height;
+    }
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, 2243);
 }
 
 - (void)didChangeRating:(id)sender {
@@ -335,7 +348,7 @@
 }
 
 - (IBAction)didTapSubmit:(id)sender {
-    Review *review = [[Review alloc] init];
+    Review *review = [Review object];
     review.user = PFUser.currentUser;
     review.content = self.reviewTextView.text;
     review.rating = (NSInteger) (floor(self.userRating));
@@ -366,6 +379,21 @@
 
 - (void) resizeTable {
     
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+}
+
+- (void)viewWillLayoutSubviews {
+    
+    CGFloat tableViewHeight = self.reviewHeaderView.frame.size.height + self.composeView.frame.size.height;
+    
+    for (int i = 0; i < [self.tableView numberOfRowsInSection:0]; i++) {
+        tableViewHeight += [self tableView:self.tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+    }
+    [self.tableView layoutIfNeeded];
+    self.tableViewLayoutHeight.constant = self.tableView.contentSize.height + tableViewHeight;
 }
 
 @end

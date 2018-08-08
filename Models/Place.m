@@ -8,6 +8,7 @@
 
 #import "Place.h"
 #import "APIManager.h"
+#import "PFUser+ExtendedUser.h"
 
 @implementation Place
 @dynamic placeID, placeName, checkIns, photos, reviews, rating;
@@ -174,11 +175,12 @@
     if ([self.reviews objectForKey:PFUser.currentUser.objectId]) {
         [filteredPlaceReviews setObject:[self.reviews objectForKey:PFUser.currentUser.objectId] forKey:PFUser.currentUser.objectId];
     }
+
     //iterate through dictionary to put objects in a new Photo array
-    NSMutableArray <Review *> *followingReviews = [NSMutableArray new];
+    __block NSMutableArray <Review *> *followingReviews = [NSMutableArray new];
+    NSMutableArray <Review *> *totalReviews = [NSMutableArray new];
     __block long userCount = 0;
     for (NSString *followingId in [filteredPlaceReviews allKeys]) {
-        long reviewsCount = filteredPlaceReviews[followingId].count;
         for (Review *review in filteredPlaceReviews[followingId]) {
             PFQuery *query = [PFQuery queryWithClassName:@"Review"];
             [query includeKey:@"user"];
@@ -186,10 +188,14 @@
                 Review *newReview = (Review *)object;
                 [followingReviews addObject:newReview];
                 //if we have added all reviews, add this user to our userCount
-                if (followingReviews.count == reviewsCount) {
+                
+                if (followingReviews.count == filteredPlaceReviews[followingId].count) {
                     userCount++;
+                    [totalReviews addObjectsFromArray:followingReviews];
+                    followingReviews = [NSMutableArray new];
+                    
                     if (userCount == [filteredPlaceReviews allKeys].count) {
-                        completion([followingReviews copy]);
+                        completion([totalReviews copy]);
                     }
                 }
             }];
