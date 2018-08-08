@@ -8,7 +8,6 @@
 
 #import "Place.h"
 #import "APIManager.h"
-#import "PFUser+ExtendedUser.h"
 
 @implementation Place
 @dynamic placeID, placeName, checkIns, photos, reviews, rating;
