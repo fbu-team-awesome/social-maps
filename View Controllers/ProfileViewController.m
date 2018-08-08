@@ -149,12 +149,19 @@
     {
         [self.navigationController.navigationBar.topItem setTitle:self.user.username];
     }
-    
-    // fade in
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.navigationController.navigationBar.topItem.titleView setAlpha:1];
-    }];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // set navbar styles
+    [UIStylesHelper setCustomNavBarStyle:self.navigationController];
+    [UIStylesHelper addShadowToView:self.navigationController.navigationBar withOffset:CGSizeMake(0, 2) withRadius:1.5 withOpacity:0.1];
+    
+    // show navbar
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(addToFavorites:)];
     [NCHelper addObserver:self type:NTRemoveFavorite selector:@selector(removeFromFavorites:)];
@@ -181,11 +188,6 @@
     self.placesSwitch.layer.cornerRadius = self.placesSwitch.frame.size.height / 2;
     self.placesSwitch.clipsToBounds = YES;
     self.placesSwitch.backgroundColor = [UIColor colorNamed:@"VTR_Main"];
-    
-    // set navbar styles
-    [UIStylesHelper setCustomNavBarStyle:self.navigationController];
-    [UIStylesHelper addShadowToView:self.navigationController.navigationBar withOffset:CGSizeMake(0, 2) withRadius:1.5 withOpacity:0.1];
-    [self.navigationController.navigationBar.topItem.titleView setAlpha:0];
 }
 
 - (void)setRoundedCornersToView:(UIView*)view {

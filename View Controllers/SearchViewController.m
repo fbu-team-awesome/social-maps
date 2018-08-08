@@ -63,9 +63,7 @@
     }
     
     // hide navbar
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.navigationController.navigationBar setAlpha:0];
-    }];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)initUIStyles {
