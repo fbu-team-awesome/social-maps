@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UIView *reviewHeaderView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewLayoutHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewLayoutHeight;
+@property (weak, nonatomic) IBOutlet UIView *overallRatingView;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -68,15 +69,6 @@
         [self.wishlistButton setSelected:[[PFUser currentUser].wishlist containsObject:self.parsePlace]];
         
         [self updateContent];
-        
-        //adjust height
-        CGRect contentRect = CGRectZero;
-        
-        for (UIView *view in self.contentView.subviews) {
-            contentRect = CGRectUnion(contentRect, view.frame);
-        }
-        self.scrollView.contentSize = contentRect.size;
-        
     }];
 }
 
@@ -343,8 +335,8 @@
             height += view.frame.size.height;
         }
     }
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, height);
-    self.contentViewLayoutHeight.constant = height;
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, height+self.tabBarController.tabBar.frame.size.height+10);
+    self.contentViewLayoutHeight.constant = height+self.tabBarController.tabBar.frame.size.height+10;
 }
 
 - (void)didChangeRating:(id)sender {
