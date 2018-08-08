@@ -8,9 +8,11 @@
 
 #import "PhotoFeedCell.h"
 #import "ParseImageHelper.h"
+#import "UIStylesHelper.h"
 
 @interface PhotoFeedCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImage;
+@property (weak, nonatomic) IBOutlet UIView *pictureView;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *photoImage;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -27,17 +29,25 @@
 
 - (void)initUI {
     // set up content formatting
-    NSString *content = [NSString stringWithFormat:@"%@ added a picture for '%@'.", self.event.user.displayName, self.event.place.placeName];
+    NSString *content = [NSString stringWithFormat:@"%@ added a photo to %@.", self.event.user.displayName, self.event.place.placeName];
+    UIFont *font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:13];
+    
+    NSMutableAttributedString *attributedContent = [[NSMutableAttributedString alloc] initWithString:content];
+    [attributedContent beginEditing];
+    [attributedContent addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, self.event.user.displayName.length)];
+    [attributedContent addAttribute:NSFontAttributeName value:font range:NSMakeRange(self.event.user.displayName.length + 18, self.event.place.placeName.length)];
+    [attributedContent endEditing];
     
     // update UI
-    self.contentLabel.text = content;
+    [self.contentLabel setAttributedText:[attributedContent copy]];
     [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
     [ParseImageHelper setImageFromPFFile:self.event.photo forImageView:self.photoImage];
     self.timeLabel.text = [self.event getTimpestamp];
     
     // set rounded image
-    self.profilePictureImage.layer.cornerRadius = self.profilePictureImage.frame.size.width / 2;
-    self.profilePictureImage.clipsToBounds = YES;
+    [UIStylesHelper addRoundedCornersToView:self.pictureView];
+    [UIStylesHelper addRoundedCornersToView:self.profilePictureImage];
+    [UIStylesHelper addShadowToView:self.pictureView];
     
     // fade into visibility
     [UIView animateWithDuration:0.3 animations:^{

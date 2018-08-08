@@ -17,6 +17,7 @@
 #import "PhotoFeedCell.h"
 #import "ReviewFeedCell.h"
 #import "NCHelper.h"
+#import "UIStylesHelper.h"
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -30,6 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self addNotificationObservers];
+    [self initUIStyles];
     
     // set up tableview
     self.tableView.dataSource = self;
@@ -52,6 +54,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)initUIStyles {
+    [UIStylesHelper setCustomNavBarStyle:self.navigationController];
+    [UIStylesHelper addShadowToView:self.navigationController.navigationBar withOffset:CGSizeMake(0, 2) withRadius:1.5 withOpacity:0.1];
 }
 
 - (void)fetchEvents {
