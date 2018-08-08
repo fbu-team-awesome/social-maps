@@ -39,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *reviewHeaderView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewLayoutHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewLayoutHeight;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -82,8 +83,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     // make sure the navigation bar is always visible
     [self.navigationController setNavigationBarHidden:NO];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -331,7 +330,6 @@
 - (void) reloadAndResize {
     [self.tableView reloadData];
     
-    CGFloat tableViewHeight = self.reviewHeaderView.frame.size.height + self.composeView.frame.size.height;
     [self.tableView layoutIfNeeded];
     self.tableViewLayoutHeight.constant = self.tableView.contentSize.height;
     
@@ -346,6 +344,7 @@
         }
     }
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, height);
+    self.contentViewLayoutHeight.constant = height;
 }
 
 - (void)didChangeRating:(id)sender {
@@ -359,7 +358,8 @@
     review.content = self.reviewTextView.text;
     review.rating = (NSInteger) (floor(self.userRating));
     [self.parsePlace addReview:review withCompletion:^{
-        //do something after uploading a review
+        self.reviews = [self.reviews arrayByAddingObject:review];
+        [self reloadAndResize];
     }];
 }
 
@@ -381,10 +381,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.reviews.count;
-}
-
-- (void) resizeTable {
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

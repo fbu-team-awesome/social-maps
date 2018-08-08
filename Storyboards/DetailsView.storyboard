@@ -495,6 +495,7 @@
                         <outlet property="collectionView" destination="gh3-Rp-eXx" id="TPL-VO-ajP"/>
                         <outlet property="composeView" destination="bmx-wl-7RD" id="fKR-XQ-ObK"/>
                         <outlet property="contentView" destination="Yrq-zh-yGL" id="NKv-sF-U97"/>
+                        <outlet property="contentViewLayoutHeight" destination="w45-4L-yxc" id="wo9-5e-vmL"/>
                         <outlet property="favoriteButton" destination="2sB-TQ-YH0" id="3bC-CG-fB8"/>
                         <outlet property="infoView" destination="pdM-tq-m74" id="SCF-ee-2Ax"/>
                         <outlet property="placeNameLabel" destination="z5R-BN-ECD" id="jwA-9x-1UX"/>
