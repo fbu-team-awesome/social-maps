@@ -13,6 +13,7 @@
 #import "ProfileListCell.h"
 #import "DetailsViewController.h"
 #import "NCHelper.h"
+#import "UIStylesHelper.h"
 
 static NSString *const kNoFavoriteMsg = @"You have no favorites!";
 static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
@@ -62,6 +63,10 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    // make sure navbar has no shadow
+    [UIStylesHelper addShadowToView:self.navigationController.navigationBar withOffset:CGSizeZero withRadius:0 withOpacity:0];
+}
 
 - (void)addNotificationObservers {
     [NCHelper addObserver:self type:NTAddFavorite selector:@selector(didAddFavorite:)];
