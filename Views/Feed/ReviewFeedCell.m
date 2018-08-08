@@ -35,7 +35,7 @@
     self.ratingLabel.text = [NSString stringWithFormat:@"%i/5", self.event.review.rating];
     self.reviewLabel.text = self.event.review.content;
     [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
-    self.timeLabel.text = [self.event getTimpestamp];
+    self.timeLabel.text = [self.event getTimestamp];
     
     // set rounded image
     self.profilePictureImage.layer.cornerRadius = self.profilePictureImage.frame.size.width / 2;

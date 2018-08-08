@@ -47,7 +47,7 @@
     }];
 }
 
-- (NSString *)getTimpestamp {
+- (NSString *)getTimestamp {
     return self.parseObject.createdAt.shortTimeAgoSinceNow;
 }
 @end
