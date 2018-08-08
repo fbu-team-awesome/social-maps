@@ -35,9 +35,7 @@
     
     [self.contentLabel setAttributedText:[attributedContent copy]];
     [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
-    /* TODO
      self.timeLabel.text = [self.event getTimestamp];
-    */
     
     // set rounded image
     [UIStylesHelper addRoundedCornersToView:self.pictureView];
