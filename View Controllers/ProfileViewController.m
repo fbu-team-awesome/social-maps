@@ -49,6 +49,7 @@
 @property (strong, nonatomic) NSMutableDictionary<NSString*, GMSPlace*>* markers;
 @property (strong, nonatomic) PFUser* user;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) NSDictionary<NSString *, UIImage *> *placeImages;
 @end
 
 @implementation ProfileViewController
@@ -203,6 +204,27 @@
     view.layer.masksToBounds = NO;
 }
 
+- (void)fetchPlaceImagesWithCompletion:(void(^)(void))completion {
+    NSMutableDictionary<NSString *, UIImage *> *mutableDict = [NSMutableDictionary new];
+    __block NSUInteger placeCount = 0;
+    
+    for(GMSPlace *place in self.favorites)
+    {
+        [[APIManager shared] getPhotoMetadata:place.placeID :^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
+            [[GMSPlacesClient sharedClient] loadPlacePhoto:photoMetadata.firstObject callback:^(UIImage * _Nullable photo, NSError * _Nullable error) {
+                mutableDict[place.placeID] = photo;
+                placeCount++;
+                
+                if(placeCount == self.favorites.count)
+                {
+                    self.placeImages = [mutableDict copy];
+                    completion();
+                }
+            }];
+        }];
+    }
+}
+
 - (void)retrieveUserPlaces {
     // clear map first
     [self.mapView clear];
@@ -212,7 +234,9 @@
           ^(NSArray<GMSPlace*>* places)
           {
               self.favorites = places;
-              [self.tableView reloadData];
+              [self fetchPlaceImagesWithCompletion:^{
+                  [self.tableView reloadData];
+              }];
               [self addFavoritesPins];
               [self.progressIndicator stopAnimating];
               [self.refreshControl endRefreshing];
@@ -319,6 +343,7 @@
     
     if(place != nil)
     {
+        cell.pictureImage.image = self.placeImages[place.placeID];
         [cell setPlace:place];
     }
     
