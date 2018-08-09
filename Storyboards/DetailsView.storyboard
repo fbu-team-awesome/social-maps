@@ -559,7 +559,7 @@
                     <size key="freeformSize" width="375" height="1400"/>
                     <connections>
                         <outlet property="addressLabel" destination="s4F-9e-J1e" id="zMU-nM-ram"/>
-                        <outlet property="checkInButton" destination="OUy-ow-OAU" id="Ibp-ju-rQx"/>
+                        <outlet property="checkInButton" destination="OUy-ow-OAU" id="19g-lP-ygB"/>
                         <outlet property="checkInLabel" destination="qIj-d5-76r" id="GlL-9E-yFM"/>
                         <outlet property="collectionView" destination="gh3-Rp-eXx" id="TPL-VO-ajP"/>
                         <outlet property="composeRatingView" destination="Dah-E6-h0X" id="yoR-lv-5V4"/>

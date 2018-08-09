@@ -43,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 @property (weak, nonatomic) IBOutlet UILabel *overallRatingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ratingsCountLabel;
+@property (weak, nonatomic) IBOutlet UIButton *checkInButton;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -255,6 +256,7 @@
     [self.parsePlace didCheckIn:PFUser.currentUser];
     [PFUser.currentUser addCheckIn:self.place.placeID withCompletion:^{
         [self updateCheckInLabel];
+        [UIStylesHelper animateTapOnView:self.checkInButton];
     }];
 }
 
