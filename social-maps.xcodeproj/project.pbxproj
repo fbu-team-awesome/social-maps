@@ -38,6 +38,8 @@
 		1C6D948A20FD4CBE00E4D630 /* ListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948920FD4CBE00E4D630 /* ListView.storyboard */; };
 		1C6D948C20FD4D5900E4D630 /* DetailsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6D948B20FD4D5900E4D630 /* DetailsView.storyboard */; };
 		1C9B05E521068CFC00FBF521 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B05E421068CFC00FBF521 /* TabBarController.m */; };
+		1CA9B91F211A0D5B0002CAAB /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA9B91E211A0D5B0002CAAB /* HCSStarRatingView.m */; };
+		1CA9B925211A50F00002CAAB /* ReviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA9B924211A50EF0002CAAB /* ReviewCell.m */; };
 		1CAC864021103C9000A7A294 /* CheckIns.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CAC863F21103C9000A7A294 /* CheckIns.storyboard */; };
 		1CAC864321103D7700A7A294 /* CheckInsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAC864221103D7700A7A294 /* CheckInsViewController.m */; };
 		317B392E210267590057079A /* PlaceResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 317B392D210267590057079A /* PlaceResultCell.m */; };
@@ -129,6 +131,10 @@
 		1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		1C9B05E321068CFC00FBF521 /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		1C9B05E421068CFC00FBF521 /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
+		1CA9B91E211A0D5B0002CAAB /* HCSStarRatingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HCSStarRatingView.m; sourceTree = "<group>"; };
+		1CA9B922211A0DAC0002CAAB /* HCSStarRatingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCSStarRatingView.h; sourceTree = "<group>"; };
+		1CA9B923211A50EF0002CAAB /* ReviewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReviewCell.h; sourceTree = "<group>"; };
+		1CA9B924211A50EF0002CAAB /* ReviewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReviewCell.m; sourceTree = "<group>"; };
 		1CAC863F21103C9000A7A294 /* CheckIns.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CheckIns.storyboard; sourceTree = "<group>"; };
 		1CAC864121103D7700A7A294 /* CheckInsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckInsViewController.h; sourceTree = "<group>"; };
 		1CAC864221103D7700A7A294 /* CheckInsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckInsViewController.m; sourceTree = "<group>"; };
@@ -280,6 +286,10 @@
 				0144075B21111A5A001F67BD /* FilterCheckboxCell.m */,
 				1C0D8E45211395D20013268A /* PhotoCell.h */,
 				1C0D8E46211395D20013268A /* PhotoCell.m */,
+				1CA9B91E211A0D5B0002CAAB /* HCSStarRatingView.m */,
+				1CA9B922211A0DAC0002CAAB /* HCSStarRatingView.h */,
+				1CA9B923211A50EF0002CAAB /* ReviewCell.h */,
+				1CA9B924211A50EF0002CAAB /* ReviewCell.m */,
 				9E876BF22118E73A0097A85D /* NotificationCell.h */,
 				9E876BF32118E73A0097A85D /* NotificationCell.m */,
 			);
@@ -571,6 +581,7 @@
 				9EE973F1210280F60056DCF2 /* ImageHelper.m in Sources */,
 				9E8A9C6221125772001EE3F0 /* PhotoAdditionEvent.m in Sources */,
 				9E8A9C56210FDC64001EE3F0 /* FeedViewController.m in Sources */,
+				1CA9B91F211A0D5B0002CAAB /* HCSStarRatingView.m in Sources */,
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
 				9EE973EE2102805A0056DCF2 /* AlertHelper.m in Sources */,
 				015C3345210F71AC0065F927 /* Marker.m in Sources */,
@@ -608,6 +619,7 @@
 				0144075C21111A5A001F67BD /* FilterCheckboxCell.m in Sources */,
 				018D276D2114CEED00AA9B2F /* AdditionFeedCell.m in Sources */,
 				9E8A9C42210FB936001EE3F0 /* FeedEvent.m in Sources */,
+				1CA9B925211A50F00002CAAB /* ReviewCell.m in Sources */,
 				1C0D8E47211395D20013268A /* PhotoCell.m in Sources */,
 				1C9B05E521068CFC00FBF521 /* TabBarController.m in Sources */,
 				317B39342102677C0057079A /* SearchViewController.m in Sources */,

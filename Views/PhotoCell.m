@@ -14,7 +14,23 @@
 - (void) configureCell {
     if (self.photo) {
         [ParseImageHelper setImageFromPFFile:self.photo.file forImageView:self.photoView];
+        self.photoView.layer.cornerRadius = 5;
+        self.photoView.clipsToBounds = YES;
+    }
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+    
+    [self.photoView setUserInteractionEnabled:YES];
+    [self.photoView addGestureRecognizer:tapGestureRecognizer];
+}
+
+- (IBAction)didTap:(UITapGestureRecognizer *)sender {
+    if (self.delegate != nil) {
+        [self.delegate didTapPhoto:self.photo];
+    } else {
+        NSLog(@"Delegate is nil");
     }
 }
+
 
 @end
