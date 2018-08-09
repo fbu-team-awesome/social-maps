@@ -28,11 +28,11 @@
 @property (strong, nonatomic) NSArray *filteredUsers;
 @property (assign, nonatomic) long segmentIndex;
 @property (assign, nonatomic) BOOL isMoreDataLoading;
-@property (strong, nonatomic) NSArray<GMSPlacePhotoMetadata *> *photoMetadata;
 @property (strong, nonatomic) GMSAutocompleteFetcher *fetcher;
 @property (strong, nonatomic) NSArray<GMSAutocompletePrediction *> *predictions;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
+@property (strong, nonatomic) NSDictionary<NSString *, UIImage *> *placeImages;
 @end
 
 @implementation SearchViewController
@@ -133,7 +133,9 @@ bool fetchedPlaces = false;
                     {
                         self.places = [mutableArray copy];
                         self.filteredPlaces = self.places;
-                        [self.tableView reloadData];
+                        [self fetchPlaceImagesWithCompletion:^{
+                            [self.tableView reloadData];
+                        }];
                     }
                 }];
             }
@@ -153,6 +155,28 @@ bool fetchedPlaces = false;
         self.filteredUsers = self.users;
         [self.tableView reloadData];
     }];
+}
+
+- (void)fetchPlaceImagesWithCompletion:(void(^)(void))completion {
+    __block NSUInteger placeCount = 0;
+    NSMutableDictionary<NSString *, UIImage *> *mutableDict = [NSMutableDictionary new];
+    
+    for(GMSPlace *place in self.places)
+    {
+        [[APIManager shared] getPhotoMetadata:place.placeID:^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
+            GMSPlacePhotoMetadata *metadata = photoMetadata.firstObject;
+            [[GMSPlacesClient sharedClient] loadPlacePhoto:metadata callback:^(UIImage * _Nullable photo, NSError * _Nullable error) {
+                mutableDict[place.placeID] = photo;
+                placeCount++;
+                
+                if(placeCount == self.places.count)
+                {
+                    self.placeImages = [mutableDict copy];
+                    completion();
+                }
+            }];
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -229,7 +253,9 @@ bool fetchedPlaces = false;
         if(indexPath.section == 0)
         {
             PlaceResultCell *placeCell = [tableView dequeueReusableCellWithIdentifier:@"PlaceResultCell" forIndexPath:indexPath];
-            placeCell.place = self.filteredPlaces[indexPath.row];
+            GMSPlace *place = self.filteredPlaces[indexPath.row];
+            placeCell.place = place;
+            placeCell.placeImage.image = self.placeImages[place.placeID];
             [placeCell configureCell];
             cell = placeCell;
         }
