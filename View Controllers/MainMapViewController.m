@@ -25,6 +25,7 @@
 @property (strong, nonatomic) UIView *searchView;
 @property (strong, nonatomic) UIView *searchBoxView;
 @property (strong, nonatomic) UIView *filterView;
+@property (strong, nonatomic) UIScrollView *pillScrollView;
 @property (strong, nonatomic) UITextField *searchField;
 @property (strong, nonatomic) UIButton *filterButton;
 @property (strong, nonatomic) UIButton *cancelButton;
@@ -244,17 +245,17 @@
     [self.filterButton sizeToFit];
     [self.filterView addSubview:self.filterButton];
     
-    UIScrollView *scrollView = [[UIScrollView alloc] init];
-    scrollView.delegate = self;
-    [scrollView setScrollEnabled:YES];
-    [scrollView setShowsHorizontalScrollIndicator:NO];
-    // [scrollView setPagingEnabled:YES];
+    self.pillScrollView = [[UIScrollView alloc] init];
+    self.pillScrollView.delegate = self;
+    [self.pillScrollView setScrollEnabled:YES];
+    [self.pillScrollView setShowsHorizontalScrollIndicator:NO];
+    // [self.pillScrollView setPagingEnabled:YES];
 
     NSMutableDictionary *filters = [MarkerManager shared].allFilters;
     NSArray *lists = [MarkerManager shared].filterKeys;
     CGRect lastFrame = CGRectMake(0, 0, 0, 0);
     for (NSString *list in lists) {
-        if ([filters objectForKey:list]) {
+        if ([[filters objectForKey:list] boolValue]) {
             FilterType type;
             if ([list isEqualToString:kFavoritesKey]) {
                 type = favFilter;
@@ -272,19 +273,19 @@
             [pillView setFrame:CGRectMake(lastFrame.origin.x + CGRectGetWidth(lastFrame) + 5, 3, pillView.frame.size.width, pillView.frame.size.height)];
             // [pillView setCenter:CGPointMake(pillView.center.x, self.filterView.frame.size.height/2)];
             lastFrame = pillView.frame;
-            [scrollView addSubview:pillView];
+            [self.pillScrollView addSubview:pillView];
         }
     }
     
     CGFloat contentWidth = lastFrame.origin.x + CGRectGetWidth(lastFrame) + CGRectGetWidth(self.filterButton.frame) + 5;
-    [scrollView setFrame:CGRectMake(self.filterButton.frame.origin.x + CGRectGetWidth(self.filterButton.frame) + 5, 0, CGRectGetWidth(self.filterView.frame) - 24, self.filterView.frame.size.height)];
-    // [scrollView setBackgroundColor:[UIColor blueColor]];
+    [self.pillScrollView setFrame:CGRectMake(self.filterButton.frame.origin.x + CGRectGetWidth(self.filterButton.frame) + 5, 0, CGRectGetWidth(self.filterView.frame) - 24, self.filterView.frame.size.height)];
+    // [self.pillScrollView setBackgroundColor:[UIColor blueColor]];
     // [self.filterButton setBackgroundColor:[UIColor redColor]];
-    [scrollView setCenter:CGPointMake(scrollView.center.x, self.filterView.frame.size.height/2)];
-    [scrollView setContentSize:CGSizeMake(contentWidth, CGRectGetHeight(scrollView.frame))];
+    [self.pillScrollView setCenter:CGPointMake(self.pillScrollView.center.x, self.filterView.frame.size.height/2)];
+    [self.pillScrollView setContentSize:CGSizeMake(contentWidth, CGRectGetHeight(self.pillScrollView.frame))];
     [self.filterButton setCenter:CGPointMake(self.filterButton.center.x, CGRectGetHeight(lastFrame)/2 + 3)];
-    // [scrollView setBackgroundColor:[UIColor blueColor]];
-    [self.filterView addSubview:scrollView];
+    // [self.pillScrollView setBackgroundColor:[UIColor blueColor]];
+    [self.filterView addSubview:self.pillScrollView];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
@@ -466,6 +467,8 @@
 
 - (void)filterSelectionDone {
     [self addPinsToMap];
+    [self.pillScrollView removeFromSuperview];
+    [self initFilter];
 }
 
 - (void)addFilterButtonTapped {
