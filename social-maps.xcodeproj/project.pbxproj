@@ -29,6 +29,7 @@
 		01CA4A20210153230032C11F /* Relationships.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA4A1F210153230032C11F /* Relationships.m */; };
 		01EDFD0D211912AC000BF178 /* SearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EDFD0C211912AC000BF178 /* SearchBar.m */; };
 		01EDFD0F21191A49000BF178 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EDFD0E21191A49000BF178 /* QuartzCore.framework */; };
+		01EDFD182119243B000BF178 /* FilterPill.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EDFD172119243B000BF178 /* FilterPill.m */; };
 		1C0D8E47211395D20013268A /* PhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D8E46211395D20013268A /* PhotoCell.m */; };
 		1C0D8E4A21139E600013268A /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D8E4921139E600013268A /* Photo.m */; };
 		1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2C0BF520FD2CC00072BEFB /* PFUser+ExtendedUser.m */; };
@@ -109,6 +110,8 @@
 		01EDFD0B211912AC000BF178 /* SearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBar.h; sourceTree = "<group>"; };
 		01EDFD0C211912AC000BF178 /* SearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBar.m; sourceTree = "<group>"; };
 		01EDFD0E21191A49000BF178 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		01EDFD162119243B000BF178 /* FilterPill.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterPill.h; sourceTree = "<group>"; };
+		01EDFD172119243B000BF178 /* FilterPill.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterPill.m; sourceTree = "<group>"; };
 		0669C073917F375AFFBB6F32 /* libPods-social-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-social-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C0D8E45211395D20013268A /* PhotoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoCell.h; sourceTree = "<group>"; };
 		1C0D8E46211395D20013268A /* PhotoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoCell.m; sourceTree = "<group>"; };
@@ -594,6 +597,7 @@
 				317B393E210267E40057079A /* RelationshipListCell.m in Sources */,
 				9E3E4229211267C2002AA981 /* PhotoFeedCell.m in Sources */,
 				1CAC864321103D7700A7A294 /* CheckInsViewController.m in Sources */,
+				01EDFD182119243B000BF178 /* FilterPill.m in Sources */,
 				9E8A9C6521125808001EE3F0 /* ReviewAdditionEvent.m in Sources */,
 				317B3931210267650057079A /* UserResultCell.m in Sources */,
 				01CA4A20210153230032C11F /* Relationships.m in Sources */,

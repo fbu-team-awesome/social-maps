@@ -17,7 +17,7 @@
 #import "NCHelper.h"
 
 @interface MainMapViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, GMSMapViewDelegate, GMSAutocompleteFetcherDelegate, MarkerWindowDelegate, FilterDelegate, UIScrollViewDelegate>
-
+  
 @property (weak, nonatomic) IBOutlet UIView *resultsView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *markerWindowGestureRecognizer;
@@ -237,7 +237,6 @@
     [self.resultsView addSubview:self.filterView];
     
     self.filterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 15, 0, 20, 20)];
-    // [self.filterButton setCenter:CGPointMake(self.filterButton.center.x, self.filterView.frame.size.height/2)];
     [self.filterButton setImage:[UIImage imageNamed:@"filter_control"] forState:UIControlStateNormal];
     [self.filterButton addTarget:self action:@selector(addFilterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.filterButton setUserInteractionEnabled:YES];
