@@ -218,10 +218,14 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
      ProfileListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ProfileListCell" forIndexPath:indexPath];
      
      if (self.segmentIndex == 0) {
-         [cell setPlace:self.favorites[indexPath.row]];
+         GMSPlace *place = self.favorites[indexPath.row];
+         cell.pictureImage.image = self.placeImages[place.placeID];
+         [cell setPlace:place];
      }
      else {
-         [cell setPlace:self.wishlist[indexPath.row]];
+         GMSPlace *place = self.wishlist[indexPath.row];
+         cell.pictureImage.image = self.placeImages[place.placeID];
+         [cell setPlace:place];
      }
      return cell;
  }
