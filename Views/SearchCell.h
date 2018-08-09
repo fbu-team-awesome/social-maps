@@ -14,6 +14,7 @@
 @interface SearchCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (strong, nonatomic) GMSPlace *place;
 @property (strong, nonatomic) GMSAutocompletePrediction *prediction;
 @property (strong,nonatomic) id<SearchCellDelegate> delegate;
 - (void)configureCell;

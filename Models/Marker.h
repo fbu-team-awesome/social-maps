@@ -13,7 +13,8 @@
 typedef enum MarkerType : NSUInteger {
     favorites,
     wishlist,
-    followFavorites
+    followFavorites,
+    other
 } MarkerType;
 
 @interface Marker : NSObject

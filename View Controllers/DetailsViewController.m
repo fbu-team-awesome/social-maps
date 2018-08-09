@@ -112,6 +112,7 @@
     
     // add a marker in the place
     GMSMarker *marker = [GMSMarker markerWithPosition:self.place.coordinate];
+    marker.icon = [UIImage imageNamed:@"temp_marker_icon"];
     marker.title = self.place.name;
     marker.map = self.mapView;
 }
