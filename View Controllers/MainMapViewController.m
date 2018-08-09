@@ -6,6 +6,7 @@
 //  Copyright © 2018 Bevin Benson. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "MainMapViewController.h"
 #import "FilterListViewController.h"
 #import "DetailsViewController.h"
@@ -15,6 +16,7 @@
 #import "FilterPillHelper.h"
 #import "MapMarkerWindow.h"
 #import "NCHelper.h"
+#import "SSFadingScrollView.h"
 
 @interface MainMapViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, GMSMapViewDelegate, GMSAutocompleteFetcherDelegate, MarkerWindowDelegate, FilterDelegate, UIScrollViewDelegate>
 
@@ -25,7 +27,7 @@
 @property (strong, nonatomic) UIView *searchView;
 @property (strong, nonatomic) UIView *searchBoxView;
 @property (strong, nonatomic) UIView *filterView;
-@property (strong, nonatomic) UIScrollView *pillScrollView;
+@property (strong, nonatomic) SSFadingScrollView *pillScrollView;
 @property (strong, nonatomic) UITextField *searchField;
 @property (strong, nonatomic) UIButton *filterButton;
 @property (strong, nonatomic) UIButton *cancelButton;
@@ -237,20 +239,12 @@
     // [self.filterView setBackgroundColor:[UIColor blueColor]]
     [self.resultsView addSubview:self.filterView];
     
-    self.filterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 15, 0, 20, 20)];
-    // [self.filterButton setCenter:CGPointMake(self.filterButton.center.x, self.filterView.frame.size.height/2)];
-    [self.filterButton setImage:[UIImage imageNamed:@"filter_control"] forState:UIControlStateNormal];
-    [self.filterButton addTarget:self action:@selector(addFilterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.filterButton setUserInteractionEnabled:YES];
-    [self.filterButton sizeToFit];
-    [self.filterView addSubview:self.filterButton];
-    
-    self.pillScrollView = [[UIScrollView alloc] init];
+    self.pillScrollView = [[SSFadingScrollView alloc] initWithFadeSize:30 axis:SSScrollViewFadeAxisHorizontal];
+    [self.pillScrollView setFadeTrailingEdge:NO];
     self.pillScrollView.delegate = self;
     [self.pillScrollView setScrollEnabled:YES];
     [self.pillScrollView setShowsHorizontalScrollIndicator:NO];
-    // [self.pillScrollView setPagingEnabled:YES];
-
+    
     NSMutableDictionary *filters = [MarkerManager shared].allFilters;
     NSArray *lists = [MarkerManager shared].filterKeys;
     CGRect lastFrame = CGRectMake(0, 0, 0, 0);
@@ -277,14 +271,18 @@
         }
     }
     
+    self.filterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 15, 0, 20, 20)];
+    [self.filterButton setCenter:CGPointMake(self.filterButton.center.x, CGRectGetHeight(lastFrame)/2 + 3)];
+    [self.filterButton setImage:[UIImage imageNamed:@"filter_control"] forState:UIControlStateNormal];
+    [self.filterButton addTarget:self action:@selector(addFilterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.filterButton setUserInteractionEnabled:YES];
+    [self.filterButton sizeToFit];
+    [self.filterView addSubview:self.filterButton];
+
     CGFloat contentWidth = lastFrame.origin.x + CGRectGetWidth(lastFrame) + CGRectGetWidth(self.filterButton.frame) + 5;
-    [self.pillScrollView setFrame:CGRectMake(self.filterButton.frame.origin.x + CGRectGetWidth(self.filterButton.frame) + 5, 0, CGRectGetWidth(self.filterView.frame) - 24, self.filterView.frame.size.height)];
-    // [self.pillScrollView setBackgroundColor:[UIColor blueColor]];
-    // [self.filterButton setBackgroundColor:[UIColor redColor]];
+    [self.pillScrollView setFrame:CGRectMake(self.filterButton.frame.origin.x + CGRectGetWidth(self.filterButton.frame) + 5, 0, CGRectGetWidth(self.filterView.frame), self.filterView.frame.size.height)];
     [self.pillScrollView setCenter:CGPointMake(self.pillScrollView.center.x, self.filterView.frame.size.height/2)];
     [self.pillScrollView setContentSize:CGSizeMake(contentWidth, CGRectGetHeight(self.pillScrollView.frame))];
-    [self.filterButton setCenter:CGPointMake(self.filterButton.center.x, CGRectGetHeight(lastFrame)/2 + 3)];
-    // [self.pillScrollView setBackgroundColor:[UIColor blueColor]];
     [self.filterView addSubview:self.pillScrollView];
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KBRoundedButton.h"
+#import <UIKit/UIKit.h>
 
 typedef enum FilterType : NSUInteger {
     favFilter,
