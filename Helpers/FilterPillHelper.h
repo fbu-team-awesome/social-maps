@@ -18,6 +18,9 @@ typedef enum FilterType : NSUInteger {
 
 @interface FilterPillHelper : NSObject
 
-+ (UIView * _Nonnull)createFilterPill:(FilterType)type withName:(NSString * _Nullable)filterName;
+- (UIView * _Nonnull)createFilterPill:(FilterType)type withName:(NSString * _Nullable)filterName;
+
++ (instancetype)shared;
+
 
 @end

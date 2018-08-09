@@ -11,12 +11,12 @@
 #import "FilterListViewController.h"
 #import "DetailsViewController.h"
 #import "SearchCell.h"
-#import "SearchBar.h"
 #import "MarkerManager.h"
 #import "FilterPillHelper.h"
 #import "MapMarkerWindow.h"
 #import "NCHelper.h"
 #import "SSFadingScrollView.h"
+#import "PillCancelButton.h"
 
 @interface MainMapViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, GMSMapViewDelegate, GMSAutocompleteFetcherDelegate, MarkerWindowDelegate, FilterDelegate, UIScrollViewDelegate>
 
@@ -268,9 +268,8 @@
             else {
                 type = placeFilter;
             }
-            UIView *pillView = [FilterPillHelper createFilterPill:type withName:list];
+            UIView *pillView = [[FilterPillHelper shared] createFilterPill:type withName:list];
             [pillView setFrame:CGRectMake(lastFrame.origin.x + CGRectGetWidth(lastFrame) + 5, 3, pillView.frame.size.width, pillView.frame.size.height)];
-            // [pillView setCenter:CGPointMake(pillView.center.x, self.filterView.frame.size.height/2)];
             lastFrame = pillView.frame;
             [self.pillScrollView addSubview:pillView];
         }
@@ -289,6 +288,33 @@
     [self.pillScrollView setCenter:CGPointMake(self.pillScrollView.center.x, self.filterView.frame.size.height/2)];
     [self.pillScrollView setContentSize:CGSizeMake(contentWidth, CGRectGetHeight(self.pillScrollView.frame))];
     [self.filterView addSubview:self.pillScrollView];
+}
+
+- (void)pillCancelTapped:(id)sender {
+    PillCancelButton *button = (PillCancelButton *)sender;
+    FilterType type = button.filterType;
+    NSString *filterName = button.filterName;
+    
+    switch(type) {
+        case favFilter: {
+            [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
+            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
+        }
+        case wishFilter: {
+            [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
+            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
+        }
+        case friendFilter: {
+            [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
+            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
+        }
+        case placeFilter: {
+            [[MarkerManager shared].placeFilters setObject:[NSNumber numberWithBool:NO] forKey:filterName];
+            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:filterName];
+        }
+    }
+    
+    [self addPinsToMap];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {

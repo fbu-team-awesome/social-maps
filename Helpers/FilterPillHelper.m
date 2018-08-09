@@ -7,10 +7,22 @@
 //
 
 #import "FilterPillHelper.h"
+#import "MainMapViewController.h"
+#import "PillCancelButton.h"
 
 @implementation FilterPillHelper
 
-+ (UIView * _Nonnull)createFilterPill:(FilterType)type withName:(NSString * _Nullable)filterName {
++ (instancetype)shared {
+    static FilterPillHelper *sharedManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedManager = [[self alloc] init];
+    });
+    
+    return sharedManager;
+}
+
+- (UIView * _Nonnull)createFilterPill:(FilterType)type withName:(NSString * _Nullable)filterName {
     
     UIView *pillView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 102, 35)];
     pillView.layer.masksToBounds = NO;
@@ -24,9 +36,15 @@
     
     UILabel *pillText = [[UILabel alloc] init];
     
-    UIButton *pillCancel = [[UIButton alloc] init];
+    PillCancelButton *pillCancel = [[PillCancelButton alloc] init];
+    pillCancel.filterType = type;
+    pillCancel.filterName = filterName;
+    // pillCancel.superview = pillView;
     [pillCancel setTitle:@"X" forState:UIControlStateNormal];
     [pillCancel.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:14]];
+    
+    MainMapViewController *mainMapVC = [[MainMapViewController alloc] init];
+    [pillCancel addTarget:mainMapVC action:@selector(pillCancelTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     switch(type) {
         case favFilter: {

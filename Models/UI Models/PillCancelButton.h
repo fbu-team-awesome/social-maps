@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FilterPillHelper.h"
+
+
 
 @interface PillCancelButton : UIButton
+
+@property (strong, nonatomic) NSString *filterName;
+@property (nonatomic, assign) FilterType filterType;
 
 @end

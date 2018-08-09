@@ -27,7 +27,7 @@
 		01C3DB8E2114F766002B8D26 /* ParseImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973F3210281850056DCF2 /* ParseImageHelper.m */; };
 		01C3DB8F2114F766002B8D26 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */; };
 		01CA4A20210153230032C11F /* Relationships.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA4A1F210153230032C11F /* Relationships.m */; };
-		01EDFD0D211912AC000BF178 /* SearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EDFD0C211912AC000BF178 /* SearchBar.m */; };
+		01E4CEF7211CFA9300543D02 /* PillCancelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E4CEF6211CFA9300543D02 /* PillCancelButton.m */; };
 		01EDFD0F21191A49000BF178 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EDFD0E21191A49000BF178 /* QuartzCore.framework */; };
 		1C0D8E47211395D20013268A /* PhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D8E46211395D20013268A /* PhotoCell.m */; };
 		1C0D8E4A21139E600013268A /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D8E4921139E600013268A /* Photo.m */; };
@@ -108,8 +108,8 @@
 		018E6AA020FEBAD100DE10A6 /* ListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListViewCell.m; sourceTree = "<group>"; };
 		01CA4A1E210153230032C11F /* Relationships.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Relationships.h; sourceTree = "<group>"; };
 		01CA4A1F210153230032C11F /* Relationships.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Relationships.m; sourceTree = "<group>"; };
-		01EDFD0B211912AC000BF178 /* SearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBar.h; sourceTree = "<group>"; };
-		01EDFD0C211912AC000BF178 /* SearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBar.m; sourceTree = "<group>"; };
+		01E4CEF5211CFA9300543D02 /* PillCancelButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PillCancelButton.h; sourceTree = "<group>"; };
+		01E4CEF6211CFA9300543D02 /* PillCancelButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PillCancelButton.m; sourceTree = "<group>"; };
 		01EDFD0E21191A49000BF178 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0669C073917F375AFFBB6F32 /* libPods-social-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-social-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C0D8E45211395D20013268A /* PhotoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoCell.h; sourceTree = "<group>"; };
@@ -296,11 +296,11 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		01EDFD0A211911DA000BF178 /* UI Models */ = {
+		01E4CEF4211CFA8100543D02 /* UI Models */ = {
 			isa = PBXGroup;
 			children = (
-				01EDFD0B211912AC000BF178 /* SearchBar.h */,
-				01EDFD0C211912AC000BF178 /* SearchBar.m */,
+				01E4CEF5211CFA9300543D02 /* PillCancelButton.h */,
+				01E4CEF6211CFA9300543D02 /* PillCancelButton.m */,
 			);
 			path = "UI Models";
 			sourceTree = "<group>";
@@ -405,7 +405,7 @@
 		9EF4E3C520FD210E005535C6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				01EDFD0A211911DA000BF178 /* UI Models */,
+				01E4CEF4211CFA8100543D02 /* UI Models */,
 				9E8A9C3F210FB8E5001EE3F0 /* Feed */,
 				9E8A9C44210FBED1001EE3F0 /* Review.h */,
 				9E8A9C45210FBED1001EE3F0 /* Review.m */,
@@ -583,6 +583,7 @@
 				9E8A9C56210FDC64001EE3F0 /* FeedViewController.m in Sources */,
 				1CA9B91F211A0D5B0002CAAB /* HCSStarRatingView.m in Sources */,
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
+				01E4CEF7211CFA9300543D02 /* PillCancelButton.m in Sources */,
 				9EE973EE2102805A0056DCF2 /* AlertHelper.m in Sources */,
 				015C3345210F71AC0065F927 /* Marker.m in Sources */,
 				317B392E210267590057079A /* PlaceResultCell.m in Sources */,
@@ -610,7 +611,6 @@
 				01CA4A20210153230032C11F /* Relationships.m in Sources */,
 				9E3E4226211267A1002AA981 /* CheckinFeedCell.m in Sources */,
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
-				01EDFD0D211912AC000BF178 /* SearchBar.m in Sources */,
 				015C3342210BCA960065F927 /* MarkerManager.m in Sources */,
 				0144075621111748001F67BD /* FilterListViewController.m in Sources */,
 				01C3DB8E2114F766002B8D26 /* ParseImageHelper.m in Sources */,
