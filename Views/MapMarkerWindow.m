@@ -7,14 +7,33 @@
 //
 
 #import "MapMarkerWindow.h"
+#import "UIStylesHelper.h"
 
-@implementation MapMarkerWindow 
+@implementation MapMarkerWindow
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    // style the picture
+    self.placePicture.layer.cornerRadius = 10;
+    self.placePicture.clipsToBounds = YES;
+}
 
 - (IBAction)didTapView:(id)sender {
    [self.delegate didTapInfo:self.marker.place];
 }
 
 - (void)configureWindow {
+    // load photo
+    [[APIManager shared] getPhotoMetadata:self.marker.place.placeID :^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
+        [[GMSPlacesClient sharedClient] loadPlacePhoto:photoMetadata.firstObject callback:^(UIImage * _Nullable photo, NSError * _Nullable error) {
+            self.placePicture.image = photo;
+            [UIView animateWithDuration:0.4 animations:^{
+                self.placePicture.alpha = 1;
+            }];
+        }];
+    }];
+    
     self.nameLabel.text = self.marker.place.name;
     self.addressLabel.text = self.marker.place.formattedAddress;
     switch(self.marker.type) {

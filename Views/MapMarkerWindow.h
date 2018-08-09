@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *listsLabel;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIImageView *placePicture;
 @property (strong, nonatomic) IBOutlet MapMarkerWindow *markerWindowView;
 @property (strong, nonatomic) Marker *marker;
 @property (strong, nonatomic) id<MarkerWindowDelegate> delegate;
