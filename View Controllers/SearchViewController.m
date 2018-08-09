@@ -36,7 +36,7 @@
 @end
 
 @implementation SearchViewController
-
+bool fetchedPlaces = false;
 #pragma mark - Initialization
 
 - (void)viewDidLoad {
@@ -99,6 +99,8 @@
     PFUser *currentUser = [PFUser currentUser];
     NSMutableArray<GMSPlace *> *mutableArray = [NSMutableArray new];
     
+    __block NSUInteger countedUsers = 0;
+    
     [currentUser retrieveRelationshipWithCompletion:^(Relationships *relationship) {
         [PFUser retrieveUsersWithIDs:relationship.following withCompletion:^(NSArray<PFUser *> *users) {
             for(int i = 0; i < users.count; i++)
@@ -124,9 +126,10 @@
                             }
                         }
                     }
+                    countedUsers++;
                     
                     // if we've looped through all users, then we can return the array
-                    if(i == users.count - 1)
+                    if(countedUsers == users.count)
                     {
                         self.places = [mutableArray copy];
                         self.filteredPlaces = self.places;
@@ -408,8 +411,9 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     self.currentLocation = [locations lastObject];
-    if(self.places.count == 0)
+    if(!fetchedPlaces)
     {
+        fetchedPlaces = true;
         [self fetchPlaces];
     }
 }
