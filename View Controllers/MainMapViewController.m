@@ -36,14 +36,13 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) NSArray<GMSAutocompletePrediction *> *predictions;
+@property (strong, nonatomic) GMSMarker *tempMarker;
 
 @end
 
 @implementation MainMapViewController
 
 - (void)viewDidLoad {
-    self.definesPresentationContext = true;
-    
     [self addNotificationObservers];
     [self createSearchBar];
     [self initTableView];
@@ -192,6 +191,9 @@
     [self.mapView setHidden:NO];
     [self.filterView setHidden:NO];
     [self.tableView setHidden:YES];
+    
+    self.tempMarker.map = nil;
+    self.tempMarker = nil;
 }
 
 - (void)textChanged {
@@ -203,6 +205,9 @@
         [self.filterView setHidden:NO];
         [self.tableView setHidden:YES];
         self.predictions = [NSArray new];
+        
+        self.tempMarker.map = nil;
+        self.tempMarker = nil;
     }
     else if (searchText.length == 1) {
         [self showCancel];
@@ -307,6 +312,45 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.predictions.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    SearchCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    self.tempMarker = [GMSMarker markerWithPosition:cell.place.coordinate];
+    self.tempMarker.icon = [UIImage imageNamed:@"temp_marker_icon"];
+    
+    Marker *marker = [[Marker alloc] initWithGMSPlace:cell.place markerType:other user:nil];
+    self.tempMarker.userData = marker;
+    self.tempMarker.map = self.mapView;
+    
+    NSSet *townTypes = [NSSet setWithArray:@[@"locality", @"administrative_area_level_2", @"administrative_area_level_3", @"administrative_area_level_4", @"administrative_area_level_5", @"postal_code", @"sublocality_level_4", @"sublocality_level_5", @"sublocality_level_3", @"sublocality_level_2", @"sublocality_level_1"]];
+    
+    float zoom = 16;
+    for (NSString *type in cell.place.types) {
+        if ([type isEqualToString:@"country"] | [type isEqualToString:@"administrative_area_level_1"]) {
+            zoom = 6;
+        }
+        else if ([townTypes containsObject:type]) {
+            if (zoom > 12) {
+                zoom = 12;
+            }
+        }
+        else if ([type isEqualToString:@"neighborhood"]) {
+            if (zoom > 13) {
+                zoom = 13;
+            }
+        }
+        else {
+            if (zoom > 15)
+            zoom = 15;
+        }
+    }
+    
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:cell.place.coordinate.latitude longitude:cell.place.coordinate.longitude zoom:zoom];
+    [self.mapView setCamera:camera];
+    [self.mapView setHidden:NO];
+    [self.tableView setHidden:YES];
 }
 
 #pragma mark - Autocomplete

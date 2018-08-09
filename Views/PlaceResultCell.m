@@ -20,7 +20,7 @@
     self.placeImage.clipsToBounds = YES;
 }
 
--(void)configureCell {
+- (void)configureCell {
     self.nameLabel.text = nil;
     self.addressLabel.text = nil;
     self.nameLabel.text = self.place.name;
@@ -40,7 +40,7 @@
     }];
 }
 
--(void)loadFirstImage:(NSArray<GMSPlacePhotoMetadata *> *)photoMetadata {
+- (void)loadFirstImage:(NSArray<GMSPlacePhotoMetadata *> *)photoMetadata {
     
     GMSPlacePhotoMetadata *firstPhoto = photoMetadata.firstObject;
     
@@ -133,5 +133,4 @@
     // set the state
     [self.wishlistButton setSelected:!self.wishlistButton.selected];
 }
-
 @end
