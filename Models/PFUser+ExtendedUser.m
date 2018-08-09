@@ -10,6 +10,8 @@
 #import <Parse/Parse.h>
 #import "NCHelper.h"
 #import "ListAdditionEvent.h"
+#include "NCHelper.h"
+#import "FollowEvent.h"
 
 @implementation PFUser (ExtendedUser)
 @dynamic displayName, hometown, bio, profilePicture, favorites, wishlist, relationships, checkIns;
@@ -35,12 +37,15 @@
                        [self saveInBackground];
                        
                        // create the feed event
-                       ListAdditionEvent *event = [[ListAdditionEvent alloc] init];
+                       ListAdditionEvent *event = [ListAdditionEvent new];
                        event.user = self;
                        event.eventType = ETListAddition;
                        event.listType = LTFavorite;
                        event.place = result;
                        [event saveInBackground];
+                       
+                       // send the notification
+                       [NCHelper notify:NTNewFeedEvent object:event];
                    }
                    else
                    {
@@ -84,6 +89,17 @@
                        self.wishlist = [mutableWishlist copy];
                        [self setObject:self.wishlist forKey:@"wishlist"];
                        [self saveInBackground];
+                       
+                       // create the feed event
+                       ListAdditionEvent *event = [ListAdditionEvent new];
+                       event.user = self;
+                       event.eventType = ETListAddition;
+                       event.listType = LTWishlist;
+                       event.place = result;
+                       [event saveInBackground];
+                       
+                       // send the notification
+                       [NCHelper notify:NTNewFeedEvent object:event];
                    }
                    else
                    {
@@ -218,6 +234,14 @@
             [userRelationship addUserIdToFollowers:self.objectId];
         }];
     }];
+    
+    // create the notification
+    FollowEvent *event = [FollowEvent new];
+    event.user = self;
+    event.eventType = ETFollow;
+    event.followingID = user.objectId;
+    event.place = [Place new];
+    [event saveInBackground];
 }
 
 - (void)unfollow:(PFUser*)user {

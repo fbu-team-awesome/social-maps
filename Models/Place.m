@@ -8,6 +8,7 @@
 
 #import "Place.h"
 #import "APIManager.h"
+#import "ReviewAdditionEvent.h"
 
 @implementation Place
 @dynamic placeID, placeName, checkIns, photos, reviews, rating;
@@ -51,6 +52,7 @@
            }
      ];
 }
+
 + (void)checkPlaceWithIDExists:(NSString *)placeID result:(void(^)(Place*))result {
     PFQuery* query = [PFQuery queryWithClassName:@"Place"];
     [query whereKey:@"placeID" equalTo:placeID];
@@ -157,6 +159,13 @@
     //set the reviews dictionary to the mutable copy
     self.reviews = [newReviews copy];
     [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        // create the feed event
+        ReviewAdditionEvent *event = [ReviewAdditionEvent new];
+        event.user = review.user;
+        event.eventType = ETReviewAddition;
+        event.review = review;
+        event.place = self;
+        [event saveInBackground];
         completion();
     }];
 }

@@ -1,5 +1,6 @@
 PODS:
   - Bolts/Tasks (1.9.0)
+  - DateTools (2.0.0)
   - FLAnimatedImage (1.0.12)
   - GoogleMaps (2.7.0):
     - GoogleMaps/Maps (= 2.7.0)
@@ -9,6 +10,7 @@ PODS:
   - GooglePlaces (2.7.0):
     - GoogleMaps/Base (= 2.7.0)
   - HMSegmentedControl (1.5.5)
+  - KBRoundedButton (1.0.4)
   - NYTPhotoViewer (1.0.1):
     - NYTPhotoViewer/AnimatedGifSupport (= 1.0.1)
     - NYTPhotoViewer/Core (= 1.0.1)
@@ -22,31 +24,37 @@ PODS:
     - Bolts/Tasks (~> 1.9)
 
 DEPENDENCIES:
+  - DateTools
   - GoogleMaps
   - GooglePlaces
   - HMSegmentedControl (~> 1.5)
+  - KBRoundedButton (~> 1.0)
   - NYTPhotoViewer (~> 1.0.0)
   - Parse
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Bolts
+    - DateTools
     - FLAnimatedImage
     - GoogleMaps
     - GooglePlaces
     - HMSegmentedControl
+    - KBRoundedButton
     - NYTPhotoViewer
     - Parse
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   HMSegmentedControl: f514c6dad47aa3065e0ed2e8046b73efc71221b9
+  KBRoundedButton: 8fde755b8f1df3ddd3c3c280d9b27ce04ab55d00
   NYTPhotoViewer: 98e0a54a9d28e4a980fc4b611fd5e419ca89ad74
   Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
 
-PODFILE CHECKSUM: 35bb1f48109d9dd1dd239c0214a04ae0efef0c3a
+PODFILE CHECKSUM: 2104a09bdcf18543422e9dacc9b313244bcedf92
 
 COCOAPODS: 1.5.3

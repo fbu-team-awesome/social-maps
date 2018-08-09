@@ -13,7 +13,10 @@
 typedef enum FeedEventType : NSUInteger
 {
     ETCheckin,
-    ETListAddition
+    ETListAddition,
+    ETPhotoAddition,
+    ETReviewAddition,
+    ETFollow
 }
 FeedEventType;
 
@@ -27,4 +30,5 @@ FeedEventType;
 - (void)setParseProperties;
 - (void)saveInBackground;
 - (void)queryInfoWithCompletion:(void(^)(void))completion;
+- (NSString *)getTimestamp;
 @end

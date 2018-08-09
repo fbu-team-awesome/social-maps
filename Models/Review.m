@@ -14,4 +14,15 @@
 + (NSString *)parseClassName {
     return @"Review";
 }
+
++ (void)reviewWithUser:(PFUser *)user withContent:(NSString *)content withRating:(int)rating withCompletion:(void(^)(Review *review))completion {
+    Review *newReview = [Review object];
+    newReview.user = user;
+    newReview.content = content;
+    newReview.rating = rating;
+    
+    [newReview saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        completion(newReview);
+    }];
+}
 @end

@@ -7,25 +7,32 @@
 //
 
 #import "SearchViewController.h"
-#import "ResultsTableViewController.h"
 #import "HMSegmentedControl.h"
 #import "PlaceResultCell.h"
 #import "UserResultCell.h"
+#import "SearchCell.h"
 #import "APIManager.h"
 #import "ProfileViewController.h"
 #import "DetailsViewController.h"
 
-@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, GMSAutocompleteFetcherDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *searchFieldView;
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
+@property (weak, nonatomic) IBOutlet UIImageView *searchIconImage;
+
 @property (strong, nonatomic) NSArray<GMSPlace*>* places;
 @property (strong, nonatomic) NSArray<PFUser*>* users;
 @property (strong, nonatomic) NSArray *filteredPlaces;
 @property (strong, nonatomic) NSArray *filteredUsers;
 @property (assign, nonatomic) long segmentIndex;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
 @property (strong, nonatomic) NSArray<GMSPlacePhotoMetadata *> *photoMetadata;
-
+@property (strong, nonatomic) GMSAutocompleteFetcher *fetcher;
+@property (strong, nonatomic) NSArray<GMSAutocompletePrediction *> *predictions;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *currentLocation;
 @end
 
 @implementation SearchViewController
@@ -38,13 +45,13 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    [self initSearch];
+    [self initUIStyles];
+    [self initMyLocation];
     [self setSegmentControlView];
-    [self fetchLists];
+    [self fetchUsers];
     
-    // set navbar color
-    self.navigationItem.titleView = self.searchBar;
-    [self.searchBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+    self.fetcher = [[GMSAutocompleteFetcher alloc] init];
+    self.fetcher.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -53,15 +60,85 @@
     {
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+    
+    // hide navbar
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
-- (void) fetchLists {
-    [[APIManager shared] getAllGMSPlaces:^(NSArray<GMSPlace*>* places) {
-        self.places = places;
-        self.filteredPlaces = self.places;
-        [self.tableView reloadData];
-    }];
+- (void)initUIStyles {
+    self.searchFieldView.layer.cornerRadius = 13;
+    self.searchFieldView.clipsToBounds = YES;
+    self.searchFieldView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.searchFieldView.layer.shadowOffset = CGSizeMake(0, 1.2);
+    self.searchFieldView.layer.shadowRadius = 1.5;
+    self.searchFieldView.layer.shadowOpacity = 0.2;
+    self.searchFieldView.layer.masksToBounds = NO;
     
+    // set navbar styles
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    
+    // set search icon color
+    self.searchIconImage.image = [self.searchIconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+}
+
+- (void)initMyLocation {
+    self.locationManager = [CLLocationManager new];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)fetchPlaces {
+    const double coordinateRange = 1.0;
+    double myLatitude = (double)self.currentLocation.coordinate.latitude;
+    double myLongitude = (double)self.currentLocation.coordinate.longitude;
+    double myMinLatitude = myLatitude - coordinateRange, myMinLongitude = myLongitude - coordinateRange;
+    double myMaxLatitude = myLatitude + coordinateRange, myMaxLongitude = myLongitude + coordinateRange;
+    PFUser *currentUser = [PFUser currentUser];
+    NSMutableArray<GMSPlace *> *mutableArray = [NSMutableArray new];
+    
+    [currentUser retrieveRelationshipWithCompletion:^(Relationships *relationship) {
+        [PFUser retrieveUsersWithIDs:relationship.following withCompletion:^(NSArray<PFUser *> *users) {
+            for(int i = 0; i < users.count; i++)
+            {
+                PFUser *user = users[i];
+                [user retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
+                    
+                    // now loop through each place to compare coordinates
+                    for(GMSPlace *place in places)
+                    {
+                        double latitude = (double)place.coordinate.latitude;
+                        double longitude = (double)place.coordinate.longitude;
+                        
+                        // if it's within the range, add it to the places to show
+                        if(latitude >= myMinLatitude && latitude <= myMaxLatitude)
+                        {
+                            if(longitude >= myMinLongitude && longitude <= myMaxLongitude)
+                            {
+                                if(![mutableArray containsObject:place])
+                                {
+                                    [mutableArray addObject:place];
+                                }
+                            }
+                        }
+                    }
+                    
+                    // if we've looped through all users, then we can return the array
+                    if(i == users.count - 1)
+                    {
+                        self.places = [mutableArray copy];
+                        self.filteredPlaces = self.places;
+                        [self.tableView reloadData];
+                    }
+                }];
+            }
+        }];
+    }];
+}
+
+- (void)fetchUsers {
     [[APIManager shared] getAllUsers:^(NSArray<PFUser*>* users) {
         self.users = users;
         
@@ -75,19 +152,13 @@
     }];
 }
 
--(void) initSearch {
-    self.searchBar.delegate = self;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
 - (void)setSegmentControlView {
-    
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat height = 60;
+    CGFloat height = 55;
     
     // Initialize custom segmented control
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Places", @"Users"]];
@@ -96,25 +167,41 @@
     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     CGFloat statusBarHeight = statusBarFrame.size.height;
     CGFloat navBarHeight = self.navigationController.navigationBar.bounds.size.height;
-    CGFloat segmentControlHeight = statusBarHeight + navBarHeight + 12;
+    CGFloat textFieldHeight = self.searchFieldView.frame.size.height;
+    CGFloat segmentControlHeight = statusBarHeight + textFieldHeight + 18;
     
     // Customize appearance
     [segmentedControl setFrame:CGRectMake(0, segmentControlHeight, width, height)];
-    segmentedControl.selectionIndicatorHeight = 4.0f;
+    segmentedControl.selectionIndicatorHeight = 4.5f;
     segmentedControl.backgroundColor = [UIColor colorNamed:@"VTR_Background"];
-    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorNamed:@"VTR_BlackLabel"]};
-    segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:1.00 green:0.60 blue:0.47 alpha:1.0];
+    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorNamed:@"VTR_BlackLabel"], NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-DemiBold" size:15.5]};
+    segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorNamed:@"VTR_Main"], NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-DemiBold" size:15.5]};
+    segmentedControl.selectionIndicatorColor = [UIColor colorNamed:@"VTR_Main"];
     segmentedControl.selectionIndicatorBoxColor = [UIColor colorNamed:@"VTR_Background"];
     segmentedControl.selectionIndicatorBoxOpacity = 1.0;
     segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleBox;
     segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl.shouldAnimateUserSelection = YES;
     
+    // add shadow
+    segmentedControl.layer.shadowColor = [UIColor blackColor].CGColor;
+    segmentedControl.layer.shadowOffset = CGSizeMake(0, 3);
+    segmentedControl.layer.shadowRadius = 2;
+    segmentedControl.layer.shadowOpacity = 0.1;
+    segmentedControl.layer.masksToBounds = NO;
     [self.view addSubview:segmentedControl];
     
     // Called when user changes selection
     [segmentedControl setIndexChangeBlock:^(NSInteger index) {
         self.segmentIndex = index;
+        if(index == 1)
+        {
+            self.searchTextField.placeholder = @"Search for a user...";
+        }
+        else
+        {
+            self.searchTextField.placeholder = @"Search for a place...";
+        }
         [self.view endEditing:YES];
         [self.tableView reloadData];
     }];
@@ -122,6 +209,7 @@
     // fix the tableview's y position
     CGRect frame = self.tableView.frame;
     frame.origin.y = segmentedControl.frame.origin.y + height;
+    frame.size.height = self.view.frame.size.height - frame.origin.y - self.tabBarController.tabBar.frame.size.height;
     self.tableView.frame = frame;
 }
 
@@ -132,25 +220,108 @@
         userCell.user = self.filteredUsers[indexPath.row];
         [userCell configureCell];
         cell = userCell;
-    } else {
-        PlaceResultCell *placeCell = [tableView dequeueReusableCellWithIdentifier:@"PlaceResultCell" forIndexPath:indexPath];
-        placeCell.place = self.filteredPlaces[indexPath.row];
-        [placeCell configureCell];
-        cell = placeCell;
+    }
+    else
+    {
+        if(indexPath.section == 0)
+        {
+            PlaceResultCell *placeCell = [tableView dequeueReusableCellWithIdentifier:@"PlaceResultCell" forIndexPath:indexPath];
+            placeCell.place = self.filteredPlaces[indexPath.row];
+            [placeCell configureCell];
+            cell = placeCell;
+        }
+        else if(indexPath.section == 1)
+        {
+            SearchCell *searchCell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
+            if (self.predictions.count > 0){
+                searchCell.prediction = self.predictions[indexPath.row];
+                
+                [searchCell configureCell];
+            }
+            
+            cell = searchCell;
+        }
     }
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.segmentIndex == 0) {
-        return self.filteredPlaces.count;
+    if (self.segmentIndex == 0)
+    {
+        if(section == 0)
+        {
+            return self.filteredPlaces.count;
+        }
+        else if(section == 1)
+        {
+            return self.predictions.count;
+        }
     }
     return self.filteredUsers.count;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if(self.segmentIndex == 0)
+    {
+        return 2;
+    }
+    
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if(self.segmentIndex == 0)
+    {
+        return 35;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    CGRect viewFrame = CGRectMake(0, 0, tableView.frame.size.width, 35);
+    UIView *view = [[UIView alloc] initWithFrame:viewFrame];
+    [view setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+    
+    // add label
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 9, viewFrame.size.width, 19)];
+    [titleLabel setFont:[UIFont fontWithName:@"AvenirNext-Medium" size:16]];
+    [titleLabel setTextColor:[UIColor colorNamed:@"VTR_BlackLabel"]];
+    
+    // top and bottom borders
+    UIView *topBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewFrame.size.width, 1)];
+    [topBorder setBackgroundColor:[UIColor colorNamed:@"VTR_Borders"]];
+    UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height, viewFrame.size.width, 1)];
+    [bottomBorder setBackgroundColor:[UIColor colorNamed:@"VTR_Borders"]];
+    
+    if(self.segmentIndex == 0)
+    {
+        if(section == 0)
+        {
+            titleLabel.text = @"Recommendations";
+        }
+        else if(section == 1)
+        {
+            titleLabel.text = @"Google Results";
+            [view addSubview:topBorder];
+        }
+    }
+    else
+    {
+        return nil;
+    }
+    
+    [view addSubview:bottomBorder];
+    [view addSubview:titleLabel];
+    return view;
+}
 #pragma mark - Search Bar
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+- (IBAction)searchBarTextChanged:(id)sender {
+    NSString *searchText = self.searchTextField.text;
+    
     if (searchText.length != 0){
         //filter places
         NSPredicate *placePredicate = [NSPredicate predicateWithBlock:^BOOL(GMSPlace *place, NSDictionary *bindings) {
@@ -163,41 +334,38 @@
             return [user.username localizedCaseInsensitiveContainsString:searchText];
         }];
         self.filteredUsers = [self.users filteredArrayUsingPredicate:userPredicate];
-        
+        [self.fetcher sourceTextHasChanged:self.searchTextField.text];
         [self.tableView reloadData];
     }
     else
     {
         self.filteredPlaces = self.places;
         self.filteredUsers = self.users;
+        self.predictions = [NSArray new];
         [self.tableView reloadData];
     }
 }
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    self.searchBar.showsCancelButton = YES;
-}
-
--(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+- (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    self.searchBar.showsCancelButton = NO;
-    self.searchBar.text = @"";
-    [self.searchBar resignFirstResponder];
-    self.filteredPlaces = self.places;
-    self.filteredUsers = self.users;
-    
-    [self.tableView reloadData];
 }
 
 #pragma mark - Navigation
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.segmentIndex == 0) {
-        GMSPlace *place = self.filteredPlaces[indexPath.row];
-        [self performSegueWithIdentifier:@"placeSegue" sender:place];
+        if(indexPath.section == 0)
+        {
+            GMSPlace *place = self.filteredPlaces[indexPath.row];
+            [self performSegueWithIdentifier:@"placeSegue" sender:place];
+        }
+        else
+        {
+            NSString *placeID = self.predictions[indexPath.row].placeID;
+            [[APIManager shared] GMSPlaceFromID:placeID withCompletion:^(GMSPlace *place) {
+                [self performSegueWithIdentifier:@"placeSegue" sender:place];
+            }];
+        }
     } else {
         PFUser *user = self.filteredUsers[indexPath.row];
         
@@ -214,4 +382,35 @@
          detailsVC.place = sender;
      }
  }
+
+- (void)didAutocompleteWithPredictions:(nonnull NSArray<GMSAutocompletePrediction *> *)predictions {
+    NSMutableArray *results = [[NSMutableArray alloc] init];
+    for (GMSAutocompletePrediction *prediction in predictions) {
+        
+        [results addObject:prediction];
+        
+    }
+    self.predictions = [results copy];
+}
+
+- (void)didFailAutocompleteWithError:(nonnull NSError *)error {
+    NSLog(@"Error fetching autocomplete results: %@", error.localizedDescription);
+}
+
+- (IBAction)cancelClicked:(id)sender {
+    self.searchTextField.text = @"";
+    self.filteredPlaces = self.places;
+    self.filteredUsers = self.users;
+    self.predictions = [NSArray new];
+    [self.tableView reloadData];
+    [self.searchTextField resignFirstResponder];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    self.currentLocation = [locations lastObject];
+    if(self.places.count == 0)
+    {
+        [self fetchPlaces];
+    }
+}
 @end

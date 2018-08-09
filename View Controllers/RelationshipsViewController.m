@@ -32,6 +32,9 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView setRowHeight:55.5];
+    CGRect frame = self.tableView.frame;
+    frame.origin.y = 0;
+    self.tableView.frame = frame;
     [self.tableView reloadData];
     
     [self addNotificationObservers];

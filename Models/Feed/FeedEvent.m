@@ -9,18 +9,20 @@
 #import "FeedEvent.h"
 #import "ListAdditionEvent.h"
 #import "Place.h"
+#import "NSDate+DateTools.h"
 
 @implementation FeedEvent
 - (instancetype)initWithParseObject:(PFObject *)object {
-    self = [super init];
-    self.parseObject = object;
-    self.user = object[@"user"];
-    self.place = object[@"place"];
-    self.eventType = [object[@"eventType"] unsignedIntegerValue];
+    if(self = [super init])
+    {
+        self.parseObject = object;
+        self.user = object[@"user"];
+        self.place = object[@"place"];
+        self.eventType = [object[@"eventType"] unsignedIntegerValue];
+    }
     
     return self;
 }
-
 - (void)setParseProperties {
     self.parseObject[@"user"] = self.user;
     self.parseObject[@"place"] = self.place;
@@ -43,5 +45,9 @@
             completion();
         }];
     }];
+}
+
+- (NSString *)getTimestamp {
+    return self.parseObject.createdAt.shortTimeAgoSinceNow;
 }
 @end
