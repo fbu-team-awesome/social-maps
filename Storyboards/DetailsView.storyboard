@@ -200,7 +200,7 @@
                                             <rect key="frame" x="0.0" y="484" width="375" height="144"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scf-dM-qfD">
-                                                    <rect key="frame" x="16" y="16" width="51.5" height="22"/>
+                                                    <rect key="frame" x="24" y="16" width="51.5" height="22"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="16"/>
                                                     <color key="textColor" name="VTR_BlackLabel"/>
                                                     <nil key="highlightedColor"/>
@@ -262,7 +262,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="qFs-2t-aki" secondAttribute="trailing" constant="24" id="fdV-t9-VPF"/>
                                                 <constraint firstAttribute="bottom" secondItem="gh3-Rp-eXx" secondAttribute="bottom" constant="22" id="gUr-MZ-Wst"/>
                                                 <constraint firstItem="gh3-Rp-eXx" firstAttribute="leading" secondItem="FFx-Wc-XL8" secondAttribute="leading" id="uKc-Qx-Ued"/>
-                                                <constraint firstItem="scf-dM-qfD" firstAttribute="leading" secondItem="FFx-Wc-XL8" secondAttribute="leading" constant="16" id="xlo-af-rsC"/>
+                                                <constraint firstItem="scf-dM-qfD" firstAttribute="leading" secondItem="FFx-Wc-XL8" secondAttribute="leading" constant="24" id="xlo-af-rsC"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2GV-3P-HEH">
@@ -276,7 +276,7 @@
                                             <rect key="frame" x="0.0" y="629" width="375" height="66"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 ratings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QR-wV-FKj">
-                                                    <rect key="frame" x="16" y="42" width="55" height="16"/>
+                                                    <rect key="frame" x="24" y="42" width="55" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="8qe-UI-5fa"/>
                                                     </constraints>
@@ -285,7 +285,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvc-u3-Nhc">
-                                                    <rect key="frame" x="16" y="16" width="61" height="18"/>
+                                                    <rect key="frame" x="24" y="16" width="61" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="UE7-Q0-NOW"/>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="hjv-HY-Gec"/>
@@ -295,14 +295,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BRN-De-hpN">
-                                                    <rect key="frame" x="269" y="16" width="90" height="18"/>
+                                                    <rect key="frame" x="261" y="16" width="90" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="a6A-Vw-jPD"/>
                                                         <constraint firstAttribute="height" constant="18" id="dhT-L6-RDR"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 stars" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BlN-Yq-tFE">
-                                                    <rect key="frame" x="316.5" y="42" width="42.5" height="19.5"/>
+                                                    <rect key="frame" x="308.5" y="42" width="42.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
                                                     <color key="textColor" name="VTR_BlackLabel"/>
                                                     <nil key="highlightedColor"/>
@@ -315,10 +315,10 @@
                                                 <constraint firstAttribute="height" constant="66" id="E0e-sQ-aCC"/>
                                                 <constraint firstItem="dvc-u3-Nhc" firstAttribute="top" secondItem="p6V-pp-CiF" secondAttribute="top" constant="16" id="JBd-wx-QAk"/>
                                                 <constraint firstItem="8QR-wV-FKj" firstAttribute="top" secondItem="dvc-u3-Nhc" secondAttribute="bottom" constant="8" id="fUg-tU-yLs"/>
-                                                <constraint firstItem="dvc-u3-Nhc" firstAttribute="leading" secondItem="p6V-pp-CiF" secondAttribute="leading" constant="16" id="gd9-xx-sa3"/>
+                                                <constraint firstItem="dvc-u3-Nhc" firstAttribute="leading" secondItem="p6V-pp-CiF" secondAttribute="leading" constant="24" id="gd9-xx-sa3"/>
                                                 <constraint firstItem="BlN-Yq-tFE" firstAttribute="top" secondItem="8QR-wV-FKj" secondAttribute="top" id="mjE-jd-ale"/>
                                                 <constraint firstItem="BRN-De-hpN" firstAttribute="top" secondItem="dvc-u3-Nhc" secondAttribute="top" id="xr8-Y3-gJ0"/>
-                                                <constraint firstAttribute="trailing" secondItem="BRN-De-hpN" secondAttribute="trailing" constant="16" id="yBf-yc-iBl"/>
+                                                <constraint firstAttribute="trailing" secondItem="BRN-De-hpN" secondAttribute="trailing" constant="24" id="yBf-yc-iBl"/>
                                             </constraints>
                                         </view>
                                     </subviews>
