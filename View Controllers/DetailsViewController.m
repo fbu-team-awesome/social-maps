@@ -19,6 +19,7 @@
 #import <NYTPhotoViewer/NYTPhotosViewController.h>
 #import "HCSStarRatingView.h"
 #import "ReviewCell.h"
+#import "UIStylesHelper.h"
 
 @interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PhotoCellDelegate, NYTPhotosViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 // Outlet Definitions //
@@ -37,6 +38,11 @@
 @property (weak, nonatomic) IBOutlet UITextView *reviewTextView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *overallRatingView;
+@property (weak, nonatomic) IBOutlet UIView *composeRatingView;
+@property (weak, nonatomic) IBOutlet UIView *submitButtonView;
+@property (weak, nonatomic) IBOutlet UIButton *submitButton;
+@property (weak, nonatomic) IBOutlet UILabel *overallRatingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ratingsCountLabel;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -301,11 +307,21 @@
 #pragma mark - Reviews
 
 - (void) initWriteReview {
-    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(72, 32, 100, 25)];
+    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 95, 13)];
     ratingView.minimumValue = 0;
     ratingView.maximumValue = 5;
+    ratingView.starBorderWidth= 0;
+    ratingView.filledStarImage = [UIImage imageNamed:@"star_filled"] ;
+    ratingView.emptyStarImage = [UIImage imageNamed:@"star_unfilled"];
     [ratingView addTarget:self action:@selector(didChangeRating:) forControlEvents:UIControlEventValueChanged];
-    [self.composeView addSubview:ratingView];
+    [self.composeRatingView addSubview:ratingView];
+    
+    self.reviewTextView.layer.cornerRadius = 8;
+    self.reviewTextView.layer.borderColor = [UIColor colorNamed:@"VTR_Borders"].CGColor;
+    self.reviewTextView.layer.borderWidth = 1;
+    
+    [UIStylesHelper addRoundedCornersToView:self.submitButton];
+    [UIStylesHelper addShadowToView:self.submitButton withOffset:CGSizeMake(0, 1) withRadius:2 withOpacity:0.16];
 }
 
 - (void) initShowReviews {
@@ -341,6 +357,7 @@
         [Relationships retrieveFollowingWithId:relationships.objectId WithCompletion:^(NSArray * _Nullable following) {
             NSLog(@"Fetched all following");
             [self.parsePlace retrieveReviewsFromFollowing:following withCompletion:^(NSArray<Review *> *reviews) {
+                NSLog(@"Fetched all reviews");
                 self.reviews = reviews;
                 [self reloadAndUpdateRating];
             }];
@@ -374,11 +391,24 @@
     {
         [view removeFromSuperview];
     }
-    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
+    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 95, 13)];
+    ratingView.minimumValue = 0;
+    ratingView.maximumValue = 5;
+    ratingView.starBorderWidth= 0;
+    ratingView.filledStarImage = [UIImage imageNamed:@"star_filled"] ;
+    ratingView.emptyStarImage = [UIImage imageNamed:@"star_unfilled"];
     ratingView.value = (CGFloat) self.overallRating;
     ratingView.allowsHalfStars = YES;
     [ratingView setEnabled:NO];
     [self.overallRatingView addSubview:ratingView];
+    NSNumber *ratingNumber = [NSNumber numberWithDouble:self.overallRating];
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.roundingIncrement = [NSNumber numberWithDouble:0.01];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    [self.overallRatingLabel setText:[NSString stringWithFormat:@"%@ stars",[formatter stringFromNumber:ratingNumber]]];
+    
+    [self.ratingsCountLabel setText:[NSString stringWithFormat:@"%lu ratings",self.reviews.count]];
 }
 
 @end
