@@ -32,13 +32,12 @@ NSString *const kFollowFavKey = @"followFavorites";
     
     self.typeDict = @{
                       @"Entertainment":@[@"amusement_park", @"aquarium", @"casino", @"movie_theater", @"bowling_alley", @"zoo", @"night_club"],
-                      @"Restaurants":@[@"restaurant", @"meal_delivery", @"meal_takeaway"], @"Café":@[@"cafe", @"bakery"],
+                      @"Restaurants":@[@"restaurant", @"meal_delivery", @"meal_takeaway"], @"Cafés":@[@"cafe", @"bakery"],
                       @"Shopping":@[@"clothing_store", @"department_store", @"home_goods_store", @"shopping_mall", @"shoe_store", @"furniture_store"],
                       @"Outdoors":@[@"park", @"campground", @"rv_park"],
                       @"Beauty":@[@"beauty_salon", @"hair_care"],
                       @"Museums":@[@"art_gallery", @"museum"]
                       };
-    
     self.placeCategories = [self.typeDict allKeys];
     self.markersByPlaceCategory = [NSMutableDictionary new];
     for (NSString *key in self.placeCategories) {
@@ -61,14 +60,19 @@ NSString *const kFollowFavKey = @"followFavorites";
     self.typeFilters = [NSMutableDictionary new];
     self.placeFilters = [NSMutableDictionary new];
     self.allFilters = [NSMutableDictionary new];
+    self.filterKeys = [NSMutableArray new];
     for (NSString *key in self.markersByMarkerType) {
         [self.typeFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
         [self.allFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
+        [self.filterKeys addObject:key];
     }
     for (NSString *key in self.markersByPlaceCategory) {
         [self.placeFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
         [self.allFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
     }
+    
+    NSArray *orderedPlaceKeys = @[@"Restaurants", @"Cafés", @"Entertainment", @"Shopping", @"Outdoors", @"Beauty", @"Museums"];
+    [self.filterKeys addObjectsFromArray:orderedPlaceKeys];
 }
 
 #pragma mark - Create the markers
