@@ -36,7 +36,7 @@
 
 - (void)organizeFiltersIntoSections {
     self.sectionTitles = @[@"Your Lists", @"Lists of Your Follows", @"Places Categories"];
-    NSArray *filterNames = [self.markerManager.allFilters allKeys];
+    NSArray *filterNames = [MarkerManager shared].filterKeys;
     
     self.sections = [NSMutableDictionary new];
     

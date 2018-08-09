@@ -11,13 +11,13 @@
 #import "DetailsViewController.h"
 #import "SearchCell.h"
 #import "SearchBar.h"
-#import "FilterPill.h"
 #import "MarkerManager.h"
+#import "FilterPillHelper.h"
 #import "MapMarkerWindow.h"
 #import "NCHelper.h"
 
-@interface MainMapViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, GMSMapViewDelegate, GMSAutocompleteFetcherDelegate, MarkerWindowDelegate, FilterDelegate>
-
+@interface MainMapViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, GMSMapViewDelegate, GMSAutocompleteFetcherDelegate, MarkerWindowDelegate, FilterDelegate, UIScrollViewDelegate>
+  
 @property (weak, nonatomic) IBOutlet UIView *resultsView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *markerWindowGestureRecognizer;
@@ -48,8 +48,9 @@
     [self createSearchBar];
     [self initTableView];
     [self initSearch];
-    [self initFilter];
+    [self initMarkers];
     [self initMap];
+    [self initFilter];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,7 +70,7 @@
     self.tableView.dataSource = self;
     
     CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
-    CGFloat searchViewHeight = self.searchView.frame.size.height;
+    CGFloat searchViewHeight = self.searchView.frame.origin.y + self.searchView.frame.size.height;
     [self.tableView setFrame:CGRectMake(0, self.searchView.frame.origin.y + self.searchView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - tabBarHeight - searchViewHeight)];
     
     [self.tableView setHidden:YES];
@@ -87,7 +88,7 @@
     // create the map frame
     CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
     CGFloat filterViewHeight = self.filterView.frame.size.height;
-    CGFloat searchViewHeight = self.searchView.frame.size.height;
+    CGFloat searchViewHeight = self.searchView.frame.origin.y + self.searchView.frame.size.height;
     CGRect mapFrame = CGRectMake(0, self.searchView.frame.origin.y + self.searchView.frame.size.height + self.filterView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - filterViewHeight - tabBarHeight - searchViewHeight);
     [self.mapView setClipsToBounds:NO];
     
@@ -99,7 +100,9 @@
     
     [self.resultsView addSubview:self.mapView];
     self.mapView.delegate = self;
-    
+}
+
+- (void)initMarkers {
     // initialize marker dictionaries
     [[MarkerManager shared] initMarkerDictionaries];
     [[MarkerManager shared] initDefaultFilters];
@@ -137,6 +140,7 @@
     self.searchBoxView.layer.shadowRadius = 1;
     self.searchBoxView.layer.shadowOpacity = 0.25;
     self.searchBoxView.layer.cornerRadius = 12;
+    self.searchBoxView.layer.borderColor = [UIColor clearColor].CGColor;
     [self.searchBoxView setBackgroundColor:[UIColor whiteColor]];
     [self.searchView addSubview:self.searchBoxView];
     
@@ -220,24 +224,66 @@
     FilterListViewController *filterListVC = (FilterListViewController *)self.filterListNavController.topViewController;
     filterListVC.delegate = self;
     
-    self.filterView = [[UIView alloc] initWithFrame:CGRectMake(0, self.searchView.frame.origin.y + self.searchView.frame.size.height, self.view.bounds.size.width, 75)];
-    [self.filterView setBackgroundColor:[UIColor whiteColor]];
+    self.filterView = [[UIView alloc] initWithFrame:CGRectMake(0, self.searchView.frame.origin.y + self.searchView.frame.size.height, self.view.bounds.size.width, 50)];
+    [self.filterView setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
     
     self.filterView.layer.masksToBounds = NO;
     self.filterView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.filterView.layer.shadowOffset = CGSizeMake(0, 5);
+    self.filterView.layer.shadowOffset = CGSizeMake(0, 2);
     self.filterView.layer.shadowRadius = 1;
-    self.filterView.layer.shadowOpacity = 1;
-    
+    self.filterView.layer.shadowOpacity = 0.25;
+    self.filterView.layer.borderColor = [UIColor clearColor].CGColor;
+    // [self.filterView setBackgroundColor:[UIColor blueColor]]
     [self.resultsView addSubview:self.filterView];
     
-    self.filterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 15, self.searchView.frame.origin.y, 20, 20)];
+    self.filterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 15, 0, 20, 20)];
     [self.filterButton setImage:[UIImage imageNamed:@"filter_control"] forState:UIControlStateNormal];
     [self.filterButton addTarget:self action:@selector(addFilterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.filterButton setUserInteractionEnabled:YES];
     [self.filterButton sizeToFit];
-    
     [self.filterView addSubview:self.filterButton];
+    
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    scrollView.delegate = self;
+    [scrollView setScrollEnabled:YES];
+    [scrollView setShowsHorizontalScrollIndicator:NO];
+    // [scrollView setPagingEnabled:YES];
+
+    NSMutableDictionary *filters = [MarkerManager shared].allFilters;
+    NSArray *lists = [MarkerManager shared].filterKeys;
+    CGRect lastFrame = CGRectMake(0, 0, 0, 0);
+    for (NSString *list in lists) {
+        if ([filters objectForKey:list]) {
+            FilterType type;
+            if ([list isEqualToString:kFavoritesKey]) {
+                type = favFilter;
+            }
+            else if ([list isEqualToString:kWishlistKey]) {
+                type = wishFilter;
+            }
+            else if ([list isEqualToString:kFollowFavKey]) {
+                type = friendFilter;
+            }
+            else {
+                type = placeFilter;
+            }
+            UIView *pillView = [FilterPillHelper createFilterPill:type withName:list];
+            [pillView setFrame:CGRectMake(lastFrame.origin.x + CGRectGetWidth(lastFrame) + 5, 3, pillView.frame.size.width, pillView.frame.size.height)];
+            // [pillView setCenter:CGPointMake(pillView.center.x, self.filterView.frame.size.height/2)];
+            lastFrame = pillView.frame;
+            [scrollView addSubview:pillView];
+        }
+    }
+    
+    CGFloat contentWidth = lastFrame.origin.x + CGRectGetWidth(lastFrame) + CGRectGetWidth(self.filterButton.frame) + 5;
+    [scrollView setFrame:CGRectMake(self.filterButton.frame.origin.x + CGRectGetWidth(self.filterButton.frame) + 5, 0, CGRectGetWidth(self.filterView.frame) - 24, self.filterView.frame.size.height)];
+    // [scrollView setBackgroundColor:[UIColor blueColor]];
+    // [self.filterButton setBackgroundColor:[UIColor redColor]];
+    [scrollView setCenter:CGPointMake(scrollView.center.x, self.filterView.frame.size.height/2)];
+    [scrollView setContentSize:CGSizeMake(contentWidth, CGRectGetHeight(scrollView.frame))];
+    [self.filterButton setCenter:CGPointMake(self.filterButton.center.x, CGRectGetHeight(lastFrame)/2 + 3)];
+    // [scrollView setBackgroundColor:[UIColor blueColor]];
+    [self.filterView addSubview:scrollView];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
@@ -275,7 +321,6 @@
 - (void)didFailAutocompleteWithError:(nonnull NSError *)error {
     NSLog(@"Error fetching autocomplete results: %@", error.localizedDescription);
 }
-
 
 #pragma mark - Get places
 

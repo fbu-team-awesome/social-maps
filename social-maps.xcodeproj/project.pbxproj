@@ -18,6 +18,7 @@
 		015C3342210BCA960065F927 /* MarkerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3341210BCA960065F927 /* MarkerManager.m */; };
 		015C3345210F71AC0065F927 /* Marker.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3344210F71AC0065F927 /* Marker.m */; };
 		018A31E22119FD170043926B /* MainMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018A31E12119FD170043926B /* MainMapViewController.m */; };
+		018A31E9211A549E0043926B /* FilterPillHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 018A31E8211A549E0043926B /* FilterPillHelper.m */; };
 		018D276D2114CEED00AA9B2F /* AdditionFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 018D276B2114CEED00AA9B2F /* AdditionFeedCell.m */; };
 		018E6A8D20FDA59F00DE10A6 /* ResultsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */; };
 		018E6A9D20FEBA6E00DE10A6 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E6A9C20FEBA6E00DE10A6 /* ListViewController.m */; };
@@ -95,6 +96,8 @@
 		015C3344210F71AC0065F927 /* Marker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Marker.m; sourceTree = "<group>"; };
 		018A31E02119FD170043926B /* MainMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainMapViewController.h; sourceTree = "<group>"; };
 		018A31E12119FD170043926B /* MainMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMapViewController.m; sourceTree = "<group>"; };
+		018A31E7211A549E0043926B /* FilterPillHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterPillHelper.h; sourceTree = "<group>"; };
+		018A31E8211A549E0043926B /* FilterPillHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterPillHelper.m; sourceTree = "<group>"; };
 		018D276B2114CEED00AA9B2F /* AdditionFeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdditionFeedCell.m; sourceTree = "<group>"; };
 		018D276C2114CEED00AA9B2F /* AdditionFeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdditionFeedCell.h; sourceTree = "<group>"; };
 		018E6A8C20FDA59F00DE10A6 /* ResultsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ResultsView.storyboard; sourceTree = "<group>"; };
@@ -291,8 +294,6 @@
 			children = (
 				01EDFD0B211912AC000BF178 /* SearchBar.h */,
 				01EDFD0C211912AC000BF178 /* SearchBar.m */,
-				01EDFD162119243B000BF178 /* FilterPill.h */,
-				01EDFD172119243B000BF178 /* FilterPill.m */,
 			);
 			path = "UI Models";
 			sourceTree = "<group>";
@@ -388,6 +389,8 @@
 				015C3341210BCA960065F927 /* MarkerManager.m */,
 				9E876BEA2118AE8F0097A85D /* UIStylesHelper.h */,
 				9E876BEB2118AE8F0097A85D /* UIStylesHelper.m */,
+				018A31E7211A549E0043926B /* FilterPillHelper.h */,
+				018A31E8211A549E0043926B /* FilterPillHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				9EF4E3C820FD230F005535C6 /* Place.m in Sources */,
 				1C2C0BF620FD2CC00072BEFB /* PFUser+ExtendedUser.m in Sources */,
 				9E6755E521012DF10056D009 /* ProfileListCell.m in Sources */,
+				018A31E9211A549E0043926B /* FilterPillHelper.m in Sources */,
 				317B3937210267880057079A /* RelationshipsViewController.m in Sources */,
 				018A31E22119FD170043926B /* MainMapViewController.m in Sources */,
 				9E4D281F20FEBE130069CBF2 /* SignUpViewController.m in Sources */,
