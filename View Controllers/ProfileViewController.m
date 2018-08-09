@@ -204,18 +204,18 @@
     view.layer.masksToBounds = NO;
 }
 
-- (void)fetchPlaceImagesWithCompletion:(void(^)(void))completion {
-    NSMutableDictionary<NSString *, UIImage *> *mutableDict = [NSMutableDictionary new];
+- (void)fetchPlaceImagesFromPlaces:(NSArray<GMSPlace *> *)places withCompletion:(void(^)(void))completion {
+    NSMutableDictionary<NSString *, UIImage *> *mutableDict = [NSMutableDictionary dictionaryWithDictionary:self.placeImages];
     __block NSUInteger placeCount = 0;
     
-    for(GMSPlace *place in self.favorites)
+    for(GMSPlace *place in places)
     {
         [[APIManager shared] getPhotoMetadata:place.placeID :^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
             [[GMSPlacesClient sharedClient] loadPlacePhoto:photoMetadata.firstObject callback:^(UIImage * _Nullable photo, NSError * _Nullable error) {
                 mutableDict[place.placeID] = photo;
                 placeCount++;
                 
-                if(placeCount == self.favorites.count)
+                if(placeCount == places.count)
                 {
                     self.placeImages = [mutableDict copy];
                     completion();
@@ -234,24 +234,22 @@
           ^(NSArray<GMSPlace*>* places)
           {
               self.favorites = places;
-              [self fetchPlaceImagesWithCompletion:^{
-                  [self.tableView reloadData];
-              }];
               [self addFavoritesPins];
-              [self.progressIndicator stopAnimating];
-              [self.refreshControl endRefreshing];
-          }
-     ];
-    
-    // retrieve wishlist
-    [self.user retrieveWishlistWithCompletion:
-          ^(NSArray<GMSPlace*>* places)
-          {
-              self.wishlist = places;
-              [self.tableView reloadData];
-              [self addWishlistPins];
-              [self.progressIndicator stopAnimating];
-              [self.refreshControl endRefreshing];
+              [self fetchPlaceImagesFromPlaces:places withCompletion:^{
+                  // retrieve wishlist
+                  [self.user retrieveWishlistWithCompletion:
+                   ^(NSArray<GMSPlace*>* places)
+                   {
+                       self.wishlist = places;
+                       [self addWishlistPins];
+                       [self fetchPlaceImagesFromPlaces:places withCompletion:^{
+                           [self.tableView reloadData];
+                           [self.progressIndicator stopAnimating];
+                           [self.refreshControl endRefreshing];
+                       }];
+                   }
+                   ];
+              }];
           }
      ];
 }
@@ -374,6 +372,7 @@
     if([[PFUser currentUser].objectId isEqualToString:self.user.objectId]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ListView" bundle:[NSBundle mainBundle]];
         ListViewController *listVC = (ListViewController *)[storyboard instantiateViewControllerWithIdentifier:@"List"];
+        listVC.placeImages = self.placeImages;
         [self.navigationController pushViewController:listVC animated:YES];
     }
     else if([self.followButton.titleLabel.text isEqualToString:@"Follow"])
