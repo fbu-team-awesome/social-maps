@@ -20,6 +20,7 @@ typedef enum MarkerType : NSUInteger {
 @interface Marker : NSObject
 
 - (instancetype)initWithGMSPlace:(GMSPlace *)place markerType:(MarkerType)type user:(PFUser*)user;
++ (void)setMarkerImageWithGMSMarker:(GMSMarker *)marker;
 
 @property (strong, nonatomic) GMSPlace *place;
 @property (strong, nonatomic) NSArray *types;

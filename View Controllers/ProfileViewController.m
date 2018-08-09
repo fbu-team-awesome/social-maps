@@ -20,6 +20,7 @@
 #import "NCHelper.h"
 #import "ListViewController.h"
 #import "UIStylesHelper.h"
+#import "Marker.h"
 
 @interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
@@ -260,6 +261,7 @@
         GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
         marker.title = place.name;
         marker.appearAnimation = kGMSMarkerAnimationPop;
+        [Marker setMarkerImageWithGMSMarker:marker];
         marker.map = self.mapView;
         
         // add the key to our dictionary
@@ -273,7 +275,7 @@
         GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
         marker.title = place.name;
         marker.appearAnimation = kGMSMarkerAnimationPop;
-        marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+        [Marker setMarkerImageWithGMSMarker:marker];
         marker.map = self.mapView;
         
         // add the key to our dictionary
@@ -392,8 +394,11 @@
     
     // place pin
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place markerType:favorites user:[PFUser currentUser]];
+    marker.userData = thisMarker;
     marker.title = place.name;
     marker.appearAnimation = kGMSMarkerAnimationPop;
+    [Marker setMarkerImageWithGMSMarker:marker];
     marker.map = self.mapView;
     self.markers[marker.title] = place;
     
@@ -425,9 +430,11 @@
     
     // place pin
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place markerType:wishlist user:[PFUser currentUser]];
+    marker.userData = thisMarker;
     marker.title = place.name;
     marker.appearAnimation = kGMSMarkerAnimationPop;
-    marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+    [Marker setMarkerImageWithGMSMarker:marker];
     marker.map = self.mapView;
     self.markers[marker.title] = place;
     
