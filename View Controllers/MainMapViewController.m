@@ -517,7 +517,7 @@
     [self.infoWindow configureWindow];
     self.infoWindow.center = [self.mapView.projection pointForCoordinate:marker.position];
     self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y - 85, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
-    [self.resultsView addSubview:self.infoWindow];
+    [self.mapView addSubview:self.infoWindow];
  
     return false;
 }
