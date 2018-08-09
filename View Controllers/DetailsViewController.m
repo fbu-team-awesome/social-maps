@@ -359,9 +359,11 @@
     review.user = PFUser.currentUser;
     review.content = self.reviewTextView.text;
     review.rating = (NSInteger) (floor(self.userRating));
-    [self.parsePlace addReview:review withCompletion:^{
-        self.reviews = [self.reviews arrayByAddingObject:review];
-        [self reloadAndUpdateRating];
+    [review saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        [self.parsePlace addReview:review.objectId withCompletion:^{
+            self.reviews = [self.reviews arrayByAddingObject:review];
+            [self reloadAndUpdateRating];
+        }];
     }];
 }
 
@@ -369,10 +371,12 @@
     [PFUser.currentUser retrieveRelationshipWithCompletion:^(Relationships *relationships)  {
         [Relationships retrieveFollowingWithId:relationships.objectId WithCompletion:^(NSArray * _Nullable following) {
             NSLog(@"Fetched all following");
-            [self.parsePlace retrieveReviewsFromFollowing:following withCompletion:^(NSArray<Review *> *reviews) {
+            [self.parsePlace retrieveReviewsFromFollowing:following withCompletion:^(NSArray<NSString *> *reviews) {
                 NSLog(@"Fetched all reviews");
-                self.reviews = reviews;
-                [self reloadAndUpdateRating];
+                [Review retrieveReviewsWithIDs:reviews withCompletion:^(NSArray<Review *> *newReviews) {
+                    self.reviews = newReviews;
+                    [self reloadAndUpdateRating];
+                }];
             }];
         }];
     }];
