@@ -497,6 +497,7 @@
 - (MapMarkerWindow *) loadNib {
     [[NSBundle mainBundle] loadNibNamed:@"MarkerWindow" owner:self options:nil];
     MapMarkerWindow *markerWindow = self.markerWindowView;
+    
     [markerWindow addGestureRecognizer:self.markerWindowGestureRecognizer];
     return markerWindow;
 }
@@ -511,14 +512,17 @@
     //instantiate new infoWindow
     self.infoWindow = [self loadNib];
     self.infoWindow.delegate = self;
- 
+    self.infoWindow.userInteractionEnabled = YES;
+    
     //pass info to window
     self.infoWindow.marker = (Marker *)marker.userData;
     [self.infoWindow configureWindow];
     self.infoWindow.center = [self.mapView.projection pointForCoordinate:marker.position];
-    self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y - 85, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
-    [self.mapView addSubview:self.infoWindow];
- 
+    self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
+    [self.resultsView addSubview:self.infoWindow];
+    [self.resultsView bringSubviewToFront:self.searchView];
+    [self.resultsView bringSubviewToFront:self.filterView];
+    
     return false;
 }
  
@@ -530,7 +534,7 @@
     if (self.locationMarker != nil) {
         CLLocationCoordinate2D location = self.locationMarker.position;
         self.infoWindow.center = [self.mapView.projection pointForCoordinate:location];
-        self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y - 85, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
+        self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
     } else {
         NSLog(@"location marker is nil");
     }
