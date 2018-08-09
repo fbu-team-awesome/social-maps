@@ -88,6 +88,14 @@
     self.addressLabel.text = self.place.formattedAddress;
     [self updateCheckInLabel];
     [self initUsersCheckedIn];
+    
+    CGRect contentRect = CGRectZero;
+    
+    for (UIView *view in self.tableView.tableHeaderView.subviews) {
+        contentRect = CGRectUnion(contentRect, view.frame);
+    }
+    [self.tableView.tableHeaderView setFrame:CGRectMake(0, 0, contentRect.size.width, contentRect.size.height)];
+    
     [self initWriteReview];
     [self initShowReviews];
     
@@ -139,6 +147,11 @@
                 //display names of the first 2 users
                 if (self.usersCheckedIn.count == 0) {
                     self.usersLabel.text = @"None of your friends have checked in here.";
+                    CGFloat height = self.userPicsView.frame.size.height;
+                    self.userPicsView.hidden = YES;
+                    CGRect frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.tableHeaderView.frame.size.height - height);
+                    [self.tableView.tableHeaderView setFrame:frame];
+                    [self.tableView layoutSubviews];
                 } else if (self.usersCheckedIn.count == 1) {
                     self.usersLabel.text = [NSString stringWithFormat:@"%@ has checked in here.",self.usersCheckedIn[0].displayName];
                 } else if (self.usersCheckedIn.count == 2) {
