@@ -26,36 +26,11 @@
     self.nameLabel.text = self.place.name;
     self.addressLabel.text = self.place.formattedAddress;
     
-    if(self.placeImage.image == nil)
-    {
-        [[APIManager shared] getPhotoMetadata:self.place.placeID :^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
-            [self loadFirstImage:photoMetadata];
-        }];
-    }
-    
     [Place checkPlaceWithIDExists:self.place.placeID result:^(Place * _Nonnull parsePlace) {
 
         [self.favoriteButton setSelected:[[PFUser currentUser].favorites containsObject:parsePlace]];
         [self.wishlistButton setSelected:[[PFUser currentUser].wishlist containsObject:parsePlace]];
     }];
-}
-
--(void)loadFirstImage:(NSArray<GMSPlacePhotoMetadata *> *)photoMetadata {
-    
-    GMSPlacePhotoMetadata *firstPhoto = photoMetadata.firstObject;
-    
-    [[GMSPlacesClient sharedClient]
-     loadPlacePhoto:firstPhoto
-     constrainedToSize:self.placeImage.bounds.size
-     scale:self.placeImage.window.screen.scale
-     callback:^(UIImage *_Nullable photo, NSError *_Nullable error) {
-         if (error) {
-             NSLog(@"Error: %@", [error description]);
-         }
-         else {
-             self.placeImage.image = photo;
-         }
-     }];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
