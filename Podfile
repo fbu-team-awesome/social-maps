@@ -12,6 +12,6 @@ target 'social-maps' do
   pod 'HMSegmentedControl', '~> 1.5'
   pod 'DateTools'
   pod 'NYTPhotoViewer', '~> 1.0.0'
-  pod 'KBRoundedButton', '~> 1.0'
+  pod 'SSFadingScrollView', '~> 1.1'
 
 end

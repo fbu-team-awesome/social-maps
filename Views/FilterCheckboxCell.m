@@ -44,7 +44,7 @@
         [self.checkbox setSelected:YES];
         [markerManager.typeFilters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
         [markerManager.placeFilters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
-        [markerManager.allFilters setValue:[NSNumber numberWithBool:NO] forKey:self.list];
+        [markerManager.allFilters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
     }
 }
 @end

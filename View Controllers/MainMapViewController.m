@@ -6,6 +6,7 @@
 //  Copyright © 2018 Bevin Benson. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "MainMapViewController.h"
 #import "FilterListViewController.h"
 #import "DetailsViewController.h"
@@ -15,6 +16,7 @@
 #import "FilterPillHelper.h"
 #import "MapMarkerWindow.h"
 #import "NCHelper.h"
+#import "SSFadingScrollView.h"
 
 @interface MainMapViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, GMSMapViewDelegate, GMSAutocompleteFetcherDelegate, MarkerWindowDelegate, FilterDelegate, UIScrollViewDelegate>
 
@@ -25,6 +27,7 @@
 @property (strong, nonatomic) UIView *searchView;
 @property (strong, nonatomic) UIView *searchBoxView;
 @property (strong, nonatomic) UIView *filterView;
+@property (strong, nonatomic) SSFadingScrollView *pillScrollView;
 @property (strong, nonatomic) UITextField *searchField;
 @property (strong, nonatomic) UIButton *filterButton;
 @property (strong, nonatomic) UIButton *cancelButton;
@@ -241,25 +244,17 @@
     // [self.filterView setBackgroundColor:[UIColor blueColor]]
     [self.resultsView addSubview:self.filterView];
     
-    self.filterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 15, 0, 20, 20)];
-    // [self.filterButton setCenter:CGPointMake(self.filterButton.center.x, self.filterView.frame.size.height/2)];
-    [self.filterButton setImage:[UIImage imageNamed:@"filter_control"] forState:UIControlStateNormal];
-    [self.filterButton addTarget:self action:@selector(addFilterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.filterButton setUserInteractionEnabled:YES];
-    [self.filterButton sizeToFit];
-    [self.filterView addSubview:self.filterButton];
+    self.pillScrollView = [[SSFadingScrollView alloc] initWithFadeSize:30 axis:SSScrollViewFadeAxisHorizontal];
+    [self.pillScrollView setFadeTrailingEdge:NO];
+    self.pillScrollView.delegate = self;
+    [self.pillScrollView setScrollEnabled:YES];
+    [self.pillScrollView setShowsHorizontalScrollIndicator:NO];
     
-    UIScrollView *scrollView = [[UIScrollView alloc] init];
-    scrollView.delegate = self;
-    [scrollView setScrollEnabled:YES];
-    [scrollView setShowsHorizontalScrollIndicator:NO];
-    // [scrollView setPagingEnabled:YES];
-
     NSMutableDictionary *filters = [MarkerManager shared].allFilters;
     NSArray *lists = [MarkerManager shared].filterKeys;
     CGRect lastFrame = CGRectMake(0, 0, 0, 0);
     for (NSString *list in lists) {
-        if ([filters objectForKey:list]) {
+        if ([[filters objectForKey:list] boolValue]) {
             FilterType type;
             if ([list isEqualToString:kFavoritesKey]) {
                 type = favFilter;
@@ -277,19 +272,23 @@
             [pillView setFrame:CGRectMake(lastFrame.origin.x + CGRectGetWidth(lastFrame) + 5, 3, pillView.frame.size.width, pillView.frame.size.height)];
             // [pillView setCenter:CGPointMake(pillView.center.x, self.filterView.frame.size.height/2)];
             lastFrame = pillView.frame;
-            [scrollView addSubview:pillView];
+            [self.pillScrollView addSubview:pillView];
         }
     }
     
-    CGFloat contentWidth = lastFrame.origin.x + CGRectGetWidth(lastFrame) + CGRectGetWidth(self.filterButton.frame) + 5;
-    [scrollView setFrame:CGRectMake(self.filterButton.frame.origin.x + CGRectGetWidth(self.filterButton.frame) + 5, 0, CGRectGetWidth(self.filterView.frame) - 24, self.filterView.frame.size.height)];
-    // [scrollView setBackgroundColor:[UIColor blueColor]];
-    // [self.filterButton setBackgroundColor:[UIColor redColor]];
-    [scrollView setCenter:CGPointMake(scrollView.center.x, self.filterView.frame.size.height/2)];
-    [scrollView setContentSize:CGSizeMake(contentWidth, CGRectGetHeight(scrollView.frame))];
+    self.filterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 15, 0, 20, 20)];
     [self.filterButton setCenter:CGPointMake(self.filterButton.center.x, CGRectGetHeight(lastFrame)/2 + 3)];
-    // [scrollView setBackgroundColor:[UIColor blueColor]];
-    [self.filterView addSubview:scrollView];
+    [self.filterButton setImage:[UIImage imageNamed:@"filter_control"] forState:UIControlStateNormal];
+    [self.filterButton addTarget:self action:@selector(addFilterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.filterButton setUserInteractionEnabled:YES];
+    [self.filterButton sizeToFit];
+    [self.filterView addSubview:self.filterButton];
+
+    CGFloat contentWidth = lastFrame.origin.x + CGRectGetWidth(lastFrame) + CGRectGetWidth(self.filterButton.frame) + 5;
+    [self.pillScrollView setFrame:CGRectMake(self.filterButton.frame.origin.x + CGRectGetWidth(self.filterButton.frame) + 5, 0, CGRectGetWidth(self.filterView.frame), self.filterView.frame.size.height)];
+    [self.pillScrollView setCenter:CGPointMake(self.pillScrollView.center.x, self.filterView.frame.size.height/2)];
+    [self.pillScrollView setContentSize:CGSizeMake(contentWidth, CGRectGetHeight(self.pillScrollView.frame))];
+    [self.filterView addSubview:self.pillScrollView];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
@@ -510,6 +509,8 @@
 
 - (void)filterSelectionDone {
     [self addPinsToMap];
+    [self.pillScrollView removeFromSuperview];
+    [self initFilter];
 }
 
 - (void)addFilterButtonTapped {
