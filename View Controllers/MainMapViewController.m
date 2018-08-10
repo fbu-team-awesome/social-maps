@@ -197,6 +197,7 @@
     
     self.tempMarker.map = nil;
     self.tempMarker = nil;
+    [self.view endEditing:YES];
 }
 
 - (void)textChanged {
@@ -211,6 +212,7 @@
         
         self.tempMarker.map = nil;
         self.tempMarker = nil;
+        [self.view endEditing:YES];
     }
     else if (searchText.length == 1) {
         [self showCancel];
@@ -442,6 +444,7 @@
         }
     }
     for (GMSMarker *marker in currentPins) {
+        [Marker setMarkerImageWithGMSMarker:marker];
         marker.map = self.mapView;
     }
 }
@@ -450,11 +453,13 @@
 
 - (void)setNewFavoritePin:(NSNotification *)notification {
     GMSMarker *marker = [[MarkerManager shared] setFavoritePin:notification.object];
+    [Marker setMarkerImageWithGMSMarker:marker];
     marker.map = self.mapView;
 }
 
 - (void)setNewWishlistPin:(NSNotification *)notification {
     GMSMarker *marker = [[MarkerManager shared] setWishlistPin:notification.object];
+    [Marker setMarkerImageWithGMSMarker:marker];
     marker.map = self.mapView;
 }
 
@@ -463,6 +468,7 @@
         // add each place to map
         for (GMSPlace *place in places) {
             GMSMarker *marker = [[MarkerManager shared] setFavoriteOfFollowingPin:place :notification.object];
+            [Marker setMarkerImageWithGMSMarker:marker];
             marker.map = self.mapView;
         }
     }];

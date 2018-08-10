@@ -21,4 +21,20 @@
     return self;
 }
 
++ (void)setMarkerImageWithGMSMarker:(GMSMarker *)marker {
+    Marker *thisMarker = marker.userData;
+    if (thisMarker.type == favorites)  {
+        UIImage *favMarkerIcon = [UIImage imageNamed:@"favorites_marker_icon"];
+        marker.icon = favMarkerIcon;
+    }
+    else if (thisMarker.type == wishlist) {
+        UIImage *wishlistMarkerIcon = [UIImage imageNamed:@"wishlist_marker_icon"];
+        marker.icon = wishlistMarkerIcon;
+    }
+    else if (thisMarker.type == followFavorites) {
+        UIImage *friendsMarkerIcon = [UIImage imageNamed:@"friends_marker_icon"];
+        marker.icon = friendsMarkerIcon;
+    }
+}
+
 @end
