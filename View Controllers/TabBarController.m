@@ -31,6 +31,8 @@
     [[self.viewControllers objectAtIndex:2].tabBarItem setImage:[UIImage imageNamed:@"map_icon"]];
     [[self.viewControllers objectAtIndex:3].tabBarItem setImage:[UIImage imageNamed:@"notification-icon"]];
     [[self.viewControllers objectAtIndex:4].tabBarItem setImage:[UIImage imageNamed:@"user_icon"]];
+    [self.tabBar setBackgroundImage:[UIImage new]];
+    [self.tabBar setShadowImage:[UIImage new]];
 }
 
 - (void)didReceiveMemoryWarning {
