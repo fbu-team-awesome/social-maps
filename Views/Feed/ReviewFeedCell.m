@@ -52,6 +52,11 @@
     rating.value = (CGFloat)self.event.review.rating;
     [rating setBackgroundColor:[UIColor clearColor]];
     [rating setEnabled:NO];
+    rating.minimumValue = 0;
+    rating.maximumValue = 5;
+    rating.starBorderWidth= 0;
+    rating.filledStarImage = [UIImage imageNamed:@"star_filled"] ;
+    rating.emptyStarImage = [UIImage imageNamed:@"star_unfilled"];
     [self.ratingView addSubview:rating];
     
     // set rounded image
