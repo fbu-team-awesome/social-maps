@@ -25,7 +25,9 @@
     [super awakeFromNib];
     
     // hide the cell
-    [self.contentView setAlpha:0];}
+    [self.contentView setAlpha:0];
+    
+}
 
 - (void)initUI {
     // set up content formatting
@@ -44,10 +46,12 @@
     [ParseImageHelper setImageFromPFFile:self.event.photo forImageView:self.photoImage];
     self.timeLabel.text = [self.event getTimestamp];
     
-    // set rounded image
+    // set rounded images
     [UIStylesHelper addRoundedCornersToView:self.pictureView];
     [UIStylesHelper addRoundedCornersToView:self.profilePictureImage];
     [UIStylesHelper addShadowToView:self.pictureView];
+    self.photoImage.layer.cornerRadius = 10;
+    self.photoImage.clipsToBounds = YES;
     
     // fade into visibility
     [UIView animateWithDuration:0.3 animations:^{
