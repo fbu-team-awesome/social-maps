@@ -9,6 +9,8 @@
 #import "Place.h"
 #import "APIManager.h"
 #import "ReviewAdditionEvent.h"
+#import "PhotoAdditionEvent.h"
+#import "CheckInEvent.h"
 
 @implementation Place
 @dynamic placeID, placeName, checkIns, photos, reviews, rating;
@@ -80,7 +82,13 @@
 
 - (void)didCheckIn:(PFUser *)user {
     [self addObject:user.objectId forKey:@"checkIns"];
-    [self saveInBackground];
+    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        CheckInEvent *event = [CheckInEvent new];
+        event.place = self;
+        event.user = PFUser.currentUser;
+        event.eventType = ETCheckin;
+        [event saveInBackground];
+    }];
 }
 
 - (void)getUsersCheckedInWithCompletion:(void(^)(NSArray <NSString*>*))completion {
@@ -112,6 +120,12 @@
     //set the photos dictionary to the mutable copy
     self.photos = [newPhotos copy];
     [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        PhotoAdditionEvent *event = [PhotoAdditionEvent new];
+        event.user = PFUser.currentUser;
+        event.photo = photo;
+        event.place = self;
+        event.eventType = ETPhotoAddition;
+        [event saveInBackground];
         completion();
     }];
 }
@@ -160,16 +174,19 @@
     self.reviews = [newReviews copy];
     
     [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        // create the feed event
-        /*ReviewAdditionEvent *event = [ReviewAdditionEvent new];
-        event.user = review.user;
-        event.eventType = ETReviewAddition;
-        event.review = review;
-        event.place = self;
-        [event saveInBackground];
-         */
-        completion();
-         
+        PFQuery *query = [PFQuery queryWithClassName:@"Review"];
+        [query includeKey:@"user"];
+        [query getObjectInBackgroundWithId:reviewId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            Review *review = (Review *)object;
+            // create the feed event
+            ReviewAdditionEvent *event = [ReviewAdditionEvent new];
+            event.user = review.user;
+            event.eventType = ETReviewAddition;
+            event.review = review;
+            event.place = self;
+            [event saveInBackground];
+            completion();
+        }];
     }];
 }
 
