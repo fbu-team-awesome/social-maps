@@ -236,7 +236,9 @@
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sE7-1s-oW6"/>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sE7-1s-oW6">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                                                                    </imageView>
                                                                 </subviews>
                                                             </view>
                                                             <constraints>
@@ -541,7 +543,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="VTR_Background"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ahU-xE-xii" firstAttribute="trailing" secondItem="e3o-os-m1e" secondAttribute="trailing" id="1Me-5J-pj2"/>
@@ -609,6 +611,9 @@
         <image name="right_arrow" width="28" height="46"/>
         <image name="wishlist_selected" width="23" height="40"/>
         <image name="wishlist_unselected" width="24" height="40"/>
+        <namedColor name="VTR_Background">
+            <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="VTR_Background">
             <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
