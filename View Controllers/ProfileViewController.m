@@ -145,7 +145,7 @@
     // set navbar title
     if([self.user.username isEqualToString:[PFUser currentUser].username])
     {
-        [self.navigationController.navigationBar.topItem setTitle:@"MY PROFILE"];
+        [self.navigationController.navigationBar.topItem setTitle:@"My Profile"];
     }
     else
     {

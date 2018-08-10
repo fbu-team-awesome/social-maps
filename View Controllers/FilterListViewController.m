@@ -9,6 +9,7 @@
 #import "FilterListViewController.h"
 #import "FilterCheckboxCell.h"
 #import "MarkerManager.h"
+#import "UIStylesHelper.h"
 
 @interface FilterListViewController ()
 
@@ -34,8 +35,21 @@
     [self.tableView reloadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.navigationController.navigationBar.topItem setTitle:@"Filters"];
+    
+    // set navbar styles
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+    [UIStylesHelper addShadowToView:self.navigationController.navigationBar withOffset:CGSizeMake(0, 2) withRadius:1.5 withOpacity:0.1];
+    
+    // show navbar
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 - (void)organizeFiltersIntoSections {
-    self.sectionTitles = @[@"Your Lists", @"Lists of Your Follows", @"Places Categories"];
+    self.sectionTitles = @[@"Your Lists", @"Your Friends", @"Places Categories"];
     NSArray *filterNames = [MarkerManager shared].filterKeys;
     
     self.sections = [NSMutableDictionary new];
@@ -68,6 +82,14 @@
     [checkboxCell configureCell];
     
     return checkboxCell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    
+    header.textLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:14];
+    CGRect headerFrame = header.frame;
+    header.textLabel.frame = headerFrame;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

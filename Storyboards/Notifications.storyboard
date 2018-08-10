@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--NOTIFICATIONS-->
+        <!--Notifications-->
         <scene sceneID="IBY-JY-TsC">
             <objects>
                 <viewController id="1n4-NY-y9o" customClass="NotificationsViewController" sceneMemberID="viewController">
@@ -96,7 +96,7 @@
                         <color key="backgroundColor" name="VTR_Background"/>
                         <viewLayoutGuide key="safeArea" id="kgw-LW-faX"/>
                     </view>
-                    <navigationItem key="navigationItem" title="NOTIFICATIONS" id="DVT-Q0-IT6"/>
+                    <navigationItem key="navigationItem" title="Notifications" id="DVT-Q0-IT6"/>
                     <connections>
                         <outlet property="tableView" destination="VoV-OK-9fg" id="Ig9-Qn-h0t"/>
                     </connections>
@@ -129,9 +129,6 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="VTR_Background">
-            <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="VTR_Background">
             <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
