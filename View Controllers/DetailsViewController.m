@@ -98,6 +98,7 @@
     self.isEditing = NO;
     [UIStylesHelper addRoundedCornersToView:self.checkInButton];
     [UIStylesHelper addShadowToView:self.checkInButton withOffset:CGSizeMake(0, 1) withRadius:2 withOpacity:0.16];
+    [UIStylesHelper addGradientToView:self.checkInButton];
     
     [self updateCheckInLabel];
     [self initUsersCheckedIn];
@@ -397,6 +398,7 @@
     
     [UIStylesHelper addRoundedCornersToView:self.submitButton];
     [UIStylesHelper addShadowToView:self.submitButton withOffset:CGSizeMake(0, 1) withRadius:2 withOpacity:0.16];
+    [UIStylesHelper addGradientToView:self.submitButton];
 }
 
 -(void)keyboardWillAppear:(NSNotification *)notification {

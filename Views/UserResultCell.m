@@ -9,6 +9,7 @@
 #import "UserResultCell.h"
 #import "ParseImageHelper.h"
 #import "NCHelper.h"
+#import "UIStylesHelper.h"
 
 @interface UserResultCell ()
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
