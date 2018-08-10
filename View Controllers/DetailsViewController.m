@@ -21,7 +21,7 @@
 #import "ReviewCell.h"
 #import "UIStylesHelper.h"
 
-@interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PhotoCellDelegate, NYTPhotosViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PhotoCellDelegate, NYTPhotosViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
 // Outlet Definitions //
 @property (weak, nonatomic) IBOutlet UILabel *placeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
@@ -44,6 +44,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *overallRatingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ratingsCountLabel;
 @property (weak, nonatomic) IBOutlet UIButton *checkInButton;
+@property (weak, nonatomic) IBOutlet UIView *checkInButtonView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *composeBottomSpace;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -55,6 +57,8 @@
 @property (nonatomic) CGFloat userRating;
 @property (nonatomic) CGFloat tableViewHeight;
 @property (nonatomic) double overallRating;
+@property (nonatomic) bool isEditing;
+@property (nonatomic) CGFloat keyboardHeight;
 
 @end
 
@@ -87,11 +91,18 @@
 - (void)updateContent {
     self.placeNameLabel.text = self.place.name;
     self.addressLabel.text = self.place.formattedAddress;
+    self.isEditing = NO;
+    [UIStylesHelper addRoundedCornersToView:self.checkInButton];
+    [UIStylesHelper addShadowToView:self.checkInButton withOffset:CGSizeMake(0, 1) withRadius:2 withOpacity:0.16];
+    
     [self updateCheckInLabel];
     [self initUsersCheckedIn];
     
-    CGRect contentRect = CGRectZero;
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification object:nil];
+    [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
+    CGRect contentRect = CGRectZero;
     for (UIView *view in self.tableView.tableHeaderView.subviews) {
         contentRect = CGRectUnion(contentRect, view.frame);
     }
@@ -334,9 +345,42 @@
     self.reviewTextView.layer.cornerRadius = 8;
     self.reviewTextView.layer.borderColor = [UIColor colorNamed:@"VTR_Borders"].CGColor;
     self.reviewTextView.layer.borderWidth = 1;
+    self.reviewTextView.delegate = self;
     
     [UIStylesHelper addRoundedCornersToView:self.submitButton];
     [UIStylesHelper addShadowToView:self.submitButton withOffset:CGSizeMake(0, 1) withRadius:2 withOpacity:0.16];
+}
+
+-(void)keyboardWillAppear:(NSNotification *)notification {
+    NSDictionary *info  = notification.userInfo;
+    NSValue *value = info[UIKeyboardFrameEndUserInfoKey];
+    
+    CGRect rawFrame = [value CGRectValue];
+    CGRect keyboardFrame = [self.view convertRect:rawFrame fromView:nil];
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardFrame.size.height-self.tabBarController.tabBar.frame.size.height), 0.0);
+    [UITableView animateWithDuration:0.3 animations:^{
+        
+        [self.tableView setContentInset: contentInsets];
+        self.tableView.scrollIndicatorInsets = contentInsets;
+        [self.tableView scrollRectToVisible:[self.tableView convertRect:self.tableView.tableFooterView.bounds fromView:self.tableView.tableFooterView] animated:NO];
+    }];
+
+    self.isEditing = YES;
+}
+
+- (IBAction)didTapView:(id)sender {
+    if(self.isEditing) {
+        [self.reviewTextView endEditing:YES];
+    }
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    [UITableView animateWithDuration:0.3 animations:^{
+        self.tableView.contentInset = UIEdgeInsetsZero;
+        self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+    }];
+    self.isEditing = NO;
 }
 
 - (void) initShowReviews {
@@ -429,5 +473,6 @@
     
     [self.ratingsCountLabel setText:[NSString stringWithFormat:@"%lu ratings",self.reviews.count]];
 }
+
 
 @end
