@@ -18,7 +18,7 @@
 @property (strong, nonatomic, nullable) NSString *placeName;
 @property (strong, nonatomic, nullable) NSArray <NSString*> *checkIns;
 @property (strong, nonatomic, nullable) NSDictionary<NSString *, NSArray<PFFile *> *> *photos;
-@property (strong, nonatomic, nullable) NSDictionary<NSString *, NSArray<Review *> *> *reviews;
+@property (strong, nonatomic, nullable) NSDictionary<NSString *, NSArray<NSString *> *> *reviews;
 @property (nonatomic) double rating;
 
 - (nonnull instancetype)initWithGMSPlace:(nonnull GMSPlace*)place;
@@ -28,8 +28,8 @@
 + (void)checkGMSPlaceExists:(nonnull GMSPlace*)place result:(void(^_Nonnull)(Place* _Nonnull))result;
 - (void)addPhoto:(PFFile *_Nonnull)photo withCompletion:(void(^_Nullable)(void))completion;
 - (void)retrievePhotosFromFollowing:(NSArray <NSString*>* _Nonnull)following withCompletion:(void(^ _Nonnull)(NSArray <Photo *>* _Nonnull))completion;
-- (void)addReview:(Review *_Nonnull)review withCompletion:(void(^_Nullable)(void))completion;
-- (void)retrieveReviewsFromFollowing:(NSArray <NSString*>* _Nonnull)following withCompletion:(void(^ _Nonnull)(NSArray <Review *>* _Nonnull))completion;
+- (void)addReview:(NSString *_Nonnull)reviewId withCompletion:(void(^_Nullable)(void))completion;
+- (void)retrieveReviewsFromFollowing:(NSArray <NSString*>* _Nonnull)following withCompletion:(void(^ _Nonnull)(NSArray <NSString *>* _Nonnull))completion;
     
 @end
 

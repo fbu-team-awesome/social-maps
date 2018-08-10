@@ -25,4 +25,38 @@
         completion(newReview);
     }];
 }
+
+
++ (void)retrieveReviewsWithIDs:(NSArray<NSString*>*)IDs withCompletion:(void(^)(NSArray<Review*>*))completion {
+    NSMutableArray<Review*>* reviews = [NSMutableArray new];
+    
+    // if there are no IDs, return before
+    if(IDs.count == 0)
+    {
+        completion([reviews copy]);
+    }
+    
+    // loop through all IDs
+    for(NSString* ID in IDs)
+    {
+        PFQuery* query = [PFQuery queryWithClassName:@"Review"];
+        [query includeKey:@"user"];
+        // query the ID
+        [query getObjectInBackgroundWithId:ID
+                                     block:^(PFObject * _Nullable object, NSError * _Nullable error)
+         {
+             if(object != nil)
+             {
+                 [reviews addObject:(Review*)object];
+             }
+             
+             // if our users array's length is the same as the IDs, then we are done
+             if(reviews.count == IDs.count)
+             {
+                 completion((NSArray*)reviews);
+             }
+         }
+         ];
+    }
+}
 @end

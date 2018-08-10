@@ -19,6 +19,7 @@
 #import <NYTPhotoViewer/NYTPhotosViewController.h>
 #import "HCSStarRatingView.h"
 #import "ReviewCell.h"
+#import "UIStylesHelper.h"
 
 @interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PhotoCellDelegate, NYTPhotosViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 // Outlet Definitions //
@@ -37,6 +38,12 @@
 @property (weak, nonatomic) IBOutlet UITextView *reviewTextView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *overallRatingView;
+@property (weak, nonatomic) IBOutlet UIView *composeRatingView;
+@property (weak, nonatomic) IBOutlet UIView *submitButtonView;
+@property (weak, nonatomic) IBOutlet UIButton *submitButton;
+@property (weak, nonatomic) IBOutlet UILabel *overallRatingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ratingsCountLabel;
+@property (weak, nonatomic) IBOutlet UIButton *checkInButton;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -82,6 +89,14 @@
     self.addressLabel.text = self.place.formattedAddress;
     [self updateCheckInLabel];
     [self initUsersCheckedIn];
+    
+    CGRect contentRect = CGRectZero;
+    
+    for (UIView *view in self.tableView.tableHeaderView.subviews) {
+        contentRect = CGRectUnion(contentRect, view.frame);
+    }
+    [self.tableView.tableHeaderView setFrame:CGRectMake(0, 0, contentRect.size.width, contentRect.size.height)];
+    
     [self initWriteReview];
     [self initShowReviews];
     
@@ -134,6 +149,11 @@
                 //display names of the first 2 users
                 if (self.usersCheckedIn.count == 0) {
                     self.usersLabel.text = @"None of your friends have checked in here.";
+                    CGFloat height = self.userPicsView.frame.size.height;
+                    self.userPicsView.hidden = YES;
+                    CGRect frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.tableHeaderView.frame.size.height - height);
+                    [self.tableView.tableHeaderView setFrame:frame];
+                    [self.tableView layoutSubviews];
                 } else if (self.usersCheckedIn.count == 1) {
                     self.usersLabel.text = [NSString stringWithFormat:@"%@ has checked in here.",self.usersCheckedIn[0].displayName];
                 } else if (self.usersCheckedIn.count == 2) {
@@ -237,6 +257,7 @@
     [self.parsePlace didCheckIn:PFUser.currentUser];
     [PFUser.currentUser addCheckIn:self.place.placeID withCompletion:^{
         [self updateCheckInLabel];
+        [UIStylesHelper animateTapOnView:self.checkInButton];
     }];
 }
 
@@ -302,11 +323,21 @@
 #pragma mark - Reviews
 
 - (void) initWriteReview {
-    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(72, 32, 100, 25)];
+    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 95, 13)];
     ratingView.minimumValue = 0;
     ratingView.maximumValue = 5;
+    ratingView.starBorderWidth= 0;
+    ratingView.filledStarImage = [UIImage imageNamed:@"star_filled"] ;
+    ratingView.emptyStarImage = [UIImage imageNamed:@"star_unfilled"];
     [ratingView addTarget:self action:@selector(didChangeRating:) forControlEvents:UIControlEventValueChanged];
-    [self.composeView addSubview:ratingView];
+    [self.composeRatingView addSubview:ratingView];
+    
+    self.reviewTextView.layer.cornerRadius = 8;
+    self.reviewTextView.layer.borderColor = [UIColor colorNamed:@"VTR_Borders"].CGColor;
+    self.reviewTextView.layer.borderWidth = 1;
+    
+    [UIStylesHelper addRoundedCornersToView:self.submitButton];
+    [UIStylesHelper addShadowToView:self.submitButton withOffset:CGSizeMake(0, 1) withRadius:2 withOpacity:0.16];
 }
 
 - (void) initShowReviews {
@@ -331,9 +362,11 @@
     review.user = PFUser.currentUser;
     review.content = self.reviewTextView.text;
     review.rating = (NSInteger) (floor(self.userRating));
-    [self.parsePlace addReview:review withCompletion:^{
-        self.reviews = [self.reviews arrayByAddingObject:review];
-        [self reloadAndUpdateRating];
+    [review saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        [self.parsePlace addReview:review.objectId withCompletion:^{
+            self.reviews = [self.reviews arrayByAddingObject:review];
+            [self reloadAndUpdateRating];
+        }];
     }];
 }
 
@@ -341,9 +374,12 @@
     [PFUser.currentUser retrieveRelationshipWithCompletion:^(Relationships *relationships)  {
         [Relationships retrieveFollowingWithId:relationships.objectId WithCompletion:^(NSArray * _Nullable following) {
             NSLog(@"Fetched all following");
-            [self.parsePlace retrieveReviewsFromFollowing:following withCompletion:^(NSArray<Review *> *reviews) {
-                self.reviews = reviews;
-                [self reloadAndUpdateRating];
+            [self.parsePlace retrieveReviewsFromFollowing:following withCompletion:^(NSArray<NSString *> *reviews) {
+                NSLog(@"Fetched all reviews");
+                [Review retrieveReviewsWithIDs:reviews withCompletion:^(NSArray<Review *> *newReviews) {
+                    self.reviews = newReviews;
+                    [self reloadAndUpdateRating];
+                }];
             }];
         }];
     }];
@@ -375,11 +411,24 @@
     {
         [view removeFromSuperview];
     }
-    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
+    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 95, 13)];
+    ratingView.minimumValue = 0;
+    ratingView.maximumValue = 5;
+    ratingView.starBorderWidth= 0;
+    ratingView.filledStarImage = [UIImage imageNamed:@"star_filled"] ;
+    ratingView.emptyStarImage = [UIImage imageNamed:@"star_unfilled"];
     ratingView.value = (CGFloat) self.overallRating;
     ratingView.allowsHalfStars = YES;
     [ratingView setEnabled:NO];
     [self.overallRatingView addSubview:ratingView];
+    NSNumber *ratingNumber = [NSNumber numberWithDouble:self.overallRating];
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.roundingIncrement = [NSNumber numberWithDouble:0.01];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    [self.overallRatingLabel setText:[NSString stringWithFormat:@"%@ stars",[formatter stringFromNumber:ratingNumber]]];
+    
+    [self.ratingsCountLabel setText:[NSString stringWithFormat:@"%lu ratings",self.reviews.count]];
 }
 
 @end

@@ -14,4 +14,6 @@
 @property (nonatomic) int rating;
 
 + (void)reviewWithUser:(nonnull PFUser *)user withContent:(nonnull NSString *)content withRating:(int)rating withCompletion:(void(^_Nullable)(Review * _Nonnull review))completion;
++ (void)retrieveReviewsWithIDs:(NSArray<NSString*>*_Nonnull)IDs withCompletion:(void(^_Nullable)(NSArray<Review*>*))completion;
+
 @end

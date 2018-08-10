@@ -208,7 +208,6 @@
 
 - (void)_updateAppearanceForState:(BOOL)enabled
 {
-    self.alpha = enabled ? 1.f : .5f;
 }
 
 #pragma mark - Image Drawing
@@ -302,7 +301,7 @@
     
     CGFloat availableWidth = rect.size.width - (_spacing * (_maximumValue - 1)) - 2;
     CGFloat cellWidth = (availableWidth / _maximumValue);
-    CGFloat starSide = (cellWidth <= rect.size.height) ? cellWidth : rect.size.height;
+    CGFloat starSide = (cellWidth <= rect.size.height) ? cellWidth : rect.size.height+1;
     starSide = (self.shouldUseImages) ? starSide : (starSide - _starBorderWidth);
     
     for (int idx = 0; idx < _maximumValue; idx++) {
@@ -425,7 +424,7 @@
 
 - (CGSize)intrinsicContentSize {
     CGFloat height = 44.f;
-    return CGSizeMake(_maximumValue * height + (_maximumValue-1) * _spacing, height);
+    return CGSizeMake(_maximumValue * (height) + (_maximumValue-1) * _spacing, height+1);
 }
 
 #pragma mark - Accessibility

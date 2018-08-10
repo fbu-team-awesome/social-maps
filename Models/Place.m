@@ -141,38 +141,41 @@
     completion([followingPhotos copy]);
 }
 
-- (void)addReview:(Review *)review withCompletion:(void(^)(void))completion {
+- (void)addReview:(NSString *)reviewId withCompletion:(void(^)(void))completion {
     //create a mutable copy
     NSMutableDictionary *newReviews = [self.reviews mutableCopy];
     
     //if user has never added reviews to this place, add to new reviews array
     if ([newReviews objectForKey:PFUser.currentUser.objectId] == nil) {
-        NSArray *newReviewsArray = [NSArray arrayWithObject:review];
+        NSArray *newReviewsArray = [NSArray arrayWithObject:reviewId];
         [newReviews setObject:newReviewsArray forKey:PFUser.currentUser.objectId];
     }
     //else add to existing reviews array
     else {
-        NSArray *reviewsArray = [newReviews[PFUser.currentUser.objectId] arrayByAddingObject:review];
+        NSArray *reviewsArray = [newReviews[PFUser.currentUser.objectId] arrayByAddingObject:reviewId];
         [newReviews setObject:reviewsArray forKey:PFUser.currentUser.objectId];
     }
     
     //set the reviews dictionary to the mutable copy
     self.reviews = [newReviews copy];
+    
     [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         // create the feed event
-        ReviewAdditionEvent *event = [ReviewAdditionEvent new];
+        /*ReviewAdditionEvent *event = [ReviewAdditionEvent new];
         event.user = review.user;
         event.eventType = ETReviewAddition;
         event.review = review;
         event.place = self;
         [event saveInBackground];
+         */
         completion();
+         
     }];
 }
 
-- (void)retrieveReviewsFromFollowing:(NSArray <NSString*>*)following withCompletion:(void(^)(NSArray <Review *>*))completion {
+- (void)retrieveReviewsFromFollowing:(NSArray <NSString*>*)following withCompletion:(void(^)(NSArray <NSString *>*))completion {
     //iterate through following list to add dictionary pairs to new dictionary
-    NSMutableDictionary <NSString *, NSArray<Review *>*> *filteredPlaceReviews = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary <NSString *, NSArray<NSString *>*> *filteredPlaceReviews = [[NSMutableDictionary alloc] init];
     for (NSString *followingId in following) {
         if ([self.reviews objectForKey:followingId] != nil) {
             [filteredPlaceReviews setObject:[self.reviews objectForKey:followingId] forKey:followingId];
@@ -185,30 +188,11 @@
     }
 
     //iterate through dictionary to put objects in a new Photo array
-    __block NSMutableArray <Review *> *followingReviews = [NSMutableArray new];
-    NSMutableArray <Review *> *totalReviews = [NSMutableArray new];
-    __block long userCount = 0;
+    __block NSArray <NSString *> *followingReviews = [NSMutableArray new];
     for (NSString *followingId in [filteredPlaceReviews allKeys]) {
-        for (Review *review in filteredPlaceReviews[followingId]) {
-            PFQuery *query = [PFQuery queryWithClassName:@"Review"];
-            [query includeKey:@"user"];
-            [query getObjectInBackgroundWithId:review.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
-                Review *newReview = (Review *)object;
-                [followingReviews addObject:newReview];
-                //if we have added all reviews, add this user to our userCount
-                
-                if (followingReviews.count == filteredPlaceReviews[followingId].count) {
-                    userCount++;
-                    [totalReviews addObjectsFromArray:followingReviews];
-                    followingReviews = [NSMutableArray new];
-                    
-                    if (userCount == [filteredPlaceReviews allKeys].count) {
-                        completion([totalReviews copy]);
-                    }
-                }
-            }];
-        }
+        followingReviews = [followingReviews arrayByAddingObjectsFromArray:filteredPlaceReviews[followingId]];
     }
+    completion(followingReviews);
     
 }
 @end

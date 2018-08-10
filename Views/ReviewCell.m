@@ -10,6 +10,8 @@
 #import "ParseImageHelper.h"
 #import "PFUser+ExtendedUser.h"
 #import "HCSStarRatingView.h"
+#import "UIStylesHelper.h"
+#import "DateTools.h"
 
 @implementation ReviewCell
 
@@ -26,10 +28,19 @@
         {
             [view removeFromSuperview];
         }
-        HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
+        HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 95, 13)];
+        ratingView.minimumValue = 0;
+        ratingView.maximumValue = 5;
+        ratingView.starBorderWidth= 0;
+        ratingView.filledStarImage = [UIImage imageNamed:@"star_filled"] ;
+        ratingView.emptyStarImage = [UIImage imageNamed:@"star_unfilled"];
         ratingView.value = (CGFloat) self.review.rating;
         [ratingView setEnabled:NO];
         [self.rateView addSubview:ratingView];
+        
+        [UIStylesHelper addRoundedCornersToView:self.profilePicture];
+        
+        self.dateLabel.text = self.review.createdAt.timeAgoSinceNow;
     }
 }
 
