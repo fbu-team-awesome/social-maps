@@ -26,6 +26,11 @@
                                 <color key="backgroundColor" name="VTR_Background"/>
                                 <color key="separatorColor" name="VTR_Borders"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <view key="tableFooterView" alpha="0.5" contentMode="scaleToFill" id="Ji7-SK-ZBz">
+                                    <rect key="frame" x="0.0" y="372" width="375" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" name="VTR_Borders"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaceResultCell" rowHeight="132" id="po7-1g-UQF" customClass="PlaceResultCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="132"/>
@@ -392,6 +397,9 @@
         </namedColor>
         <namedColor name="VTR_BlackLabel">
             <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_Borders">
+            <color red="0.9100000262260437" green="0.9100000262260437" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="VTR_Borders">
             <color red="0.9100000262260437" green="0.9100000262260437" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
