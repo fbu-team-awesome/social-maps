@@ -26,6 +26,11 @@
                                 <color key="backgroundColor" name="VTR_Background"/>
                                 <color key="separatorColor" name="VTR_Borders"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <view key="tableFooterView" alpha="0.5" contentMode="scaleToFill" id="Aa6-S5-Smh">
+                                    <rect key="frame" x="0.0" y="562" width="375" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" name="VTR_Borders"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdditionFeedCell" rowHeight="67" id="BEV-XA-RN6" customClass="AdditionFeedCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="67"/>
@@ -67,7 +72,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="VTR_Background"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="jsS-fz-NBS" firstAttribute="leading" secondItem="49g-et-8ZU" secondAttribute="leadingMargin" constant="47" id="6Hk-JZ-THb"/>
                                                 <constraint firstItem="jsS-fz-NBS" firstAttribute="top" secondItem="Hma-bP-1yM" secondAttribute="bottom" constant="4" id="9rM-le-IVp"/>
@@ -126,7 +131,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" name="VTR_Background"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="S06-Mk-pg3" secondAttribute="trailing" constant="10" id="Ge8-Ta-UIx"/>
                                                 <constraint firstItem="S06-Mk-pg3" firstAttribute="top" secondItem="ENb-Tm-5KR" secondAttribute="top" constant="13" id="MRi-s4-XmZ"/>
@@ -192,7 +197,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="VTR_Background"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="5Yo-kp-EdH" firstAttribute="leading" secondItem="CBc-kC-qLE" secondAttribute="trailing" constant="10" id="BM2-6K-fFF"/>
                                                 <constraint firstItem="cUJ-or-bsR" firstAttribute="top" secondItem="5Yo-kp-EdH" secondAttribute="bottom" constant="5" id="ITH-9l-DGp"/>
@@ -272,7 +277,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="VTR_Background"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="78V-MF-x8t" secondAttribute="trailing" constant="10" id="0Et-cy-2ke"/>
                                                 <constraint firstItem="ZzO-lN-2P1" firstAttribute="top" secondItem="vEP-wq-K9H" secondAttribute="top" constant="11" id="0Ty-WC-YjL"/>
@@ -342,6 +347,9 @@
         </namedColor>
         <namedColor name="VTR_BlackLabel">
             <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_Borders">
+            <color red="0.9100000262260437" green="0.9100000262260437" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="VTR_Borders">
             <color red="0.9100000262260437" green="0.9100000262260437" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
