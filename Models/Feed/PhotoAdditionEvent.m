@@ -12,7 +12,7 @@
 - (instancetype)initWithParseObject:(PFObject *)object {
     if(self = [super initWithParseObject:object])
     {
-        self.photo = object[@"photos"];
+        self.photo = object[@"photo"];
     }
     
     return self;
