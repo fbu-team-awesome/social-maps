@@ -13,6 +13,7 @@
 + (void)addRoundedCornersToView:(UIView *)view;
 + (void)addShadowToView:(UIView *)view;
 + (void)addShadowToView:(UIView *)view withOffset:(CGSize)offset withRadius:(CGFloat)radius withOpacity:(float)opacity;
++ (void)addGradientToView:(UIView *)view;
 + (void)setCustomNavBarStyle:(UINavigationController *)navigationController;
 + (void)animateTapOnView:(UIView *)view;
 @end
