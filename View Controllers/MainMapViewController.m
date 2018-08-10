@@ -18,20 +18,19 @@
 #import "SSFadingScrollView.h"
 #import "PillCancelButton.h"
 #import "FilterPillView.h"
+#import "SearchBarView.h"
+#import "SearchBarTextField.h"
 
-@interface MainMapViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, GMSMapViewDelegate, GMSAutocompleteFetcherDelegate, MarkerWindowDelegate, FilterDelegate, UIScrollViewDelegate>
+@interface MainMapViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, GMSMapViewDelegate, GMSAutocompleteFetcherDelegate, MarkerWindowDelegate, FilterDelegate, UIScrollViewDelegate, SearchBarViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *resultsView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *markerWindowGestureRecognizer;
 @property (strong, nonatomic) IBOutlet MapMarkerWindow *markerWindowView;
-@property (strong, nonatomic) UIView *searchView;
-@property (strong, nonatomic) UIView *searchBoxView;
+@property (strong, nonatomic) SearchBarView *searchView;
 @property (strong, nonatomic) UIView *filterView;
-@property (strong, nonatomic) SSFadingScrollView *pillScrollView;
-@property (strong, nonatomic) UITextField *searchField;
 @property (strong, nonatomic) UIButton *filterButton;
-@property (strong, nonatomic) UIButton *cancelButton;
+@property (strong, nonatomic) SSFadingScrollView *pillScrollView;
 @property (strong, nonatomic) UINavigationController *filterListNavController;
 @property (strong, nonatomic) GMSAutocompleteFetcher *fetcher;
 @property (strong, nonatomic) GMSMapView *mapView;
@@ -49,9 +48,8 @@
 
 - (void)viewDidLoad {
     [self addNotificationObservers];
-    [self createSearchBar];
-    [self initTableView];
     [self initSearch];
+    [self initTableView];
     [self initMarkers];
     [self initMap];
     [self initFilterView];
@@ -121,78 +119,13 @@
 }
 
 - (void)initSearch {
-    [self.searchBoxView setHidden:NO];
-    
+    self.searchView = [[SearchBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 90)];
     self.fetcher = [[GMSAutocompleteFetcher alloc] init];
     self.fetcher.delegate = self;
-    [self.tableView reloadData];
-}
-
-- (void)createSearchBar {
-    [self.resultsView setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
-    
-    int statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-    self.searchView = [[UIView alloc] initWithFrame:CGRectMake(0, statusBarHeight, self.view.frame.size.width, 75)];
-    [self.searchView setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
     [self.resultsView addSubview:self.searchView];
-    
-    self.searchBoxView = [[UIView alloc] initWithFrame:CGRectMake(0, self.searchView.frame.origin.y + 30, (self.view.frame.size.width*7)/8, 40)];
-    self.searchBoxView.center = CGPointMake(self.searchView.frame.size.width/2, self.searchView.frame.size.height/2);
-    self.searchBoxView.layer.masksToBounds = NO;
-    self.searchBoxView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.searchBoxView.layer.shadowOffset = CGSizeMake(0, 1);
-    self.searchBoxView.layer.shadowRadius = 1;
-    self.searchBoxView.layer.shadowOpacity = 0.15;
-    self.searchBoxView.layer.cornerRadius = 12;
-    self.searchBoxView.layer.borderColor = [UIColor clearColor].CGColor;
-    [self.searchBoxView setBackgroundColor:[UIColor whiteColor]];
-    [self.searchView addSubview:self.searchBoxView];
-    
-    UIImageView *searchIcon = [[UIImageView alloc] initWithFrame:CGRectMake(self.searchBoxView.frame.origin.x, self.searchBoxView.frame.origin.y, 15, 15)];
-    searchIcon.center = CGPointMake(searchIcon.center.x - 10, self.searchBoxView.frame.size.height/2);
-    searchIcon.image = [UIImage imageNamed:@"search_icon_gray"];
-    [self.searchBoxView addSubview:searchIcon];
-    
-    self.searchField = [[UITextField alloc] initWithFrame:CGRectMake(self.searchBoxView.frame.origin.x + 15, self.searchBoxView.frame.origin.y, self.searchBoxView.frame.size.width*5/6, self.searchBoxView.frame.size.height/2)];
-    self.searchField.center = CGPointMake(self.searchField.center.x, self.searchBoxView.frame.size.height/2);
-    [self.searchField setBackgroundColor:[UIColor whiteColor]];
-    [self.searchField setTintColor:[UIColor colorNamed:@"VTR_GrayLabel"]];
-    [self.searchField setFont:[UIFont fontWithName:@"Avenir Next" size:16]];
-    [self.searchField setTextColor:[UIColor colorNamed:@"VTR_GrayLabel"]];
-    [self.searchField setPlaceholder:@"Where's your next adventure?"];
-    [self.searchField addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
-    [self.searchBoxView addSubview:self.searchField];
-    
-    self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(self.searchBoxView.frame.origin.x + (self.view.frame.size.width*7)/10 + 10, self.searchBoxView.frame.origin.y, 60, 40)];
-    self.cancelButton.center = CGPointMake(self.cancelButton.center.x, self.searchBoxView.center.y);
-    [self.cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-    [self.cancelButton setTitleColor:[UIColor colorNamed:@"VTR_BlackLabel"] forState:UIControlStateNormal];
-    [self.cancelButton.titleLabel setFont:[UIFont fontWithName:@"Avenir Next" size:14]];
-    [self.cancelButton addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.cancelButton setHidden:YES];
-    [self.searchView addSubview:self.cancelButton];
 }
 
-- (void)showCancel {
-    [self.cancelButton setHidden:NO];
-    
-    [self.searchBoxView setFrame:CGRectMake(self.searchBoxView.frame.origin.x, self.searchBoxView.frame.origin.y, (self.view.frame.size.width*7)/10, 40)];
-    [self.searchField setFrame:CGRectMake(self.searchBoxView.frame.origin.x + 15, self.searchBoxView.frame.origin.y, self.searchBoxView.frame.size.width*5/6, self.searchBoxView.frame.size.height/2)];
-    self.searchField.center = CGPointMake(self.searchField.center.x, self.searchBoxView.frame.size.height/2);
-}
-
-- (void)hideCancel {
-    [self.cancelButton setHidden:YES];
-    
-    [self.searchBoxView setFrame:CGRectMake(0, self.searchView.frame.origin.y + 30, (self.view.frame.size.width*7)/8, 40)];
-    self.searchBoxView.center = CGPointMake(self.searchView.frame.size.width/2, self.searchView.frame.size.height/2);
-    [self.searchField setFrame:CGRectMake(self.searchBoxView.frame.origin.x + 15, self.searchBoxView.frame.origin.y, self.searchBoxView.frame.size.width*5/6, self.searchBoxView.frame.size.height/2)];
-    self.searchField.center = CGPointMake(self.searchField.center.x, self.searchBoxView.frame.size.height/2);
-}
-
-- (void)cancelClicked {
-    [self hideCancel];
-    [self.searchField setText:@""];
+- (void)cancelClicked:(id)sender {
     [self.mapView setHidden:NO];
     [self.filterView setHidden:NO];
     [self.tableView setHidden:YES];
@@ -202,11 +135,10 @@
     [self.view endEditing:YES];
 }
 
-- (void)textChanged {
-    NSString *searchText = self.searchField.text;
+- (void)textChanged:(id)sender {
+    SearchBarTextField *textField = sender;
+    NSString *searchText = textField.text;
     if (searchText.length == 0) {
-        [self hideCancel];
-        [self.searchBoxView setHidden:NO];
         [self.mapView setHidden:NO];
         [self.filterView setHidden:NO];
         [self.tableView setHidden:YES];
@@ -217,7 +149,6 @@
         [self.view endEditing:YES];
     }
     else if (searchText.length == 1) {
-        [self showCancel];
         [self.tableView setHidden:NO];
         [self.mapView setHidden:YES];
         [self.filterView setHidden:YES];
@@ -227,11 +158,11 @@
         self.searchView.layer.shadowRadius = 1;
         self.searchView.layer.shadowOpacity = 0.15;
         
-        [self.fetcher sourceTextHasChanged:self.searchField.text];
+        [self.fetcher sourceTextHasChanged:searchText];
         [self.tableView reloadData];
     }
     else {
-        [self.fetcher sourceTextHasChanged:self.searchField.text];
+        [self.fetcher sourceTextHasChanged:searchText];
         [self.tableView reloadData];
     }
 }
@@ -242,7 +173,7 @@
     FilterListViewController *filterListVC = (FilterListViewController *)self.filterListNavController.topViewController;
     filterListVC.delegate = self;
     
-    self.filterView = [[UIView alloc] initWithFrame:CGRectMake(0, self.searchView.frame.origin.y + self.searchView.frame.size.height, self.view.bounds.size.width, 50)];
+    self.filterView = [[UIView alloc] initWithFrame:CGRectMake(0, self.searchView.frame.origin.y + self.searchView.frame.size.height - 10, self.view.bounds.size.width, 50)];
     [self.filterView setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
     
     self.filterView.layer.masksToBounds = NO;
@@ -312,7 +243,7 @@
             thisPill = pill;
         }
     }
-
+    
     switch(thisPill.filterType) {
         case favFilter: {
             [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
@@ -411,7 +342,7 @@
         }
         else {
             if (zoom > 15)
-            zoom = 15;
+                zoom = 15;
         }
     }
     
@@ -604,10 +535,10 @@
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
     //store location so we can move window accordingly when map moves
     self.locationMarker = marker;
- 
+    
     //remove info from marker window so we can reuse it
     [self.infoWindow removeFromSuperview];
- 
+    
     //instantiate new infoWindow
     self.infoWindow = [self loadNib];
     self.infoWindow.delegate = self;
@@ -624,7 +555,7 @@
     
     return false;
 }
- 
+
 - (void)didTapInfo:(GMSPlace *)place {
     [self performSegueWithIdentifier:@"toDetailsView" sender:place];
 }
@@ -637,9 +568,5 @@
     } else {
         NSLog(@"location marker is nil");
     }
-}
-
-- (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
-    [self.infoWindow removeFromSuperview];
 }
 @end
