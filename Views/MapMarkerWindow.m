@@ -27,6 +27,9 @@
         case followFavorites: {
             self.listsLabel.text = [NSString stringWithFormat:@"Added to %@'s favorites.", self.marker.markerOwner.displayName];
         }
+        case other: {
+            self.listsLabel.text = @"";
+        }
     }
 }
 

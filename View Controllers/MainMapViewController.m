@@ -6,15 +6,18 @@
 //  Copyright © 2018 Bevin Benson. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "MainMapViewController.h"
 #import "FilterListViewController.h"
 #import "DetailsViewController.h"
 #import "SearchCell.h"
-#import "SearchBar.h"
 #import "MarkerManager.h"
 #import "FilterPillHelper.h"
 #import "MapMarkerWindow.h"
 #import "NCHelper.h"
+#import "SSFadingScrollView.h"
+#import "PillCancelButton.h"
+#import "FilterPillView.h"
 
 @interface MainMapViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, GMSMapViewDelegate, GMSAutocompleteFetcherDelegate, MarkerWindowDelegate, FilterDelegate, UIScrollViewDelegate>
 
@@ -25,6 +28,7 @@
 @property (strong, nonatomic) UIView *searchView;
 @property (strong, nonatomic) UIView *searchBoxView;
 @property (strong, nonatomic) UIView *filterView;
+@property (strong, nonatomic) SSFadingScrollView *pillScrollView;
 @property (strong, nonatomic) UITextField *searchField;
 @property (strong, nonatomic) UIButton *filterButton;
 @property (strong, nonatomic) UIButton *cancelButton;
@@ -36,21 +40,21 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) NSArray<GMSAutocompletePrediction *> *predictions;
+@property (strong, nonatomic) NSArray <FilterPillView *> *pillViews;
+@property (strong, nonatomic) GMSMarker *tempMarker;
 
 @end
 
 @implementation MainMapViewController
 
 - (void)viewDidLoad {
-    self.definesPresentationContext = true;
-    
     [self addNotificationObservers];
     [self createSearchBar];
     [self initTableView];
     [self initSearch];
     [self initMarkers];
     [self initMap];
-    [self initFilter];
+    [self initFilterView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -192,6 +196,10 @@
     [self.mapView setHidden:NO];
     [self.filterView setHidden:NO];
     [self.tableView setHidden:YES];
+    
+    self.tempMarker.map = nil;
+    self.tempMarker = nil;
+    [self.view endEditing:YES];
 }
 
 - (void)textChanged {
@@ -203,6 +211,10 @@
         [self.filterView setHidden:NO];
         [self.tableView setHidden:YES];
         self.predictions = [NSArray new];
+        
+        self.tempMarker.map = nil;
+        self.tempMarker = nil;
+        [self.view endEditing:YES];
     }
     else if (searchText.length == 1) {
         [self showCancel];
@@ -218,7 +230,7 @@
     }
 }
 
-- (void)initFilter {
+- (void)initFilterView {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FilterList" bundle:nil];
     self.filterListNavController = [storyboard instantiateViewControllerWithIdentifier:@"filterNav"];
     FilterListViewController *filterListVC = (FilterListViewController *)self.filterListNavController.topViewController;
@@ -233,28 +245,20 @@
     self.filterView.layer.shadowRadius = 1;
     self.filterView.layer.shadowOpacity = 0.25;
     self.filterView.layer.borderColor = [UIColor clearColor].CGColor;
-    // [self.filterView setBackgroundColor:[UIColor blueColor]]
     [self.resultsView addSubview:self.filterView];
     
-    self.filterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 15, 0, 20, 20)];
-    // [self.filterButton setCenter:CGPointMake(self.filterButton.center.x, self.filterView.frame.size.height/2)];
-    [self.filterButton setImage:[UIImage imageNamed:@"filter_control"] forState:UIControlStateNormal];
-    [self.filterButton addTarget:self action:@selector(addFilterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.filterButton setUserInteractionEnabled:YES];
-    [self.filterButton sizeToFit];
-    [self.filterView addSubview:self.filterButton];
+    self.pillScrollView = [[SSFadingScrollView alloc] initWithFadeSize:30 axis:SSScrollViewFadeAxisHorizontal];
+    [self.pillScrollView setFadeTrailingEdge:NO];
+    self.pillScrollView.delegate = self;
+    [self.pillScrollView setScrollEnabled:YES];
+    [self.pillScrollView setShowsHorizontalScrollIndicator:NO];
     
-    UIScrollView *scrollView = [[UIScrollView alloc] init];
-    scrollView.delegate = self;
-    [scrollView setScrollEnabled:YES];
-    [scrollView setShowsHorizontalScrollIndicator:NO];
-    // [scrollView setPagingEnabled:YES];
-
+    self.pillViews = [[NSArray alloc] init];
     NSMutableDictionary *filters = [MarkerManager shared].allFilters;
     NSArray *lists = [MarkerManager shared].filterKeys;
     CGRect lastFrame = CGRectMake(0, 0, 0, 0);
     for (NSString *list in lists) {
-        if ([filters objectForKey:list]) {
+        if ([[filters objectForKey:list] boolValue]) {
             FilterType type;
             if ([list isEqualToString:kFavoritesKey]) {
                 type = favFilter;
@@ -268,23 +272,86 @@
             else {
                 type = placeFilter;
             }
-            UIView *pillView = [FilterPillHelper createFilterPill:type withName:list];
+            FilterPillView *pillView = [[FilterPillHelper shared] createFilterPill:type withName:list];
             [pillView setFrame:CGRectMake(lastFrame.origin.x + CGRectGetWidth(lastFrame) + 5, 3, pillView.frame.size.width, pillView.frame.size.height)];
-            // [pillView setCenter:CGPointMake(pillView.center.x, self.filterView.frame.size.height/2)];
             lastFrame = pillView.frame;
-            [scrollView addSubview:pillView];
+            [self.pillScrollView addSubview:pillView];
+            
+            NSMutableArray *mutablePillViews = [self.pillViews mutableCopy];
+            [mutablePillViews addObject:pillView];
+            self.pillViews = [NSArray arrayWithArray:mutablePillViews];
         }
     }
     
-    CGFloat contentWidth = lastFrame.origin.x + CGRectGetWidth(lastFrame) + CGRectGetWidth(self.filterButton.frame) + 5;
-    [scrollView setFrame:CGRectMake(self.filterButton.frame.origin.x + CGRectGetWidth(self.filterButton.frame) + 5, 0, CGRectGetWidth(self.filterView.frame) - 24, self.filterView.frame.size.height)];
-    // [scrollView setBackgroundColor:[UIColor blueColor]];
-    // [self.filterButton setBackgroundColor:[UIColor redColor]];
-    [scrollView setCenter:CGPointMake(scrollView.center.x, self.filterView.frame.size.height/2)];
-    [scrollView setContentSize:CGSizeMake(contentWidth, CGRectGetHeight(scrollView.frame))];
+    self.filterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 15, 0, 20, 20)];
     [self.filterButton setCenter:CGPointMake(self.filterButton.center.x, CGRectGetHeight(lastFrame)/2 + 3)];
-    // [scrollView setBackgroundColor:[UIColor blueColor]];
-    [self.filterView addSubview:scrollView];
+    [self.filterButton setImage:[UIImage imageNamed:@"filter_control"] forState:UIControlStateNormal];
+    [self.filterButton addTarget:self action:@selector(addFilterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.filterButton setUserInteractionEnabled:YES];
+    [self.filterButton sizeToFit];
+    [self.filterView addSubview:self.filterButton];
+    
+    [self.pillScrollView setFrame:CGRectMake(self.filterButton.frame.origin.x + CGRectGetWidth(self.filterButton.frame) + 5, 0, CGRectGetWidth(self.filterView.frame), self.filterView.frame.size.height)];
+    CGFloat contentWidth = lastFrame.origin.x + CGRectGetWidth(lastFrame) + CGRectGetMinX(self.pillScrollView.frame) + 5;
+    [self.pillScrollView setCenter:CGPointMake(self.pillScrollView.center.x, self.filterView.frame.size.height/2)];
+    [self.pillScrollView setContentSize:CGSizeMake(contentWidth, CGRectGetHeight(self.pillScrollView.frame))];
+    [self.filterView addSubview:self.pillScrollView];
+}
+
+- (void)pillCancelTapped:(id)sender {
+    PillCancelButton *button = (PillCancelButton *)sender;
+    FilterPillView *thisPill = nil;
+    for (FilterPillView *pill in self.pillViews) {
+        if ([pill.viewId isEqualToString:button.buttonId]) {
+            thisPill = pill;
+        }
+    }
+
+    switch(thisPill.filterType) {
+        case favFilter: {
+            [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
+            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
+            break;
+        }
+        case wishFilter: {
+            [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
+            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
+            break;
+        }
+        case friendFilter: {
+            [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
+            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
+            break;
+        }
+        case placeFilter: {
+            [[MarkerManager shared].placeFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
+            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
+            break;
+        }
+    }
+    
+    NSMutableArray *mutablePillViews = [self.pillViews mutableCopy];
+    [mutablePillViews removeObject:thisPill];
+    self.pillViews = [[NSArray alloc] initWithArray:mutablePillViews];
+    [thisPill removeFromSuperview];
+    [self updateScrollView:thisPill];
+    [self addPinsToMap];
+}
+
+- (void)updateScrollView:(FilterPillView *)removedPillView {
+    int count = 0;
+    CGFloat newX = removedPillView.frame.origin.x;
+    for (FilterPillView *pill in self.pillViews) {
+        if (CGRectGetMinX(pill.frame) > CGRectGetMaxX(removedPillView.frame)) {
+            count++;
+            [pill setFrame:CGRectMake(newX, pill.frame.origin.y, CGRectGetWidth(pill.frame), CGRectGetHeight(pill.frame))];
+            newX = newX + CGRectGetWidth(pill.frame) + 5;
+        }
+    }
+    
+    CGFloat contentWidth = self.pillScrollView.contentSize.width;
+    [self.pillScrollView setContentSize:CGSizeMake(contentWidth - CGRectGetWidth(removedPillView.frame), self.pillScrollView.contentSize.height)];
+    NSLog(@"%d", count);
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
@@ -307,6 +374,45 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.predictions.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    SearchCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    self.tempMarker = [GMSMarker markerWithPosition:cell.place.coordinate];
+    self.tempMarker.icon = [UIImage imageNamed:@"temp_marker_icon"];
+    
+    Marker *marker = [[Marker alloc] initWithGMSPlace:cell.place markerType:other user:nil];
+    self.tempMarker.userData = marker;
+    self.tempMarker.map = self.mapView;
+    
+    NSSet *townTypes = [NSSet setWithArray:@[@"locality", @"administrative_area_level_2", @"administrative_area_level_3", @"administrative_area_level_4", @"administrative_area_level_5", @"postal_code", @"sublocality_level_4", @"sublocality_level_5", @"sublocality_level_3", @"sublocality_level_2", @"sublocality_level_1"]];
+    
+    float zoom = 16;
+    for (NSString *type in cell.place.types) {
+        if ([type isEqualToString:@"country"] | [type isEqualToString:@"administrative_area_level_1"]) {
+            zoom = 6;
+        }
+        else if ([townTypes containsObject:type]) {
+            if (zoom > 12) {
+                zoom = 12;
+            }
+        }
+        else if ([type isEqualToString:@"neighborhood"]) {
+            if (zoom > 13) {
+                zoom = 13;
+            }
+        }
+        else {
+            if (zoom > 15)
+            zoom = 15;
+        }
+    }
+    
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:cell.place.coordinate.latitude longitude:cell.place.coordinate.longitude zoom:zoom];
+    [self.mapView setCamera:camera];
+    [self.mapView setHidden:NO];
+    [self.tableView setHidden:YES];
 }
 
 #pragma mark - Autocomplete
@@ -399,6 +505,7 @@
         }
     }
     for (GMSMarker *marker in currentPins) {
+        [Marker setMarkerImageWithGMSMarker:marker];
         marker.map = self.mapView;
     }
 }
@@ -407,11 +514,13 @@
 
 - (void)setNewFavoritePin:(NSNotification *)notification {
     GMSMarker *marker = [[MarkerManager shared] setFavoritePin:notification.object];
+    [Marker setMarkerImageWithGMSMarker:marker];
     marker.map = self.mapView;
 }
 
 - (void)setNewWishlistPin:(NSNotification *)notification {
     GMSMarker *marker = [[MarkerManager shared] setWishlistPin:notification.object];
+    [Marker setMarkerImageWithGMSMarker:marker];
     marker.map = self.mapView;
 }
 
@@ -420,6 +529,7 @@
         // add each place to map
         for (GMSPlace *place in places) {
             GMSMarker *marker = [[MarkerManager shared] setFavoriteOfFollowingPin:place :notification.object];
+            [Marker setMarkerImageWithGMSMarker:marker];
             marker.map = self.mapView;
         }
     }];
@@ -466,6 +576,8 @@
 
 - (void)filterSelectionDone {
     [self addPinsToMap];
+    [self.filterView removeFromSuperview];
+    [self initFilterView];
 }
 
 - (void)addFilterButtonTapped {
@@ -497,6 +609,7 @@
 - (MapMarkerWindow *) loadNib {
     [[NSBundle mainBundle] loadNibNamed:@"MarkerWindow" owner:self options:nil];
     MapMarkerWindow *markerWindow = self.markerWindowView;
+    
     [markerWindow addGestureRecognizer:self.markerWindowGestureRecognizer];
     return markerWindow;
 }
@@ -511,14 +624,17 @@
     //instantiate new infoWindow
     self.infoWindow = [self loadNib];
     self.infoWindow.delegate = self;
- 
+    self.infoWindow.userInteractionEnabled = YES;
+    
     //pass info to window
     self.infoWindow.marker = (Marker *)marker.userData;
     [self.infoWindow configureWindow];
     self.infoWindow.center = [self.mapView.projection pointForCoordinate:marker.position];
-    self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y - 85, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
-    [self.mapView addSubview:self.infoWindow];
- 
+    self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
+    [self.resultsView addSubview:self.infoWindow];
+    [self.resultsView bringSubviewToFront:self.searchView];
+    [self.resultsView bringSubviewToFront:self.filterView];
+    
     return false;
 }
  
@@ -530,7 +646,7 @@
     if (self.locationMarker != nil) {
         CLLocationCoordinate2D location = self.locationMarker.position;
         self.infoWindow.center = [self.mapView.projection pointForCoordinate:location];
-        self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y - 85, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
+        self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
     } else {
         NSLog(@"location marker is nil");
     }

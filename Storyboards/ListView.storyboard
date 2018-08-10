@@ -80,7 +80,7 @@
                                         <connections>
                                             <outlet property="addressLabel" destination="jbe-c4-WL5" id="M47-pe-Qe4"/>
                                             <outlet property="nameLabel" destination="Kdw-RJ-LW1" id="VU4-2d-ceY"/>
-                                            <outlet property="placeImage" destination="VaU-fX-pdT" id="del-XL-3bg"/>
+                                            <outlet property="pictureImage" destination="VaU-fX-pdT" id="hV1-zM-wPo"/>
                                             <segue destination="u9n-v7-ju1" kind="show" identifier="detailsSegue" id="4aI-oj-5o7"/>
                                         </connections>
                                     </tableViewCell>

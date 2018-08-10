@@ -7,12 +7,28 @@
 //
 
 #import "FilterPillHelper.h"
+#import "MainMapViewController.h"
+#import "PillCancelButton.h"
 
 @implementation FilterPillHelper
 
-+ (UIView * _Nonnull)createFilterPill:(FilterType)type withName:(NSString * _Nullable)filterName {
++ (instancetype)shared {
+    static FilterPillHelper *sharedManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedManager = [[self alloc] init];
+    });
     
-    UIView *pillView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 102, 35)];
+    return sharedManager;
+}
+
+- (FilterPillView * _Nonnull)createFilterPill:(FilterType)type withName:(NSString * _Nullable)filterName {
+    
+    FilterPillView *pillView = [[FilterPillView alloc] initWithFrame:CGRectMake(0, 0, 102, 35)];
+    pillView.filterType = type;
+    pillView.filterName = filterName;
+    [pillView setId];
+    
     pillView.layer.masksToBounds = NO;
     pillView.layer.shadowColor = [UIColor blackColor].CGColor;
     pillView.layer.shadowOffset = CGSizeMake(0, 1);
@@ -24,9 +40,13 @@
     
     UILabel *pillText = [[UILabel alloc] init];
     
-    UIButton *pillCancel = [[UIButton alloc] init];
+    PillCancelButton *pillCancel = [[PillCancelButton alloc] init];
+    pillCancel.buttonId = pillView.viewId;
     [pillCancel setTitle:@"X" forState:UIControlStateNormal];
     [pillCancel.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:14]];
+    
+    MainMapViewController *mainMapVC = [[MainMapViewController alloc] init];
+    [pillCancel addTarget:mainMapVC action:@selector(pillCancelTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     switch(type) {
         case favFilter: {

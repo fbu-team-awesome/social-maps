@@ -7,17 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KBRoundedButton.h"
-
-typedef enum FilterType : NSUInteger {
-    favFilter,
-    wishFilter,
-    friendFilter,
-    placeFilter
-} FilterType;
+#import <UIKit/UIKit.h>
+#import "FilterPillView.h"
 
 @interface FilterPillHelper : NSObject
 
-+ (UIView * _Nonnull)createFilterPill:(FilterType)type withName:(NSString * _Nullable)filterName;
+- (FilterPillView * _Nonnull)createFilterPill:(FilterType)type withName:(NSString * _Nullable)filterName;
+
++ (instancetype)shared;
+
 
 @end

@@ -134,6 +134,9 @@ NSString *const kFollowFavKey = @"followFavorites";
             [[self.markersByMarkerType objectForKey:kWishlistKey] addObject:marker];
             break;
         }
+        case other: {
+            break;
+        }
     }
 }
 
