@@ -236,17 +236,17 @@
               self.favorites = places;
               [self addFavoritesPins];
               [self fetchPlaceImagesFromPlaces:places withCompletion:^{
+                  [self.tableView reloadData];
+                  [self.progressIndicator stopAnimating];
+                  [self.refreshControl endRefreshing];
+                  
                   // retrieve wishlist
                   [self.user retrieveWishlistWithCompletion:
                    ^(NSArray<GMSPlace*>* places)
                    {
                        self.wishlist = places;
                        [self addWishlistPins];
-                       [self fetchPlaceImagesFromPlaces:places withCompletion:^{
-                           [self.tableView reloadData];
-                           [self.progressIndicator stopAnimating];
-                           [self.refreshControl endRefreshing];
-                       }];
+                       [self fetchPlaceImagesFromPlaces:places withCompletion:nil];
                    }
                    ];
               }];
