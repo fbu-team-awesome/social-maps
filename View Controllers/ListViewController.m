@@ -66,6 +66,13 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 - (void)viewWillAppear:(BOOL)animated {
     // make sure navbar has no shadow
     [UIStylesHelper addShadowToView:self.navigationController.navigationBar withOffset:CGSizeZero withRadius:0 withOpacity:0];
+    
+    // deselect cell
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    if(indexPath != nil)
+    {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 - (void)addNotificationObservers {

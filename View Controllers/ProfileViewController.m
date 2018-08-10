@@ -162,6 +162,13 @@
     
     // show navbar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    // deselect cells
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    if(indexPath != nil)
+    {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 - (void)addNotificationObservers {
