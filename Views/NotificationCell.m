@@ -50,11 +50,6 @@
 
 - (void)setEvent:(FollowEvent *)event {
     _event = event;
-    [event queryInfoWithCompletion:^{
-       if(event.user.isDataAvailable)
-       {
-           [self initUI];
-       }
-    }];
+    [self initUI];
 }
 @end
