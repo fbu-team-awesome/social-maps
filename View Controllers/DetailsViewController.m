@@ -20,6 +20,7 @@
 #import "HCSStarRatingView.h"
 #import "ReviewCell.h"
 #import "UIStylesHelper.h"
+#import "MarkerManager.h"
 
 @interface DetailsViewController () <GMSMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PhotoCellDelegate, NYTPhotosViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
 // Outlet Definitions //
@@ -46,6 +47,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *checkInButton;
 @property (weak, nonatomic) IBOutlet UIView *checkInButtonView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *composeBottomSpace;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userPicsLayoutHeight;
+@property (weak, nonatomic) IBOutlet UIView *checkedInContainer;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *photosLayoutHeight;
+@property (weak, nonatomic) IBOutlet UILabel *placeTypeLabel;
 
 // Instance Properties //
 @property (strong, nonatomic) GMSPlace *place;
@@ -66,15 +71,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // create Parse Place from GMSPlace 
+    // create Parse Place from GMSPlace
     [Place checkGMSPlaceExists:self.place result:^(Place * _Nonnull newPlace) {
         self.parsePlace = newPlace;
         
         // change buttons if it's favorited/wishlisted
         [self.favoriteButton setSelected:[[PFUser currentUser].favorites containsObject:self.parsePlace]];
         [self.wishlistButton setSelected:[[PFUser currentUser].wishlist containsObject:self.parsePlace]];
-        
         [self updateContent];
     }];
 }
@@ -82,6 +85,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     // make sure the navigation bar is always visible
     [self.navigationController setNavigationBarHidden:NO];
+    [self.tableView layoutIfNeeded];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -107,6 +111,7 @@
         contentRect = CGRectUnion(contentRect, view.frame);
     }
     [self.tableView.tableHeaderView setFrame:CGRectMake(0, 0, contentRect.size.width, contentRect.size.height)];
+    [self.tableView layoutSubviews];
     
     [self initWriteReview];
     [self initShowReviews];
@@ -135,7 +140,7 @@
     // add a marker in the place
     GMSMarker *marker = [GMSMarker markerWithPosition:self.place.coordinate];
     marker.title = self.place.name;
-    marker.map = self.mapView;
+    marker.map = self.mapView;   
 }
 
 - (void)setPlace:(GMSPlace*)place {
@@ -163,38 +168,55 @@
                     self.userPicsView.hidden = YES;
                     CGRect frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.tableHeaderView.frame.size.height - height);
                     [self.tableView.tableHeaderView setFrame:frame];
-                    [self.tableView layoutSubviews];
-                } else if (self.usersCheckedIn.count == 1) {
-                    self.usersLabel.text = [NSString stringWithFormat:@"%@ has checked in here.",self.usersCheckedIn[0].displayName];
-                } else if (self.usersCheckedIn.count == 2) {
-                    self.usersLabel.text = [NSString stringWithFormat:@"%@ and %@ have checked in here.",self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName];
+                    [self.tableView layoutIfNeeded];
                 } else {
-                    //store number of other users checked in
-                    long otherUsersCount = self.usersCheckedIn.count - 2;
-                    self.usersLabel.text = [NSString stringWithFormat:@"%@, %@, and %ld others have checked in here.", self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName, otherUsersCount];
+                    if (self.usersCheckedIn.count == 1) {
+                        self.usersLabel.text = [NSString stringWithFormat:@"%@ has checked in here.",self.usersCheckedIn[0].displayName];
+                    } else if (self.usersCheckedIn.count == 2) {
+                        self.usersLabel.text = [NSString stringWithFormat:@"%@ and %@ have checked in here.",self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName];
+                    } else {
+                        //store number of other users checked in
+                        long otherUsersCount = self.usersCheckedIn.count - 2;
+                        self.usersLabel.text = [NSString stringWithFormat:@"%@, %@, and %ld others have checked in here.", self.usersCheckedIn[0].displayName, self.usersCheckedIn[1].displayName, otherUsersCount];
+                    }
+                    if (self.userPicsLayoutHeight.constant == 0) {
+                        self.userPicsLayoutHeight.constant = 40;
+                        CGRect frame2 = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.tableHeaderView.frame.size.height + 40);
+                        [self.tableView.tableHeaderView setFrame:frame2];
+                        [self.tableView layoutIfNeeded];
+                        int i = 0;
+                        while(i < 5 && i < self.usersCheckedIn.count){
+                            //create image view
+                            UIImageView *userPicView = [[UIImageView alloc] initWithFrame:CGRectMake(i*48, 0, 40, 40)];
+                            userPicView.backgroundColor = [UIColor colorNamed:@"VTR_GrayLabel"];
+                            
+                            //add profile picture
+                            [ParseImageHelper setImageFromPFFile:self.usersCheckedIn[i].profilePicture forImageView:userPicView];
+                            
+                            //rounded corners
+                            userPicView.layer.cornerRadius = userPicView.frame.size.width / 2;
+                            userPicView.clipsToBounds = YES;
+                            
+                            //add image to subview
+                            [self.userPicsView addSubview:userPicView];
+                            i++;
+                        }
+                        [self.tableView layoutIfNeeded];
+                    }
+                    
+                    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapCheckedInUsers:)];
+                    [self.checkedInContainer setUserInteractionEnabled:YES];
+                    [self.checkedInContainer addGestureRecognizer:tapGR];
                 }
                 
                 //display profile pics of first 5 users
-                int i = 0;
-                while(i < 5 && i < self.usersCheckedIn.count){
-                    //create image view
-                    UIImageView *userPicView = [[UIImageView alloc] initWithFrame:CGRectMake(i*48, 0, 40, 40)];
-                    userPicView.backgroundColor = [UIColor colorNamed:@"VTR_GrayLabel"];
-                    
-                    //add profile picture
-                    [ParseImageHelper setImageFromPFFile:self.usersCheckedIn[i].profilePicture forImageView:userPicView];
-                    
-                    //rounded corners
-                    userPicView.layer.cornerRadius = userPicView.frame.size.width / 2;
-                    userPicView.clipsToBounds = YES;
-                    
-                    //add image to subview
-                    [self.userPicsView addSubview:userPicView];
-                    i++;
-                }
             }];
         }];
     }];
+}
+
+-(void) didTapCheckedInUsers:(id)sender {
+    [self performSegueWithIdentifier:@"checkInsSegue" sender:nil];
 }
 
 - (IBAction)didTapFavorite:(id)sender {
@@ -273,7 +295,13 @@
 
 - (void)updateCheckInLabel {
     [PFUser.currentUser retrieveCheckInCountForPlaceID:self.place.placeID withCompletion:^(NSNumber *count) {
-        self.checkInLabel.text = [NSString stringWithFormat: @"%@ check-ins",[count stringValue]];
+        if ([count isEqualToNumber: [NSNumber numberWithInteger:1]]) {
+            self.checkInLabel.text =  @"You've checked in once before.";
+        } else if ([count isEqualToNumber: [NSNumber numberWithInteger:0]]) {
+            self.checkInLabel.text =  @"You've never checked in here before.";
+        } else {
+            self.checkInLabel.text = [NSString stringWithFormat: @"You've checked in %@ times.",[count stringValue]];
+        }
     }];
 }
 
@@ -299,6 +327,13 @@
         NSMutableArray *mutablePhotos = [self.photos mutableCopy];
         [mutablePhotos insertObject:newPhoto atIndex:0];
         self.photos = [mutablePhotos copy];
+        if (self.photosLayoutHeight.constant == 0) {
+            [self.collectionView setHidden: NO];
+            self.photosLayoutHeight.constant = 72;
+            CGRect frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.tableHeaderView.frame.size.height + 72);
+            [self.tableView.tableHeaderView setFrame:frame];
+            [self.tableView layoutIfNeeded];
+        }
         [self.collectionView reloadData];
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -308,7 +343,19 @@
     [Relationships retrieveFollowingWithId:[PFUser currentUser].relationships.objectId WithCompletion:^(NSArray * _Nullable following) {
         [self.parsePlace retrievePhotosFromFollowing:following withCompletion:^(NSArray<Photo *> *photos) {
             self.photos = photos;
-            [self.collectionView reloadData];
+            if (self.photos.count == 0) {
+                [self.collectionView setHidden:YES];
+                [self.tableView layoutIfNeeded];
+            } else {
+                if (self.photosLayoutHeight.constant == 0) {
+                    [self.collectionView setHidden: NO];
+                    self.photosLayoutHeight.constant = 72;
+                    CGRect frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.tableHeaderView.frame.size.height + 72);
+                    [self.tableView.tableHeaderView setFrame:frame];
+                    [self.tableView layoutIfNeeded];
+                }
+                [self.collectionView reloadData];
+            }
         }];
     }];
 }
@@ -370,9 +417,7 @@
 }
 
 - (IBAction)didTapView:(id)sender {
-    if(self.isEditing) {
-        [self.reviewTextView endEditing:YES];
-    }
+    [self.reviewTextView endEditing:YES];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -408,6 +453,22 @@
     [review saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         [self.parsePlace addReview:review.objectId withCompletion:^{
             self.reviews = [self.reviews arrayByAddingObject:review];
+            self.reviewTextView.text = @"";
+            //replace rating with an empty one
+            for (UIView *view in [self.composeRatingView subviews])
+            {
+                [view removeFromSuperview];
+            }
+            HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 95, 13)];
+            ratingView.minimumValue = 0;
+            ratingView.maximumValue = 5;
+            ratingView.starBorderWidth= 0;
+            ratingView.filledStarImage = [UIImage imageNamed:@"star_filled"] ;
+            ratingView.emptyStarImage = [UIImage imageNamed:@"star_unfilled"];
+            ratingView.value = 0;
+            ratingView.allowsHalfStars = NO;
+            [self.composeRatingView addSubview:ratingView];
+            [self.reviewTextView endEditing:YES];
             [self reloadAndUpdateRating];
         }];
     }];
@@ -449,28 +510,29 @@
     for (Review *review in self.reviews) {
         newRatingSum += review.rating;
     }
-    self.overallRating = newRatingSum / self.reviews.count;
-    for (UIView *view in [self.overallRatingView subviews])
-    {
-        [view removeFromSuperview];
+    if (self.reviews.count > 0) {
+        self.overallRating = newRatingSum / self.reviews.count;
+        for (UIView *view in [self.overallRatingView subviews])
+        {
+            [view removeFromSuperview];
+        }
+        HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 95, 13)];
+        ratingView.minimumValue = 0;
+        ratingView.maximumValue = 5;
+        ratingView.starBorderWidth= 0;
+        ratingView.filledStarImage = [UIImage imageNamed:@"star_filled"] ;
+        ratingView.emptyStarImage = [UIImage imageNamed:@"star_unfilled"];
+        ratingView.value = (CGFloat) self.overallRating;
+        ratingView.allowsHalfStars = YES;
+        [ratingView setEnabled:NO];
+        [self.overallRatingView addSubview:ratingView];
+        NSNumber *ratingNumber = [NSNumber numberWithDouble:self.overallRating];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        formatter.roundingIncrement = [NSNumber numberWithDouble:0.01];
+        formatter.numberStyle = NSNumberFormatterDecimalStyle;
+        [self.overallRatingLabel setText:[NSString stringWithFormat:@"%@ stars",[formatter stringFromNumber:ratingNumber]]];
+
     }
-    HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 95, 13)];
-    ratingView.minimumValue = 0;
-    ratingView.maximumValue = 5;
-    ratingView.starBorderWidth= 0;
-    ratingView.filledStarImage = [UIImage imageNamed:@"star_filled"] ;
-    ratingView.emptyStarImage = [UIImage imageNamed:@"star_unfilled"];
-    ratingView.value = (CGFloat) self.overallRating;
-    ratingView.allowsHalfStars = YES;
-    [ratingView setEnabled:NO];
-    [self.overallRatingView addSubview:ratingView];
-    NSNumber *ratingNumber = [NSNumber numberWithDouble:self.overallRating];
-    
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    formatter.roundingIncrement = [NSNumber numberWithDouble:0.01];
-    formatter.numberStyle = NSNumberFormatterDecimalStyle;
-    [self.overallRatingLabel setText:[NSString stringWithFormat:@"%@ stars",[formatter stringFromNumber:ratingNumber]]];
-    
     [self.ratingsCountLabel setText:[NSString stringWithFormat:@"%lu ratings",self.reviews.count]];
 }
 
