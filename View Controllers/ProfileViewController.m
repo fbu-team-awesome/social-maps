@@ -219,7 +219,10 @@
                 if(placeCount == places.count)
                 {
                     self.placeImages = [mutableDict copy];
-                    completion();
+                    if(completion != nil)
+                    {
+                        completion();
+                    }
                 }
             }];
         }];
