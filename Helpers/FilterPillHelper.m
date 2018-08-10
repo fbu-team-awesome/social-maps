@@ -22,9 +22,13 @@
     return sharedManager;
 }
 
-- (UIView * _Nonnull)createFilterPill:(FilterType)type withName:(NSString * _Nullable)filterName {
+- (FilterPillView * _Nonnull)createFilterPill:(FilterType)type withName:(NSString * _Nullable)filterName {
     
-    UIView *pillView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 102, 35)];
+    FilterPillView *pillView = [[FilterPillView alloc] initWithFrame:CGRectMake(0, 0, 102, 35)];
+    pillView.filterType = type;
+    pillView.filterName = filterName;
+    [pillView setId];
+    
     pillView.layer.masksToBounds = NO;
     pillView.layer.shadowColor = [UIColor blackColor].CGColor;
     pillView.layer.shadowOffset = CGSizeMake(0, 1);
@@ -37,9 +41,7 @@
     UILabel *pillText = [[UILabel alloc] init];
     
     PillCancelButton *pillCancel = [[PillCancelButton alloc] init];
-    pillCancel.filterType = type;
-    pillCancel.filterName = filterName;
-    // pillCancel.superview = pillView;
+    pillCancel.buttonId = pillView.viewId;
     [pillCancel setTitle:@"X" forState:UIControlStateNormal];
     [pillCancel.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:14]];
     

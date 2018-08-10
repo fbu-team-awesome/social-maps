@@ -17,6 +17,7 @@
 		0144075C21111A5A001F67BD /* FilterCheckboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0144075B21111A5A001F67BD /* FilterCheckboxCell.m */; };
 		015C3342210BCA960065F927 /* MarkerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3341210BCA960065F927 /* MarkerManager.m */; };
 		015C3345210F71AC0065F927 /* Marker.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3344210F71AC0065F927 /* Marker.m */; };
+		015CFCF7211D2AE500E31AB2 /* FilterPillView.m in Sources */ = {isa = PBXBuildFile; fileRef = 015CFCF6211D2AE500E31AB2 /* FilterPillView.m */; };
 		018A31E22119FD170043926B /* MainMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018A31E12119FD170043926B /* MainMapViewController.m */; };
 		018A31E9211A549E0043926B /* FilterPillHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 018A31E8211A549E0043926B /* FilterPillHelper.m */; };
 		018D276D2114CEED00AA9B2F /* AdditionFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 018D276B2114CEED00AA9B2F /* AdditionFeedCell.m */; };
@@ -95,6 +96,8 @@
 		015C3341210BCA960065F927 /* MarkerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkerManager.m; sourceTree = "<group>"; };
 		015C3343210F71AC0065F927 /* Marker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Marker.h; sourceTree = "<group>"; };
 		015C3344210F71AC0065F927 /* Marker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Marker.m; sourceTree = "<group>"; };
+		015CFCF5211D2AE500E31AB2 /* FilterPillView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterPillView.h; sourceTree = "<group>"; };
+		015CFCF6211D2AE500E31AB2 /* FilterPillView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterPillView.m; sourceTree = "<group>"; };
 		018A31E02119FD170043926B /* MainMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainMapViewController.h; sourceTree = "<group>"; };
 		018A31E12119FD170043926B /* MainMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMapViewController.m; sourceTree = "<group>"; };
 		018A31E7211A549E0043926B /* FilterPillHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterPillHelper.h; sourceTree = "<group>"; };
@@ -301,6 +304,8 @@
 			children = (
 				01E4CEF5211CFA9300543D02 /* PillCancelButton.h */,
 				01E4CEF6211CFA9300543D02 /* PillCancelButton.m */,
+				015CFCF5211D2AE500E31AB2 /* FilterPillView.h */,
+				015CFCF6211D2AE500E31AB2 /* FilterPillView.m */,
 			);
 			path = "UI Models";
 			sourceTree = "<group>";
@@ -608,6 +613,7 @@
 				1CAC864321103D7700A7A294 /* CheckInsViewController.m in Sources */,
 				9E8A9C6521125808001EE3F0 /* ReviewAdditionEvent.m in Sources */,
 				317B3931210267650057079A /* UserResultCell.m in Sources */,
+				015CFCF7211D2AE500E31AB2 /* FilterPillView.m in Sources */,
 				01CA4A20210153230032C11F /* Relationships.m in Sources */,
 				9E3E4226211267A1002AA981 /* CheckinFeedCell.m in Sources */,
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,

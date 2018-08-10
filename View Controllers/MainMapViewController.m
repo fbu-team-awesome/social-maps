@@ -17,6 +17,7 @@
 #import "NCHelper.h"
 #import "SSFadingScrollView.h"
 #import "PillCancelButton.h"
+#import "FilterPillView.h"
 
 @interface MainMapViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, GMSMapViewDelegate, GMSAutocompleteFetcherDelegate, MarkerWindowDelegate, FilterDelegate, UIScrollViewDelegate>
 
@@ -39,6 +40,7 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) NSArray<GMSAutocompletePrediction *> *predictions;
+@property (strong, nonatomic) NSArray <FilterPillView *> *pillViews;
 @property (strong, nonatomic) GMSMarker *tempMarker;
 
 @end
@@ -52,7 +54,7 @@
     [self initSearch];
     [self initMarkers];
     [self initMap];
-    [self initFilter];
+    [self initFilterView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -226,7 +228,7 @@
     }
 }
 
-- (void)initFilter {
+- (void)initFilterView {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FilterList" bundle:nil];
     self.filterListNavController = [storyboard instantiateViewControllerWithIdentifier:@"filterNav"];
     FilterListViewController *filterListVC = (FilterListViewController *)self.filterListNavController.topViewController;
@@ -241,7 +243,6 @@
     self.filterView.layer.shadowRadius = 1;
     self.filterView.layer.shadowOpacity = 0.25;
     self.filterView.layer.borderColor = [UIColor clearColor].CGColor;
-    // [self.filterView setBackgroundColor:[UIColor blueColor]]
     [self.resultsView addSubview:self.filterView];
     
     self.pillScrollView = [[SSFadingScrollView alloc] initWithFadeSize:30 axis:SSScrollViewFadeAxisHorizontal];
@@ -250,6 +251,7 @@
     [self.pillScrollView setScrollEnabled:YES];
     [self.pillScrollView setShowsHorizontalScrollIndicator:NO];
     
+    self.pillViews = [[NSArray alloc] init];
     NSMutableDictionary *filters = [MarkerManager shared].allFilters;
     NSArray *lists = [MarkerManager shared].filterKeys;
     CGRect lastFrame = CGRectMake(0, 0, 0, 0);
@@ -268,10 +270,14 @@
             else {
                 type = placeFilter;
             }
-            UIView *pillView = [[FilterPillHelper shared] createFilterPill:type withName:list];
+            FilterPillView *pillView = [[FilterPillHelper shared] createFilterPill:type withName:list];
             [pillView setFrame:CGRectMake(lastFrame.origin.x + CGRectGetWidth(lastFrame) + 5, 3, pillView.frame.size.width, pillView.frame.size.height)];
             lastFrame = pillView.frame;
             [self.pillScrollView addSubview:pillView];
+            
+            NSMutableArray *mutablePillViews = [self.pillViews mutableCopy];
+            [mutablePillViews addObject:pillView];
+            self.pillViews = [NSArray arrayWithArray:mutablePillViews];
         }
     }
     
@@ -282,9 +288,9 @@
     [self.filterButton setUserInteractionEnabled:YES];
     [self.filterButton sizeToFit];
     [self.filterView addSubview:self.filterButton];
-
-    CGFloat contentWidth = lastFrame.origin.x + CGRectGetWidth(lastFrame) + CGRectGetWidth(self.filterButton.frame) + 5;
+    
     [self.pillScrollView setFrame:CGRectMake(self.filterButton.frame.origin.x + CGRectGetWidth(self.filterButton.frame) + 5, 0, CGRectGetWidth(self.filterView.frame), self.filterView.frame.size.height)];
+    CGFloat contentWidth = lastFrame.origin.x + CGRectGetWidth(lastFrame) + CGRectGetMinX(self.pillScrollView.frame) + 5;
     [self.pillScrollView setCenter:CGPointMake(self.pillScrollView.center.x, self.filterView.frame.size.height/2)];
     [self.pillScrollView setContentSize:CGSizeMake(contentWidth, CGRectGetHeight(self.pillScrollView.frame))];
     [self.filterView addSubview:self.pillScrollView];
@@ -292,29 +298,58 @@
 
 - (void)pillCancelTapped:(id)sender {
     PillCancelButton *button = (PillCancelButton *)sender;
-    FilterType type = button.filterType;
-    NSString *filterName = button.filterName;
-    
-    switch(type) {
+    FilterPillView *thisPill = nil;
+    for (FilterPillView *pill in self.pillViews) {
+        if ([pill.viewId isEqualToString:button.buttonId]) {
+            thisPill = pill;
+        }
+    }
+
+    switch(thisPill.filterType) {
         case favFilter: {
             [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
             [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
+            break;
         }
         case wishFilter: {
             [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
             [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
+            break;
         }
         case friendFilter: {
             [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
             [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
+            break;
         }
         case placeFilter: {
-            [[MarkerManager shared].placeFilters setObject:[NSNumber numberWithBool:NO] forKey:filterName];
-            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:filterName];
+            [[MarkerManager shared].placeFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
+            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
+            break;
         }
     }
     
+    NSMutableArray *mutablePillViews = [self.pillViews mutableCopy];
+    [mutablePillViews removeObject:thisPill];
+    self.pillViews = [[NSArray alloc] initWithArray:mutablePillViews];
+    [thisPill removeFromSuperview];
+    [self updateScrollView:thisPill];
     [self addPinsToMap];
+}
+
+- (void)updateScrollView:(FilterPillView *)removedPillView {
+    int count = 0;
+    CGFloat newX = removedPillView.frame.origin.x;
+    for (FilterPillView *pill in self.pillViews) {
+        if (CGRectGetMinX(pill.frame) > CGRectGetMaxX(removedPillView.frame)) {
+            count++;
+            [pill setFrame:CGRectMake(newX, pill.frame.origin.y, CGRectGetWidth(pill.frame), CGRectGetHeight(pill.frame))];
+            newX = newX + CGRectGetWidth(pill.frame) + 5;
+        }
+    }
+    
+    CGFloat contentWidth = self.pillScrollView.contentSize.width;
+    [self.pillScrollView setContentSize:CGSizeMake(contentWidth - CGRectGetWidth(removedPillView.frame), self.pillScrollView.contentSize.height)];
+    NSLog(@"%d", count);
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
@@ -535,8 +570,8 @@
 
 - (void)filterSelectionDone {
     [self addPinsToMap];
-    [self.pillScrollView removeFromSuperview];
-    [self initFilter];
+    [self.filterView removeFromSuperview];
+    [self initFilterView];
 }
 
 - (void)addFilterButtonTapped {

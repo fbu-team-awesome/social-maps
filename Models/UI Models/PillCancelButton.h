@@ -13,7 +13,6 @@
 
 @interface PillCancelButton : UIButton
 
-@property (strong, nonatomic) NSString *filterName;
-@property (nonatomic, assign) FilterType filterType;
+@property (strong, nonatomic) NSString *buttonId;
 
 @end
