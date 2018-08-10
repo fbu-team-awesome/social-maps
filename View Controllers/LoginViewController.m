@@ -49,8 +49,10 @@
         if (error != nil) {
             [AlertHelper showAlertWithTitle:@"Login Error:" message:error.localizedDescription sender:self];
         } else {
-            NSLog(@"User logged in successfully.");
-            [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+            [[PFUser currentUser] retrieveRelationshipWithCompletion:^(Relationships *relationship) {
+                [PFUser currentUser].relationships = relationship;
+                [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+            }];
         }
     }];
 }

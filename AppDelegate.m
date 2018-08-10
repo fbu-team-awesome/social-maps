@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "APIManager.h"
+#import "PFUser+ExtendedUser.h"
 
 @import GoogleMaps;
 @import GooglePlaces;
@@ -24,9 +25,10 @@
     [[APIManager shared] setupGoogle];
     
     if (PFUser.currentUser) {
-        
+        [[PFUser currentUser] retrieveRelationshipWithCompletion:^(Relationships *relationship) {
+            [PFUser currentUser].relationships = relationship;
+        }];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
     }
     
