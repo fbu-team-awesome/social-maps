@@ -142,7 +142,7 @@
     self.searchBoxView.layer.shadowColor = [UIColor blackColor].CGColor;
     self.searchBoxView.layer.shadowOffset = CGSizeMake(0, 1);
     self.searchBoxView.layer.shadowRadius = 1;
-    self.searchBoxView.layer.shadowOpacity = 0.25;
+    self.searchBoxView.layer.shadowOpacity = 0.15;
     self.searchBoxView.layer.cornerRadius = 12;
     self.searchBoxView.layer.borderColor = [UIColor clearColor].CGColor;
     [self.searchBoxView setBackgroundColor:[UIColor whiteColor]];
@@ -221,6 +221,12 @@
         [self.tableView setHidden:NO];
         [self.mapView setHidden:YES];
         [self.filterView setHidden:YES];
+        
+        self.searchView.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.searchView.layer.shadowOffset = CGSizeMake(0, 1);
+        self.searchView.layer.shadowRadius = 1;
+        self.searchView.layer.shadowOpacity = 0.15;
+        
         [self.fetcher sourceTextHasChanged:self.searchField.text];
         [self.tableView reloadData];
     }
@@ -411,6 +417,7 @@
     
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:cell.place.coordinate.latitude longitude:cell.place.coordinate.longitude zoom:zoom];
     [self.mapView setCamera:camera];
+    [self.searchView setHidden:NO];
     [self.mapView setHidden:NO];
     [self.tableView setHidden:YES];
 }
@@ -582,26 +589,6 @@
 
 - (void)addFilterButtonTapped {
     [self presentViewController:self.filterListNavController animated:YES completion:nil];
-}
-
-- (void)didSelectPlace:(GMSPlace *)place {
-    NSArray *whitelistedTypes = @[@"locality", @"cities", @"sublocality", @"country", @"continent"];
-    BOOL isRegion = NO;
-    
-    for (NSString *type in place.types) {
-        if ([whitelistedTypes containsObject:type]) {
-            isRegion = YES;
-        }
-    }
-    if (isRegion) {
-        NSLog(@"Is a location");
-        GMSCameraPosition *newPosition = [GMSCameraPosition cameraWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude zoom:6];
-        [self.mapView setCamera:newPosition];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-    else {
-        [self performSegueWithIdentifier:@"toDetailsView" sender: place];
-    }
 }
 
 #pragma mark - Marker Windows
