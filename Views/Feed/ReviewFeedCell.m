@@ -9,6 +9,7 @@
 #import "ReviewFeedCell.h"
 #import "ParseImageHelper.h"
 #import "UIStylesHelper.h"
+#import "HCSStarRatingView.h"
 
 @interface ReviewFeedCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImage;
@@ -17,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reviewLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIView *ratingView;
 @property (strong, nonatomic) ReviewAdditionEvent *event;
 @end
 
@@ -41,10 +43,16 @@
     
     // update UI
     [self.contentLabel setAttributedText:[attributedContent copy]];
-    self.ratingLabel.text = [NSString stringWithFormat:@"%i/5", self.event.review.rating];
     self.reviewLabel.text = self.event.review.content;
     [ParseImageHelper setImageFromPFFile:self.event.user.profilePicture forImageView:self.profilePictureImage];
     self.timeLabel.text = [self.event getTimestamp];
+    
+    // create stars view for rating
+    HCSStarRatingView *rating = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
+    rating.value = (CGFloat)self.event.review.rating;
+    [rating setBackgroundColor:[UIColor clearColor]];
+    [rating setEnabled:NO];
+    [self.ratingView addSubview:rating];
     
     // set rounded image
     [UIStylesHelper addRoundedCornersToView:self.pictureView];
