@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *followersLabel;
 @property (weak, nonatomic) IBOutlet UILabel *followingLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
+@property (strong, nonatomic) UIImageView *settingsImage;
 
 // Instance Properties //
 @property (strong, nonatomic) CLLocationManager* locationManager;
@@ -100,6 +101,15 @@
         
         // show list button instead
         [self.followButton setTitle:@"View Lists" forState:UIControlStateNormal];
+        
+        // show settings wheel (which will serve for logout)
+        UIImageView *settingsImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 21, 21)];
+        UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logoutClicked)];
+        [settingsImage setImage:[UIImage imageNamed:@"settings"]];
+        settingsImage.userInteractionEnabled = YES;
+        [settingsImage addGestureRecognizer:gestureRecognizer];
+        UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:settingsImage];
+        self.navigationController.navigationBar.topItem.rightBarButtonItem = rightBarButtonItem;
     }
     
     // init tableview
@@ -328,7 +338,7 @@
     }
 }
 
-- (IBAction)logoutClicked:(id)sender {
+- (void)logoutClicked {
     // logout
     [PFUser logOutInBackground];
     
