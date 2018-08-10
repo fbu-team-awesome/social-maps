@@ -87,8 +87,11 @@
         if (error != nil) {
             [AlertHelper showAlertWithTitle:@"Sign Up Error:" message:error.localizedDescription sender:self];
         } else {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            [self presentViewController:[storyboard instantiateViewControllerWithIdentifier:@"TabBarController"] animated:YES completion:nil];
+            [[PFUser currentUser] retrieveRelationshipWithCompletion:^(Relationships *relationship) {
+                [PFUser currentUser].relationships = relationship;
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                [self presentViewController:[storyboard instantiateViewControllerWithIdentifier:@"TabBarController"] animated:YES completion:nil];
+            }];
         }
     }];
 }
