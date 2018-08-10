@@ -17,6 +17,7 @@
 		0144075C21111A5A001F67BD /* FilterCheckboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0144075B21111A5A001F67BD /* FilterCheckboxCell.m */; };
 		015C3342210BCA960065F927 /* MarkerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3341210BCA960065F927 /* MarkerManager.m */; };
 		015C3345210F71AC0065F927 /* Marker.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3344210F71AC0065F927 /* Marker.m */; };
+		015CFCF7211D2AE500E31AB2 /* FilterPillView.m in Sources */ = {isa = PBXBuildFile; fileRef = 015CFCF6211D2AE500E31AB2 /* FilterPillView.m */; };
 		018A31E22119FD170043926B /* MainMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018A31E12119FD170043926B /* MainMapViewController.m */; };
 		018A31E9211A549E0043926B /* FilterPillHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 018A31E8211A549E0043926B /* FilterPillHelper.m */; };
 		018D276D2114CEED00AA9B2F /* AdditionFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 018D276B2114CEED00AA9B2F /* AdditionFeedCell.m */; };
@@ -27,7 +28,7 @@
 		01C3DB8E2114F766002B8D26 /* ParseImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE973F3210281850056DCF2 /* ParseImageHelper.m */; };
 		01C3DB8F2114F766002B8D26 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6D948E20FE59FE00E4D630 /* DetailsViewController.m */; };
 		01CA4A20210153230032C11F /* Relationships.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CA4A1F210153230032C11F /* Relationships.m */; };
-		01EDFD0D211912AC000BF178 /* SearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EDFD0C211912AC000BF178 /* SearchBar.m */; };
+		01E4CEF7211CFA9300543D02 /* PillCancelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E4CEF6211CFA9300543D02 /* PillCancelButton.m */; };
 		01EDFD0F21191A49000BF178 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EDFD0E21191A49000BF178 /* QuartzCore.framework */; };
 		1C0D8E47211395D20013268A /* PhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D8E46211395D20013268A /* PhotoCell.m */; };
 		1C0D8E4A21139E600013268A /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D8E4921139E600013268A /* Photo.m */; };
@@ -95,6 +96,8 @@
 		015C3341210BCA960065F927 /* MarkerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkerManager.m; sourceTree = "<group>"; };
 		015C3343210F71AC0065F927 /* Marker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Marker.h; sourceTree = "<group>"; };
 		015C3344210F71AC0065F927 /* Marker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Marker.m; sourceTree = "<group>"; };
+		015CFCF5211D2AE500E31AB2 /* FilterPillView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterPillView.h; sourceTree = "<group>"; };
+		015CFCF6211D2AE500E31AB2 /* FilterPillView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterPillView.m; sourceTree = "<group>"; };
 		018A31E02119FD170043926B /* MainMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainMapViewController.h; sourceTree = "<group>"; };
 		018A31E12119FD170043926B /* MainMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMapViewController.m; sourceTree = "<group>"; };
 		018A31E7211A549E0043926B /* FilterPillHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterPillHelper.h; sourceTree = "<group>"; };
@@ -108,8 +111,8 @@
 		018E6AA020FEBAD100DE10A6 /* ListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListViewCell.m; sourceTree = "<group>"; };
 		01CA4A1E210153230032C11F /* Relationships.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Relationships.h; sourceTree = "<group>"; };
 		01CA4A1F210153230032C11F /* Relationships.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Relationships.m; sourceTree = "<group>"; };
-		01EDFD0B211912AC000BF178 /* SearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBar.h; sourceTree = "<group>"; };
-		01EDFD0C211912AC000BF178 /* SearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBar.m; sourceTree = "<group>"; };
+		01E4CEF5211CFA9300543D02 /* PillCancelButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PillCancelButton.h; sourceTree = "<group>"; };
+		01E4CEF6211CFA9300543D02 /* PillCancelButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PillCancelButton.m; sourceTree = "<group>"; };
 		01EDFD0E21191A49000BF178 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0669C073917F375AFFBB6F32 /* libPods-social-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-social-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C0D8E45211395D20013268A /* PhotoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoCell.h; sourceTree = "<group>"; };
@@ -296,11 +299,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		01EDFD0A211911DA000BF178 /* UI Models */ = {
+		01E4CEF4211CFA8100543D02 /* UI Models */ = {
 			isa = PBXGroup;
 			children = (
-				01EDFD0B211912AC000BF178 /* SearchBar.h */,
-				01EDFD0C211912AC000BF178 /* SearchBar.m */,
+				01E4CEF5211CFA9300543D02 /* PillCancelButton.h */,
+				01E4CEF6211CFA9300543D02 /* PillCancelButton.m */,
+				015CFCF5211D2AE500E31AB2 /* FilterPillView.h */,
+				015CFCF6211D2AE500E31AB2 /* FilterPillView.m */,
 			);
 			path = "UI Models";
 			sourceTree = "<group>";
@@ -405,7 +410,7 @@
 		9EF4E3C520FD210E005535C6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				01EDFD0A211911DA000BF178 /* UI Models */,
+				01E4CEF4211CFA8100543D02 /* UI Models */,
 				9E8A9C3F210FB8E5001EE3F0 /* Feed */,
 				9E8A9C44210FBED1001EE3F0 /* Review.h */,
 				9E8A9C45210FBED1001EE3F0 /* Review.m */,
@@ -583,6 +588,7 @@
 				9E8A9C56210FDC64001EE3F0 /* FeedViewController.m in Sources */,
 				1CA9B91F211A0D5B0002CAAB /* HCSStarRatingView.m in Sources */,
 				0130163B20EFDE650010FD04 /* main.m in Sources */,
+				01E4CEF7211CFA9300543D02 /* PillCancelButton.m in Sources */,
 				9EE973EE2102805A0056DCF2 /* AlertHelper.m in Sources */,
 				015C3345210F71AC0065F927 /* Marker.m in Sources */,
 				317B392E210267590057079A /* PlaceResultCell.m in Sources */,
@@ -607,10 +613,10 @@
 				1CAC864321103D7700A7A294 /* CheckInsViewController.m in Sources */,
 				9E8A9C6521125808001EE3F0 /* ReviewAdditionEvent.m in Sources */,
 				317B3931210267650057079A /* UserResultCell.m in Sources */,
+				015CFCF7211D2AE500E31AB2 /* FilterPillView.m in Sources */,
 				01CA4A20210153230032C11F /* Relationships.m in Sources */,
 				9E3E4226211267A1002AA981 /* CheckinFeedCell.m in Sources */,
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
-				01EDFD0D211912AC000BF178 /* SearchBar.m in Sources */,
 				015C3342210BCA960065F927 /* MarkerManager.m in Sources */,
 				0144075621111748001F67BD /* FilterListViewController.m in Sources */,
 				01C3DB8E2114F766002B8D26 /* ParseImageHelper.m in Sources */,
@@ -764,13 +770,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4H789JND9X;
+				DEVELOPMENT_TEAM = QR8BU78FBL;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.fb.socialmaps;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fb.socialmaps.bevin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -782,13 +788,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4H789JND9X;
+				DEVELOPMENT_TEAM = QR8BU78FBL;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.fb.socialmaps;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fb.socialmaps.bevin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

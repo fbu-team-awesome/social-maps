@@ -32,14 +32,10 @@
 @property (weak, nonatomic) IBOutlet UIView *userPicsView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *composeView;
 @property (weak, nonatomic) IBOutlet UIView *infoView;
 @property (weak, nonatomic) IBOutlet UITextView *reviewTextView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIView *reviewHeaderView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewLayoutHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewLayoutHeight;
 @property (weak, nonatomic) IBOutlet UIView *overallRatingView;
 
 // Instance Properties //
@@ -112,6 +108,7 @@
     
     // add a marker in the place
     GMSMarker *marker = [GMSMarker markerWithPosition:self.place.coordinate];
+    marker.icon = [UIImage imageNamed:@"temp_marker_icon"];
     marker.title = self.place.name;
     marker.map = self.mapView;
 }
@@ -305,12 +302,10 @@
 #pragma mark - Reviews
 
 - (void) initWriteReview {
-    
     HCSStarRatingView *ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(72, 32, 100, 25)];
     ratingView.minimumValue = 0;
     ratingView.maximumValue = 5;
     [ratingView addTarget:self action:@selector(didChangeRating:) forControlEvents:UIControlEventValueChanged];
-    
     [self.composeView addSubview:ratingView];
 }
 
@@ -321,26 +316,9 @@
     [self fetchReviews];
 }
 
-- (void) reloadAndResize {
+- (void) reloadAndUpdateRating {
     [self.tableView reloadData];
-    
     [self updatePlaceRating];
-    
-    [self.tableView layoutIfNeeded];
-    self.tableViewLayoutHeight.constant = self.tableView.contentSize.height;
-    
-    CGFloat height = 0;
-    for (UIView *view in self.contentView.subviews) {
-        if (view == self.tableView)
-        {
-            [self.tableView layoutIfNeeded];
-            height += self.tableView.contentSize.height;
-        } else {
-            height += view.frame.size.height;
-        }
-    }
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, height+self.tabBarController.tabBar.frame.size.height+10);
-    self.contentViewLayoutHeight.constant = height+self.tabBarController.tabBar.frame.size.height+10;
 }
 
 - (void)didChangeRating:(id)sender {
@@ -355,7 +333,7 @@
     review.rating = (NSInteger) (floor(self.userRating));
     [self.parsePlace addReview:review withCompletion:^{
         self.reviews = [self.reviews arrayByAddingObject:review];
-        [self reloadAndResize];
+        [self reloadAndUpdateRating];
     }];
 }
 
@@ -365,7 +343,7 @@
             NSLog(@"Fetched all following");
             [self.parsePlace retrieveReviewsFromFollowing:following withCompletion:^(NSArray<Review *> *reviews) {
                 self.reviews = reviews;
-                [self reloadAndResize];
+                [self reloadAndUpdateRating];
             }];
         }];
     }];
@@ -385,13 +363,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
-}
-
-- (void)viewWillLayoutSubviews {
-    [self.tableView layoutIfNeeded];
-    self.tableViewLayoutHeight.constant = self.tableView.contentSize.height +
-        self.tableView.tableFooterView.frame.size.height +
-        self.tableView.tableHeaderView.frame.size.height;
 }
 
 - (void) updatePlaceRating {

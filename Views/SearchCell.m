@@ -16,7 +16,7 @@
 
 
 @property (strong, nonatomic) Place *parsePlace;
-@property (strong, nonatomic) GMSPlace *place;
+
 @end
 
 @implementation SearchCell

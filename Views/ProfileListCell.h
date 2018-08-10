@@ -12,7 +12,7 @@
 
 @interface ProfileListCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *placeImage;
+@property (weak, nonatomic) IBOutlet UIImageView *pictureImage;
 
 // Instance Methods //
 - (void)setPlace:(GMSPlace*)place;

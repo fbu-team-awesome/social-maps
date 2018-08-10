@@ -20,6 +20,7 @@
 #import "NCHelper.h"
 #import "ListViewController.h"
 #import "UIStylesHelper.h"
+#import "Marker.h"
 
 @interface ProfileViewController () <CLLocationManagerDelegate, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 // Outlet Definitions //
@@ -49,6 +50,7 @@
 @property (strong, nonatomic) NSMutableDictionary<NSString*, GMSPlace*>* markers;
 @property (strong, nonatomic) PFUser* user;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) NSDictionary<NSString *, UIImage *> *placeImages;
 @end
 
 @implementation ProfileViewController
@@ -203,6 +205,27 @@
     view.layer.masksToBounds = NO;
 }
 
+- (void)fetchPlaceImagesFromPlaces:(NSArray<GMSPlace *> *)places withCompletion:(void(^)(void))completion {
+    NSMutableDictionary<NSString *, UIImage *> *mutableDict = [NSMutableDictionary dictionaryWithDictionary:self.placeImages];
+    __block NSUInteger placeCount = 0;
+    
+    for(GMSPlace *place in places)
+    {
+        [[APIManager shared] getPhotoMetadata:place.placeID :^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
+            [[GMSPlacesClient sharedClient] loadPlacePhoto:photoMetadata.firstObject callback:^(UIImage * _Nullable photo, NSError * _Nullable error) {
+                mutableDict[place.placeID] = photo;
+                placeCount++;
+                
+                if(placeCount == places.count)
+                {
+                    self.placeImages = [mutableDict copy];
+                    completion();
+                }
+            }];
+        }];
+    }
+}
+
 - (void)retrieveUserPlaces {
     // clear map first
     [self.mapView clear];
@@ -212,22 +235,22 @@
           ^(NSArray<GMSPlace*>* places)
           {
               self.favorites = places;
-              [self.tableView reloadData];
               [self addFavoritesPins];
-              [self.progressIndicator stopAnimating];
-              [self.refreshControl endRefreshing];
-          }
-     ];
-    
-    // retrieve wishlist
-    [self.user retrieveWishlistWithCompletion:
-          ^(NSArray<GMSPlace*>* places)
-          {
-              self.wishlist = places;
-              [self.tableView reloadData];
-              [self addWishlistPins];
-              [self.progressIndicator stopAnimating];
-              [self.refreshControl endRefreshing];
+              [self fetchPlaceImagesFromPlaces:places withCompletion:^{
+                  // retrieve wishlist
+                  [self.user retrieveWishlistWithCompletion:
+                   ^(NSArray<GMSPlace*>* places)
+                   {
+                       self.wishlist = places;
+                       [self addWishlistPins];
+                       [self fetchPlaceImagesFromPlaces:places withCompletion:^{
+                           [self.tableView reloadData];
+                           [self.progressIndicator stopAnimating];
+                           [self.refreshControl endRefreshing];
+                       }];
+                   }
+                   ];
+              }];
           }
      ];
 }
@@ -238,6 +261,7 @@
         GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
         marker.title = place.name;
         marker.appearAnimation = kGMSMarkerAnimationPop;
+        [Marker setMarkerImageWithGMSMarker:marker];
         marker.map = self.mapView;
         
         // add the key to our dictionary
@@ -251,7 +275,7 @@
         GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
         marker.title = place.name;
         marker.appearAnimation = kGMSMarkerAnimationPop;
-        marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+        [Marker setMarkerImageWithGMSMarker:marker];
         marker.map = self.mapView;
         
         // add the key to our dictionary
@@ -319,6 +343,7 @@
     
     if(place != nil)
     {
+        cell.pictureImage.image = self.placeImages[place.placeID];
         [cell setPlace:place];
     }
     
@@ -349,6 +374,7 @@
     if([[PFUser currentUser].objectId isEqualToString:self.user.objectId]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ListView" bundle:[NSBundle mainBundle]];
         ListViewController *listVC = (ListViewController *)[storyboard instantiateViewControllerWithIdentifier:@"List"];
+        listVC.placeImages = self.placeImages;
         [self.navigationController pushViewController:listVC animated:YES];
     }
     else if([self.followButton.titleLabel.text isEqualToString:@"Follow"])
@@ -368,8 +394,11 @@
     
     // place pin
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place markerType:favorites user:[PFUser currentUser]];
+    marker.userData = thisMarker;
     marker.title = place.name;
     marker.appearAnimation = kGMSMarkerAnimationPop;
+    [Marker setMarkerImageWithGMSMarker:marker];
     marker.map = self.mapView;
     self.markers[marker.title] = place;
     
@@ -401,9 +430,11 @@
     
     // place pin
     GMSMarker* marker = [GMSMarker markerWithPosition:place.coordinate];
+    Marker *thisMarker = [[Marker alloc] initWithGMSPlace:place markerType:wishlist user:[PFUser currentUser]];
+    marker.userData = thisMarker;
     marker.title = place.name;
     marker.appearAnimation = kGMSMarkerAnimationPop;
-    marker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+    [Marker setMarkerImageWithGMSMarker:marker];
     marker.map = self.mapView;
     self.markers[marker.title] = place;
     

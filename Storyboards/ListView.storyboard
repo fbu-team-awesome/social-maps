@@ -47,6 +47,8 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" name="VTR_Borders"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileListCell" rowHeight="91" id="fVL-Yn-rf5" customClass="ProfileListCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="91"/>
@@ -78,7 +80,7 @@
                                         <connections>
                                             <outlet property="addressLabel" destination="jbe-c4-WL5" id="M47-pe-Qe4"/>
                                             <outlet property="nameLabel" destination="Kdw-RJ-LW1" id="VU4-2d-ceY"/>
-                                            <outlet property="placeImage" destination="VaU-fX-pdT" id="del-XL-3bg"/>
+                                            <outlet property="pictureImage" destination="VaU-fX-pdT" id="hV1-zM-wPo"/>
                                             <segue destination="u9n-v7-ju1" kind="show" identifier="detailsSegue" id="4aI-oj-5o7"/>
                                         </connections>
                                     </tableViewCell>
@@ -148,6 +150,9 @@
     <resources>
         <namedColor name="VTR_BlackLabel">
             <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="VTR_Borders">
+            <color red="0.9100000262260437" green="0.9100000262260437" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="VTR_GrayLabel">
             <color red="0.65098039215686276" green="0.65098039215686276" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -25,6 +25,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="VTR_Background"/>
                                 <color key="separatorColor" name="VTR_Borders"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdditionFeedCell" rowHeight="67" id="BEV-XA-RN6" customClass="AdditionFeedCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="67"/>
@@ -311,9 +312,6 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="VTR_Background">
-            <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="VTR_Background">
             <color red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
