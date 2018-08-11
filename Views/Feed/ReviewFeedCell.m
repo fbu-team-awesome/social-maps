@@ -28,7 +28,8 @@
     [super awakeFromNib];
     
     // hide the cell
-    [self.contentView setAlpha:0];}
+    [self.contentView setAlpha:0];
+}
 
 - (void)initUI {
     // set up content formatting
@@ -62,8 +63,8 @@
     // set rounded image
     [UIStylesHelper addRoundedCornersToView:self.pictureView];
     [UIStylesHelper addRoundedCornersToView:self.profilePictureImage];
-    [UIStylesHelper addShadowToView:self.pictureView];
-    
+    [UIStylesHelper addShadowToView:self.pictureView withOffset:CGSizeZero withRadius:2 withOpacity:0.16];
+
     // fade into visibility
     [UIView animateWithDuration:0.3 animations:^{
         [self.contentView setAlpha:1];
