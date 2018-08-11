@@ -120,6 +120,7 @@
 
 - (void)initSearch {
     self.searchView = [[SearchBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 90)];
+    self.searchView.placeholderText = @"Where's your next adventure?";
     self.fetcher = [[GMSAutocompleteFetcher alloc] init];
     self.fetcher.delegate = self;
     [self.resultsView addSubview:self.searchView];

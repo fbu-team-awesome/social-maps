@@ -57,7 +57,7 @@
     [self.searchField setTintColor:[UIColor colorNamed:@"VTR_GrayLabel"]];
     [self.searchField setFont:[UIFont fontWithName:@"Avenir Next" size:16]];
     [self.searchField setTextColor:[UIColor colorNamed:@"VTR_GrayLabel"]];
-    [self.searchField setPlaceholder:@"Where's your next adventure?"];
+    [self.searchField setPlaceholder:@"Search"];
     [self.searchField addTarget:self action:@selector(textWasEdited) forControlEvents:UIControlEventEditingChanged];
     [self.searchField addTarget:self.delegate action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.searchBoxView addSubview:self.searchField];
@@ -107,5 +107,9 @@
     else if (searchText.length == 1) {
         [self showCancel];
     }
+}
+
+- (void)setPlaceholderText:(NSString *)placeholderText {
+    [self.searchField setPlaceholder:placeholderText];
 }
 @end

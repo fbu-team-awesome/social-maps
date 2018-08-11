@@ -20,4 +20,6 @@
 
 @property (nonatomic, weak) id<SearchBarViewDelegate> delegate;
 
+- (void)setPlaceholderText:(NSString *)placeholderText;
+
 @end

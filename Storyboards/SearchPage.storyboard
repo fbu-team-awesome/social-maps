@@ -284,39 +284,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ojp-FH-j42">
-                                <rect key="frame" x="16" y="36" width="275" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search for a place..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="djA-mn-Qo8">
-                                        <rect key="frame" x="38" y="6" width="229" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <action selector="searchBarTextChanged:" destination="Tv6-zn-1kv" eventType="editingChanged" id="Dp3-9o-xZp"/>
-                                        </connections>
-                                    </textField>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="search_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Ph8-ge-xsQ">
-                                        <rect key="frame" x="16" y="15" width="14" height="14"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" name="VTR_GrayLabel"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ML-Zj-chH">
-                                <rect key="frame" x="311" y="42" width="48" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleColor" name="VTR_BlackLabel"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancelClicked:" destination="Tv6-zn-1kv" eventType="touchUpInside" id="VfJ-0j-EhZ"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" name="VTR_Background"/>
                         <viewLayoutGuide key="safeArea" id="OT9-SP-jYu"/>
@@ -324,9 +291,6 @@
                     <navigationItem key="navigationItem" id="SVt-et-Rqd"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="Xhw-lf-3ue" id="u1N-Dy-Ctx"/>
-                        <outlet property="searchFieldView" destination="ojp-FH-j42" id="Ptd-HD-5Tt"/>
-                        <outlet property="searchIconImage" destination="Ph8-ge-xsQ" id="xUJ-yS-YJ0"/>
-                        <outlet property="searchTextField" destination="djA-mn-Qo8" id="LEW-gh-HPw"/>
                         <outlet property="tableView" destination="5fY-7S-wwW" id="86Z-Qk-fBw"/>
                         <segue destination="23s-4a-9HG" kind="show" identifier="placeSegue" id="4nZ-zh-oCM"/>
                         <segue destination="h32-5Y-anI" kind="show" identifier="userSegue" id="6ow-oy-x5n"/>
@@ -389,7 +353,6 @@
     <resources>
         <image name="favorite_selected" width="38" height="36"/>
         <image name="favorite_unselected" width="38" height="36"/>
-        <image name="search_icon" width="18" height="18"/>
         <image name="wishlist_selected" width="23" height="40"/>
         <image name="wishlist_unselected" width="24" height="40"/>
         <namedColor name="VTR_Background">
@@ -397,9 +360,6 @@
         </namedColor>
         <namedColor name="VTR_BlackLabel">
             <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="VTR_Borders">
-            <color red="0.9100000262260437" green="0.9100000262260437" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="VTR_Borders">
             <color red="0.9100000262260437" green="0.9100000262260437" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
