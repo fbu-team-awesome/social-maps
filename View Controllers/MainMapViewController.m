@@ -42,6 +42,7 @@
 @property (strong, nonatomic) NSArray<GMSAutocompletePrediction *> *predictions;
 @property (strong, nonatomic) NSArray <FilterPillView *> *pillViews;
 @property (strong, nonatomic) GMSMarker *tempMarker;
+@property (nonatomic) bool mapIsAutoPanning;
 
 @end
 
@@ -634,7 +635,8 @@
     self.infoWindow.marker = (Marker *)marker.userData;
     [self.infoWindow configureWindow];
     self.infoWindow.center = [self.mapView.projection pointForCoordinate:marker.position];
-    self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
+    self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y+16, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
+    
     [self.resultsView addSubview:self.infoWindow];
     [self.resultsView bringSubviewToFront:self.searchView];
     [self.resultsView bringSubviewToFront:self.filterView];
@@ -646,14 +648,22 @@
     [self performSegueWithIdentifier:@"toDetailsView" sender:place];
 }
 
+- (void)mapView:(GMSMapView *)mapView willMove:(BOOL)gesture {
+    if (gesture) {
+        [self.infoWindow removeFromSuperview];
+    }
+}
+
 - (void)mapView:(GMSMapView *)mapView didChangeCameraPosition:(GMSCameraPosition *)position {
     if (self.locationMarker != nil) {
         CLLocationCoordinate2D location = self.locationMarker.position;
         self.infoWindow.center = [self.mapView.projection pointForCoordinate:location];
-        self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
-    } else {
-        NSLog(@"location marker is nil");
+        self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y+16, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
     }
+}
+
+- (void)didPanMapView:(id)sender {
+    [self.infoWindow removeFromSuperview];
 }
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
