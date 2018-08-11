@@ -49,7 +49,7 @@
     // set rounded images
     [UIStylesHelper addRoundedCornersToView:self.pictureView];
     [UIStylesHelper addRoundedCornersToView:self.profilePictureImage];
-    [UIStylesHelper addShadowToView:self.pictureView];
+    [UIStylesHelper addShadowToView:self.pictureView withOffset:CGSizeZero withRadius:2 withOpacity:0.16];
     self.photoImage.layer.cornerRadius = 10;
     self.photoImage.clipsToBounds = YES;
     
