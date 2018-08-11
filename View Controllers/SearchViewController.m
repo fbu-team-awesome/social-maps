@@ -180,12 +180,6 @@ bool fetchedPlaces = false;
     
     // Initialize custom segmented control
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Places", @"Users"]];
-    
-    // calculate Y position of segmentcontrol
-    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
-    CGFloat statusBarHeight = statusBarFrame.size.height;
-    CGFloat textFieldHeight = self.searchFieldView.frame.size.height;
-    CGFloat segmentControlHeight = statusBarHeight + textFieldHeight + 18;
 
     // Customize appearance
     [segmentedControl setFrame:CGRectMake(0, CGRectGetHeight(self.searchBarView.frame), width, height)];
