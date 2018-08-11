@@ -39,6 +39,7 @@
     [UIStylesHelper addShadowToView:self.passwordView withOffset:CGSizeMake(0, 1.2) withRadius:1.5 withOpacity:0.2];
     [UIStylesHelper addRoundedCornersToView:self.loginButton];
     [UIStylesHelper addShadowToView:self.loginButton withOffset:CGSizeMake(0, 2) withRadius:2 withOpacity:0.2];
+    [UIStylesHelper addGradientToView:self.loginButton];
 }
 
 - (IBAction)didTapLogin:(id)sender {

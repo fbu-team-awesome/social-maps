@@ -195,31 +195,18 @@
 }
 
 - (void)initUIStyles {
-    [self setRoundedCornersToView:self.profilePicture];
-    [self setRoundedCornersToView:self.profilePictureView];
-    [self addShadowToView:self.profilePictureView withOffset:CGSizeZero];
-    [self addShadowToView:self.myPlacesView withOffset:CGSizeMake(0, 4)];
-    self.followButton.layer.cornerRadius = self.followButton.frame.size.height / 2;
-    self.followButton.clipsToBounds = YES;
-    [self addShadowToView:self.followButton withOffset:CGSizeMake(0,0)];
+    [UIStylesHelper addRoundedCornersToView:self.profilePicture];
+    [UIStylesHelper addRoundedCornersToView:self.profilePictureView];
+    [UIStylesHelper addShadowToView:self.profilePictureView withOffset:CGSizeZero withRadius:2 withOpacity:0.2];
+    [UIStylesHelper addShadowToView:self.myPlacesView withOffset:CGSizeMake(0, 2) withRadius:2 withOpacity:0.2];
+    [UIStylesHelper addRoundedCornersToView:self.followButton];
+    [UIStylesHelper addShadowToView:self.followButton];
+    [UIStylesHelper addGradientToView:self.followButton];
     
     // set switch background when off
-    self.placesSwitch.layer.cornerRadius = self.placesSwitch.frame.size.height / 2;
-    self.placesSwitch.clipsToBounds = YES;
+    [UIStylesHelper addRoundedCornersToView:self.placesSwitch];
+    [UIStylesHelper addShadowToView:self.placesSwitch withOffset:CGSizeMake(0, 1) withRadius:2 withOpacity:0.2];
     self.placesSwitch.backgroundColor = [UIColor colorNamed:@"VTR_Main"];
-}
-
-- (void)setRoundedCornersToView:(UIView*)view {
-    view.layer.cornerRadius = view.frame.size.width / 2;
-    view.clipsToBounds = YES;
-}
-
-- (void)addShadowToView:(UIView*)view withOffset:(CGSize)offset {
-    view.layer.shadowColor = [UIColor blackColor].CGColor;
-    view.layer.shadowOffset = offset;
-    view.layer.shadowRadius = 5;
-    view.layer.shadowOpacity = 0.2;
-    view.layer.masksToBounds = NO;
 }
 
 - (void)fetchPlaceImagesFromPlaces:(NSArray<GMSPlace *> *)places withCompletion:(void(^)(void))completion {
