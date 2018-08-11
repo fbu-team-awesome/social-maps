@@ -7,6 +7,7 @@
 //
 
 #import "NotificationsViewController.h"
+#import "ProfileViewController.h"
 #import "FollowEvent.h"
 #import "NotificationCell.h"
 #import "UIStylesHelper.h"
@@ -33,6 +34,14 @@
     [self fetchEvents];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    if(indexPath != nil)
+    {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
 - (void)initUIStyles {
     [UIStylesHelper setCustomNavBarStyle:self.navigationController];
     [UIStylesHelper addShadowToView:self.navigationController.navigationBar withOffset:CGSizeMake(0, 2) withRadius:1.5 withOpacity:0.1];
@@ -51,6 +60,7 @@
     // fetch all follow events that have the current user as the one being followed
     [query whereKey:@"eventType" equalTo:[NSNumber numberWithUnsignedInteger:ETFollow]];
     [query whereKey:@"followingID" equalTo:currentUser.objectId];
+    [query includeKey:@"user"];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         for(PFObject *object in objects)
         {
@@ -71,16 +81,6 @@
     }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NotificationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationCell" forIndexPath:indexPath];
     FollowEvent *event = self.events[indexPath.row];
@@ -91,6 +91,17 @@
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    PFUser *user = self.events[indexPath.row].user;
+    [user retrieveRelationshipWithCompletion:^(Relationships *relationship) {
+        user.relationships = relationship;
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Profile" bundle:NSBundle.mainBundle];
+        ProfileViewController *profileVC = [storyboard instantiateViewControllerWithIdentifier:@"Profile"];
+        profileVC.user = user;
+        [self.navigationController pushViewController:profileVC animated:YES];
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

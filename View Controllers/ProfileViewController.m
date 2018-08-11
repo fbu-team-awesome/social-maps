@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *followersLabel;
 @property (weak, nonatomic) IBOutlet UILabel *followingLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
+@property (strong, nonatomic) UIImageView *settingsImage;
 
 // Instance Properties //
 @property (strong, nonatomic) CLLocationManager* locationManager;
@@ -77,6 +78,7 @@
     //profile map view initially reflects the size of the phone displayed on the storyboard, must manually set mapview width while profile map view is still the wrong size
     CGRect bounds = self.profileMapView.bounds;
     bounds.size.width = self.view.bounds.size.width;
+    bounds.size.height -= self.tabBarController.tabBar.frame.size.height;
     self.profileMapView.bounds = bounds;
     
     self.mapView = [GMSMapView mapWithFrame:self.profileMapView.bounds camera:camera];
@@ -100,12 +102,24 @@
         
         // show list button instead
         [self.followButton setTitle:@"View Lists" forState:UIControlStateNormal];
+        
+        // show settings wheel (which will serve for logout)
+        UIImageView *settingsImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 21, 21)];
+        UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logoutClicked)];
+        [settingsImage setImage:[UIImage imageNamed:@"settings"]];
+        settingsImage.userInteractionEnabled = YES;
+        [settingsImage addGestureRecognizer:gestureRecognizer];
+        UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:settingsImage];
+        self.navigationController.navigationBar.topItem.rightBarButtonItem = rightBarButtonItem;
     }
     
     // init tableview
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    [self.tableView setRowHeight:90];
+    [self.tableView setRowHeight:UITableViewAutomaticDimension];
+    CGRect frame = self.tableView.frame;
+    frame.size.height -= self.tabBarController.tabBar.frame.size.height;
+    self.tableView.frame = frame;
     
     // get favs and wishlist
     [self.progressIndicator startAnimating];
@@ -162,6 +176,13 @@
     
     // show navbar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    // deselect cells
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    if(indexPath != nil)
+    {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 - (void)addNotificationObservers {
@@ -178,31 +199,18 @@
 }
 
 - (void)initUIStyles {
-    [self setRoundedCornersToView:self.profilePicture];
-    [self setRoundedCornersToView:self.profilePictureView];
-    [self addShadowToView:self.profilePictureView withOffset:CGSizeZero];
-    [self addShadowToView:self.myPlacesView withOffset:CGSizeMake(0, 4)];
-    self.followButton.layer.cornerRadius = self.followButton.frame.size.height / 2;
-    self.followButton.clipsToBounds = YES;
-    [self addShadowToView:self.followButton withOffset:CGSizeMake(0,0)];
+    [UIStylesHelper addRoundedCornersToView:self.profilePicture];
+    [UIStylesHelper addRoundedCornersToView:self.profilePictureView];
+    [UIStylesHelper addShadowToView:self.profilePictureView withOffset:CGSizeZero withRadius:2 withOpacity:0.2];
+    [UIStylesHelper addShadowToView:self.myPlacesView withOffset:CGSizeMake(0, 2) withRadius:2 withOpacity:0.2];
+    [UIStylesHelper addRoundedCornersToView:self.followButton];
+    [UIStylesHelper addShadowToView:self.followButton];
+    [UIStylesHelper addGradientToView:self.followButton];
     
     // set switch background when off
-    self.placesSwitch.layer.cornerRadius = self.placesSwitch.frame.size.height / 2;
-    self.placesSwitch.clipsToBounds = YES;
+    [UIStylesHelper addRoundedCornersToView:self.placesSwitch];
+    [UIStylesHelper addShadowToView:self.placesSwitch withOffset:CGSizeMake(0, 1) withRadius:2 withOpacity:0.2];
     self.placesSwitch.backgroundColor = [UIColor colorNamed:@"VTR_Main"];
-}
-
-- (void)setRoundedCornersToView:(UIView*)view {
-    view.layer.cornerRadius = view.frame.size.width / 2;
-    view.clipsToBounds = YES;
-}
-
-- (void)addShadowToView:(UIView*)view withOffset:(CGSize)offset {
-    view.layer.shadowColor = [UIColor blackColor].CGColor;
-    view.layer.shadowOffset = offset;
-    view.layer.shadowRadius = 5;
-    view.layer.shadowOpacity = 0.2;
-    view.layer.masksToBounds = NO;
 }
 
 - (void)fetchPlaceImagesFromPlaces:(NSArray<GMSPlace *> *)places withCompletion:(void(^)(void))completion {
@@ -219,7 +227,10 @@
                 if(placeCount == places.count)
                 {
                     self.placeImages = [mutableDict copy];
-                    completion();
+                    if(completion != nil)
+                    {
+                        completion();
+                    }
                 }
             }];
         }];
@@ -289,10 +300,14 @@
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
-    CLLocation* location = [locations lastObject];
-    GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude zoom:15];
-    self.mapView.camera = camera;
-    [self.mapView animateToCameraPosition:camera];
+    if(self.currentLocation == nil)
+    {
+        CLLocation* location = [locations lastObject];
+        GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude zoom:15];
+        self.mapView.camera = camera;
+        self.currentLocation = location;
+        [self.mapView animateToCameraPosition:camera];
+    }
 }
 
 - (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
@@ -325,7 +340,7 @@
     }
 }
 
-- (IBAction)logoutClicked:(id)sender {
+- (void)logoutClicked {
     // logout
     [PFUser logOutInBackground];
     

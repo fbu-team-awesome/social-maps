@@ -31,6 +31,14 @@
     view.layer.masksToBounds = NO;
 }
 
++ (void)addGradientToView:(UIView *)view {
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.frame = view.layer.bounds;
+    gradientLayer.colors = [NSArray arrayWithObjects:(id)[UIColor colorNamed:@"VTR_Orange"].CGColor, (id)[UIColor colorNamed:@"VTR_Main"].CGColor, nil];
+    gradientLayer.cornerRadius = view.layer.cornerRadius;
+    [view.layer insertSublayer:gradientLayer atIndex:0];
+}
+
 + (void)setCustomNavBarStyle:(UINavigationController *)navigationController {
     [navigationController.navigationBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
     [navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];

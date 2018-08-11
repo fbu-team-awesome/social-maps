@@ -15,7 +15,7 @@
     [super awakeFromNib];
 
     // style the picture
-    self.placePicture.layer.cornerRadius = 10;
+    self.placePicture.layer.cornerRadius = 8;
     self.placePicture.clipsToBounds = YES;
 }
 
@@ -39,15 +39,19 @@
     switch(self.marker.type) {
         case favorites: {
             self.listsLabel.text = @"Added to your favorites.";
+            break;
         }
         case wishlist: {
             self.listsLabel.text = @"Added to your wishlist.";
+            break;
         }
         case followFavorites: {
             self.listsLabel.text = [NSString stringWithFormat:@"Added to %@'s favorites.", self.marker.markerOwner.displayName];
+            break;
         }
         case other: {
             self.listsLabel.text = @"";
+            break;
         }
     }
 }

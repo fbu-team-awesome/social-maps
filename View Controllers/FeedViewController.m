@@ -7,6 +7,7 @@
 //
 
 #import "FeedViewController.h"
+#import "DetailsViewController.h"
 #import "FeedEvent.h"
 #import "ListAdditionEvent.h"
 #import "CheckInEvent.h"
@@ -50,6 +51,14 @@
     
     self.events = [NSArray new];
     [self fetchEvents];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    if(indexPath != nil)
+    {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 - (void)addNotificationObservers {
@@ -190,6 +199,12 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [[APIManager shared] GMSPlaceFromPlace:self.events[indexPath.row].place withCompletion:^(GMSPlace *place) {
+        [self performSegueWithIdentifier:@"detailsSegue" sender:place];
+    }];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.events.count;
 }
@@ -200,14 +215,14 @@
     [self.tableView reloadData];
 }
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"detailsSegue"])
+    {
+        DetailsViewController *vc = (DetailsViewController *)[segue destinationViewController];
+        [vc setPlace:(GMSPlace *)sender];
+    }
 }
-*/
 
 @end

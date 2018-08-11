@@ -40,7 +40,7 @@
     // set rounded image
     [UIStylesHelper addRoundedCornersToView:self.pictureView];
     [UIStylesHelper addRoundedCornersToView:self.profilePictureImage];
-    [UIStylesHelper addShadowToView:self.pictureView withOffset:CGSizeZero withRadius:4 withOpacity:0.1];
+    [UIStylesHelper addShadowToView:self.pictureView withOffset:CGSizeZero withRadius:2 withOpacity:0.16];
     
     // fade in
     [UIView animateWithDuration:0.3 animations:^{
@@ -50,11 +50,6 @@
 
 - (void)setEvent:(FollowEvent *)event {
     _event = event;
-    [event queryInfoWithCompletion:^{
-       if(event.user.isDataAvailable)
-       {
-           [self initUI];
-       }
-    }];
+    [self initUI];
 }
 @end

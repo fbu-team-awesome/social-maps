@@ -41,6 +41,7 @@
 @property (strong, nonatomic) NSArray<GMSAutocompletePrediction *> *predictions;
 @property (strong, nonatomic) NSArray <FilterPillView *> *pillViews;
 @property (strong, nonatomic) GMSMarker *tempMarker;
+@property (nonatomic) bool mapIsAutoPanning;
 
 @end
 
@@ -293,10 +294,14 @@
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
-    CLLocation* location = [locations lastObject];
-    GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude zoom:15];
-    self.mapView.camera = camera;
-    [self.mapView animateToCameraPosition:camera];
+    if(self.currentLocation == nil)
+    {
+        CLLocation* location = [locations lastObject];
+        GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude zoom:15];
+        self.mapView.camera = camera;
+        self.currentLocation = location;
+        [self.mapView animateToCameraPosition:camera];
+    }
 }
 
 #pragma mark - Table view
@@ -549,7 +554,8 @@
     self.infoWindow.marker = (Marker *)marker.userData;
     [self.infoWindow configureWindow];
     self.infoWindow.center = [self.mapView.projection pointForCoordinate:marker.position];
-    self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
+    self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y+16, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
+    
     [self.resultsView addSubview:self.infoWindow];
     [self.resultsView bringSubviewToFront:self.searchView];
     [self.resultsView bringSubviewToFront:self.filterView];
@@ -561,13 +567,25 @@
     [self performSegueWithIdentifier:@"toDetailsView" sender:place];
 }
 
+- (void)mapView:(GMSMapView *)mapView willMove:(BOOL)gesture {
+    if (gesture) {
+        [self.infoWindow removeFromSuperview];
+    }
+}
+
 - (void)mapView:(GMSMapView *)mapView didChangeCameraPosition:(GMSCameraPosition *)position {
     if (self.locationMarker != nil) {
         CLLocationCoordinate2D location = self.locationMarker.position;
         self.infoWindow.center = [self.mapView.projection pointForCoordinate:location];
-        self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
-    } else {
-        NSLog(@"location marker is nil");
+        self.infoWindow.frame = CGRectMake(self.infoWindow.frame.origin.x, self.infoWindow.frame.origin.y+16, self.infoWindow.frame.size.width, self.infoWindow.frame.size.height);
     }
+}
+
+- (void)didPanMapView:(id)sender {
+    [self.infoWindow removeFromSuperview];
+}
+
+- (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
+    [self.infoWindow removeFromSuperview];
 }
 @end
