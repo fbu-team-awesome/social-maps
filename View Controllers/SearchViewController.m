@@ -14,14 +14,13 @@
 #import "APIManager.h"
 #import "ProfileViewController.h"
 #import "DetailsViewController.h"
+#import "SearchBarView.h"
+#import "SearchBarTextField.h"
 
-@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, GMSAutocompleteFetcherDelegate, CLLocationManagerDelegate>
+@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, GMSAutocompleteFetcherDelegate, CLLocationManagerDelegate, SearchBarViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIView *searchFieldView;
-@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
-@property (weak, nonatomic) IBOutlet UIImageView *searchIconImage;
-
+@property (strong, nonatomic) SearchBarView *searchBarView;
 @property (strong, nonatomic) NSArray<GMSPlace*>* places;
 @property (strong, nonatomic) NSArray<PFUser*>* users;
 @property (strong, nonatomic) NSArray *filteredPlaces;
@@ -66,21 +65,13 @@ bool fetchedPlaces = false;
 }
 
 - (void)initUIStyles {
-    self.searchFieldView.layer.cornerRadius = 13;
-    self.searchFieldView.clipsToBounds = YES;
-    self.searchFieldView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.searchFieldView.layer.shadowOffset = CGSizeMake(0, 1.2);
-    self.searchFieldView.layer.shadowRadius = 1.5;
-    self.searchFieldView.layer.shadowOpacity = 0.2;
-    self.searchFieldView.layer.masksToBounds = NO;
-    
+    [self.navigationController setNavigationBarHidden:YES];
+    self.searchBarView = [[SearchBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 90)];
+    [self.view addSubview:self.searchBarView];
     // set navbar styles
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    
-    // set search icon color
-    self.searchIconImage.image = [self.searchIconImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    // [self.navigationController.navigationBar setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+    // [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    // [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
 - (void)initMyLocation {
@@ -185,7 +176,7 @@ bool fetchedPlaces = false;
 
 - (void)setSegmentControlView {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat height = 55;
+    CGFloat height = 30;
     
     // Initialize custom segmented control
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Places", @"Users"]];
@@ -195,9 +186,9 @@ bool fetchedPlaces = false;
     CGFloat statusBarHeight = statusBarFrame.size.height;
     CGFloat textFieldHeight = self.searchFieldView.frame.size.height;
     CGFloat segmentControlHeight = statusBarHeight + textFieldHeight + 18;
-    
+
     // Customize appearance
-    [segmentedControl setFrame:CGRectMake(0, segmentControlHeight, width, height)];
+    [segmentedControl setFrame:CGRectMake(0, CGRectGetHeight(self.searchBarView.frame), width, height)];
     segmentedControl.selectionIndicatorHeight = 4.5f;
     segmentedControl.backgroundColor = [UIColor colorNamed:@"VTR_Background"];
     segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorNamed:@"VTR_BlackLabel"], NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-DemiBold" size:15.5]};
@@ -222,13 +213,12 @@ bool fetchedPlaces = false;
         self.segmentIndex = index;
         if(index == 1)
         {
-            self.searchTextField.placeholder = @"Search for a user...";
+            [self.searchBarView setPlaceholderText:@"Search for a user..."];
         }
         else
         {
-            self.searchTextField.placeholder = @"Search for a place...";
+            [self.searchBarView setPlaceholderText:@"Search for a place..."];
         }
-        [self.view endEditing:YES];
         [self.tableView reloadData];
     }];
     
@@ -266,7 +256,6 @@ bool fetchedPlaces = false;
                 
                 [searchCell configureCell];
             }
-            
             cell = searchCell;
         }
     }
@@ -347,32 +336,6 @@ bool fetchedPlaces = false;
 }
 #pragma mark - Search Bar
 
-- (IBAction)searchBarTextChanged:(id)sender {
-    NSString *searchText = self.searchTextField.text;
-    
-    if (searchText.length != 0){
-        //filter places
-        NSPredicate *placePredicate = [NSPredicate predicateWithBlock:^BOOL(GMSPlace *place, NSDictionary *bindings) {
-            return [place.name localizedCaseInsensitiveContainsString:searchText];
-        }];
-        self.filteredPlaces = [self.places filteredArrayUsingPredicate:placePredicate];
-        
-        //filter users
-        NSPredicate *userPredicate = [NSPredicate predicateWithBlock:^BOOL(PFUser *user, NSDictionary *bindings) {
-            return [user.username localizedCaseInsensitiveContainsString:searchText];
-        }];
-        self.filteredUsers = [self.users filteredArrayUsingPredicate:userPredicate];
-        [self.fetcher sourceTextHasChanged:self.searchTextField.text];
-        [self.tableView reloadData];
-    }
-    else
-    {
-        self.filteredPlaces = self.places;
-        self.filteredUsers = self.users;
-        self.predictions = [NSArray new];
-        [self.tableView reloadData];
-    }
-}
 
 - (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
@@ -380,7 +343,7 @@ bool fetchedPlaces = false;
 
 #pragma mark - Navigation
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.segmentIndex == 0) {
         if(indexPath.section == 0)
         {
@@ -416,22 +379,27 @@ bool fetchedPlaces = false;
     for (GMSAutocompletePrediction *prediction in predictions) {
         
         [results addObject:prediction];
-        
     }
     self.predictions = [results copy];
+    [self.tableView reloadData];
 }
 
 - (void)didFailAutocompleteWithError:(nonnull NSError *)error {
     NSLog(@"Error fetching autocomplete results: %@", error.localizedDescription);
 }
 
-- (IBAction)cancelClicked:(id)sender {
-    self.searchTextField.text = @"";
+- (void)cancelClicked:(id)sender {
     self.filteredPlaces = self.places;
     self.filteredUsers = self.users;
     self.predictions = [NSArray new];
     [self.tableView reloadData];
-    [self.searchTextField resignFirstResponder];
+}
+
+- (void)textChanged:(id)sender {
+    SearchBarTextField *textField = sender;
+    NSString *searchText = textField.text;
+    [self.fetcher sourceTextHasChanged:searchText];
+    [self.tableView reloadData];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {

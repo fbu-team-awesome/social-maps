@@ -18,6 +18,8 @@
 		015C3342210BCA960065F927 /* MarkerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3341210BCA960065F927 /* MarkerManager.m */; };
 		015C3345210F71AC0065F927 /* Marker.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C3344210F71AC0065F927 /* Marker.m */; };
 		015CFCF7211D2AE500E31AB2 /* FilterPillView.m in Sources */ = {isa = PBXBuildFile; fileRef = 015CFCF6211D2AE500E31AB2 /* FilterPillView.m */; };
+		015CFD00211E3FF700E31AB2 /* SearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 015CFCFF211E3FF700E31AB2 /* SearchBarView.m */; };
+		015CFD03211E4E7F00E31AB2 /* SearchBarTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 015CFD02211E4E7F00E31AB2 /* SearchBarTextField.m */; };
 		018A31E22119FD170043926B /* MainMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018A31E12119FD170043926B /* MainMapViewController.m */; };
 		018A31E9211A549E0043926B /* FilterPillHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 018A31E8211A549E0043926B /* FilterPillHelper.m */; };
 		018D276D2114CEED00AA9B2F /* AdditionFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 018D276B2114CEED00AA9B2F /* AdditionFeedCell.m */; };
@@ -98,6 +100,10 @@
 		015C3344210F71AC0065F927 /* Marker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Marker.m; sourceTree = "<group>"; };
 		015CFCF5211D2AE500E31AB2 /* FilterPillView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterPillView.h; sourceTree = "<group>"; };
 		015CFCF6211D2AE500E31AB2 /* FilterPillView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterPillView.m; sourceTree = "<group>"; };
+		015CFCFE211E3FF700E31AB2 /* SearchBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBarView.h; sourceTree = "<group>"; };
+		015CFCFF211E3FF700E31AB2 /* SearchBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBarView.m; sourceTree = "<group>"; };
+		015CFD01211E4E7F00E31AB2 /* SearchBarTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBarTextField.h; sourceTree = "<group>"; };
+		015CFD02211E4E7F00E31AB2 /* SearchBarTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBarTextField.m; sourceTree = "<group>"; };
 		018A31E02119FD170043926B /* MainMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainMapViewController.h; sourceTree = "<group>"; };
 		018A31E12119FD170043926B /* MainMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMapViewController.m; sourceTree = "<group>"; };
 		018A31E7211A549E0043926B /* FilterPillHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterPillHelper.h; sourceTree = "<group>"; };
@@ -306,6 +312,10 @@
 				01E4CEF6211CFA9300543D02 /* PillCancelButton.m */,
 				015CFCF5211D2AE500E31AB2 /* FilterPillView.h */,
 				015CFCF6211D2AE500E31AB2 /* FilterPillView.m */,
+				015CFCFE211E3FF700E31AB2 /* SearchBarView.h */,
+				015CFCFF211E3FF700E31AB2 /* SearchBarView.m */,
+				015CFD01211E4E7F00E31AB2 /* SearchBarTextField.h */,
+				015CFD02211E4E7F00E31AB2 /* SearchBarTextField.m */,
 			);
 			path = "UI Models";
 			sourceTree = "<group>";
@@ -608,6 +618,7 @@
 				9E3E422C211267D0002AA981 /* ReviewFeedCell.m in Sources */,
 				1C5BC865210A621500F67574 /* MapMarkerWindow.m in Sources */,
 				9E876BEC2118AE8F0097A85D /* UIStylesHelper.m in Sources */,
+				015CFD00211E3FF700E31AB2 /* SearchBarView.m in Sources */,
 				317B393E210267E40057079A /* RelationshipListCell.m in Sources */,
 				9E3E4229211267C2002AA981 /* PhotoFeedCell.m in Sources */,
 				1CAC864321103D7700A7A294 /* CheckInsViewController.m in Sources */,
@@ -619,6 +630,7 @@
 				1C2D8A7020FFB3C100F31851 /* SearchCell.m in Sources */,
 				015C3342210BCA960065F927 /* MarkerManager.m in Sources */,
 				0144075621111748001F67BD /* FilterListViewController.m in Sources */,
+				015CFD03211E4E7F00E31AB2 /* SearchBarTextField.m in Sources */,
 				01C3DB8E2114F766002B8D26 /* ParseImageHelper.m in Sources */,
 				01C3DB8D2114F766002B8D26 /* LoginViewController.m in Sources */,
 				01C3DB8F2114F766002B8D26 /* DetailsViewController.m in Sources */,
