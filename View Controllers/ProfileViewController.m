@@ -296,10 +296,14 @@
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray<CLLocation*>*)locations {
-    CLLocation* location = [locations lastObject];
-    GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude zoom:15];
-    self.mapView.camera = camera;
-    [self.mapView animateToCameraPosition:camera];
+    if(self.currentLocation == nil)
+    {
+        CLLocation* location = [locations lastObject];
+        GMSCameraPosition* camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude zoom:15];
+        self.mapView.camera = camera;
+        self.currentLocation = location;
+        [self.mapView animateToCameraPosition:camera];
+    }
 }
 
 - (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
