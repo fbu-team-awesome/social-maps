@@ -207,7 +207,7 @@ bool fetchedPlaces = false;
         self.segmentIndex = index;
         if(index == 1)
         {
-            [self.searchBarView setPlaceholderText:@"Search for a user..."];
+            [self.searchBarView setPlaceholderText:@"i am a searchbar"];
         }
         else
         {
