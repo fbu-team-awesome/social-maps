@@ -450,7 +450,7 @@
     Review *review = [Review object];
     review.user = PFUser.currentUser;
     review.content = self.reviewTextView.text;
-    review.rating = (NSInteger) (floor(self.userRating));
+    review.rating = (floor(self.userRating));
     [review saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         [self.parsePlace addReview:review.objectId withCompletion:^{
             self.reviews = [self.reviews arrayByAddingObject:review];

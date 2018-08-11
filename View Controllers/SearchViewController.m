@@ -193,7 +193,6 @@ bool fetchedPlaces = false;
     // calculate Y position of segmentcontrol
     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     CGFloat statusBarHeight = statusBarFrame.size.height;
-    CGFloat navBarHeight = self.navigationController.navigationBar.bounds.size.height;
     CGFloat textFieldHeight = self.searchFieldView.frame.size.height;
     CGFloat segmentControlHeight = statusBarHeight + textFieldHeight + 18;
     

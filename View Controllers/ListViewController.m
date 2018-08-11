@@ -130,10 +130,6 @@ static NSString *const kNoWishlistMsg = @"You have no places in your wishlist!";
 }
 
 - (void)setSegmentControlView {
-    // get status bar height
-    CGRect statusBarFrame = self.navigationController.navigationBar.frame;
-    CGFloat statusBarHeight = statusBarFrame.size.height;
-    
     self.edgesForExtendedLayout = UIRectEdgeNone;
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     

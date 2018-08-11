@@ -12,9 +12,9 @@
 
 @interface Photo : NSObject <NYTPhoto>
 
-@property (strong, nonatomic) PFFile *file;
-@property (strong, nonatomic) NSString *userObjectId;
+@property (strong, nonatomic, nonnull) PFFile *file;
+@property (strong, nonatomic, nonnull) NSString *userObjectId;
 
-- (nonnull instancetype) initWithPFFile:(PFFile *)file userObjectId:(NSString *)objectId;
+- (nonnull instancetype) initWithPFFile:(nonnull PFFile *)file userObjectId:(nonnull NSString *)objectId;
 
 @end
