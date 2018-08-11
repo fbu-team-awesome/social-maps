@@ -78,6 +78,7 @@
     //profile map view initially reflects the size of the phone displayed on the storyboard, must manually set mapview width while profile map view is still the wrong size
     CGRect bounds = self.profileMapView.bounds;
     bounds.size.width = self.view.bounds.size.width;
+    bounds.size.height -= self.tabBarController.tabBar.frame.size.height;
     self.profileMapView.bounds = bounds;
     
     self.mapView = [GMSMapView mapWithFrame:self.profileMapView.bounds camera:camera];
@@ -115,7 +116,10 @@
     // init tableview
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    [self.tableView setRowHeight:90];
+    [self.tableView setRowHeight:UITableViewAutomaticDimension];
+    CGRect frame = self.tableView.frame;
+    frame.size.height -= self.tabBarController.tabBar.frame.size.height;
+    self.tableView.frame = frame;
     
     // get favs and wishlist
     [self.progressIndicator startAnimating];
