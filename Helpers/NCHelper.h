@@ -21,6 +21,6 @@ typedef enum NotificationType : NSUInteger
 NotificationType;
 
 @interface NCHelper : NSObject
-+ (void)addObserver:(nonnull id)observer type:(NotificationType)type selector:(SEL)selector;
++ (void)addObserver:(nonnull id)observer type:(NotificationType)type selector:(nonnull SEL)selector;
 + (void)notify:(NotificationType)type object:(nullable id)object;
 @end

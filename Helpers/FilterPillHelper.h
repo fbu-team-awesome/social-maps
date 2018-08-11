@@ -14,7 +14,7 @@
 
 - (FilterPillView * _Nonnull)createFilterPill:(FilterType)type withName:(NSString * _Nullable)filterName;
 
-+ (instancetype)shared;
++ (nonnull instancetype)shared;
 
 
 @end
