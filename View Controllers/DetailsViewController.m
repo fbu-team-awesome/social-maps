@@ -92,7 +92,6 @@
     [UIStylesHelper addRoundedCornersToView:self.checkInButton];
     [UIStylesHelper addShadowToView:self.checkInButton withOffset:CGSizeMake(0, 1) withRadius:2 withOpacity:0.16];
     [UIStylesHelper addGradientToView:self.checkInButton];
-    
     [self updateCheckInLabel];
 }
 
