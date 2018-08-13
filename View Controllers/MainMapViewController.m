@@ -229,8 +229,16 @@
             self.pillViews = [NSArray arrayWithArray:mutablePillViews];
         }
     }
-    if (self.pillViews) {
+    if (self.pillViews.count == 0) {
         lastFrame = CGRectMake(0, 3, 102, 35);
+        UIView *noFilterView = [[UIView alloc] initWithFrame:CGRectMake(0, 3, 200, 35)];
+        [noFilterView setCenter:CGPointMake(noFilterView.center.x, CGRectGetHeight(lastFrame)/2 + 6)];
+        UILabel *noFilterLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 30)];
+        [noFilterLabel setText:@"No filters selected"];
+        [noFilterLabel setFont:[UIFont fontWithName:@"Avenir Next" size:14]];
+        [noFilterLabel setTextColor:[UIColor colorNamed:@"VTR_GrayLabel"]];
+        [noFilterView addSubview:noFilterLabel];
+        [self.pillScrollView addSubview:noFilterView];
     }
     
     self.filterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 15, 0, 20, 20)];
@@ -300,6 +308,18 @@
     [thisPill removeFromSuperview];
     [self updateScrollView:thisPill];
     [self addPinsToMap];
+    
+    if (self.pillViews.count == 0) {
+        CGRect frame = CGRectMake(0, 3, 102, 35);
+        UIView *noFilterView = [[UIView alloc] initWithFrame:CGRectMake(0, 3, 200, 35)];
+        [noFilterView setCenter:CGPointMake(noFilterView.center.x, CGRectGetHeight(frame)/2 + 6)];
+        UILabel *noFilterLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 30)];
+        [noFilterLabel setText:@"No filters selected"];
+        [noFilterLabel setFont:[UIFont fontWithName:@"Avenir Next" size:14]];
+        [noFilterLabel setTextColor:[UIColor colorNamed:@"VTR_GrayLabel"]];
+        [noFilterView addSubview:noFilterLabel];
+        [self.pillScrollView addSubview:noFilterView];
+    }
 }
 
 - (void)updateScrollView:(FilterPillView *)removedPillView {
