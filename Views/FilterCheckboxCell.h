@@ -17,5 +17,6 @@
 @property (nonatomic, getter=isSelected) BOOL selected;
 
 - (void)configureCell;
+- (void)uncheckCell;
 
 @end

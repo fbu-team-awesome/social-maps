@@ -32,6 +32,10 @@
     }
 }
 
+- (void)uncheckCell {
+    [self.checkbox setSelected:NO];
+}
+
 - (IBAction)checkboxTapped:(id)sender {
     MarkerManager *markerManager = [MarkerManager shared];
     NSDictionary *mutableTypeFilters = [markerManager.typeFilters mutableCopy];

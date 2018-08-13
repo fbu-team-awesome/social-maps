@@ -110,6 +110,39 @@
     return self.sectionTitles[section];
 }
 
+- (IBAction)clearAllClicked:(id)sender {
+    MarkerManager *markerManager = [MarkerManager shared];
+    NSMutableDictionary *mutableAllFilters = [NSMutableDictionary new];
+    NSMutableDictionary *mutablePlaceFilters = [NSMutableDictionary new];
+    NSMutableDictionary *mutableTypeFilters = [NSMutableDictionary new];
+    
+    for (NSString *key in markerManager.typeFilters) {
+        [mutableTypeFilters setObject:[NSNumber numberWithBool:NO] forKey:key];
+    }
+    for (NSString *key in markerManager.placeFilters) {
+        [mutablePlaceFilters setObject:[NSNumber numberWithBool:NO] forKey:key];
+    }
+    for (NSString *key in markerManager.allFilters) {
+        [mutableAllFilters setObject:[NSNumber numberWithBool:NO] forKey:key];
+    }
+    markerManager.allFilters = mutableAllFilters;
+    markerManager.placeFilters = mutablePlaceFilters;
+    markerManager.typeFilters = mutableTypeFilters;
+    
+    NSMutableArray<FilterCheckboxCell *> *cells = [NSMutableArray new];
+    for (NSInteger i = 0; i < self.tableView.numberOfSections; i++) {
+        for (NSInteger j = 0; j < [self.tableView numberOfRowsInSection:i]; j++) {
+            FilterCheckboxCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:j inSection:i]];
+            if (cell != nil) {
+                [cells addObject:cell];
+            }
+        }
+    }
+    for (FilterCheckboxCell *cell in cells) {
+        [cell uncheckCell];
+    }
+}
+
 - (IBAction)doneClicked:(id)sender {
     [self.delegate filterSelectionDone];
     [self dismissViewControllerAnimated:YES completion:nil];

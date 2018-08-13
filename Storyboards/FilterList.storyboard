@@ -75,6 +75,12 @@
                         <viewLayoutGuide key="safeArea" id="77q-tR-ZRU"/>
                     </view>
                     <navigationItem key="navigationItem" title="Filters" id="Zhb-7K-czk">
+                        <barButtonItem key="leftBarButtonItem" title="Clear All" id="sJL-Tk-1zQ">
+                            <color key="tintColor" name="VTR_BlackLabel"/>
+                            <connections>
+                                <action selector="clearAllClicked:" destination="xy4-Ef-6Kh" id="T6I-lV-wDk"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="ct4-kQ-D8T">
                             <color key="tintColor" name="VTR_BlackLabel"/>
                             <connections>
@@ -116,6 +122,9 @@
     <resources>
         <image name="checkbox-2-checked" width="20" height="20"/>
         <image name="checkbox-2-unchecked" width="20" height="20"/>
+        <namedColor name="VTR_BlackLabel">
+            <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="VTR_BlackLabel">
             <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
