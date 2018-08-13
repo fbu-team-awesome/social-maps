@@ -229,6 +229,9 @@
             self.pillViews = [NSArray arrayWithArray:mutablePillViews];
         }
     }
+    if (self.pillViews) {
+        lastFrame = CGRectMake(0, 3, 102, 35);
+    }
     
     self.filterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 15, 0, 20, 20)];
     [self.filterButton setCenter:CGPointMake(self.filterButton.center.x, CGRectGetHeight(lastFrame)/2 + 3)];
