@@ -61,6 +61,7 @@
 
 - (void)setEvent:(PhotoAdditionEvent *)event {
     _event = event;
+    self.photoImage.image = nil;
     [self initUI];
 }
 
