@@ -10,6 +10,7 @@
 #import "ParseImageHelper.h"
 #import "NCHelper.h"
 #import "UIStylesHelper.h"
+#import "NCHelper.h"
 
 @interface UserResultCell ()
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
@@ -33,6 +34,10 @@
     
     // set invisible at first
     [self.contentView setAlpha:0];
+    
+    // listen for follows/unfollows
+    [NCHelper addObserver:self type:NTNewFollow selector:@selector(didFollowOrUnfollow:)];
+    [NCHelper addObserver:self type:NTUnfollow selector:@selector(didFollowOrUnfollow:)];
 }
 
 - (void)configureCell {
@@ -132,8 +137,14 @@
     {
         [[PFUser currentUser] unfollow:self.user];
     }
-    [self toggleFollowButton];
     [[UIImpactFeedbackGenerator new] impactOccurred];
 }
 
+- (void)didFollowOrUnfollow:(NSNotification *)notification {
+    PFUser *user = notification.object;
+    if([user.objectId isEqualToString:self.user.objectId])
+    {
+        [self toggleFollowButton];
+    }
+}
 @end
