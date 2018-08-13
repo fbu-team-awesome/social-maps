@@ -62,12 +62,13 @@
 @property (nonatomic) CGFloat userRating;
 @property (nonatomic) CGFloat tableViewHeight;
 @property (nonatomic) double overallRating;
-@property (nonatomic) bool isEditing;
 @property (nonatomic) CGFloat keyboardHeight;
 
 @end
 
 @implementation DetailsViewController
+
+#pragma mark - Init
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -85,7 +86,14 @@
 - (void)viewWillAppear:(BOOL)animated {
     // make sure the navigation bar is always visible
     [self.navigationController setNavigationBarHidden:NO];
-    [self.tableView layoutIfNeeded];
+    
+    self.placeNameLabel.text = self.place.name;
+    self.addressLabel.text = self.place.formattedAddress;
+    [UIStylesHelper addRoundedCornersToView:self.checkInButton];
+    [UIStylesHelper addShadowToView:self.checkInButton withOffset:CGSizeMake(0, 1) withRadius:2 withOpacity:0.16];
+    [UIStylesHelper addGradientToView:self.checkInButton];
+    
+    [self updateCheckInLabel];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,26 +101,13 @@
 }
 
 - (void)updateContent {
-    self.placeNameLabel.text = self.place.name;
-    self.addressLabel.text = self.place.formattedAddress;
-    self.isEditing = NO;
-    [UIStylesHelper addRoundedCornersToView:self.checkInButton];
-    [UIStylesHelper addShadowToView:self.checkInButton withOffset:CGSizeMake(0, 1) withRadius:2 withOpacity:0.16];
-    [UIStylesHelper addGradientToView:self.checkInButton];
     
-    [self updateCheckInLabel];
     [self initUsersCheckedIn];
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification object:nil];
     [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-    CGRect contentRect = CGRectZero;
-    for (UIView *view in self.tableView.tableHeaderView.subviews) {
-        contentRect = CGRectUnion(contentRect, view.frame);
-    }
-    [self.tableView.tableHeaderView setFrame:CGRectMake(0, 0, contentRect.size.width, contentRect.size.height)];
-    [self.tableView layoutSubviews];
+
     
     [self initWriteReview];
     [self initShowReviews];
@@ -131,6 +126,14 @@
     self.collectionView.dataSource = self;
     self.photos = [NSArray new];
     [self fetchPlacePhotos];
+    
+    
+    CGRect contentRect = CGRectZero;
+    for (UIView *view in self.tableView.tableHeaderView.subviews) {
+        contentRect = CGRectUnion(contentRect, view.frame);
+    }
+    [self.tableView.tableHeaderView setFrame:CGRectMake(0, 0, contentRect.size.width, contentRect.size.height)];
+    [self.tableView layoutIfNeeded];
     
     // update the map
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.place.coordinate.latitude longitude:self.place.coordinate.longitude zoom:15];
@@ -183,9 +186,11 @@
                     }
                     if (self.userPicsLayoutHeight.constant == 0) {
                         self.userPicsLayoutHeight.constant = 40;
-                        CGRect frame2 = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.tableHeaderView.frame.size.height + 40);
-                        [self.tableView.tableHeaderView setFrame:frame2];
-                        [self.tableView layoutIfNeeded];
+                        CGRect frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.tableHeaderView.frame.size.height + 40);
+                        CGRect frame2 = CGRectMake(0, self.tableView.tableHeaderView.frame.size.height + 40, self.tableView.frame.size.width, self.tableView.tableFooterView.frame.size.height);
+                        
+                        [self.tableView.tableHeaderView setFrame:frame];
+                        [self.tableView.tableFooterView setFrame:frame2];
                         int i = 0;
                         while(i < 5 && i < self.usersCheckedIn.count){
                             //create image view
@@ -203,6 +208,7 @@
                             [self.userPicsView addSubview:userPicView];
                             i++;
                         }
+                        [self.tableView reloadData];
                         [self.tableView layoutIfNeeded];
                     }
                     
@@ -333,10 +339,20 @@
             [self.collectionView setHidden: NO];
             self.photosLayoutHeight.constant = 72;
             CGRect frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.tableHeaderView.frame.size.height + 72);
+            CGRect frame2 = CGRectMake(0, self.tableView.tableHeaderView.frame.size.height + 72, self.tableView.frame.size.width, self.tableView.tableFooterView.frame.size.height);
+            
             [self.tableView.tableHeaderView setFrame:frame];
-            [self.tableView layoutIfNeeded];
+            [self.tableView.tableFooterView setFrame:frame2];
+
+            
         }
         [self.collectionView reloadData];
+        [self.tableView reloadData];
+        [self.tableView layoutIfNeeded];
+        [UITableView animateWithDuration:0.3 animations:^{
+            self.tableView.contentInset = UIEdgeInsetsZero;
+            self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+        }];
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -415,8 +431,6 @@
         self.tableView.scrollIndicatorInsets = contentInsets;
         [self.tableView scrollRectToVisible:[self.tableView convertRect:self.tableView.tableFooterView.bounds fromView:self.tableView.tableFooterView] animated:NO];
     }];
-
-    self.isEditing = YES;
 }
 
 - (IBAction)didTapView:(id)sender {
@@ -428,7 +442,6 @@
         self.tableView.contentInset = UIEdgeInsetsZero;
         self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
     }];
-    self.isEditing = NO;
 }
 
 - (void) initShowReviews {
