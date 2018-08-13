@@ -40,18 +40,6 @@
     self.cityLabel.text = self.user.hometown;
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", self.user.username];
     [self setProfilePic];
-
-    if(![PFUser currentUser].relationships.isDataAvailable)
-    {
-        [[PFUser currentUser] retrieveRelationshipWithCompletion:^(Relationships *relationship) {
-            [PFUser currentUser].relationships = relationship;
-            [self checkIfFollowing];
-        }];
-    }
-    else
-    {
-        [self checkIfFollowing];
-    }
 }
 
 - (void)setProfilePic {
@@ -81,10 +69,10 @@
     if([[PFUser currentUser].relationships.following containsObject:self.user.objectId])
     {
         [self.followButton setTitle:@"Following" forState:UIControlStateNormal];
-        self.followButton.layer.borderWidth = 1;
-        self.followButton.layer.borderColor = [UIColor colorNamed:@"VTR_Main"].CGColor;
         [self.followButton setTitleColor:[UIColor colorNamed:@"VTR_Main"] forState:UIControlStateNormal];
         [self.followButton setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+        self.followButton.layer.borderWidth = 1;
+        self.followButton.layer.borderColor = [UIColor colorNamed:@"VTR_Main"].CGColor;
     }
     else
     {

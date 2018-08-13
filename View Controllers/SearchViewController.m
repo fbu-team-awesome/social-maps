@@ -256,6 +256,25 @@ bool fetchedPlaces = false;
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.segmentIndex == 1)
+    {
+        UserResultCell *userCell = (UserResultCell *)cell;
+        if(![PFUser currentUser].relationships.isDataAvailable)
+        {
+            [[PFUser currentUser] retrieveRelationshipWithCompletion:^(Relationships *relationship) {
+                [PFUser currentUser].relationships = relationship;
+                [userCell checkIfFollowing];
+            }];
+        }
+        else
+        {
+            [userCell checkIfFollowing];
+        }
+    }
+}
+
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.segmentIndex == 0)
     {
