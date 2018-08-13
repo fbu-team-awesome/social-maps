@@ -125,11 +125,20 @@
     self.fetcher = [[GMSAutocompleteFetcher alloc] init];
     self.fetcher.delegate = self;
     [self.resultsView addSubview:self.searchView];
+    
+    // Add shadow to search
+    self.searchView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.searchView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.searchView.layer.shadowRadius = 1;
+    self.searchView.layer.shadowOpacity = 0.15;
+    
+    [self.resultsView sendSubviewToBack:self.searchView];
 }
 
 - (void)cancelClicked:(id)sender {
     [self.mapView setHidden:NO];
     [self.filterView setHidden:NO];
+    [self.resultsView sendSubviewToBack:self.searchView];
     [self.tableView setHidden:YES];
     
     self.tempMarker.map = nil;
@@ -140,9 +149,13 @@
 - (void)textChanged:(id)sender {
     SearchBarTextField *textField = sender;
     NSString *searchText = textField.text;
+    
+    [self.resultsView bringSubviewToFront:self.searchView];
+    
     if (searchText.length == 0) {
         [self.mapView setHidden:NO];
         [self.filterView setHidden:NO];
+        [self.resultsView sendSubviewToBack:self.searchView];
         [self.tableView setHidden:YES];
         self.predictions = [NSArray new];
         
@@ -154,11 +167,6 @@
         [self.tableView setHidden:NO];
         [self.mapView setHidden:YES];
         [self.filterView setHidden:YES];
-        
-        self.searchView.layer.shadowColor = [UIColor blackColor].CGColor;
-        self.searchView.layer.shadowOffset = CGSizeMake(0, 1);
-        self.searchView.layer.shadowRadius = 1;
-        self.searchView.layer.shadowOpacity = 0.15;
         
         [self.fetcher sourceTextHasChanged:searchText];
         [self.tableView reloadData];
@@ -368,8 +376,10 @@
     
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:cell.place.coordinate.latitude longitude:cell.place.coordinate.longitude zoom:zoom];
     [self.mapView setCamera:camera];
-    [self.searchView setHidden:NO];
     [self.mapView setHidden:NO];
+    [self.searchView setHidden:NO];
+    [self.searchView.superview bringSubviewToFront:self.searchView];
+    [self.searchView setClipsToBounds:NO];
     [self.tableView setHidden:YES];
 }
 
