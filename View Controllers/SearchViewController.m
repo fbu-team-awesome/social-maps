@@ -91,10 +91,9 @@ bool fetchedPlaces = false;
     NSMutableArray<GMSPlace *> *mutableArray = [NSMutableArray new];
     
     __block NSUInteger countedUsers = 0;
-    
     [currentUser retrieveRelationshipWithCompletion:^(Relationships *relationship) {
         [PFUser retrieveUsersWithIDs:relationship.following withCompletion:^(NSArray<PFUser *> *users) {
-            for(int i = 0; i < users.count; i++)
+            for(int i = 0; i < users.count && mutableArray.count < 10; i++)
             {
                 PFUser *user = users[i];
                 [user retrieveFavoritesWithCompletion:^(NSArray<GMSPlace *> *places) {
@@ -105,6 +104,11 @@ bool fetchedPlaces = false;
                         double latitude = (double)place.coordinate.latitude;
                         double longitude = (double)place.coordinate.longitude;
                         
+                        if(mutableArray.count == 10)
+                        {
+                            break;
+                        }
+                        
                         // if it's within the range, add it to the places to show
                         if(latitude >= myMinLatitude && latitude <= myMaxLatitude)
                         {
@@ -113,6 +117,10 @@ bool fetchedPlaces = false;
                                 if(![mutableArray containsObject:place])
                                 {
                                     [mutableArray addObject:place];
+                                    if(mutableArray.count == 10)
+                                    {
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -156,8 +164,10 @@ bool fetchedPlaces = false;
     {
         [[APIManager shared] getPhotoMetadata:place.placeID:^(NSArray<GMSPlacePhotoMetadata *> *photoMetadata) {
             GMSPlacePhotoMetadata *metadata = photoMetadata.firstObject;
-            [[GMSPlacesClient sharedClient] loadPlacePhoto:metadata callback:^(UIImage * _Nullable photo, NSError * _Nullable error) {
-                mutableDict[place.placeID] = photo;
+            if(photoMetadata == nil)
+            {
+                UIImage *placeholder = [UIImage imageNamed:@"placeholder"];
+                mutableDict[place.placeID] = placeholder;
                 placeCount++;
                 
                 if(placeCount == self.places.count)
@@ -165,7 +175,20 @@ bool fetchedPlaces = false;
                     self.placeImages = [mutableDict copy];
                     completion();
                 }
-            }];
+            }
+            else
+            {
+                [[GMSPlacesClient sharedClient] loadPlacePhoto:metadata callback:^(UIImage * _Nullable photo, NSError * _Nullable error) {
+                    mutableDict[place.placeID] = photo;
+                    placeCount++;
+                    
+                    if(placeCount == self.places.count)
+                    {
+                        self.placeImages = [mutableDict copy];
+                        completion();
+                    }
+                }];
+            }
         }];
     }
 }
@@ -392,8 +415,28 @@ bool fetchedPlaces = false;
 - (void)textChanged:(id)sender {
     SearchBarTextField *textField = sender;
     NSString *searchText = textField.text;
-    [self.fetcher sourceTextHasChanged:searchText];
-    [self.tableView reloadData];
+    if (searchText.length != 0){
+        //filter places
+        NSPredicate *placePredicate = [NSPredicate predicateWithBlock:^BOOL(GMSPlace *place, NSDictionary *bindings) {
+            return [place.name localizedCaseInsensitiveContainsString:searchText];
+        }];
+        self.filteredPlaces = [self.places filteredArrayUsingPredicate:placePredicate];
+        
+        //filter users
+        NSPredicate *userPredicate = [NSPredicate predicateWithBlock:^BOOL(PFUser *user, NSDictionary *bindings) {
+            return [user.username localizedCaseInsensitiveContainsString:searchText];
+        }];
+        self.filteredUsers = [self.users filteredArrayUsingPredicate:userPredicate];
+        [self.fetcher sourceTextHasChanged:searchText];
+        [self.tableView reloadData];
+    }
+    else
+    {
+        self.filteredPlaces = self.places;
+        self.filteredUsers = self.users;
+        self.predictions = [NSArray new];
+        [self.tableView reloadData];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
