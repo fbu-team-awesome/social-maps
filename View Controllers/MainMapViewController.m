@@ -151,6 +151,7 @@
         [self.view endEditing:YES];
     }
     else if (searchText.length == 1) {
+        [self.tableView.superview bringSubviewToFront:self.tableView];
         [self.tableView setHidden:NO];
         [self.mapView setHidden:YES];
         [self.filterView setHidden:YES];
