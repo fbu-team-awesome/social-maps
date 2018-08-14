@@ -336,6 +336,7 @@
             [self.tableView.tableHeaderView setFrame:frame];
             [self.tableView layoutIfNeeded];
         }
+        
         [self.collectionView reloadData];
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
