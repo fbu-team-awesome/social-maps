@@ -193,7 +193,7 @@
     [self.pillScrollView setShowsHorizontalScrollIndicator:NO];
     
     self.pillViews = [[NSArray alloc] init];
-    NSMutableDictionary *filters = [MarkerManager shared].allFilters;
+    NSMutableDictionary *filters = (NSMutableDictionary *)[MarkerManager shared].allFilters;
     NSArray *lists = [MarkerManager shared].filterKeys;
     CGRect lastFrame = CGRectMake(0, 0, 0, 0);
     for (NSString *list in lists) {
@@ -248,24 +248,38 @@
     
     switch(thisPill.filterType) {
         case favFilter: {
-            [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
-            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
+            NSMutableDictionary *mutableTypeFilters = [[MarkerManager shared].typeFilters mutableCopy];
+            NSMutableDictionary *mutableAllFilters = [[MarkerManager shared].allFilters mutableCopy];
+            [mutableTypeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
+            [mutableAllFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
+            [MarkerManager shared].typeFilters = [[NSDictionary alloc] initWithDictionary:mutableTypeFilters];
+            [MarkerManager shared].allFilters = [[NSDictionary alloc] initWithDictionary:mutableAllFilters];
             break;
         }
         case wishFilter: {
-            [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
-            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
+            NSMutableDictionary *mutableTypeFilters = [[MarkerManager shared].typeFilters mutableCopy];
+            NSMutableDictionary *mutableAllFilters = [[MarkerManager shared].allFilters mutableCopy];
+            [mutableTypeFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
+            [mutableAllFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
+            [MarkerManager shared].typeFilters = [[NSDictionary alloc] initWithDictionary:mutableTypeFilters];
+            [MarkerManager shared].allFilters = [[NSDictionary alloc] initWithDictionary:mutableAllFilters];
             break;
         }
         case friendFilter: {
-            [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
-            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
+            NSMutableDictionary *mutableTypeFilters = [[MarkerManager shared].typeFilters mutableCopy];
+            NSMutableDictionary *mutableAllFilters = [[MarkerManager shared].allFilters mutableCopy];
+            [mutableTypeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
+            [mutableAllFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
+            [MarkerManager shared].typeFilters = [[NSDictionary alloc] initWithDictionary:mutableTypeFilters];
+            [MarkerManager shared].allFilters = [[NSDictionary alloc] initWithDictionary:mutableAllFilters];
             break;
         }
         case placeFilter: {
-            [[MarkerManager shared].placeFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
-            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
-            break;
+            NSMutableDictionary *mutablePlaceFilters = [[MarkerManager shared].placeFilters mutableCopy];
+            NSMutableDictionary *mutableAllFilters = [[MarkerManager shared].allFilters mutableCopy];
+            [mutablePlaceFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
+            [mutableAllFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
+            break;  
         }
     }
     
