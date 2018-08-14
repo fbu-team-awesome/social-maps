@@ -125,9 +125,9 @@
     for (NSString *key in markerManager.allFilters) {
         [mutableAllFilters setObject:[NSNumber numberWithBool:NO] forKey:key];
     }
-    markerManager.allFilters = mutableAllFilters;
-    markerManager.placeFilters = mutablePlaceFilters;
-    markerManager.typeFilters = mutableTypeFilters;
+    markerManager.allFilters = (NSDictionary *)mutableAllFilters;
+    markerManager.placeFilters = (NSDictionary *)mutablePlaceFilters;
+    markerManager.typeFilters = (NSDictionary *)mutableTypeFilters;
     
     NSMutableArray<FilterCheckboxCell *> *cells = [NSMutableArray new];
     for (NSInteger i = 0; i < self.tableView.numberOfSections; i++) {
