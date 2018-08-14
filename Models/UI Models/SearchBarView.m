@@ -52,6 +52,7 @@
     [self.searchBoxView addSubview:searchIcon];
     
     self.searchField = [[SearchBarTextField alloc] initWithFrame:CGRectMake(self.searchBoxView.frame.origin.x + 15, self.searchBoxView.frame.origin.y, self.searchBoxView.frame.size.width*5/6, self.searchBoxView.frame.size.height/2)];
+    self.searchField.delegate = self;
     self.searchField.center = CGPointMake(self.searchField.center.x, self.searchBoxView.frame.size.height/2);
     [self.searchField setBackgroundColor:[UIColor whiteColor]];
     [self.searchField setTintColor:[UIColor colorNamed:@"VTR_GrayLabel"]];
@@ -60,6 +61,7 @@
     [self.searchField setPlaceholder:@"Search"];
     [self.searchField addTarget:self action:@selector(textWasEdited) forControlEvents:UIControlEventEditingChanged];
     [self.searchField addTarget:self.delegate action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
+    [self.searchField setReturnKeyType:UIReturnKeyGo];
     [self.searchBoxView addSubview:self.searchField];
     
     self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(self.searchBoxView.frame.origin.x + (self.frame.size.width*7)/10 + 10, self.frame.origin.y, 60, 40)];
@@ -107,6 +109,12 @@
     else if (searchText.length == 1) {
         [self showCancel];
     }
+}
+
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
+    
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)setPlaceholderText:(NSString *)placeholderText {
