@@ -125,11 +125,20 @@
     self.fetcher = [[GMSAutocompleteFetcher alloc] init];
     self.fetcher.delegate = self;
     [self.resultsView addSubview:self.searchView];
+    
+    // Add shadow to search
+    self.searchView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.searchView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.searchView.layer.shadowRadius = 1;
+    self.searchView.layer.shadowOpacity = 0.15;
+    
+    [self.resultsView sendSubviewToBack:self.searchView];
 }
 
 - (void)cancelClicked:(id)sender {
     [self.mapView setHidden:NO];
     [self.filterView setHidden:NO];
+    [self.resultsView sendSubviewToBack:self.searchView];
     [self.tableView setHidden:YES];
     
     self.tempMarker.map = nil;
@@ -140,9 +149,13 @@
 - (void)textChanged:(id)sender {
     SearchBarTextField *textField = sender;
     NSString *searchText = textField.text;
+    
+    [self.resultsView bringSubviewToFront:self.searchView];
+    
     if (searchText.length == 0) {
         [self.mapView setHidden:NO];
         [self.filterView setHidden:NO];
+        [self.resultsView sendSubviewToBack:self.searchView];
         [self.tableView setHidden:YES];
         self.predictions = [NSArray new];
         
@@ -151,14 +164,10 @@
         [self.view endEditing:YES];
     }
     else if (searchText.length == 1) {
+        [self.tableView.superview bringSubviewToFront:self.tableView];
         [self.tableView setHidden:NO];
         [self.mapView setHidden:YES];
         [self.filterView setHidden:YES];
-        
-        self.searchView.layer.shadowColor = [UIColor blackColor].CGColor;
-        self.searchView.layer.shadowOffset = CGSizeMake(0, 1);
-        self.searchView.layer.shadowRadius = 1;
-        self.searchView.layer.shadowOpacity = 0.15;
         
         [self.fetcher sourceTextHasChanged:searchText];
         [self.tableView reloadData];
@@ -193,7 +202,7 @@
     [self.pillScrollView setShowsHorizontalScrollIndicator:NO];
     
     self.pillViews = [[NSArray alloc] init];
-    NSMutableDictionary *filters = [MarkerManager shared].allFilters;
+    NSMutableDictionary *filters = (NSMutableDictionary *)[MarkerManager shared].allFilters;
     NSArray *lists = [MarkerManager shared].filterKeys;
     CGRect lastFrame = CGRectMake(0, 0, 0, 0);
     for (NSString *list in lists) {
@@ -220,6 +229,17 @@
             [mutablePillViews addObject:pillView];
             self.pillViews = [NSArray arrayWithArray:mutablePillViews];
         }
+    }
+    if (self.pillViews.count == 0) {
+        lastFrame = CGRectMake(0, 3, 102, 35);
+        UIView *noFilterView = [[UIView alloc] initWithFrame:CGRectMake(0, 3, 200, 35)];
+        [noFilterView setCenter:CGPointMake(noFilterView.center.x, CGRectGetHeight(lastFrame)/2 + 6)];
+        UILabel *noFilterLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 30)];
+        [noFilterLabel setText:@"No filters selected"];
+        [noFilterLabel setFont:[UIFont fontWithName:@"Avenir Next" size:14]];
+        [noFilterLabel setTextColor:[UIColor colorNamed:@"VTR_GrayLabel"]];
+        [noFilterView addSubview:noFilterLabel];
+        [self.pillScrollView addSubview:noFilterView];
     }
     
     self.filterButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 15, 0, 20, 20)];
@@ -248,24 +268,38 @@
     
     switch(thisPill.filterType) {
         case favFilter: {
-            [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
-            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
+            NSMutableDictionary *mutableTypeFilters = [[MarkerManager shared].typeFilters mutableCopy];
+            NSMutableDictionary *mutableAllFilters = [[MarkerManager shared].allFilters mutableCopy];
+            [mutableTypeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
+            [mutableAllFilters setObject:[NSNumber numberWithBool:NO] forKey:kFavoritesKey];
+            [MarkerManager shared].typeFilters = [[NSDictionary alloc] initWithDictionary:mutableTypeFilters];
+            [MarkerManager shared].allFilters = [[NSDictionary alloc] initWithDictionary:mutableAllFilters];
             break;
         }
         case wishFilter: {
-            [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
-            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
+            NSMutableDictionary *mutableTypeFilters = [[MarkerManager shared].typeFilters mutableCopy];
+            NSMutableDictionary *mutableAllFilters = [[MarkerManager shared].allFilters mutableCopy];
+            [mutableTypeFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
+            [mutableAllFilters setObject:[NSNumber numberWithBool:NO] forKey:kWishlistKey];
+            [MarkerManager shared].typeFilters = [[NSDictionary alloc] initWithDictionary:mutableTypeFilters];
+            [MarkerManager shared].allFilters = [[NSDictionary alloc] initWithDictionary:mutableAllFilters];
             break;
         }
         case friendFilter: {
-            [[MarkerManager shared].typeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
-            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
+            NSMutableDictionary *mutableTypeFilters = [[MarkerManager shared].typeFilters mutableCopy];
+            NSMutableDictionary *mutableAllFilters = [[MarkerManager shared].allFilters mutableCopy];
+            [mutableTypeFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
+            [mutableAllFilters setObject:[NSNumber numberWithBool:NO] forKey:kFollowFavKey];
+            [MarkerManager shared].typeFilters = [[NSDictionary alloc] initWithDictionary:mutableTypeFilters];
+            [MarkerManager shared].allFilters = [[NSDictionary alloc] initWithDictionary:mutableAllFilters];
             break;
         }
         case placeFilter: {
-            [[MarkerManager shared].placeFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
-            [[MarkerManager shared].allFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
-            break;
+            NSMutableDictionary *mutablePlaceFilters = [[MarkerManager shared].placeFilters mutableCopy];
+            NSMutableDictionary *mutableAllFilters = [[MarkerManager shared].allFilters mutableCopy];
+            [mutablePlaceFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
+            [mutableAllFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
+            break;  
         }
     }
     
@@ -275,6 +309,18 @@
     [thisPill removeFromSuperview];
     [self updateScrollView:thisPill];
     [self addPinsToMap];
+    
+    if (self.pillViews.count == 0) {
+        CGRect frame = CGRectMake(0, 3, 102, 35);
+        UIView *noFilterView = [[UIView alloc] initWithFrame:CGRectMake(0, 3, 200, 35)];
+        [noFilterView setCenter:CGPointMake(noFilterView.center.x, CGRectGetHeight(frame)/2 + 6)];
+        UILabel *noFilterLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 30)];
+        [noFilterLabel setText:@"No filters selected"];
+        [noFilterLabel setFont:[UIFont fontWithName:@"Avenir Next" size:14]];
+        [noFilterLabel setTextColor:[UIColor colorNamed:@"VTR_GrayLabel"]];
+        [noFilterView addSubview:noFilterLabel];
+        [self.pillScrollView addSubview:noFilterView];
+    }
 }
 
 - (void)updateScrollView:(FilterPillView *)removedPillView {
@@ -354,8 +400,10 @@
     
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:cell.place.coordinate.latitude longitude:cell.place.coordinate.longitude zoom:zoom];
     [self.mapView setCamera:camera];
-    [self.searchView setHidden:NO];
     [self.mapView setHidden:NO];
+    [self.searchView setHidden:NO];
+    [self.searchView.superview bringSubviewToFront:self.searchView];
+    [self.searchView setClipsToBounds:NO];
     [self.tableView setHidden:YES];
 }
 

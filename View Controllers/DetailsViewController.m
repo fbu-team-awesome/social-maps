@@ -340,6 +340,7 @@
             [self.tableView.tableHeaderView setFrame:frame];
             [self.tableView.tableFooterView setFrame:frame2];
         }
+        
         [self.collectionView reloadData];
         [self.tableView reloadData];
         [self.tableView layoutIfNeeded];

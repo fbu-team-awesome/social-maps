@@ -171,6 +171,10 @@ static const NSUInteger kQuerySize = 10;
                     completion(photos.results);
                 }
             }
+            else
+            {
+                completion(nil);
+            }
         }
     }];
 }

@@ -32,19 +32,29 @@
     }
 }
 
+- (void)uncheckCell {
+    [self.checkbox setSelected:NO];
+}
+
 - (IBAction)checkboxTapped:(id)sender {
     MarkerManager *markerManager = [MarkerManager shared];
+    NSDictionary *mutableTypeFilters = [markerManager.typeFilters mutableCopy];
+    NSDictionary *mutablePlaceFilters = [markerManager.placeFilters mutableCopy];
+    NSDictionary *mutableAllFilters = [markerManager.allFilters mutableCopy];
     if (self.checkbox.selected) {
         [self.checkbox setSelected:NO];
-        [markerManager.typeFilters setValue:[NSNumber numberWithBool:NO] forKey:self.list];
-        [markerManager.placeFilters setValue:[NSNumber numberWithBool:NO] forKey:self.list];
-        [markerManager.allFilters setValue:[NSNumber numberWithBool:NO] forKey:self.list];
+        [mutableTypeFilters setValue:[NSNumber numberWithBool:NO] forKey:self.list];
+        [mutablePlaceFilters setValue:[NSNumber numberWithBool:NO] forKey:self.list];
+        [mutableAllFilters setValue:[NSNumber numberWithBool:NO] forKey:self.list];
     }
     else {
         [self.checkbox setSelected:YES];
-        [markerManager.typeFilters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
-        [markerManager.placeFilters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
-        [markerManager.allFilters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
+        [mutableTypeFilters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
+        [mutablePlaceFilters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
+        [mutableAllFilters setValue:[NSNumber numberWithBool:YES] forKey:self.list];
     }
+    markerManager.typeFilters = [NSDictionary dictionaryWithDictionary:mutableTypeFilters];
+    markerManager.placeFilters = [NSDictionary dictionaryWithDictionary:mutablePlaceFilters];
+    markerManager.allFilters = [NSDictionary dictionaryWithDictionary:mutableAllFilters];
 }
 @end

@@ -10,6 +10,7 @@
 #import "ParseImageHelper.h"
 #import "NCHelper.h"
 #import "UIStylesHelper.h"
+#import "NCHelper.h"
 
 @interface UserResultCell ()
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
@@ -33,6 +34,10 @@
     
     // set invisible at first
     [self.contentView setAlpha:0];
+    
+    // listen for follows/unfollows
+    [NCHelper addObserver:self type:NTNewFollow selector:@selector(didFollowOrUnfollow:)];
+    [NCHelper addObserver:self type:NTUnfollow selector:@selector(didFollowOrUnfollow:)];
 }
 
 - (void)configureCell {
@@ -40,18 +45,6 @@
     self.cityLabel.text = self.user.hometown;
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", self.user.username];
     [self setProfilePic];
-
-    if(![PFUser currentUser].relationships.isDataAvailable)
-    {
-        [[PFUser currentUser] retrieveRelationshipWithCompletion:^(Relationships *relationship) {
-            [PFUser currentUser].relationships = relationship;
-            [self checkIfFollowing];
-        }];
-    }
-    else
-    {
-        [self checkIfFollowing];
-    }
 }
 
 - (void)setProfilePic {
@@ -81,10 +74,10 @@
     if([[PFUser currentUser].relationships.following containsObject:self.user.objectId])
     {
         [self.followButton setTitle:@"Following" forState:UIControlStateNormal];
-        self.followButton.layer.borderWidth = 1;
-        self.followButton.layer.borderColor = [UIColor colorNamed:@"VTR_Main"].CGColor;
         [self.followButton setTitleColor:[UIColor colorNamed:@"VTR_Main"] forState:UIControlStateNormal];
         [self.followButton setBackgroundColor:[UIColor colorNamed:@"VTR_Background"]];
+        self.followButton.layer.borderWidth = 1;
+        self.followButton.layer.borderColor = [UIColor colorNamed:@"VTR_Main"].CGColor;
     }
     else
     {
@@ -132,8 +125,14 @@
     {
         [[PFUser currentUser] unfollow:self.user];
     }
-    [self toggleFollowButton];
     [[UIImpactFeedbackGenerator new] impactOccurred];
 }
 
+- (void)didFollowOrUnfollow:(NSNotification *)notification {
+    PFUser *user = notification.object;
+    if([user.objectId isEqualToString:self.user.objectId])
+    {
+        [self toggleFollowButton];
+    }
+}
 @end

@@ -11,6 +11,7 @@
 #import "ReviewAdditionEvent.h"
 #import "PhotoAdditionEvent.h"
 #import "CheckInEvent.h"
+#import "NCHelper.h"
 
 @implementation Place
 @dynamic placeID, placeName, checkIns, photos, reviews, rating;
@@ -88,6 +89,7 @@
         event.user = PFUser.currentUser;
         event.eventType = ETCheckin;
         [event saveInBackground];
+        [NCHelper notify:NTNewFeedEvent object:event];
     }];
 }
 
@@ -126,6 +128,7 @@
         event.place = self;
         event.eventType = ETPhotoAddition;
         [event saveInBackground];
+        [NCHelper notify:NTNewFeedEvent object:event];
         completion();
     }];
 }
@@ -185,6 +188,7 @@
             event.review = review;
             event.place = self;
             [event saveInBackground];
+            [NCHelper notify:NTNewFeedEvent object:event];
             completion();
         }];
     }];

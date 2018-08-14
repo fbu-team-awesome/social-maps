@@ -18,6 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) PFUser *user;
 
--(void)configureCell;
-
+- (void)configureCell;
+- (void)checkIfFollowing;
 @end

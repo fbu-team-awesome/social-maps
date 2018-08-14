@@ -25,10 +25,12 @@ NSString *const kFollowFavKey = @"followFavorites";
 }
 
 - (void)initMarkerDictionaries {
-    self.markersByMarkerType = [NSMutableDictionary new];
-    [self.markersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:kFavoritesKey];
-    [self.markersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:kWishlistKey];
-    [self.markersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:kFollowFavKey];
+    self.markersByMarkerType = [NSDictionary new];
+    NSMutableDictionary *mutableMarkersByMarkerType = [self.markersByMarkerType mutableCopy];
+    [mutableMarkersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:kFavoritesKey];
+    [mutableMarkersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:kWishlistKey];
+    [mutableMarkersByMarkerType setObject:[[NSMutableArray alloc] init] forKey:kFollowFavKey];
+    self.markersByMarkerType = [[NSDictionary alloc] initWithDictionary:mutableMarkersByMarkerType];
     
     self.typeDict = @{
                       @"Entertainment":@[@"amusement_park", @"aquarium", @"casino", @"movie_theater", @"bowling_alley", @"zoo", @"night_club"],
@@ -38,41 +40,52 @@ NSString *const kFollowFavKey = @"followFavorites";
                       @"Beauty":@[@"beauty_salon", @"hair_care"],
                       @"Museums":@[@"art_gallery", @"museum"]
                       };
+    
     self.placeCategories = [self.typeDict allKeys];
-    self.markersByPlaceCategory = [NSMutableDictionary new];
+    self.markersByPlaceCategory = [NSDictionary new];
+    NSMutableDictionary *mutableMarkersByPlaceCategory = [self.markersByPlaceCategory mutableCopy];
     for (NSString *key in self.placeCategories) {
-        [self.markersByPlaceCategory setObject:[NSMutableArray new] forKey:key];
+        [mutableMarkersByPlaceCategory setObject:[NSMutableArray new] forKey:key];
     }
     
     // Reverse typeDict so that each Google Place type is mapped to its category name
     NSMutableDictionary *mutableDetailedTypeDict = [NSMutableDictionary new];
     for (NSString *key in self.placeCategories) {
-        [self.markersByPlaceCategory setObject:[[NSMutableArray alloc] init] forKey:key];
+        [mutableMarkersByPlaceCategory setObject:[[NSMutableArray alloc] init] forKey:key];
         NSArray *arrayOfGTypes = [self.typeDict objectForKey:key];
         for (NSString *type in arrayOfGTypes) {
             [mutableDetailedTypeDict setObject:key forKey:type];
         }
     }
-    self.detailedTypeDict = (NSDictionary *)mutableDetailedTypeDict;
+    self.detailedTypeDict = [[NSDictionary alloc] initWithDictionary:mutableDetailedTypeDict];
+    self.markersByPlaceCategory = [[NSDictionary alloc] initWithDictionary:mutableMarkersByPlaceCategory];
 }
 
 - (void)initDefaultFilters {
-    self.typeFilters = [NSMutableDictionary new];
-    self.placeFilters = [NSMutableDictionary new];
-    self.allFilters = [NSMutableDictionary new];
-    self.filterKeys = [NSMutableArray new];
+    self.typeFilters = [NSDictionary new];
+    self.placeFilters = [NSDictionary new];
+    self.allFilters = [NSDictionary new];
+    self.filterKeys = [NSArray new];
+    NSMutableDictionary  *mutableTypeFilters = [NSMutableDictionary new];
+    NSMutableDictionary *mutablePlaceFilters = [NSMutableDictionary new];
+    NSMutableDictionary *mutableAllFilters = [NSMutableDictionary new];
+    NSMutableArray *mutableFilterKeys = [NSMutableArray new];
     for (NSString *key in self.markersByMarkerType) {
-        [self.typeFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
-        [self.allFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
-        [self.filterKeys addObject:key];
+        [mutableTypeFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
+        [mutableAllFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
+        [mutableFilterKeys addObject:key];
     }
     for (NSString *key in self.markersByPlaceCategory) {
-        [self.placeFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
-        [self.allFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
+        [mutablePlaceFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
+        [mutableAllFilters setObject:[NSNumber numberWithBool:YES] forKey:key];
     }
     
     NSArray *orderedPlaceKeys = @[@"Restaurants", @"Cafés", @"Entertainment", @"Shopping", @"Outdoors", @"Beauty", @"Museums"];
-    [self.filterKeys addObjectsFromArray:orderedPlaceKeys];
+    [mutableFilterKeys addObjectsFromArray:orderedPlaceKeys];
+    self.typeFilters = [[NSDictionary alloc] initWithDictionary:mutableTypeFilters];
+    self.placeFilters = [[NSDictionary alloc] initWithDictionary:mutablePlaceFilters];
+    self.allFilters = [[NSDictionary alloc] initWithDictionary:mutableAllFilters];
+    self.filterKeys = [[NSArray alloc] initWithArray:mutableFilterKeys];
 }
 
 #pragma mark - Create the markers

@@ -16,7 +16,7 @@
 
 @end
 
-@interface SearchBarView : UIView
+@interface SearchBarView : UIView <UITextFieldDelegate>
 
 @property (nonatomic, weak) id<SearchBarViewDelegate> delegate;
 
