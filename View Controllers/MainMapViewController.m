@@ -299,6 +299,8 @@
             NSMutableDictionary *mutableAllFilters = [[MarkerManager shared].allFilters mutableCopy];
             [mutablePlaceFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
             [mutableAllFilters setObject:[NSNumber numberWithBool:NO] forKey:thisPill.filterName];
+            [MarkerManager shared].placeFilters = [[NSDictionary alloc] initWithDictionary:mutablePlaceFilters];
+            [MarkerManager shared].allFilters = [[NSDictionary alloc] initWithDictionary:mutableAllFilters];
             break;  
         }
     }
